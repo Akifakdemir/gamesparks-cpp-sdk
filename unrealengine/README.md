@@ -45,6 +45,22 @@ You need to setup your API keys to get the sample running. We implemented two wa
 
 If you want to get changes from the plugin back, just call "copy_changes.bat". This will copy all the changes from the sample folder into the plugin folder
 
+# Blueprint support
+
+The current version contains 2 core blueprint actions
+
+GameSparks/Connect - this allows you to configure your apiKey, secret and whether you are connecting to preview or live
+GameSparks/Disonnect - disconnects from the server.
+
+There is an example of a request, and we will be adding all gamesparks requests to the SDK. ***Your feedback on this pattern would be appreciated***
+
+GameSparks/Send Authentication Request - This is a blueprint version of AuthenticationRequest
+
+
+
+
+
+
 # Platform Support Status
 
 |                        | *Compiles* | *Packaging* | *Tests* |
