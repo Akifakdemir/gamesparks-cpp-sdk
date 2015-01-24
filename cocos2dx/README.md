@@ -25,7 +25,7 @@ If you want to build the samples for android, you have to have java, android ndk
 
 ### Set your credentials
 
-open Sample/Classes/AppDelegate.cpp and serch for "GS.Initialise" (somewhere around line 116). insert your authkey and secret.
+open Sample/Classes/AppDelegate.cpp and serch for "GS.Initialise" (somewhere around line 98). insert your authkey and secret.
 
 ### Build and Run the Sample
 

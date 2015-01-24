@@ -51,7 +51,7 @@ void AppDelegate::initGLContextAttrs()
 }
 
 // *GS* Callback for GameSparks::Api::Requests::AuthenticationRequest.Send()
-void AuthenticationRequest_Response(const GameSparks::Api::Responses::AuthenticationResponse& response)
+void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
 	if (response.GetHasErrors())
 	{
@@ -66,33 +66,46 @@ void AuthenticationRequest_Response(const GameSparks::Api::Responses::Authentica
 }
 
 // *GS* this function gets called by the SDK.
-void OnGameSparksAvailable(bool available)
+void OnGameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
 {
 	//std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
 	cocos2d::log("GameSparks is %s.", (available ? "available" : "not available"));
 
 	// try with wrong credentials
-	GameSparks::Api::Requests::AuthenticationRequest requestWrong;
+	GameSparks::Api::Requests::AuthenticationRequest requestWrong(gsInstance);
 	requestWrong.SetUserName("TOTALLYWRONGUSER");
 	requestWrong.SetPassword("TOTALLYWRONGPASSWORD");
 	requestWrong.Send(AuthenticationRequest_Response);
 
 	// try with right credentials
-	GameSparks::Api::Requests::AuthenticationRequest requestRight;
+	GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
 	requestRight.SetUserName("abcdefgh");
 	requestRight.SetPassword("abcdefgh");
 	requestRight.Send(AuthenticationRequest_Response);
 }
 
 /*
-	*GS* this is only here to convert Update to update, so that we can
-	update gamesparks via scheduleUpdate
+	*GS*
+    
+    This is a little helper class, that holds the GS-instance and platform.
+    It's also here to convert Update to update, so that we can
+	update gamesparks via scheduleUpdate.
+ 
 */
-struct GSUpdater
+struct GameSparksCocos
 {
+    GameSparksCocos()
+    :platform("<insert-your-auth-key-here>", "<insert your API secret here>", true, true)
+    {
+        GS.Initialise(&platform);
+    }
+
+    GameSparks::Core::Cocos2dxPlatform platform;
+    GameSparks::Core::GS_ GS;
+    
 	void update(float dt)
 	{
-		GameSparks::Core::GS.Update(dt);
+		GS.Update(dt);
 	}
 } gsupdater;
 
@@ -110,10 +123,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		using namespace GameSparks::Core;
 
 		// register our callback
-		GS.GameSparksAvailable = OnGameSparksAvailable;
-
-		// initialize with 
-		GS.Initialise(new Cocos2dxPlatform("<insert-your-auth-key-here>", "<insert your API secret here>", true, true));
+		gsupdater.GS.GameSparksAvailable = OnGameSparksAvailable;
 
 		// register our updater
 		director->getScheduler()->scheduleUpdate(&gsupdater, 0, false);
