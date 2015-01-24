@@ -12,8 +12,8 @@
 
 ### Build C++ SDK
 
-Windows: ```python ../base/build_script/jenkins/main.py```
-OSX: ```bash ../base/build_script/jenkins/main.sh```
+Windows: ```python ../base/build_scripts/jenkins/main.py```
+OSX: ```bash ../base/build_scripts/jenkins/main.sh```
 
 This will download the dependencies (cmake & android NDK) and build the SDK for all platforms
 that can be build on your machine.
