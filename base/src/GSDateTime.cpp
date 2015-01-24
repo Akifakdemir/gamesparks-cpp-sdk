@@ -1,3 +1,4 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
 #include <GameSparks/GSDateTime.h>
 
 #include <ctime>
@@ -44,7 +45,7 @@ GameSparks::Core::GSDateTime::GSDateTime(const gsstl::string& iso8601_str)
 	struct tm t;
 	memset(&t, 0, sizeof(tm));
 	char* ret = strptime(iso8601_str.c_str(), "%Y-%m-%dT%H:%M:%SZ", &t);
-	m_time = _mkgmtime(&t);
+    m_time = _mkgmtime(&t);
 }
 
 GameSparks::Core::GSDateTime::GSDateTime(const GSDateTime& other)

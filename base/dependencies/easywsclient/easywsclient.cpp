@@ -74,7 +74,7 @@ typedef int socket_t;
 #include "easywsclient.hpp"
 
 // use std::thread in MSVC11 (2012) or newer
-#if _MSC_VER >= 1700
+#if _MSC_VER >= 1700 && !defined(MARMALADE)
 #	include <thread>
 #	include <mutex>
 #	define USE_STD_THREAD 1
@@ -221,7 +221,7 @@ namespace { // private module-only namespace
         
 		threading::mutex lock;
         
-        sockaddr_in *result;
+        sockaddr_in result;
         
 #ifdef SSL_SUPPORT
 		SSL *sslHandle;
@@ -243,8 +243,6 @@ namespace { // private module-only namespace
             
             readyState = CONNECTING;
             ipLookup = keNone;
-            
-            result = NULL;
         }
         
 		_RealWebSocket(socket_t sockfd, bool useMask, SSL* ssl, SSL_CTX* sslctx) : sockfd(sockfd),readyState(CLOSED), useMask(useMask),  sslHandle(ssl), sslContext(sslctx)
@@ -256,6 +254,12 @@ namespace { // private module-only namespace
         {
             ipLookup = keNone;
 		}
+        
+        virtual ~_RealWebSocket()
+        {
+            if(sslContext) SSL_CTX_free(sslContext);
+            if(sslHandle) SSL_free(sslHandle);
+        }
 
 		readyStateValues getReadyState() const {
 			return readyState;
@@ -561,11 +565,10 @@ namespace { // private module-only namespace
             }
             else
             {
-                self->result = (sockaddr_in*)malloc(sizeof(sockaddr_in));
-                memset(self->result, 0, sizeof(*(self->result)));
-                self->result->sin_family = AF_INET;
-                self->result->sin_port = htons(self->m_port);
-                self->result->sin_addr = *( (struct in_addr *)server_hostent->h_addr );
+                memset(&self->result, 0, sizeof(self->result));
+                self->result.sin_family = AF_INET;
+                self->result.sin_port = htons(self->m_port);
+                self->result.sin_addr = *( (struct in_addr *)server_hostent->h_addr );
                 self->ipLookup = keComplete;
             }
             
@@ -598,14 +601,14 @@ namespace { // private module-only namespace
         bool doConnect2()
         {
             sockfd = socket(AF_INET, SOCK_STREAM, 0);
-            if (sockfd == INVALID_SOCKET || connect(sockfd, (sockaddr*)result, sizeof(struct sockaddr)) == SOCKET_ERROR)
+            if (sockfd == INVALID_SOCKET || connect(sockfd, (sockaddr*)&result, sizeof(struct sockaddr)) == SOCKET_ERROR)
             {
                 closesocket(sockfd);
                 sockfd = INVALID_SOCKET;
             }
 
             #ifdef SSL_SUPPORT
-                static bool ssl_initialized;
+                static bool ssl_initialized = false;
             
                 #ifdef MARMALADE
                     InitCyaSSL();
@@ -626,13 +629,15 @@ namespace { // private module-only namespace
     
                 if ( sockfd != INVALID_SOCKET && useSSL )
                 {
-                    sslContext = SSL_CTX_new (SSLv23_client_method ());
+					sslContext = SSL_CTX_new (TLSv1_client_method());
                     if (sslContext == NULL)
                     {
                         #ifndef MARMALADE
                             ERR_print_errors_fp (stderr);
                         #endif
                     }
+                    
+                    SSL_CTX_set_verify(sslContext, SSL_VERIFY_NONE, NULL);
                     
                     sslHandle = SSL_new (sslContext);
                     if (sslHandle == NULL)

@@ -6,11 +6,17 @@
 #include "./extra/usleep.h"
 #include "sample_configuration.h"
 
+// we no longer provide a global GS-instance, but of cause you create your own:
+GameSparks::Core::GS_ GS;
+
+// but note, that the platform instance has to exist as long as GS in running:
+SampleConfiguration::NativePlatformDescription platform;
+
 void CreateSmallGameSparksSession()
 {
 	using namespace GameSparks::Core;
 
-	GS.Initialise(new SampleConfiguration::NativePlatformDescription());
+	GS.Initialise(&platform);
 
 	int cyclesLeft = 200;
 	while (cyclesLeft-- > 0)

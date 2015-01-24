@@ -19,7 +19,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(MARMALADE)
 // Implement strptime under windows
 static const char* kWeekFull[] = {
   "Sunday", "Monday", "Tuesday", "Wednesday",
@@ -186,7 +186,7 @@ char* strptime(const char *buf, const char *fmt, struct tm *tm) {
 }
 #endif  // WIN32
 
-#if defined(__linux__) || defined(__unix__) || (__APPLE__)
+#if defined(__linux__) || defined(__unix__) || (__APPLE__) || defined(MARMALADE)
 
 time_t _mkgmtime(const struct tm *tm) {
   // Month-to-day offset for non-leap-years.

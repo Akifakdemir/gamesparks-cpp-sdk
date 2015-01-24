@@ -1,6 +1,11 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSOptional_h__
+#define GSOptional_h__
+
 #pragma once
 
 #include "./gsstl.h"
+#include <GameSparks/GSLeakDetector.h>
 
 namespace GameSparks
 {
@@ -61,6 +66,8 @@ namespace GameSparks
 		private:
 			ValueType m_Value;
 			bool m_HasValue;
+            
+            GS_LEAK_DETECTOR(Optional_);
 		};
 
 		typedef Optional_<gsstl::string> t_StringOptional;
@@ -72,3 +79,4 @@ namespace GameSparks
 	}
 
 }
+#endif // GSOptional_h__

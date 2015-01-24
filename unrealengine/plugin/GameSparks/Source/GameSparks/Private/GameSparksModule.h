@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameSparks/gsstl.h"
+#include "GameSparks/GS.h"
 #include "IGameSparks.h"
 #include "Runtime/Engine/Public/Tickable.h"
 #include "GameSparksComponent.h"
@@ -46,6 +47,9 @@ public:
 	*/
 	virtual void TestingEvent(const FString& GameName);
 
+    GameSparks::Core::GS_& GetGSInstance() { return GS; }
+    const GameSparks::Core::GS_& GetGSInstance() const { return GS; }
+
 private:
 	// iterate over the worlds and get all gamesparks components
 	TArray<UGameSparksComponent*> GetGameSparksComponents();
@@ -53,4 +57,6 @@ private:
 	// we need to notified when worlds are created and destroyed
 	static void OnWorldCreated(UWorld* World, const UWorld::InitializationValues IVS);
 	static void OnWorldDestroyed(UWorld* World);
+    
+    GameSparks::Core::GS_ GS;
 };

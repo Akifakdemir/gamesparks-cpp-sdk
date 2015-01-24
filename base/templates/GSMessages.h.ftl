@@ -17,38 +17,20 @@ namespace GameSparks
 <#list messageDocumentationMetaData.rootClasses as responseClass>
 			class ${responseClass.friendlyClassName} : public GSMessage
 			{
-			public:
-				#if defined(GS_USE_STD_FUNCTION)
-					typedef gsstl::function<void(const ${responseClass.friendlyClassName}&)> t_ListenerFunction;
-				#else
-					typedef void(*t_ListenerFunction)(const ${responseClass.friendlyClassName}&);
-				#endif /* GS_USE_STD_FUNCTION */
-				
-				static void SetListener(t_ListenerFunction listener)
-				{
-					${responseClass.friendlyClassName}::m_Handlers[".${responseClass.friendlyClassName}"] = ${responseClass.friendlyClassName}::Create;
-					Listener = listener;
-				}
-
-				${responseClass.friendlyClassName}(const GSData& data)
-					: GSMessage(data)
-				{
-
-				}
-
-			private:
-				static void Create(const GSData& data)
-				{
-					${responseClass.friendlyClassName} message(data);
-					if (Listener)
+				public:
+					// used by SetListener to register message creation functions
+					static const char* GetTypeName()
 					{
-						Listener(message);
+						return ".${responseClass.friendlyClassName}";
 					}
-				}
-				static t_ListenerFunction Listener;
-			
-			public:
-				<@renderMethods messageDocumentationMetaData responseClass/>
+
+					${responseClass.friendlyClassName}(const GSData& data)
+					: GSMessage(data)
+					{
+
+					}
+				public:
+					<@renderMethods messageDocumentationMetaData responseClass/>
 			};
 			
 </#list>
@@ -75,11 +57,11 @@ namespace GameSparks
 	</#list>
 	<#list responseClass.methodMetaData as getterMetaData>
 		<#if getterMetaData.fullMethodName != "getScriptData" && getterMetaData.fullMethodName != "getMessageId">
-			/// <summary>
-			<#list getterMetaData.description as description>
-			/// ${description}
-			</#list>
-			/// </summary>
+				/// <summary>
+				<#list getterMetaData.description as description>
+				/// ${description}
+				</#list>
+				/// </summary>
 			<#if systemMetaData.getClass(getterMetaData.returnType.name)?? && systemMetaData.getClass(getterMetaData.returnType.name).isGameSparksType()>
 				<#if getterMetaData.collection>
 					<#assign returnTypeClassMetaData = systemMetaData.getClass(getterMetaData.returnType.name)>

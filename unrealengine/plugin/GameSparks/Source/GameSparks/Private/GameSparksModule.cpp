@@ -31,7 +31,7 @@ namespace UGameSparksModuleNS
 	static FWorldDelegates::FWorldEvent::FDelegate OnWorldDestroyedDelegate;
 }
 
-void GameSparksAvailable_Static(bool available)
+void GameSparksAvailable_Static(GameSparks::Core::GS_& gsInstance, bool available)
 {
 	UGameSparksModule::GetModulePtr()->SendGameSparksAvailableToComponents(available);
 }

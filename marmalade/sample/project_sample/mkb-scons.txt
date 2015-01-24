@@ -1,0 +1,2 @@
+SCONS;build_sample_scons_x86;
+SCONS;build_sample_scons_arm;

@@ -50,8 +50,8 @@ public:
 class GetAchievementRequest : public GameSparks::Core::GSTypedRequest < GetAchievementRequest, GetAchievementResponse >
 {
 public:
-	GetAchievementRequest()
-		: GSTypedRequest()
+    GetAchievementRequest(GameSparks::Core::GS_& gsInstance)
+		: GSTypedRequest(gsInstance)
 	{
 		m_Request.AddString("eventKey", "GETACHIEVEMENT");
 	}
@@ -63,14 +63,14 @@ public:
 	}
 };
 
-void GetAchievementRequest_Repsonse(const GetAchievementResponse& response)
+void GetAchievementRequest_Repsonse(GameSparks::Core::GS_& gsInstance, const GetAchievementResponse& response)
 {
 	std::cout << response.GetBaseData().GetJSON().c_str() << std::endl;
 }
 
 
 
-void ListAchievementsRequest_Response(const GameSparks::Api::Responses::ListAchievementsResponse& response)
+void ListAchievementsRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListAchievementsResponse& response)
 {
 	std::cout << response.GetBaseData().GetJSON().c_str() << std::endl;
 
@@ -82,14 +82,14 @@ void ListAchievementsRequest_Response(const GameSparks::Api::Responses::ListAchi
 	}
 
 	// create and send an custom event which will add and remove an achievement
-	GetAchievementRequest request;
+	GetAchievementRequest request(gsInstance);
 	request.SetAchievementName("MYACHIEVEMENT");
 	request.Send(GetAchievementRequest_Repsonse);
 
 	
 }
 
-void AuthenticationRequest_Response(const GameSparks::Api::Responses::AuthenticationResponse& response)
+void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
 	// when we login successully, we want to call a custom event
 	if (response.GetHasErrors())
@@ -103,13 +103,13 @@ void AuthenticationRequest_Response(const GameSparks::Api::Responses::Authentica
 		std::cout << "your displayname is " << response.GetBaseData().GetString("displayName").GetValue().c_str() << std::endl;
 
 		// get all achievements for the player
-		GameSparks::Api::Requests::ListAchievementsRequest request;
+		GameSparks::Api::Requests::ListAchievementsRequest request(gsInstance);
 		request.Send(ListAchievementsRequest_Response);
 	}
 
 }
 
-void GameSparksAvailable(bool available)
+void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
 {
 	std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
 	
@@ -117,30 +117,30 @@ void GameSparksAvailable(bool available)
 	{
 		// login immediately when gamesparks is available
 
-		// this does not work! when request gets out of scope, all data goes with it.
-		GameSparks::Api::Requests::AuthenticationRequest request;
+		GameSparks::Api::Requests::AuthenticationRequest request(gsInstance);
 		request.SetUserName("abcdefgh");
 		request.SetPassword("abcdefgh");
 		request.Send(AuthenticationRequest_Response);
 	}
 }
 
-void OnAchievementEarnedMessage(const GameSparks::Api::Messages::AchievementEarnedMessage& message)
+void OnAchievementEarnedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::AchievementEarnedMessage& message)
 {
 	std::cout << "Achievement earned " << message.GetAchievementName().GetValue().c_str() << std::endl;
 }
 
 int main(int argc, const char* argv[])
 {
-	using namespace GameSparks::Core;
 	using namespace GameSparks::Api::Messages;
+    
+    GameSparks::Core::GS_ GS;
 
 	GS.Initialise(new SampleConfiguration::NativePlatformDescription());
 
 	// this event handler will login the user (see above)
 	GS.GameSparksAvailable = GameSparksAvailable;
 
-	AchievementEarnedMessage::SetListener(OnAchievementEarnedMessage);
+	GS.SetMessageListener<AchievementEarnedMessage>(OnAchievementEarnedMessage);
 
 	int cyclesLeft = 200000;
 	while (cyclesLeft-- > 0)

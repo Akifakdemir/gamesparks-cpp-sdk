@@ -23,14 +23,14 @@
 #include <time.h>
 #include <GameSparks/gsstl.h>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(MARMALADE)
 // Convert a string representation time to a time tm structure.
 // It is the conversion function of strftime().
 // Linux provides this function.
 char *strptime(const char *buf, const char *fmt, struct tm *tm);
 #endif
 
-#if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__unix__) || defined(__APPLE__) || defined(MARMALADE)
 // Convert GMT time to UTC time value.
 // It is like mktime(), but interprets the fields as GMT rather than local.
 // This is the inverse of gmtime().

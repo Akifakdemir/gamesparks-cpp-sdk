@@ -10,7 +10,9 @@
 
 #include <GameSparks/gsstl.h>
 
-#define SSL_SUPPORT	//We always want SSL Support
+#if !defined(SSL_SUPPORT)
+#   define SSL_SUPPORT	//We always want SSL Support
+#endif
 
 #ifdef SSL_SUPPORT
     #include <openssl/ssl.h>

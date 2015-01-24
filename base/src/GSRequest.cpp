@@ -1,3 +1,4 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
 #include <GameSparks/GS.h>
 #include <GameSparks/GSRequest.h>
 #include <cassert>
@@ -5,8 +6,8 @@
 using namespace GameSparks;
 using namespace GameSparks::Core;
 
-GSRequest::GSRequest(const gsstl::string& requestType, GS_* gsInstance /*= 0*/)
-	: m_GSInstance(gsInstance ? gsInstance : &GS) // use static instance if no instance was passed
+GSRequest::GSRequest(GS_& gsInstance, const gsstl::string& requestType)
+	: m_GSInstance(gsInstance) // use static instance if no instance was passed
 	, m_Completer()
 	, m_Durable(false)
 {
@@ -16,9 +17,9 @@ GSRequest::GSRequest(const gsstl::string& requestType, GS_* gsInstance /*= 0*/)
 	AddString("@class", requestType);
 }
 
-GameSparks::Core::GSRequest::GSRequest(cJSON* data)
+GameSparks::Core::GSRequest::GSRequest(GS_& gsInstance, cJSON* data)
 	: GSObject(data)
-	, m_GSInstance(&GS) // use static instance if no instance was passed
+	, m_GSInstance(gsInstance) // use static instance if no instance was passed
 {
 
 }
@@ -92,12 +93,12 @@ void GameSparks::Core::GSRequest::Send(BaseCallbacks* callbacks, int timeoutSeco
 	assert(callbacks);
 	assert(!m_callbacks && "you're calling Send() twice on the same request instance");
 	m_callbacks = callbacks;
-	m_GSInstance->Send(*this);
+	m_GSInstance.Send(*this);
 }
 
 GameSparks::Core::GSObject GameSparks::Core::GSRequest::Send()
 {
-	m_GSInstance->Send(*this);
+	m_GSInstance.Send(*this);
 	return m_Response;
 }
 
@@ -111,11 +112,11 @@ void GameSparks::Core::GSRequest::Complete(const GSObject& response)
 	{
 		if (response.ContainsKey("error"))
 		{
-			m_callbacks->OnError(response);
+			m_callbacks->OnError(m_GSInstance, response);
 		}
 		else
 		{
-			m_callbacks->OnSucess(response);
+			m_callbacks->OnSucess(m_GSInstance, response);
 		}
 	}
 }

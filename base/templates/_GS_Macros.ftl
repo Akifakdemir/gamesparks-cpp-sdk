@@ -10,7 +10,7 @@
 >DEFAULT ${type}</#if></#macro>
 
 <#macro paramGetMethod type><#if 
-	type == 'Map'>GetObject<#elseif 
+	type == 'Map'>GetGSDataObject<#elseif 
 	type == 'String[]'>GetStringList<#elseif 
 	type == 'Date'>GetDate<#elseif
 	type == 'Long' || type == 'long'>GetLong<#elseif

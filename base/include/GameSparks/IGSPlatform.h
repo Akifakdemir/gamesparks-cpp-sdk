@@ -1,6 +1,11 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef IGSPlatform_h__
+#define IGSPlatform_h__
+
 #pragma once
 
 #include "./gsstl.h"
+#include <GameSparks/GSLeakDetector.h>
 
 namespace GameSparks
 {
@@ -82,6 +87,9 @@ namespace GameSparks
 			gsstl::string m_secret;
 
 			bool m_verboseLogging;
+            
+            GS_LEAK_DETECTOR(IGSPlatform);
 		};
 	}
 }
+#endif // IGSPlatform_h__

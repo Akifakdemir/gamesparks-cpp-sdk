@@ -1,7 +1,12 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSTypedRequest_h__
+#define GSTypedRequest_h__
+
 #pragma once
 
 #include "GSRequest.h"
 #include "GSTypedResponse.h"
+#include <GameSparks/GSLeakDetector.h>
 #include <cassert>
 
 namespace GameSparks
@@ -11,24 +16,26 @@ namespace GameSparks
 		template<typename RequestType, typename ResponseType>
 		class GSTypedRequest 
 		{
+            GS_LEAK_DETECTOR(GSTypedRequest);
+            
 		public:
 
 			#if defined(GS_USE_STD_FUNCTION)
-				typedef gsstl::function<void(const ResponseType&)> t_ResponseCallback;
+				typedef gsstl::function<void(GS_&, const ResponseType&)> t_ResponseCallback;
 			#else
-				typedef void(*t_ResponseCallback)(const ResponseType&);
+				typedef void(*t_ResponseCallback)(GS_&, const ResponseType&);
 			#endif /* GS_USE_STD_FUNCTION */
 
 			GSRequest m_Request;
 
-			GSTypedRequest()
-				: m_Request(".LogEventRequest")
+			GSTypedRequest(GS_& gsInstance)
+				: m_Request(gsInstance, ".LogEventRequest")
 			{
 
 			}
 
-			GSTypedRequest(const gsstl::string& type)
-				: m_Request(type)
+			GSTypedRequest(GS_& gsInstance, const gsstl::string& type)
+				: m_Request(gsInstance, type)
 			{
 			}
 
@@ -90,14 +97,14 @@ namespace GameSparks
 					Callbacks(t_ResponseCallback onSuccess, t_ResponseCallback onError = t_ResponseCallback())
 					:m_onSuccess(onSuccess), m_onError(onError) {}
 
-					virtual void OnSucess(const GSObject& response)
+					virtual void OnSucess(GS_& gsInstance, const GSObject& response)
 					{
-						if ( m_onSuccess ) m_onSuccess( response );
+						if ( m_onSuccess ) m_onSuccess( gsInstance, response );
 					}
 
-					virtual void OnError (const GSObject& response)
+					virtual void OnError (GS_& gsInstance, const GSObject& response)
 					{
-						if ( m_onError ) m_onError( response );			
+						if ( m_onError ) m_onError( gsInstance, response );
 					}
 
 					virtual Callbacks* Clone() const
@@ -111,3 +118,4 @@ namespace GameSparks
 		};
 	}
 }
+#endif // GSTypedRequest_h__

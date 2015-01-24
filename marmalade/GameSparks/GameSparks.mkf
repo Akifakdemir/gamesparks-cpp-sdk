@@ -1,0 +1,53 @@
+# option lib
+
+subprojects
+{
+	iwutil
+	iwssl
+}
+
+includepaths
+{
+	./include
+	./dependencies/cjson
+	./dependencies/easywsclient
+	./dependencies/hmac
+	./dependencies/google
+}
+
+defines
+{
+	SSL_SUPPORT
+	MARMALADE
+}
+
+files
+{
+	(./include/GameSparks)
+	[include]
+	"*.h"
+
+	(./include/GameSparks/generated)
+	[include/generated]
+	"*.h"
+
+	(./src)
+	[src]
+	"*.cpp"
+
+	(./dependencies/cjson)
+	[dependencies/cjson]
+	"*.cpp"
+
+	(./dependencies/easywsclient)
+	[dependencies/easywsclient]
+	"*.cpp"
+
+	(./dependencies/google)
+	[dependencies/google]
+	"*.cpp"
+
+	(./dependencies/hmac)
+	[dependencies/hmac]
+	"*.c"
+}

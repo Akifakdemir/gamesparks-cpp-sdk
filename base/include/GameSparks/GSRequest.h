@@ -1,3 +1,7 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSRequest_h__
+#define GSRequest_h__
+
 #pragma once
 
 #include "GSObject.h"
@@ -19,8 +23,8 @@ namespace GameSparks
 					typedef void(*t_Callback)(const GSObject&);
 				#endif /* GS_USE_STD_FUNCTION */
 
-				GSRequest(const gsstl::string& requestType, GS_* gsInstance = 0);
-				GSRequest(cJSON* data);
+				GSRequest(GS_& gsInstance, const gsstl::string& requestType);
+				GSRequest(GS_& gsInstance, cJSON* data);
 				//GSRequest(const GSRequest& other);
 
 				virtual GSRequestData& AddString(const gsstl::string& paramName, const gsstl::string& value);
@@ -44,13 +48,13 @@ namespace GameSparks
 				void SetDurableRetryTicks(long durableRetryTicks) { m_DurableRetryTicks = durableRetryTicks; }
 		
 			private:
-				GS_* GetGSInstance() const { return m_GSInstance; }
+				GS_& GetGSInstance() const { return m_GSInstance; }
 
 				void Complete(const GSObject& response);			
 
 				GSObject m_Response;
 
-				GS_* m_GSInstance;
+				GS_& m_GSInstance;
 
 				t_Callback m_Completer;
 
@@ -70,9 +74,10 @@ namespace GameSparks
 				struct BaseCallbacks
 				{
 					virtual ~BaseCallbacks() {}
-					virtual void OnSucess(const GSObject& response) = 0;
-					virtual void OnError (const GSObject& response) = 0;
+					virtual void OnSucess(GS_& gsInstance, const GSObject& response) = 0;
+					virtual void OnError (GS_& gsInstance, const GSObject& response) = 0;
 					virtual BaseCallbacks* Clone() const = 0;
+                    GS_LEAK_DETECTOR(BaseCallbacks)
 				};
 
 				/* iff all the members behave the way one would expect them to,
@@ -126,6 +131,8 @@ namespace GameSparks
 						}
 
 						BaseCallbacks* ptr;
+                    
+                        GS_LEAK_DETECTOR(BaseCallbacksPtr);
 				};
 
 				void Send(BaseCallbacks* callbacks, int timeoutSeconds);
@@ -138,6 +145,9 @@ namespace GameSparks
 				friend class GSTypedRequest;
 	
 				friend class GS_;
+            
+                GS_LEAK_DETECTOR(GSRequest);
 		};
 	}
 }
+#endif // GSRequest_h__

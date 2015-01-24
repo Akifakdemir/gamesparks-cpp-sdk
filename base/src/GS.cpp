@@ -1,3 +1,4 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
 
 #include <GameSparks/GS.h>
 //#include <iostream>
@@ -16,7 +17,7 @@ using namespace GameSparks;
 using namespace GameSparks::Core;
 using namespace GameSparks::Api::Messages;
 
-/*__declspec(dllexport)*/ GS_ GameSparks::Core::GS = GS_();
+/*__declspec(dllexport) GS_ GameSparks::Core::GS = GS_();*/
 
 GS_::GS_()
 	: m_GSPlatform(NULL)
@@ -42,6 +43,12 @@ GS_::~GS_()
 		delete *it;
 	}
 	m_Connections.clear();
+    
+    for(t_MessageHandlerMap::iterator i = m_MessageHandlers.begin(); i != m_MessageHandlers.end(); ++i)
+    {
+        delete i->second;
+    }
+    m_MessageHandlers.clear();
 }
 
 void GS_::Initialise(IGSPlatform* gSPlatform)
@@ -166,7 +173,7 @@ void GameSparks::Core::GS_::Handshake(GSObject& response, GSConnection& connecti
 
 void GameSparks::Core::GS_::SendHandshake(GSObject& response, GSConnection& connection)
 {
-	GSRequest handshakeRequest(".AuthenticatedConnectRequest", this);
+	GSRequest handshakeRequest(*this, ".AuthenticatedConnectRequest");
 	handshakeRequest.AddString("hmac", GameSparks::Util::getHMAC(response.GetString("nonce").GetValue(), m_GSPlatform->GetGameSparksSecret()));
 	handshakeRequest.AddString("os", m_GSPlatform->GetDeviceOS());
 	handshakeRequest.AddString("platform", m_GSPlatform->GetPlatform());
@@ -281,7 +288,7 @@ void GameSparks::Core::GS_::SetAvailability(bool available)
 		
 		if (GameSparksAvailable)
 		{
-			GameSparksAvailable(available);
+			GameSparksAvailable(*this, available);
 		}
 	}
 }

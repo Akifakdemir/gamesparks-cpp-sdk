@@ -1,3 +1,4 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
 #include <GameSparks/GSTypedResponse.h>
 
 namespace GameSparks

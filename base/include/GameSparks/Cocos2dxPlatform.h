@@ -1,6 +1,15 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+
+#ifndef Cocos2dxPlatform_h__
+#define Cocos2dxPlatform_h__
+
 #pragma once
 
 #include "./IGSPlatform.h"
+
+#ifndef CC_TARGET_PLATFORM
+#	error "This file is meant for inclusion in Cocos2d-x projects only. Please make sure, that this file is included AFTER the Cocos2d-x headers."
+#endif /* CC_TARGET_PLATFORM */
 
 namespace GameSparks
 {
@@ -26,7 +35,7 @@ namespace GameSparks
 					#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 							return "OSX";
 					#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-							return "iOS";
+							return "IOS";
 					#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 							return "Android";
 					#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
@@ -48,7 +57,7 @@ namespace GameSparks
 					#elif CC_TARGET_PLATFORM == CC_PLATFORM_QT5
 							return "QTS";
 					#elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
-							return "WinRT";
+							return "W8";
 					#elif CC_TARGET_PLATFORM == CC_PLATFORM_WP8
 							return "WP8";
 					#else
@@ -85,3 +94,4 @@ namespace GameSparks
 		};
 	}
 }
+#endif // Cocos2dxPlatform_h__

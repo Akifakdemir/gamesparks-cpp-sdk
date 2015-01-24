@@ -1,3 +1,4 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
 #include <GameSparks/GSConnection.h>
 #include <GameSparks/GSMessage.h>
 #include <GameSparks/GSUtil.h>
@@ -36,11 +37,6 @@ void GameSparks::Core::GSConnection::EnsureConnected()
 	{
 		m_WebSocket = WebSocket::from_url(m_URL.c_str());
 	}
-
-	if (m_WebSocket == NULL)
-	{
-
-	}
 }
 
 void GameSparks::Core::GSConnection::Terminate()
@@ -65,7 +61,11 @@ void GameSparks::Core::GSConnection::Close()
 		m_GS->DebugLog("WebSocket closed");
 	}
 
-	m_WebSocket = NULL;
+    if (m_WebSocket != NULL)
+    {
+        delete m_WebSocket;
+        m_WebSocket = NULL;
+    }
 }
 
 void GameSparks::Core::GSConnection::SendImmediate(GSRequest& request)

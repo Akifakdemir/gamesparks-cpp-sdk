@@ -1,7 +1,12 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSDateTime_h__
+#define GSDateTime_h__
+
 #pragma once
 
 #include <GameSparks/gsstl.h>
 #include <GameSparks/GSOptional.h>
+#include <GameSparks/GSLeakDetector.h>
 
 namespace GameSparks
 {
@@ -43,6 +48,9 @@ namespace GameSparks
 		private:
 			time_t m_time;
 			bool m_IsLocalTime;
+            
+            GS_LEAK_DETECTOR(GSDateTime);
 		};
 	}
 }
+#endif // GSDateTime_h__

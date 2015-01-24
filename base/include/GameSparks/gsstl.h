@@ -1,5 +1,6 @@
-#ifndef GSSTL_H_INCLUDED
-#define GSSTL_H_INCLUDED
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef gsstl_h__
+#define gsstl_h__
 
 #pragma once
 
@@ -17,7 +18,7 @@
 #endif /* defined(GS_USE_EASTL) */
 
 
-#if !defined(STL_FUNCTIONAL_SUPPORTED)
+#if !defined(STL_FUNCTIONAL_SUPPORTED) && !defined(MARMALADE)
 #define STL_FUNCTIONAL_SUPPORTED 1
 #endif
 
@@ -35,6 +36,7 @@
 #	include "EASTL/vector.h"
 #	include "EASTL/list.h"
 #	include "EASTL/map.h"
+#	include "EASTL/set.h"
 #	include <EASTL/algorithm.h>
 #else
 #	include <string>
@@ -42,6 +44,7 @@
 #	include <list>
 #	include <map>
 #	include <algorithm>
+#	include <set>
 #endif /* defined(GS_USE_EASTL */
 
 namespace gsstl
@@ -95,5 +98,4 @@ namespace gsstl
 #endif
 
 
-
-#endif /* GSSTL_H_INCLUDED */
+#endif // gsstl_h__

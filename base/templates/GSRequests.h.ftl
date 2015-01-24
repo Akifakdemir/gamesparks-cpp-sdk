@@ -20,8 +20,8 @@ namespace GameSparks
 			class ${classData.friendlyClassName} : public GameSparks::Core::GSTypedRequest < ${classData.friendlyClassName}, GameSparks::Api::Responses::${classData.baseResponseType.friendlyClassName} >
 			{
 			public:
-				${classData.friendlyClassName}()
-					: GSTypedRequest(".${classData.friendlyClassName}")
+				${classData.friendlyClassName}(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".${classData.friendlyClassName}")
 				{
 
 				}

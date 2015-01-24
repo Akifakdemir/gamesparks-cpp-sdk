@@ -1,6 +1,11 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSTypedResponse_h__
+#define GSTypedResponse_h__
+
 #pragma once
 
 #include "GSData.h"
+#include <GameSparks/GSLeakDetector.h>
 
 namespace GameSparks
 {
@@ -64,6 +69,9 @@ namespace GameSparks
 			}
 		 protected:
 			 GSData m_Response;
+             
+             GS_LEAK_DETECTOR(GSTypedResponse);
 		 };
 	}
 }
+#endif // GSTypedResponse_h__

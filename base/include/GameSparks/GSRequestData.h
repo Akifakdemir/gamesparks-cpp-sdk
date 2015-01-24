@@ -1,3 +1,7 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSRequestData_h__
+#define GSRequestData_h__
+
 #pragma once
 
 #include "GSData.h"
@@ -9,6 +13,8 @@ namespace GameSparks
 	{
 		class GSRequestData : public GSData
 		{
+            GS_LEAK_DETECTOR(GSRequestData);
+            
 		public:
 			GSRequestData() : GSData() {}
 
@@ -153,3 +159,4 @@ namespace GameSparks
 		};
 	}
 }
+#endif // GSRequestData_h__

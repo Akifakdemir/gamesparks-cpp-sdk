@@ -1,8 +1,13 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSMessage_h__
+#define GSMessage_h__
+
 #pragma once
 
 #include "GSTypedResponse.h"
 #include "GSObject.h"
 #include "./gsstl.h"
+#include <GameSparks/GSLeakDetector.h>
 
 using namespace GameSparks::Core;
 using namespace GameSparks::Optional;
@@ -69,3 +74,4 @@ namespace GameSparks
 		}
 	}
 }
+#endif // GSMessage_h__

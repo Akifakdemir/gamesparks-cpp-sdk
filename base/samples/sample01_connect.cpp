@@ -11,7 +11,8 @@ int main(int argc, const char* argv[])
 	using namespace GameSparks::Core;
 
 	GS_ gs;
-	gs.Initialise(new SampleConfiguration::NativePlatformDescription());
+    SampleConfiguration::NativePlatformDescription platform;
+	gs.Initialise(&platform);
 
 	int cyclesLeft = 200;
 	while (cyclesLeft-- > 0)

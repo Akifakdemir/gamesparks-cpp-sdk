@@ -1,8 +1,13 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSConnection_h__
+#define GSConnection_h__
+
 #pragma once
 
 #include "GS.h"
 #include "IGSPlatform.h"
 #include "GSRequest.h"
+#include <GameSparks/GSLeakDetector.h>
 
 namespace easywsclient 
 {
@@ -52,6 +57,9 @@ namespace GameSparks
 			t_RequestMap m_PendingRequests;
 
 			friend class GS_;
+            
+            GS_LEAK_DETECTOR(GSConnection);
 		};
 	}
 }
+#endif // GSConnection_h__

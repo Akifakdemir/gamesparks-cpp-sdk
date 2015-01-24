@@ -1,3 +1,7 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSUtil_h__
+#define GSUtil_h__
+
 #pragma once
 
 #include <GameSparks/gsstl.h>
@@ -13,3 +17,4 @@ namespace GameSparks
 		bool shouldConnect();
 	}
 }
+#endif // GSUtil_h__

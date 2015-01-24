@@ -1,8 +1,13 @@
+// Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
+#ifndef GSObject_h__
+#define GSObject_h__
+
 #pragma once
 
 #include "GSRequestData.h"
 #include "GSOptional.h"
 #include "cJSON.h"
+#include <GameSparks/GSLeakDetector.h>
 
 namespace GameSparks
 {
@@ -66,6 +71,9 @@ namespace GameSparks
 			}
 
 			friend class GSRequest;
+            
+            GS_LEAK_DETECTOR(GSObject)
 		};
 	}
 }
+#endif // GSObject_h__

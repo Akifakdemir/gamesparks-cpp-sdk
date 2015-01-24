@@ -714,15 +714,6 @@ namespace GameSparks
 				{
 				}
 
-		class _Team : public GSTypedResponse
-		{
-		public:
-			_Team(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
 		class _Player : public GSTypedResponse
 		{
 		public:
@@ -795,7 +786,7 @@ namespace GameSparks
 						return result; 
 					}
 			/// <summary>
-			/// The id of the owner
+			/// A summary of the owner
 			/// </summary>
 					// method type 2
 					_Player GetOwner() const
@@ -817,16 +808,6 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetTeamType () const
 					{
 						return m_Response.GetString("teamType");
-					}
-			
-		};
-			/// <summary>
-			/// A JSON object representing the team
-			/// </summary>
-					// method type 2
-					_Team GetTeam() const
-					{
-						return _Team(m_Response.GetGSDataObject("team").GetValue());
 					}
 			};
 			class DeclineChallengeResponse : public  GameSparks::Core::GSTypedResponse
@@ -881,15 +862,6 @@ namespace GameSparks
 				{
 				}
 
-		class _Team : public GSTypedResponse
-		{
-		public:
-			_Team(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
 		class _Player : public GSTypedResponse
 		{
 		public:
@@ -962,7 +934,7 @@ namespace GameSparks
 						return result; 
 					}
 			/// <summary>
-			/// The id of the owner
+			/// A summary of the owner
 			/// </summary>
 					// method type 2
 					_Player GetOwner() const
@@ -984,16 +956,6 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetTeamType () const
 					{
 						return m_Response.GetString("teamType");
-					}
-			
-		};
-			/// <summary>
-			/// A JSON object representing the team
-			/// </summary>
-					// method type 2
-					_Team GetTeam() const
-					{
-						return _Team(m_Response.GetGSDataObject("team").GetValue());
 					}
 			};
 			class EndSessionResponse : public  GameSparks::Core::GSTypedResponse
@@ -1034,33 +996,6 @@ namespace GameSparks
 
 			}
 
-		class _PlayerTurnCount : public GSTypedResponse
-		{
-		public:
-			_PlayerTurnCount(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
-			/// <summary>
-			/// The number of turns that the player has taken so far during this challenge.
-			/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetCount () const
-					{
-						return m_Response.GetString("count");
-					}
-			/// <summary>
-			/// The unique player id.
-			/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetPlayerId () const
-					{
-						return m_Response.GetString("playerId");
-					}
-			
-		};
 		class _PlayerDetail : public GSTypedResponse
 		{
 		public:
@@ -1093,6 +1028,33 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetName () const
 					{
 						return m_Response.GetString("name");
+					}
+			
+		};
+		class _PlayerTurnCount : public GSTypedResponse
+		{
+		public:
+			_PlayerTurnCount(const GameSparks::Core::GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+
+			/// <summary>
+			/// The number of turns that the player has taken so far during this challenge.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCount () const
+					{
+						return m_Response.GetString("count");
+					}
+			/// <summary>
+			/// The unique player id.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetPlayerId () const
+					{
+						return m_Response.GetString("playerId");
 					}
 			
 		};
@@ -1344,33 +1306,6 @@ namespace GameSparks
 
 			}
 
-		class _PlayerTurnCount : public GSTypedResponse
-		{
-		public:
-			_PlayerTurnCount(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
-			/// <summary>
-			/// The number of turns that the player has taken so far during this challenge.
-			/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetCount () const
-					{
-						return m_Response.GetString("count");
-					}
-			/// <summary>
-			/// The unique player id.
-			/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetPlayerId () const
-					{
-						return m_Response.GetString("playerId");
-					}
-			
-		};
 		class _PlayerDetail : public GSTypedResponse
 		{
 		public:
@@ -1403,6 +1338,33 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetName () const
 					{
 						return m_Response.GetString("name");
+					}
+			
+		};
+		class _PlayerTurnCount : public GSTypedResponse
+		{
+		public:
+			_PlayerTurnCount(const GameSparks::Core::GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+
+			/// <summary>
+			/// The number of turns that the player has taken so far during this challenge.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCount () const
+					{
+						return m_Response.GetString("count");
+					}
+			/// <summary>
+			/// The unique player id.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetPlayerId () const
+					{
+						return m_Response.GetString("playerId");
 					}
 			
 		};
@@ -1798,7 +1760,7 @@ namespace GameSparks
 						return result; 
 					}
 			/// <summary>
-			/// The id of the owner
+			/// A summary of the owner
 			/// </summary>
 					// method type 2
 					_Player GetOwner() const
@@ -1875,15 +1837,6 @@ namespace GameSparks
 				{
 				}
 
-		class _Team : public GSTypedResponse
-		{
-		public:
-			_Team(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
 		class _Player : public GSTypedResponse
 		{
 		public:
@@ -1956,7 +1909,7 @@ namespace GameSparks
 						return result; 
 					}
 			/// <summary>
-			/// The id of the owner
+			/// A summary of the owner
 			/// </summary>
 					// method type 2
 					_Player GetOwner() const
@@ -1978,16 +1931,6 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetTeamType () const
 					{
 						return m_Response.GetString("teamType");
-					}
-			
-		};
-			/// <summary>
-			/// A JSON object representing the team
-			/// </summary>
-					// method type 2
-					_Team GetTeam() const
-					{
-						return _Team(m_Response.GetGSDataObject("team").GetValue());
 					}
 			};
 			class GetUploadUrlResponse : public  GameSparks::Core::GSTypedResponse
@@ -2073,15 +2016,6 @@ namespace GameSparks
 				{
 				}
 
-		class _Team : public GSTypedResponse
-		{
-		public:
-			_Team(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
 		class _Player : public GSTypedResponse
 		{
 		public:
@@ -2154,7 +2088,7 @@ namespace GameSparks
 						return result; 
 					}
 			/// <summary>
-			/// The id of the owner
+			/// A summary of the owner
 			/// </summary>
 					// method type 2
 					_Player GetOwner() const
@@ -2176,16 +2110,6 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetTeamType () const
 					{
 						return m_Response.GetString("teamType");
-					}
-			
-		};
-			/// <summary>
-			/// A JSON object representing the team
-			/// </summary>
-					// method type 2
-					_Team GetTeam() const
-					{
-						return _Team(m_Response.GetGSDataObject("team").GetValue());
 					}
 			};
 			class LeaderboardDataResponse : public  GameSparks::Core::GSTypedResponse
@@ -2359,15 +2283,6 @@ namespace GameSparks
 				{
 				}
 
-		class _Team : public GSTypedResponse
-		{
-		public:
-			_Team(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
 		class _Player : public GSTypedResponse
 		{
 		public:
@@ -2440,7 +2355,7 @@ namespace GameSparks
 						return result; 
 					}
 			/// <summary>
-			/// The id of the owner
+			/// A summary of the owner
 			/// </summary>
 					// method type 2
 					_Player GetOwner() const
@@ -2462,16 +2377,6 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetTeamType () const
 					{
 						return m_Response.GetString("teamType");
-					}
-			
-		};
-			/// <summary>
-			/// A JSON object representing the team
-			/// </summary>
-					// method type 2
-					_Team GetTeam() const
-					{
-						return _Team(m_Response.GetGSDataObject("team").GetValue());
 					}
 			};
 			class ListAchievementsResponse : public  GameSparks::Core::GSTypedResponse
@@ -2569,33 +2474,6 @@ namespace GameSparks
 
 			}
 
-		class _PlayerTurnCount : public GSTypedResponse
-		{
-		public:
-			_PlayerTurnCount(const GameSparks::Core::GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-
-			/// <summary>
-			/// The number of turns that the player has taken so far during this challenge.
-			/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetCount () const
-					{
-						return m_Response.GetString("count");
-					}
-			/// <summary>
-			/// The unique player id.
-			/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetPlayerId () const
-					{
-						return m_Response.GetString("playerId");
-					}
-			
-		};
 		class _PlayerDetail : public GSTypedResponse
 		{
 		public:
@@ -2628,6 +2506,33 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetName () const
 					{
 						return m_Response.GetString("name");
+					}
+			
+		};
+		class _PlayerTurnCount : public GSTypedResponse
+		{
+		public:
+			_PlayerTurnCount(const GameSparks::Core::GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+
+			/// <summary>
+			/// The number of turns that the player has taken so far during this challenge.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCount () const
+					{
+						return m_Response.GetString("count");
+					}
+			/// <summary>
+			/// The unique player id.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetPlayerId () const
+					{
+						return m_Response.GetString("playerId");
 					}
 			
 		};
@@ -3193,6 +3098,21 @@ namespace GameSparks
 							return result;
 						}
 			};
+			class ListTeamChatResponse : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				ListTeamChatResponse(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				ListTeamChatResponse(const ListTeamChatResponse& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			};
 			class ListVirtualGoodsResponse : public  GameSparks::Core::GSTypedResponse
 			{
 			public:
@@ -3488,6 +3408,21 @@ namespace GameSparks
 				}
 
 				SendFriendMessageResponse(const SendFriendMessageResponse& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			};
+			class SendTeamChatMessageResponse : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				SendTeamChatMessageResponse(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				SendTeamChatMessageResponse(const SendTeamChatMessageResponse& other)
 					: GSTypedResponse(other)
 				{
 				}

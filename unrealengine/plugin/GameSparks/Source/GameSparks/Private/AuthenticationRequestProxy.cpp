@@ -1,6 +1,7 @@
 #include "GameSparksPrivatePCH.h"
 #include "AuthenticationRequestProxy.h"
 #include "GameSparks/generated/GSRequests.h"
+#include "GameSparksModule.h"
 
 // this is a temp fix, because the iOS Version is not supporting std function
 // we will put this right 
@@ -22,7 +23,7 @@ UAuthenticationRequestProxy* UAuthenticationRequestProxy::SendAuthenticationRequ
 	return Proxy;
 }
 
-void send(const GameSparks::Api::Responses::AuthenticationResponse& response)
+void send(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
     FAuthenticationResponse2 unreal_response;
     unreal_response.DisplayName = response.GetDisplayName().GetValue().c_str();
@@ -43,7 +44,7 @@ void send(const GameSparks::Api::Responses::AuthenticationResponse& response)
 
 void UAuthenticationRequestProxy::Activate()
 {
-	GameSparks::Api::Requests::AuthenticationRequest requestWrong;
+	GameSparks::Api::Requests::AuthenticationRequest requestWrong(UGameSparksModule::GetModulePtr()->GetGSInstance());
 	requestWrong.SetUserName(TCHAR_TO_ANSI(*UserName));
 	requestWrong.SetPassword(TCHAR_TO_ANSI(*Password));
     requestWrong.Send(send);
