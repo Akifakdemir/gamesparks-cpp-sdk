@@ -32,16 +32,6 @@ namespace SampleConfiguration
 			return "unique_device";
 		}
 
-		virtual gsstl::string GetDeviceOS() const
-		{
-			return "Windows 8.1";
-		}
-
-		virtual gsstl::string GetPlatform() const
-		{
-			return "Windows";
-		}
-
 		virtual gsstl::string GetSDK() const
 		{
 			return "GameSparks SDK C++ 1.0";
@@ -58,6 +48,3 @@ namespace SampleConfiguration
 		}
 	};
 }
-
-
-

@@ -14,147 +14,108 @@ namespace GameSparks
 		class GSRequestData : public GSData
 		{
             GS_LEAK_DETECTOR(GSRequestData);
-            
+
+			/* conversions from native datatypes to cJSON obejcts */
+			cJSON* createFromNative(const gsstl::string& value) { return cJSON_CreateString(value.c_str()); }
+			cJSON* createFromNative(bool value) { return cJSON_CreateBool(value); }
+			cJSON* createFromNative(int value) { return cJSON_CreateNumber(value); }
+			cJSON* createFromNative(long value) { return cJSON_CreateNumber(value); }
+			cJSON* createFromNative(float value) { return cJSON_CreateNumber(value); }
+			cJSON* createFromNative(double value) { return cJSON_CreateNumber(value); }
+			cJSON* createFromNative(const GSData& value) { return cJSON_Duplicate(value.GetBaseData(), 1); }
+			cJSON* createFromNative(const gsstl::vector<int>& value) { return cJSON_CreateIntArray(&value[0], value.size()); }
+			cJSON* createFromNative(const gsstl::vector<float>& value) { return cJSON_CreateFloatArray(&value[0], value.size()); }
+			cJSON* createFromNative(const gsstl::vector<double>& value) { return cJSON_CreateDoubleArray(&value[0], value.size()); }
+
+			// convert vector of ContainedType
+			template <typename ContainedType>
+			cJSON* createFromNative(const gsstl::vector<ContainedType>& value)
+			{
+				cJSON* json_array = cJSON_CreateArray();
+				for (typename gsstl::vector<ContainedType>::const_iterator it = value.begin(); it != value.end(); ++it)
+				{
+					cJSON_AddItemToArray(json_array, createFromNative(*it));
+				}
+				return json_array;
+			}
+
+			// add or replace value named paramName
+			template <typename T>
+			GSRequestData& Add(const gsstl::string& paramName, T value)
+			{
+				cJSON* node = createFromNative(value);
+
+				if (cJSON_GetObjectItem(m_Data, paramName.c_str()))
+					cJSON_ReplaceItemInObject(m_Data, paramName.c_str(), node);
+				else
+					cJSON_AddItemToObject(m_Data, paramName.c_str(), node);
+
+				return *this;
+			}
 		public:
 			GSRequestData() : GSData() {}
 
-			/*GSRequestData(const gsstl::string& jsonString)
-			{
-			}*/
-
-			GSRequestData(const GSData& wrapper) : GSData(wrapper)
-			{
-			}
+			GSRequestData(const GSData& wrapper) : GSData(wrapper) {}
 
 			GSRequestData(const GSRequestData& other)
-				: GSData(other.m_Data)
-			{
-
-			}
+			: GSData(other.m_Data) {}
 
 			GSRequestData(cJSON* data) : GSData(data){}
 
-			
-
-			virtual GSRequestData& AddString(const gsstl::string& paramName, const gsstl::string& value)
+			GSRequestData& AddString(const gsstl::string& paramName, const gsstl::string& value)
 			{
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), cJSON_CreateString(value.c_str()));
-				return *this;
+				return Add(paramName, value);
 			}
 
-			virtual GSRequestData& AddJSONStringAsObject(const gsstl::string& paramName, const gsstl::string& jsonString)
+			GSRequestData& AddObject(const gsstl::string& paramName, const GSData& value)
 			{
-				cJSON* obj = cJSON_Parse(jsonString.c_str());
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), obj);
-				return *this;
+				return Add(paramName, value);
 			}
 
-			virtual GSRequestData& AddDate(const gsstl::string& paramName, const GSDateTime& date)
+			GSRequestData& AddDate(const gsstl::string& paramName, const GSDateTime& date)
 			{
-				AddString(paramName, date.ToString());
-				return *this;
+				return Add(paramName, date.ToString());
 			}
 
-			virtual GSRequestData& AddNumber(const gsstl::string& paramName, long value)
+			GSRequestData& AddNumber(const gsstl::string& paramName, float value)
 			{
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), cJSON_CreateNumber(value));
-				return *this;
+				return Add(paramName, value);
 			}
 
-			virtual GSRequestData& AddNumberList(const gsstl::string& paramName, const gsstl::vector<long>& child)
+			GSRequestData& AddNumber(const gsstl::string& paramName, double value)
 			{
-				cJSON* json_array = cJSON_CreateArray();
-				for (gsstl::vector<long>::const_iterator it = child.begin(); it != child.end(); ++it)
-				{
-					cJSON_AddItemToArray(json_array, cJSON_CreateNumber(*it));
-				}
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), json_array);
-				return *this;
+				return Add(paramName, value);
 			}
 
-			virtual GSRequestData& AddNumber(const gsstl::string& paramName, float value)
+			GSRequestData& AddNumber(const gsstl::string& paramName, int value)
 			{
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), cJSON_CreateNumber(value));
-				return *this;
+				return Add(paramName, value);
+			}
+            
+            GSRequestData& AddNumber(const gsstl::string& paramName, long value)
+            {
+                return Add(paramName, value);
+            }
+
+			GSRequestData& AddBoolean(const gsstl::string& paramName, bool value)
+			{
+				return Add(paramName, value);
 			}
 
-			virtual GSRequestData& AddNumberList(const gsstl::string& paramName, const gsstl::vector<float>& child)
+			GSRequestData& AddStringList(const gsstl::string& paramName, const gsstl::vector<gsstl::string>& value)
 			{
-				cJSON* json_array = cJSON_CreateArray();
-				for (gsstl::vector<float>::const_iterator it = child.begin(); it != child.end(); ++it)
-				{
-					cJSON_AddItemToArray(json_array, cJSON_CreateNumber(*it));
-				}
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), json_array);
-				return *this;
+				return Add(paramName, value);
 			}
 
-			virtual GSRequestData& AddNumber(const gsstl::string& paramName, double value)
+			GSRequestData& AddObjectList(const gsstl::string& paramName, const gsstl::vector<GSData>& value)
 			{
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), cJSON_CreateNumber(value));
-				return *this;
+				return Add(paramName, value);
 			}
 
-			virtual GSRequestData& AddNumberList(const gsstl::string& paramName, const gsstl::vector<double>& child)
+			template <typename NativeNumberType>
+			GSRequestData& AddNumberList(const gsstl::string& paramName, const gsstl::vector<NativeNumberType>& value)
 			{
-				cJSON* json_array = cJSON_CreateArray();
-				for (gsstl::vector<double>::const_iterator it = child.begin(); it != child.end(); ++it)
-				{
-					cJSON_AddItemToArray(json_array, cJSON_CreateNumber(*it));
-				}
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), json_array);
-				return *this;
-			}
-
-			virtual GSRequestData& AddNumber(const gsstl::string& paramName, int value)
-			{
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), cJSON_CreateNumber(value));
-				return *this;
-			}
-
-			virtual GSRequestData& AddNumberList(const gsstl::string& paramName, const gsstl::vector<int>& child)
-			{
-				cJSON* json_array = cJSON_CreateArray();
-				for (gsstl::vector<int>::const_iterator it = child.begin(); it != child.end(); ++it)
-				{
-					cJSON_AddItemToArray(json_array, cJSON_CreateNumber(*it));
-				}
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), json_array);
-				return *this;
-			}
-
-			virtual GSRequestData& AddObject(const gsstl::string& paramName, const GSData& child)
-			{
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), cJSON_Duplicate(child.GetBaseData(), 1));
-				return *this;
-			}
-
-			virtual GSRequestData& AddObjectList(const gsstl::string& paramName, const gsstl::vector<GSData>& child)
-			{
-				cJSON* json_array = cJSON_CreateArray();
-				for (gsstl::vector<GSData>::const_iterator it = child.begin(); it != child.end(); ++it)
-				{
-					cJSON_AddItemToArray(json_array, cJSON_Duplicate(it->GetBaseData(), 1));
-				}
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), json_array);
-				return *this;
-			}
-
-			virtual GSRequestData& AddStringList(const gsstl::string& paramName, const gsstl::vector<gsstl::string>& child)
-			{
-				cJSON* json_array = cJSON_CreateArray();
-				for (gsstl::vector<gsstl::string>::const_iterator it = child.begin(); it != child.end(); ++it)
-				{
-					cJSON_AddItemToArray(json_array, cJSON_CreateString(it->c_str()));
-				}
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), json_array);
-				return *this;
-			}
-
-			virtual GSRequestData& AddBoolean(const gsstl::string& paramName, bool value)
-			{
-				cJSON_AddItemToObject(m_Data, paramName.c_str(), cJSON_CreateBool(value ? 1 : 0));
-				return *this;
+				return Add(paramName, value);
 			}
 		};
 	}

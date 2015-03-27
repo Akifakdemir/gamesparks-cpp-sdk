@@ -21,9 +21,9 @@ void CreateSmallGameSparksSession()
 	int cyclesLeft = 200;
 	while (cyclesLeft-- > 0)
 	{
-		GS.Update(100);
-
-		usleep(100);
+		// deltaTime has to be provided in seconds
+		GS.Update(0.1f);
+		usleep(100000);
 	}
 
 	GS.ShutDown();

@@ -17,9 +17,9 @@ int main(int argc, const char* argv[])
 	int cyclesLeft = 200;
 	while (cyclesLeft-- > 0)
 	{
-		gs.Update(100);
-
-		usleep(100);
+		// deltaTime has to be provided in seconds
+		gs.Update(0.1f);
+		usleep(100000);
 	}
 
 	gs.ShutDown();

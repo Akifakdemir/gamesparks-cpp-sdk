@@ -6,6 +6,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <fcntl.h>
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 #pragma comment( lib, "ws2_32" )
@@ -123,6 +124,11 @@ namespace { // private module-only namespace
 			{
 				t.join();
 			}
+
+			bool thread_is_joinable(const thread& t)
+			{
+				return t.joinable();
+			}
 		#else
 			typedef pthread_mutex_t mutex;
 
@@ -155,7 +161,14 @@ namespace { // private module-only namespace
 
 			void thread_join(thread& t)
 			{
-				// nothing to do
+				pthread_join(t, NULL);
+			}
+
+			bool thread_is_joinable(const thread& t)
+			{
+				// http://pubs.opengroup.org/onlinepubs/007908799/xsh/pthread_join.html
+				// calling pthread_join twice is apparently ok
+				return true;
 			}
 		#endif
 	}
@@ -163,11 +176,11 @@ namespace { // private module-only namespace
     class _DummyWebSocket : public easywsclient::WebSocket
 	{
 	public:
-		void poll(int timeout) { }
+		void poll(int timeout, WSErrorCallback errorCallback, void* userData) { }
 		void send(const gsstl::string& message) { }
 		void sendPing() { }
 		void close() { }
-		void _dispatch(WSMessageCallback callback, void* data) { }
+		void _dispatch(WSMessageCallback message_callback, WSErrorCallback error_callback, void* data) { }
 		readyStateValues getReadyState() const { return CLOSED; }
 	};
 
@@ -259,14 +272,21 @@ namespace { // private module-only namespace
         {
             if(sslContext) SSL_CTX_free(sslContext);
             if(sslHandle) SSL_free(sslHandle);
+
+			if (threading::thread_is_joinable(dns_thread))
+			{
+				threading::thread_join(dns_thread);
+			}
         }
 
 		readyStateValues getReadyState() const {
 			return readyState;
 		}
        
-		void poll(int timeout)  // timeout in milliseconds
+		void poll(int timeout, WSErrorCallback errorCallback, void* userData)  // timeout in milliseconds
         {
+			using namespace easywsclient;
+
             if(readyState == CONNECTING)
             {
                 if(ipLookup == keComplete)
@@ -274,7 +294,7 @@ namespace { // private module-only namespace
 					// join the dns_thread
 					threading::thread_join(dns_thread);
 
-                    if (!doConnect2())
+					if (!doConnect2(errorCallback, userData))
                     {
                         forceClose();
                     }
@@ -285,7 +305,10 @@ namespace { // private module-only namespace
                 }
                 else if( ipLookup == keFailed )
                 {
+					threading::thread_join(dns_thread);
                     forceClose();
+					using namespace easywsclient;
+					errorCallback(WSError(WSError::DNS_LOOKUP_FAILED, "DNS Lookup failed"), userData);
                 }
             }
             else if(ipLookup == keComplete)
@@ -310,6 +333,9 @@ namespace { // private module-only namespace
                     if (txbuf.size()) { FD_SET(sockfd, &wfds); }
                     select(sockfd + 1, &rfds, &wfds, NULL, &tv);
                 }
+
+				using namespace easywsclient;
+
                 while (true)
                 {
                     // FD_ISSET(0, &rfds) will be true
@@ -335,7 +361,16 @@ namespace { // private module-only namespace
                         rxbuf.resize(N);
                         closesocket(sockfd);
                         readyState = CLOSED;
-                        fputs(ret < 0 ? "Connection error!\n" : "Connection closed!\n", stderr);
+						if (ret < 0)
+						{
+							fputs("Connection error!\n", stderr);
+							errorCallback(WSError(WSError::RECV_FAILED, "recv or SSL_read failed"), userData);
+						}
+						else
+						{
+							fputs("Connection closed!\n", stderr);
+							errorCallback(WSError(WSError::CONNECTION_CLOSED, "Connection closed"), userData);
+						}
                         break;
                     }
                     else
@@ -362,7 +397,16 @@ namespace { // private module-only namespace
                     {
                         closesocket(sockfd);
                         readyState = CLOSED;
-                        fputs(ret < 0 ? "Connection error!\n" : "Connection closed!\n", stderr);
+						if (ret < 0)
+						{
+							fputs("Connection error!\n", stderr);
+							errorCallback(WSError(WSError::SEND_FAILED, "send or SSL_write failed"), userData);
+						}
+						else
+						{
+							fputs("Connection closed!\n", stderr);
+							errorCallback(WSError(WSError::CONNECTION_CLOSED, "Connection closed"), userData);
+						}
                         break;
                     }
                     else
@@ -376,6 +420,7 @@ namespace { // private module-only namespace
             {
                 closesocket(sockfd);
                 readyState = CLOSED;
+				errorCallback(WSError(WSError::CONNECTION_CLOSED, "Connection closed"), userData);
             }
 		}
 
@@ -384,7 +429,7 @@ namespace { // private module-only namespace
 		// lambda:
 		//template<class Callable>
 		//void dispatch(Callable callable)
-		virtual void _dispatch(WSMessageCallback callback, void* userData)
+		virtual void _dispatch(WSMessageCallback messageCallback, WSErrorCallback errorCallback, void* userData)
         {
             if(readyState == CONNECTING) return;
             
@@ -441,7 +486,7 @@ namespace { // private module-only namespace
 				else if (ws.opcode == wsheader_type::TEXT_FRAME && ws.fin) {
 					if (ws.mask) { for (size_t i = 0; i != ws.N; ++i) { rxbuf[i+ws.header_size] ^= ws.masking_key[i&0x3]; } }
 					gsstl::string data(rxbuf.begin()+ws.header_size, rxbuf.begin()+ws.header_size+(size_t)ws.N);
-					callback((const gsstl::string) data, userData);
+					messageCallback((const gsstl::string) data, userData);
 				}
 				else if (ws.opcode == wsheader_type::PING) {
 					if (ws.mask) { for (size_t i = 0; i != ws.N; ++i) { rxbuf[i+ws.header_size] ^= ws.masking_key[i&0x3]; } }
@@ -450,7 +495,7 @@ namespace { // private module-only namespace
 				}
 				else if (ws.opcode == wsheader_type::PONG)
                 {
-                    callback((const gsstl::string) "{ \"@class\" : \".pong\" }", userData);
+					messageCallback((const gsstl::string) "{ \"@class\" : \".pong\" }", userData);
                 }
 				else if (ws.opcode == wsheader_type::CLOSE)
                 {
@@ -459,6 +504,8 @@ namespace { // private module-only namespace
 				else
                 {
                     fprintf(stderr, "ERROR: Got unexpected WebSocket message.\n");
+					using namespace easywsclient;
+					errorCallback(WSError(WSError::UNEXPECTED_MESSAGE, "Got unexpected WebSocket message."), userData);
                     close();
                 }
 
@@ -598,14 +645,26 @@ namespace { // private module-only namespace
             return true;
         }
         
-        bool doConnect2()
+		bool doConnect2(WSErrorCallback errorCallback, void* userData)
         {
+			using namespace easywsclient;
+
             sockfd = socket(AF_INET, SOCK_STREAM, 0);
-            if (sockfd == INVALID_SOCKET || connect(sockfd, (sockaddr*)&result, sizeof(struct sockaddr)) == SOCKET_ERROR)
+            if (sockfd == INVALID_SOCKET)
             {
                 closesocket(sockfd);
                 sockfd = INVALID_SOCKET;
+				errorCallback(WSError(WSError::SOCKET_CREATION_FAILED, "Socket creation failed"), userData);
+				return false;
             }
+
+			if (connect(sockfd, (sockaddr*)&result, sizeof(struct sockaddr)) == SOCKET_ERROR)
+			{
+				closesocket(sockfd);
+				sockfd = INVALID_SOCKET;
+				errorCallback(WSError(WSError::CONNECT_FAILED, "connect() failed."), userData);
+				return false;
+			}
 
             #ifdef SSL_SUPPORT
                 static bool ssl_initialized = false;
@@ -634,9 +693,16 @@ namespace { // private module-only namespace
                     {
                         #ifndef MARMALADE
                             ERR_print_errors_fp (stderr);
-                        #endif
+						#else
+							fprintf(stderr, "failed to create SSL Context\n");
+						#endif
+
+						errorCallback(WSError(WSError::SSL_CTX_NEW_FAILED, "Failed to create SSL Context."), userData);
+
+						return false;
                     }
                     
+					// this is probably not a good idea in terms of privacy.
                     SSL_CTX_set_verify(sslContext, SSL_VERIFY_NONE, NULL);
                     
                     sslHandle = SSL_new (sslContext);
@@ -644,26 +710,53 @@ namespace { // private module-only namespace
                     {
                         #ifndef MARMALADE
                             ERR_print_errors_fp (stderr);
-                        #endif
-                    }
+						#else
+							fprintf(stderr, "failed to create SSL Handle\n");
+						#endif
+
+						SSL_CTX_free(sslContext);
+
+						errorCallback(WSError(WSError::SSL_NEW_FAILED, "Failed to create SSL handle."), userData);
+
+						return false;
+					}
                     
                     if (!SSL_set_fd (sslHandle, sockfd))
                     {
                         #ifndef MARMALADE
                             ERR_print_errors_fp (stderr);
-                        #endif
+						#else
+							fprintf(stderr, "failed to set SSL file descriptor\n");
+						#endif
+
+						SSL_CTX_free(sslContext);
+						SSL_free(sslHandle);
+
+						errorCallback(WSError(WSError::SSL_SET_FD_FAILED, "Failed to set SSL file descriptor."), userData);
+
+						return false;
                     }
                     
                     if (SSL_connect (sslHandle) != 1)
                     {
                         #ifndef MARMALADE
                             ERR_print_errors_fp (stderr);
-                        #endif
+						#else
+							fprintf(stderr, "failed to SSL-Connect\n");
+						#endif
+
+						SSL_CTX_free(sslContext);
+						SSL_free(sslHandle);
+
+						errorCallback(WSError(WSError::SSL_CONNECT_FAILED, "SSL_connect failed."), userData);
+
+						return false;
                     }
                     fprintf(stderr, "SSL handshake success with: %s\n", m_url.c_str());
                 }
                 else
                 {
+					// I don't think that we'll ever end up here, because we're returning at the to in case sockfd == INVALID_SOCKET
                     fprintf(stderr, "Unable to connect to %s:%d\n", m_host.c_str(), m_port);
                     return false;
                 }
@@ -699,14 +792,42 @@ namespace { // private module-only namespace
                 snprintf(line, 256, "Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\n"); SEND(line);
                 snprintf(line, 256, "Sec-WebSocket-Version: 13\r\n"); SEND(line);
                 snprintf(line, 256, "\r\n"); SEND(line);
-                for (i = 0; i < 2 || (i < 255 && line[i-2] != '\r' && line[i-1] != '\n'); ++i) { if (RECV(line+i) == 0) { return NULL; } }
+                for (i = 0; i < 2 || (i < 255 && line[i-2] != '\r' && line[i-1] != '\n'); ++i)
+				{
+					if (RECV(line+i) == 0)
+					{
+						errorCallback(WSError(WSError::CLOSED_DURING_WS_HANDSHAKE, "The connection was closed while the websocket handshake was in progress."), userData);
+						return false;
+					}
+				}
                 line[i] = 0;
-                if (i == 255) { fprintf(stderr, "ERROR: Got invalid status line connecting to: %s\n", m_url.c_str()); return NULL; }
-                if (sscanf(line, "HTTP/1.1 %d", &status) != 1 || status != 101) { fprintf(stderr, "ERROR: Got bad status connecting to %s: %s", m_url.c_str(), line); return NULL; }
+				if (i == 255)
+				{
+					fprintf(stderr, "ERROR: Got invalid status line connecting to: %s\n", m_url.c_str());
+					errorCallback(WSError(WSError::INVALID_STATUS_LINE_DURING_WS_HANDSHAKE, "Got invalid status line connecting to : " + m_url), userData);
+					return false;
+				}
+				if (sscanf(line, "HTTP/1.1 %d", &status) != 1 || status != 101)
+				{
+					fprintf(stderr, "ERROR: Got bad status connecting to %s: %s", m_url.c_str(), line);
+					errorCallback(WSError(WSError::BAD_STATUS_CODE, "Got bad status connecting to : " + m_url), userData);
+					return false;
+				}
                 // TODO: verify response headers,
-                while (true) {
-                    for (i = 0; i < 2 || (i < 255 && line[i-2] != '\r' && line[i-1] != '\n'); ++i) { if (RECV(line+i) == 0) { return NULL; } }
-                    if (line[0] == '\r' && line[1] == '\n') { break; }
+                while (true)
+				{
+                    for (i = 0; i < 2 || (i < 255 && line[i-2] != '\r' && line[i-1] != '\n'); ++i)
+					{
+						if (RECV(line+i) == 0)
+						{
+							errorCallback(WSError(WSError::CLOSED_DURING_WS_HANDSHAKE, "The connection was closed while the websocket handshake was in progress."), userData);
+							return false;
+						}
+					}
+                    if (line[0] == '\r' && line[1] == '\n')
+					{
+						break;
+					}
                 }
             }
             int flag = 1;

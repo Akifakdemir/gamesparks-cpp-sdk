@@ -97,7 +97,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The amount of type 1 currency that the player holds
@@ -350,13 +350,21 @@ namespace GameSparks
 			}
 		};
 			/// <summary>
+			/// The leaderboard's challenge id
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetChallengeInstanceId () const
+					{
+						return m_Response.GetString("challengeInstanceId");
+					}
+			/// <summary>
 			/// The leaderboard data
 			/// </summary>
 					// method type 1
 					gsstl::vector<_LeaderboardData> GetData() const
 					{
 						gsstl::vector<_LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getData");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("data");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_LeaderboardData(*it));
@@ -370,7 +378,7 @@ namespace GameSparks
 					gsstl::vector<_LeaderboardData> GetFirst() const
 					{
 						gsstl::vector<_LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFirst");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("first");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_LeaderboardData(*it));
@@ -384,7 +392,7 @@ namespace GameSparks
 					gsstl::vector<_LeaderboardData> GetLast() const
 					{
 						gsstl::vector<_LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getLast");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("last");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_LeaderboardData(*it));
@@ -436,7 +444,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -475,7 +483,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -494,6 +502,14 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetDisplayName () const
 					{
 						return m_Response.GetString("displayName");
+					}
+			/// <summary>
+			/// Indicates whether the player was created as part of this request
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_BoolOptional GetNewPlayer () const
+					{
+						return m_Response.GetBoolean("newPlayer");
 					}
 			/// <summary>
 			/// A summary of the player that would be switched to.  Only returned as part of an error response for a request where automatic switching is disabled.
@@ -560,7 +576,7 @@ namespace GameSparks
 					gsstl::vector<_Boughtitem> GetBoughtItems() const
 					{
 						gsstl::vector<_Boughtitem> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getBoughtItems");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("boughtItems");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Boughtitem(*it));
@@ -728,7 +744,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -767,7 +783,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -778,7 +794,7 @@ namespace GameSparks
 					gsstl::vector<_Player> GetMembers() const
 					{
 						gsstl::vector<_Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Player(*it));
@@ -876,7 +892,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -915,7 +931,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -926,7 +942,7 @@ namespace GameSparks
 					gsstl::vector<_Player> GetMembers() const
 					{
 						gsstl::vector<_Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Player(*it));
@@ -1065,7 +1081,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetAccepted() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getAccepted");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("accepted");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -1103,7 +1119,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetChallenged() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallenged");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challenged");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -1173,7 +1189,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetDeclined() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getDeclined");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("declined");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -1244,7 +1260,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerTurnCount> GetTurnCount() const
 					{
 						gsstl::vector<_PlayerTurnCount> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getTurnCount");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("turnCount");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerTurnCount(*it));
@@ -1260,7 +1276,7 @@ namespace GameSparks
 					gsstl::vector<_Challenge> GetChallengeInstances() const
 					{
 						gsstl::vector<_Challenge> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallengeInstances");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challengeInstances");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Challenge(*it));
@@ -1375,7 +1391,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetAccepted() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getAccepted");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("accepted");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -1413,7 +1429,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetChallenged() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallenged");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challenged");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -1483,7 +1499,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetDeclined() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getDeclined");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("declined");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -1554,7 +1570,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerTurnCount> GetTurnCount() const
 					{
 						gsstl::vector<_PlayerTurnCount> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getTurnCount");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("turnCount");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerTurnCount(*it));
@@ -1702,7 +1718,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -1741,7 +1757,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -1752,7 +1768,7 @@ namespace GameSparks
 					gsstl::vector<_Player> GetMembers() const
 					{
 						gsstl::vector<_Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Player(*it));
@@ -1792,7 +1808,7 @@ namespace GameSparks
 					gsstl::vector<_Team> GetTeams() const
 					{
 						gsstl::vector<_Team> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getTeams");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("teams");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Team(*it));
@@ -1851,7 +1867,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -1890,7 +1906,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -1901,7 +1917,7 @@ namespace GameSparks
 					gsstl::vector<_Player> GetMembers() const
 					{
 						gsstl::vector<_Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Player(*it));
@@ -2030,7 +2046,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -2069,7 +2085,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -2080,7 +2096,7 @@ namespace GameSparks
 					gsstl::vector<_Player> GetMembers() const
 					{
 						gsstl::vector<_Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Player(*it));
@@ -2211,7 +2227,7 @@ namespace GameSparks
 			}
 		};
 			/// <summary>
-			/// The leader board's challenge id
+			/// The leaderboard's challenge id
 			/// </summary>
 					// method type 4
 					GameSparks::Optional::t_StringOptional GetChallengeInstanceId () const
@@ -2225,7 +2241,7 @@ namespace GameSparks
 					gsstl::vector<_LeaderboardData> GetData() const
 					{
 						gsstl::vector<_LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getData");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("data");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_LeaderboardData(*it));
@@ -2239,7 +2255,7 @@ namespace GameSparks
 					gsstl::vector<_LeaderboardData> GetFirst() const
 					{
 						gsstl::vector<_LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFirst");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("first");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_LeaderboardData(*it));
@@ -2253,7 +2269,7 @@ namespace GameSparks
 					gsstl::vector<_LeaderboardData> GetLast() const
 					{
 						gsstl::vector<_LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getLast");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("last");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_LeaderboardData(*it));
@@ -2297,7 +2313,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -2336,7 +2352,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -2347,7 +2363,7 @@ namespace GameSparks
 					gsstl::vector<_Player> GetMembers() const
 					{
 						gsstl::vector<_Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Player(*it));
@@ -2443,7 +2459,7 @@ namespace GameSparks
 					gsstl::vector<_Achievement> GetAchievements() const
 					{
 						gsstl::vector<_Achievement> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getAchievements");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("achievements");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Achievement(*it));
@@ -2543,7 +2559,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetAccepted() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getAccepted");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("accepted");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -2581,7 +2597,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetChallenged() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallenged");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challenged");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -2651,7 +2667,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerDetail> GetDeclined() const
 					{
 						gsstl::vector<_PlayerDetail> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getDeclined");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("declined");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerDetail(*it));
@@ -2722,7 +2738,7 @@ namespace GameSparks
 					gsstl::vector<_PlayerTurnCount> GetTurnCount() const
 					{
 						gsstl::vector<_PlayerTurnCount> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getTurnCount");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("turnCount");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_PlayerTurnCount(*it));
@@ -2738,7 +2754,7 @@ namespace GameSparks
 					gsstl::vector<_Challenge> GetChallengeInstances() const
 					{
 						gsstl::vector<_Challenge> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallengeInstances");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challengeInstances");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Challenge(*it));
@@ -2818,7 +2834,7 @@ namespace GameSparks
 					gsstl::vector<_ChallengeType> GetChallengeTemplates() const
 					{
 						gsstl::vector<_ChallengeType> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallengeTemplates");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challengeTemplates");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_ChallengeType(*it));
@@ -2854,7 +2870,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -2893,7 +2909,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -2904,7 +2920,7 @@ namespace GameSparks
 					gsstl::vector<_Player> GetFriends() const
 					{
 						gsstl::vector<_Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFriends");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("friends");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Player(*it));
@@ -2968,7 +2984,7 @@ namespace GameSparks
 					gsstl::vector<_InvitableFriend> GetFriends() const
 					{
 						gsstl::vector<_InvitableFriend> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFriends");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("friends");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_InvitableFriend(*it));
@@ -3032,7 +3048,7 @@ namespace GameSparks
 					gsstl::vector<_Leaderboard> GetLeaderboards() const
 					{
 						gsstl::vector<_Leaderboard> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getLeaderboards");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("leaderboards");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_Leaderboard(*it));
@@ -3061,7 +3077,7 @@ namespace GameSparks
 						gsstl::vector<GameSparks::Core::GSData::t_Optional> GetMessageList() const
 						{
 							gsstl::vector<GameSparks::Core::GSData::t_Optional> result;
-							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMessageList");
+							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("messageList");
 							for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 							{
 								result.push_back(GameSparks::Core::GSData::t_Optional(*it, true));
@@ -3090,7 +3106,7 @@ namespace GameSparks
 						gsstl::vector<GameSparks::Core::GSData::t_Optional> GetMessageList() const
 						{
 							gsstl::vector<GameSparks::Core::GSData::t_Optional> result;
-							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMessageList");
+							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("messageList");
 							for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 							{
 								result.push_back(GameSparks::Core::GSData::t_Optional(*it, true));
@@ -3233,7 +3249,7 @@ namespace GameSparks
 					gsstl::vector<_VirtualGood> GetVirtualGoods() const
 					{
 						gsstl::vector<_VirtualGood> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getVirtualGoods");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("virtualGoods");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(_VirtualGood(*it));
@@ -3322,7 +3338,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The display name of the Player
@@ -3361,7 +3377,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetVirtualGoods() const
 						{
-							return m_Response.GetStringList("getVirtualGoods");
+							return m_Response.GetStringList("virtualGoods");
 						}
 			
 		};
@@ -3380,6 +3396,14 @@ namespace GameSparks
 					GameSparks::Optional::t_StringOptional GetDisplayName () const
 					{
 						return m_Response.GetString("displayName");
+					}
+			/// <summary>
+			/// Indicates whether the player was created as part of this request
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_BoolOptional GetNewPlayer () const
+					{
+						return m_Response.GetBoolean("newPlayer");
 					}
 			/// <summary>
 			/// A summary of the player that would be switched to.  Only returned as part of an error response for a request where automatic switching is disabled.
@@ -3442,6 +3466,70 @@ namespace GameSparks
 				{
 				}
 
+			};
+			class SocialStatusResponse : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				SocialStatusResponse(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				SocialStatusResponse(const SocialStatusResponse& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+		class _SocialStatus : public GSTypedResponse
+		{
+		public:
+			_SocialStatus(const GameSparks::Core::GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+
+			/// <summary>
+			/// When the token is still active.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_BoolOptional GetActive () const
+					{
+						return m_Response.GetBoolean("active");
+					}
+			/// <summary>
+			/// When the token expires (if available).
+			/// </summary>
+					// method type 4
+					GameSparks::Core::GSDateTime::t_Optional GetExpires () const
+					{
+						return m_Response.GetDate("expires");
+					}
+			/// <summary>
+			/// The identifier of the external platform.
+			/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetSystemId () const
+					{
+						return m_Response.GetString("systemId");
+					}
+			
+		};
+			/// <summary>
+			/// A list of social statuses.
+			/// </summary>
+					// method type 1
+					gsstl::vector<_SocialStatus> GetStatuses() const
+					{
+						gsstl::vector<_SocialStatus> result;
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("statuses");
+						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
+						{
+							result.push_back(_SocialStatus(*it));
+						}
+						return result; 
+					}
 			};
 			class WithdrawChallengeResponse : public  GameSparks::Core::GSTypedResponse
 			{

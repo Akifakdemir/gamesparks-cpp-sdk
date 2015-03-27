@@ -12,6 +12,7 @@
 namespace easywsclient 
 {
 	class WebSocket;
+	struct WSError;
 }
 
 namespace GameSparks
@@ -43,6 +44,7 @@ namespace GameSparks
 			 bool IsWebSocketConnectionAlive() const;
 		protected:
 			static void OnWebSocketCallback(const gsstl::string& message, void* userData);
+			static void OnWebSocketError(const easywsclient::WSError& error, void* userData);
 		private:
 			GS_* m_GS;
 			IGSPlatform* m_GSPlatform;

@@ -109,6 +109,6 @@ script for the platform you're interested in.
 | *Android armeabi*      |    YES     |     PASS    |   NONE  |
 | *Android armeabi-v7a*  |    YES     |     PASS    |   NONE  |
 | *Android x86*          |    YES     |     PASS    |   NONE  |
-| *OSX x64*              |    YES     |     PASS    |   NONE  |
+| *OSX x64*              |    YES     |     PASS    |   PASS  |
 | *Win32*                |    YES     |     PASS    |   NONE  |
-| *Win64*                |    YES     |     PASS    |   NONE  |
+| *Win64*                |    YES     |     PASS    |   PASS  |

@@ -135,7 +135,8 @@ int main(int argc, const char* argv[])
     
     GameSparks::Core::GS_ GS;
 
-	GS.Initialise(new SampleConfiguration::NativePlatformDescription());
+	SampleConfiguration::NativePlatformDescription platform;
+	GS.Initialise(&platform);
 
 	// this event handler will login the user (see above)
 	GS.GameSparksAvailable = GameSparksAvailable;
@@ -145,10 +146,9 @@ int main(int argc, const char* argv[])
 	int cyclesLeft = 200000;
 	while (cyclesLeft-- > 0)
 	{
-		// update the webclient (polling)
-		GS.Update(100);
-
-		usleep(100);
+		// deltaTime has to be provided in seconds
+		GS.Update(0.1f);
+		usleep(100000);
 	}
 
 	GS.ShutDown();

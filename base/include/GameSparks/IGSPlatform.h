@@ -6,6 +6,8 @@
 
 #include "./gsstl.h"
 #include <GameSparks/GSLeakDetector.h>
+#include <GameSparks/GSPlatformDeduction.h>
+#include "GSTime.h"
 
 namespace GameSparks
 {
@@ -22,7 +24,7 @@ namespace GameSparks
 				SetPreviewMode(usePreviewServer);
 
 				m_AuthToken = "";
-				m_RequestTimeoutSeconds = 5;
+				m_RequestTimeoutSeconds = 5.0f;
 				m_PreviewMode = true;
 			}
 
@@ -30,10 +32,47 @@ namespace GameSparks
 			virtual gsstl::string GetDeviceId() const = 0;
 
 			//IOS or AND or WP8 - Required for in app purchases
-			virtual gsstl::string GetDeviceOS() const = 0;
+			virtual gsstl::string GetDeviceOS() const
+			{
+				#if GS_TARGET_PLATFORM == GS_PLATFORM_MAC
+					return "OSX";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_IOS
+					return "IOS";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_ANDROID
+					return "Android";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_WIN32
+					return "Win32";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_LINUX
+					return "Linux";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_MARMALADE
+					return "Marmelade";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_BADA
+					return "Bada";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_BLACKBERRY
+					return "Blackberry";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_NACL
+					return "NaCl";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_EMSCRIPTEN
+					return "emscripten";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_TIZEN
+					return "Tizen";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_QT5
+					return "QTS";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_WINRT
+					return "W8";
+				#elif GS_TARGET_PLATFORM == GS_PLATFORM_WP8
+					return "WP8";
+				#else
+				#   error "Unsupported platform or not compiling for cocos"
+					return "Unknown";
+				#endif
+			}
 
 			//Will be used in analytics reports
-			virtual gsstl::string GetPlatform() const = 0;
+			virtual gsstl::string GetPlatform() const
+			{
+				return GetDeviceOS();
+			}
 
 			//Will be used in analytics reports
 			virtual gsstl::string GetSDK() const = 0;
@@ -59,7 +98,7 @@ namespace GameSparks
 
 			virtual gsstl::string GetLiveServiceUrl() const
 			{
-				return "wss://preview.gamesparks.net/ws/" + m_apiKey;
+				return "wss://service.gamesparks.net/ws/" + m_apiKey;
 			}
 
 			//Service url from the portal
@@ -71,8 +110,8 @@ namespace GameSparks
 			//Receives debugging information from the API
 			virtual void DebugMsg(const gsstl::string& message) const = 0;
 
-			virtual int GetRequestTimeoutSeconds() const { return m_RequestTimeoutSeconds; }
-			virtual void SetRequestTimeoutSeconds(int requestTimeoutSeconds) { m_RequestTimeoutSeconds = requestTimeoutSeconds; }
+			virtual Seconds GetRequestTimeoutSeconds() const { return m_RequestTimeoutSeconds; }
+			virtual void SetRequestTimeoutSeconds(Seconds requestTimeoutSeconds) { m_RequestTimeoutSeconds = requestTimeoutSeconds; }
 
 			virtual void SetPreviewMode(bool previewModeActive) { m_PreviewMode = previewModeActive; }
 			virtual bool GetPreviewMode() const { return m_PreviewMode; }
@@ -80,7 +119,7 @@ namespace GameSparks
 			//void ExecuteOnMainThread(Action action);
 		protected:
 			gsstl::string m_AuthToken;
-			int m_RequestTimeoutSeconds;
+			Seconds m_RequestTimeoutSeconds;
 			bool m_PreviewMode;
 
 			gsstl::string m_apiKey;

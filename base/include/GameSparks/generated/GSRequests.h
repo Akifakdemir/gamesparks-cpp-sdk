@@ -206,6 +206,14 @@ namespace GameSparks
 
 
 			/// <summary>
+			/// The challenge instance to get the leaderboard data for
+			/// </summary>
+			AroundMeLeaderboardRequest& SetChallengeInstanceId( const gsstl::string& challengeInstanceId )
+			{
+				m_Request.AddString("challengeInstanceId", challengeInstanceId);
+				return *this;
+			}
+			/// <summary>
 			/// The number of items to return in a page (default=50)
 			/// </summary>
 			AroundMeLeaderboardRequest& SetEntryCount( long entryCount )
@@ -532,6 +540,16 @@ namespace GameSparks
 				return *this;
 			}
 			/// <summary>
+			/// Criteria for who can and cannot find and join this challenge (when the accessType is PUBLIC or FRIENDS).
+			/// Currently supports a field <i>segments</i> that contains segment type against single (where that segment value is required) or multiple (where one of the specified values is required) segment values.
+			/// For each segment type a player must have one of the specified values in order to be considered eligible.
+			/// </summary>
+			CreateChallengeRequest& SetEligibilityCriteria( const GameSparks::Core::GSRequestData& eligibilityCriteria )
+			{
+				m_Request.AddObject("eligibilityCriteria", eligibilityCriteria);
+				return *this;
+			}
+			/// <summary>
 			/// The time at which this challenge will end
 			/// </summary>
 			CreateChallengeRequest& SetEndTime( const GameSparks::Core::GSDateTime& endTime )
@@ -829,6 +847,59 @@ namespace GameSparks
 			}
 			};
 			
+			class FindChallengeRequest : public GameSparks::Core::GSTypedRequest < FindChallengeRequest, GameSparks::Api::Responses::FindChallengeResponse >
+			{
+			public:
+				FindChallengeRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".FindChallengeRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// The type of challenge to find, either PUBLIC or FRIENDS
+			/// </summary>
+			FindChallengeRequest& SetAccessType( const gsstl::string& accessType )
+			{
+				m_Request.AddString("accessType", accessType);
+				return *this;
+			}
+			/// <summary>
+			/// The number of challenges to return (MAX=50)
+			/// </summary>
+			FindChallengeRequest& SetCount( long count )
+			{
+				m_Request.AddNumber("count", count);
+				return *this;
+			}
+			/// <summary>
+			/// Optional.  Allows the current player's eligibility to be overridden by what is provided here.
+			/// </summary>
+			FindChallengeRequest& SetEligibility( const GameSparks::Core::GSRequestData& eligibility )
+			{
+				m_Request.AddObject("eligibility", eligibility);
+				return *this;
+			}
+			/// <summary>
+			/// The offset to start from when returning challenges (used for paging)
+			/// </summary>
+			FindChallengeRequest& SetOffset( long offset )
+			{
+				m_Request.AddNumber("offset", offset);
+				return *this;
+			}
+			/// <summary>
+			/// Optional shortCodes to filter the results by challenge type
+			/// </summary>
+			FindChallengeRequest& SetShortCode( const gsstl::string& shortCode )
+			{
+				m_Request.AddString("shortCode", shortCode);
+				return *this;
+			}
+			};
+			
 			class GetChallengeRequest : public GameSparks::Core::GSTypedRequest < GetChallengeRequest, GameSparks::Api::Responses::GetChallengeResponse >
 			{
 			public:
@@ -890,6 +961,14 @@ namespace GameSparks
 			
 
 
+			/// <summary>
+			/// The challenge leaderboards to return entries for
+			/// </summary>
+			GetLeaderboardEntriesRequest& SetChallenges( gsstl::vector<gsstl::string> challenges )
+			{
+				m_Request.AddStringList("challenges", challenges);
+				return *this;
+			}
 			/// <summary>
 			/// The list of leaderboards shortcodes
 			/// </summary>
@@ -1232,6 +1311,14 @@ namespace GameSparks
 				return *this;
 			}
 			/// <summary>
+			/// Optional.  Allows the current player's eligibility to be overridden by what is provided here.
+			/// </summary>
+			JoinChallengeRequest& SetEligibility( const GameSparks::Core::GSRequestData& eligibility )
+			{
+				m_Request.AddObject("eligibility", eligibility);
+				return *this;
+			}
+			/// <summary>
 			/// An optional message to send with the challenge
 			/// </summary>
 			JoinChallengeRequest& SetMessage( const gsstl::string& message )
@@ -1462,6 +1549,14 @@ namespace GameSparks
 			ListChallengeRequest& SetState( const gsstl::string& state )
 			{
 				m_Request.AddString("state", state);
+				return *this;
+			}
+			/// <summary>
+			/// The states of the challenges to be returned
+			/// </summary>
+			ListChallengeRequest& SetStates( gsstl::vector<gsstl::string> states )
+			{
+				m_Request.AddStringList("states", states);
 				return *this;
 			}
 			};
@@ -2041,6 +2136,19 @@ namespace GameSparks
 			}
 			};
 			
+			class SocialStatusRequest : public GameSparks::Core::GSTypedRequest < SocialStatusRequest, GameSparks::Api::Responses::SocialStatusResponse >
+			{
+			public:
+				SocialStatusRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".SocialStatusRequest")
+				{
+
+				}
+			
+
+
+			};
+			
 			class SteamConnectRequest : public GameSparks::Core::GSTypedRequest < SteamConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
@@ -2222,6 +2330,62 @@ namespace GameSparks
 			WithdrawChallengeRequest& SetMessage( const gsstl::string& message )
 			{
 				m_Request.AddString("message", message);
+				return *this;
+			}
+			};
+			
+			class XBOXLiveConnectRequest : public GameSparks::Core::GSTypedRequest < XBOXLiveConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
+			{
+			public:
+				XBOXLiveConnectRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".XBOXLiveConnectRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// Indicates that the server should not try to link the external profile with the current player.  If false, links the external profile to the currently signed in player.  If true, creates a new player and links the external profile to them.  Defaults to false.
+			/// </summary>
+			XBOXLiveConnectRequest& SetDoNotLinkToCurrentPlayer( bool doNotLinkToCurrentPlayer )
+			{
+				m_Request.AddBoolean("doNotLinkToCurrentPlayer", doNotLinkToCurrentPlayer);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates whether the server should return an error if an account switch would have occurred, rather than switching automatically.  Defaults to false.
+			/// </summary>
+			XBOXLiveConnectRequest& SetErrorOnSwitch( bool errorOnSwitch )
+			{
+				m_Request.AddBoolean("errorOnSwitch", errorOnSwitch);
+				return *this;
+			}
+			/// <summary>
+			/// An optional segment configuration for this request.
+			/// If this request creates a new player on the gamesparks platform, the segments of the new player will match the values provided
+			/// </summary>
+			XBOXLiveConnectRequest& SetSegments( const GameSparks::Core::GSRequestData& segments )
+			{
+				m_Request.AddObject("segments", segments);
+				return *this;
+			}
+			/// <summary>
+			/// The access token is used by the client to make authenticated requests on behalf of the end user.
+			/// It has a longer lifetime than the authorization code, typically on the order of minutes or hours.
+			/// When the access token expires, attempts to use it will fail, and a new access token must be obtained via a refresh token.
+			/// </summary>
+			XBOXLiveConnectRequest& SetStsTokenString( const gsstl::string& stsTokenString )
+			{
+				m_Request.AddString("stsTokenString", stsTokenString);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the server should switch to the supplied profile if it isalready associated to a player. Defaults to false.
+			/// </summary>
+			XBOXLiveConnectRequest& SetSwitchIfPossible( bool switchIfPossible )
+			{
+				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
 				return *this;
 			}
 			};

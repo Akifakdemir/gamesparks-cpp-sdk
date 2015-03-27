@@ -123,7 +123,7 @@ int main()
             int64 now = s3eTimerGetMs();
 
             // update out GS-instance
-            GS.Update(now-last_time);
+            GS.Update((now-last_time) / 1000.0f);
             last_time = now;
             s3eSurfaceClear(0, 0, 0);
             

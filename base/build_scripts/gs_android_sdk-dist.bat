@@ -1,8 +1,8 @@
-set OUTPUT_DIRECTORY=../build
+set OUTPUT_DIRECTORY=..\build
 
 @rem cleanup
 rmdir /s /q obj
-rmdir /s /q %OUTPUT_DIRECTORY%/Android
+rmdir /s /q %OUTPUT_DIRECTORY%\Android
 mkdir "%OUTPUT_DIRECTORY%/Android"
 mkdir "%OUTPUT_DIRECTORY%/Android/armeabi"
 mkdir "%OUTPUT_DIRECTORY%/Android/armeabi-v7a"

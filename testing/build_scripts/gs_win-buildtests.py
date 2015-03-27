@@ -161,6 +161,9 @@ def generate_and_build_tests():
 
 # cp850
 def main():
+
+	os.environ['PATH'] += os.pathsep + os.path.abspath(os.path.join(__file__, '..', '..', '..', 'base', 'build_scripts', 'jenkins', 'dependencies', 'cmake', 'bin'))
+	print os.environ['PATH']
 	# build gtest
 	generate_and_build_gtest()
 	# build the tests

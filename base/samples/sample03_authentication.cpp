@@ -25,18 +25,20 @@ void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
 {
 	std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
 
-	// try with wrong credentials
-	GameSparks::Api::Requests::AuthenticationRequest requestWrong(gsInstance);
-	requestWrong.SetUserName("TOTALLYWRONGUSER");
-	requestWrong.SetPassword("TOTALLYWRONGPASSWORD");
-	requestWrong.Send(AuthenticationRequest_Response);
-	
-	// try with right credentials
-	GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
-	requestRight.SetUserName("abcdefgh");
-	requestRight.SetPassword("abcdefgh");
-	requestRight.Send(AuthenticationRequest_Response);
+	if (available)
+	{
+		// try with wrong credentials
+		GameSparks::Api::Requests::AuthenticationRequest requestWrong(gsInstance);
+		requestWrong.SetUserName("TOTALLYWRONGUSER");
+		requestWrong.SetPassword("TOTALLYWRONGPASSWORD");
+		requestWrong.Send(AuthenticationRequest_Response);
 
+		// try with right credentials
+		GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
+		requestRight.SetUserName("abcdefgh");
+		requestRight.SetPassword("abcdefgh");
+		requestRight.Send(AuthenticationRequest_Response);
+	}
 }
 
 int main(int argc, const char* argv[])
@@ -53,12 +55,10 @@ int main(int argc, const char* argv[])
 	int cyclesLeft = 200000;
 	while (cyclesLeft-- > 0)
 	{
-		GS.Update(100);
-
-		usleep(100);
+		// deltaTime has to be provided in seconds
+		GS.Update(0.1f);
+		usleep(100000);
 	}
 
 	GS.ShutDown();
 }
-
-

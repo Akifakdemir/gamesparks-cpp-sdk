@@ -15,6 +15,7 @@ This is the repository for all GameSparks C++ SDK implementations. We provide a 
 The folder structure is 
 
 * *base* - The base SDK with scripts for automated builds. See the README.md within this folder to get more information.
+* *marmalade* - sample project and GameSparks SDK for marmalade
 * *cocos2dx* - A sample implementation for a cocos project with build scripts for a fast setup.
 * *unrealengine* - The Unreal Engine plugin and a sample project to show how to use it.
 

@@ -122,14 +122,26 @@ void GSConnection::OnWebSocketCallback(const gsstl::string& message, void* userD
 	connectionObj->GetGSInstance()->OnMessageReceived(message, *connectionObj);
 }
 
+void GSConnection::OnWebSocketError(const easywsclient::WSError& error, void* userData)
+{
+	GSConnection *self = static_cast<GSConnection *>(userData);
+
+	if (error.code != easywsclient::WSError::CONNECTION_CLOSED)
+	{
+		self->m_GS->OnWebSocketClientError(error.message, self);
+	}
+}
+
 void GSConnection::Update(float deltaTime)
 {
 	if (m_WebSocket != NULL)
 	{
 		if (m_WebSocket->getReadyState() != WebSocket::CLOSED)
 		{
-			m_WebSocket->poll();
-			m_WebSocket->dispatch(OnWebSocketCallback, this);
+			m_WebSocket->poll(0, OnWebSocketError, this);
+			if (m_Stopped) return;
+			m_WebSocket->dispatch(OnWebSocketCallback, OnWebSocketError, this);
+			if (m_Stopped) return;
 		}
 		else if (m_WebSocket->getReadyState() == WebSocket::CLOSED)
 		{

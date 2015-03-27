@@ -7,6 +7,7 @@
 #include "GSObject.h"
 #include "./gsstl.h"
 #include "GSDateTime.h"
+#include "GSTime.h"
 
 namespace GameSparks
 {
@@ -25,43 +26,34 @@ namespace GameSparks
 
 				GSRequest(GS_& gsInstance, const gsstl::string& requestType);
 				GSRequest(GS_& gsInstance, cJSON* data);
-				//GSRequest(const GSRequest& other);
-
-				virtual GSRequestData& AddString(const gsstl::string& paramName, const gsstl::string& value);
-				virtual GSRequestData& AddDate(const gsstl::string& paramName, const GSDateTime& date);
-				virtual GSRequestData& AddNumber(const gsstl::string& paramName, long value);
-				virtual GSRequestData& AddObject(const gsstl::string& paramName, const GSData& child);
-				virtual GSRequestData& AddObjectList(const gsstl::string& paramName, const gsstl::vector<GSData>& child);
-				virtual GSRequestData& AddStringList(const gsstl::string& paramName, const gsstl::vector<gsstl::string>& child);
-				virtual GSRequestData& AddBoolean(const gsstl::string& paramName, bool value);
 
 				bool GetDurable() const { return m_Durable; }
 				void SetDurable(bool durable) { m_Durable = durable; }
 
-				long GetCancelTicks() const { return m_CancelTicks; }
-				void SetCancelTicks(long cancelTicks) { m_CancelTicks = cancelTicks; }
+				Seconds GetCancelSeconds() const { return m_CancelSeconds; }
+				void SetCancelSeconds(Seconds cancelSeconds) { m_CancelSeconds = cancelSeconds; }
 
-				long GetWaitForResponseTicks() const { return m_WaitForResponseTicks; }
-				void SetWaitForResponseTicks(long waitForRepsonseTicks) { m_WaitForResponseTicks = waitForRepsonseTicks; }
+				Seconds GetWaitForResponseSeconds() const { return m_WaitForResponseSeconds; }
+				void SetWaitForResponseSeconds(Seconds waitForRepsonseSeconds) { m_WaitForResponseSeconds = waitForRepsonseSeconds; }
 			
-				long GetDurableRetryTicks() const { return m_DurableRetryTicks; }
-				void SetDurableRetryTicks(long durableRetryTicks) { m_DurableRetryTicks = durableRetryTicks; }
+				Seconds GetDurableRetrySeconds() const { return m_DurableRetrySeconds; }
+				void SetDurableRetrySeconds(Seconds durableRetrySeconds) { m_DurableRetrySeconds = durableRetrySeconds; }
 		
 			private:
-				GS_& GetGSInstance() const { return m_GSInstance; }
+				GS_& GetGSInstance() const { return *m_GSInstance; }
 
 				void Complete(const GSObject& response);			
 
 				GSObject m_Response;
 
-				GS_& m_GSInstance;
+				GS_* m_GSInstance; ///< this is a pointer, so that the auto-generated assignement operator works
 
 				t_Callback m_Completer;
 
 				bool m_Durable;
-				long m_CancelTicks;
-				long m_WaitForResponseTicks;
-				long m_DurableRetryTicks;
+				Seconds m_CancelSeconds;
+				Seconds m_WaitForResponseSeconds;
+				Seconds m_DurableRetrySeconds;
 
 				/*
 					This class is here so that it can be implemented in GSTypedRequest.
@@ -135,7 +127,7 @@ namespace GameSparks
                         GS_LEAK_DETECTOR(BaseCallbacksPtr);
 				};
 
-				void Send(BaseCallbacks* callbacks, int timeoutSeconds);
+				void Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds);
 				GSObject Send();
 
 				//BaseCallbacks* m_callbacks;

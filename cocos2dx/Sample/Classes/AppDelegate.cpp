@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
+#include "ScreenLog.h"
 
 // *GS* includes needed for GameSparks
 #include <GameSparks/GS.h>
@@ -9,6 +10,34 @@
 // from GameSparks::Core::Cocos2dxPlatform and implement the methods in questiion.
 #include <GameSparks/Cocos2dxPlatform.h>
 #include <GameSparks/generated/GSRequests.h>
+
+
+/*!
+* This class uses the ScreenLog class from iforce2d.net to perform on-screen logging.
+* This is also an example on how to customize Cocos2dxPlatform
+* */
+class OnScreenLoggingCocosPlatform : public GameSparks::Core::Cocos2dxPlatform
+{
+    public:
+        // use constructor of base class (C++11)
+        using GameSparks::Core::Cocos2dxPlatform::Cocos2dxPlatform;
+
+        virtual void DebugMsg(const gsstl::string& message) const override
+        {
+            Cocos2dxPlatform::DebugMsg(message);
+            if(g_screenLog)
+            {
+                // the iforce2d screen log class does not cope with newlines to well, so we split messages up here
+                std::stringstream ss(message);
+                std::string line;
+                while (std::getline(ss, line))
+                {
+                    g_screenLog->log(LL_TRACE, "%s", line.c_str());
+                }
+            }
+        }
+};
+
 
 /*
 	*GS*
@@ -32,7 +61,10 @@
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
-
+    g_screenLog = new ScreenLog();
+    g_screenLog->setLevelMask( LL_TRACE | LL_DEBUG | LL_INFO | LL_WARNING | LL_ERROR | LL_FATAL );
+    g_screenLog->setFontFile( "UbuntuMono-R.ttf" );
+    g_screenLog->setTimeoutSeconds( 15 );
 }
 
 AppDelegate::~AppDelegate() 
@@ -95,12 +127,15 @@ void OnGameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
 struct GameSparksCocos
 {
     GameSparksCocos()
-    :platform("<insert-your-auth-key-here>", "<insert your API secret here>", true, true)
+    :platform("<insert-your-api-key-here>", "<insert-your-api-secret-here>", true, true)
     {
         GS.Initialise(&platform);
     }
 
-    GameSparks::Core::Cocos2dxPlatform platform;
+    // if you don't want on-screen logging, you can simply use GameSparks::Core::Cocos2dxPlatform
+    //GameSparks::Core::Cocos2dxPlatform platform;
+    OnScreenLoggingCocosPlatform platform;
+
     GameSparks::Core::GS_ GS;
     
 	void update(float dt)
@@ -137,6 +172,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();
+
+    g_screenLog->attachToScene( scene );
 
     // run
     director->runWithScene(scene);

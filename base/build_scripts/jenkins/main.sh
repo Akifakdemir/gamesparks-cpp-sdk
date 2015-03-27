@@ -8,18 +8,20 @@ pushd "$(dirname "$0")"
 	#comment in for non-incremental builds
 	#OUTPUT_DIRECTORY="$BUILD_DIR" PACKAGING_OUTPUT_DIRECTORY="$PACKAGING_OUTPUT_DIRECTORY" bash ../clean.sh || exit $?
 
-	./install_dependencies.sh || exit 1
+	./install_dependencies.sh || exit $?
 
 	echo "$BUILD_DIR"
-	mkdir -p "$BUILD_DIR" || $?
-	pushd .. || $?
+	mkdir -p "$BUILD_DIR" || exit $?
+	pushd .. || exit $?
 		mkdir -p "$BUILD_DIR" || $?
-		mkdir -p "$PACKAGING_OUTPUT_DIRECTORY" || $?
+		mkdir -p "$PACKAGING_OUTPUT_DIRECTORY" || exit $?
 
 		PATH=$PATH:$NDK_ROOT:$CMAKE_ROOT/bin OUTPUT_DIRECTORY="$BUILD_DIR" \
 			PACKAGING_OUTPUT_DIRECTORY="$PACKAGING_OUTPUT_DIRECTORY" \
 			bash ./gs_sdk-dist.sh || exit $?
 	popd
+
+	python build_and_run_tests.py || exit $?
 popd
 
 exit 0

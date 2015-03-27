@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 PROJECT (Gamesparks) 
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeIncludes")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMakeIncludes")
 include("create_source_groups_macro.cmake")
 #set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/tools/cmake/")
 
@@ -100,22 +100,33 @@ ELSEIF (WIN32)
 ENDIF()
 
 
-IF (BUILD_IOS)
-	set(SDKVER "8.1")
-	set(DEVROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer")
-	set(SDKROOT "${DEVROOT}/SDKs/iPhoneOS${SDKVER}.sdk")
-	if(EXISTS ${SDKROOT})
-	    set(CMAKE_OSX_SYSROOT "${SDKROOT}")
-	else()
-	    message("Warning, iOS Base SDK path not found: " ${SDKROOT})
-	endif()
+IF (${BUILD_IOS} STREQUAL "1")
+	if (NOT DEFINED IOS_PLATFORM)
+		set (IOS_PLATFORM "OS")
+	endif (NOT DEFINED IOS_PLATFORM)
+	set (IOS_PLATFORM ${IOS_PLATFORM} CACHE STRING "Type of iOS Platform")
 
-	set(CMAKE_OSX_ARCHITECTURES "armv6" "armv7" "armv7s" "arm64" "i386")
-	set(CMAKE_XCODE_EFFECTIVE_PLATFORMS "-iphoneos;-iphonesimulator")
+	if (${IOS_PLATFORM} STREQUAL "OS")
+		set(CMAKE_OSX_ARCHITECTURES "armv6" "armv7" "armv7s" "arm64")
+		set(CMAKE_IOS_DEVELOPER_ROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer")
+		set(CMAKE_OSX_SYSROOT ${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneOS.sdk)
+		set(CMAKE_XCODE_EFFECTIVE_PLATFORMS "-iphoneos")
+	else (${IOS_PLATFORM} STREQUAL "OS")
+		set (CMAKE_OSX_ARCHITECTURES "i386" "x86_64")
+		set(CMAKE_IOS_DEVELOPER_ROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer")
+		set(CMAKE_OSX_SYSROOT ${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneSimulator.sdk)
+		set(CMAKE_XCODE_EFFECTIVE_PLATFORMS "-iphonesimulator")
+	endif (${IOS_PLATFORM} STREQUAL "OS")
 ENDIF()
 
 # GS Lib
 ADD_LIBRARY (Gamesparks ${SOURCES})
+target_include_directories (
+	Gamesparks
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/../include/"
+	"${PROJECT_SOURCE_DIR}/../dependencies/cjson"
+)
 ADD_DEFINITIONS(-DSESSION_CERTS)
 #ADD_DEFINITIONS(-DGS_USE_EASTL=1)
 
@@ -130,6 +141,9 @@ ENDIF()
 #	Samples
 #
 file(GLOB SAMPLE_FILES "${PROJECT_SOURCE_DIR}/../samples/*.cpp")
+
+# export variable to parent scope
+set(WS_LIBS ${WS_LIBS} PARENT_SCOPE)
 
 IF(NOT BUILD_IOS)
 foreach(SAMPLE_FILE ${SAMPLE_FILES})

@@ -2946,6 +2946,326 @@ namespace GameSparks
 					}
 			};
 			
+			class ChallengeLapsedMessage : public GSMessage
+			{
+				public:
+					// used by SetListener to register message creation functions
+					static const char* GetTypeName()
+					{
+						return ".ChallengeLapsedMessage";
+					}
+
+					ChallengeLapsedMessage(const GSData& data)
+					: GSMessage(data)
+					{
+
+					}
+				public:
+		class _Challenge : public GSTypedResponse
+		{
+		public:
+			_Challenge(const GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+			
+		class _PlayerDetail : public GSTypedResponse
+		{
+		public:
+			_PlayerDetail(const GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+			
+				/// <summary>
+				/// A player's external identifiers
+				/// </summary>
+					// method type 4
+					GameSparks::Core::GSData::t_Optional GetExternalIds () const
+					{
+						return m_Response.GetGSDataObject("externalIds");
+					}
+				/// <summary>
+				/// A player's id
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetId () const
+					{
+						return m_Response.GetString("id");
+					}
+				/// <summary>
+				/// A player's name
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetName () const
+					{
+						return m_Response.GetString("name");
+					}
+		};
+		class _PlayerTurnCount : public GSTypedResponse
+		{
+		public:
+			_PlayerTurnCount(const GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+			
+				/// <summary>
+				/// The number of turns that the player has taken so far during this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCount () const
+					{
+						return m_Response.GetString("count");
+					}
+				/// <summary>
+				/// The unique player id.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetPlayerId () const
+					{
+						return m_Response.GetString("playerId");
+					}
+		};
+				/// <summary>
+				/// A list of PlayerDetail objects that represents the players that have accepted this challenge.
+				/// </summary>
+					// method type 1
+					gsstl::vector<_PlayerDetail> GetAccepted() const
+					{
+						gsstl::vector<_PlayerDetail> result;
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getAccepted");
+						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
+						{
+							result.push_back(_PlayerDetail(*it));
+						}
+						return result; 
+					}
+				/// <summary>
+				/// A unique identifier for this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetChallengeId () const
+					{
+						return m_Response.GetString("challengeId");
+					}
+				/// <summary>
+				/// The message included in the challenge by the challenging player who created the challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetChallengeMessage () const
+					{
+						return m_Response.GetString("challengeMessage");
+					}
+				/// <summary>
+				/// The name of the challenge that this message relates to.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetChallengeName () const
+					{
+						return m_Response.GetString("challengeName");
+					}
+				/// <summary>
+				/// A list of PlayerDetail objects that represents the players that were challenged in this challenge.
+				/// </summary>
+					// method type 1
+					gsstl::vector<_PlayerDetail> GetChallenged() const
+					{
+						gsstl::vector<_PlayerDetail> result;
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallenged");
+						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
+						{
+							result.push_back(_PlayerDetail(*it));
+						}
+						return result; 
+					}
+				/// <summary>
+				/// Details of the player who issued this challenge.
+				/// </summary>
+					// method type 2
+					_PlayerDetail GetChallenger() const
+					{
+						return _PlayerDetail(m_Response.GetGSDataObject("challenger").GetValue());
+					}
+				/// <summary>
+				/// The amount of type 1 currency that has been wagered on this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetCurrency1Wager () const
+					{
+						return m_Response.GetLong("currency1Wager");
+					}
+				/// <summary>
+				/// The amount of type 2 currency that has been wagered on this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetCurrency2Wager () const
+					{
+						return m_Response.GetLong("currency2Wager");
+					}
+				/// <summary>
+				/// The amount of type 3 currency that has been wagered on this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetCurrency3Wager () const
+					{
+						return m_Response.GetLong("currency3Wager");
+					}
+				/// <summary>
+				/// The amount of type 4 currency that has been wagered on this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetCurrency4Wager () const
+					{
+						return m_Response.GetLong("currency4Wager");
+					}
+				/// <summary>
+				/// The amount of type 5 currency that has been wagered on this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetCurrency5Wager () const
+					{
+						return m_Response.GetLong("currency5Wager");
+					}
+				/// <summary>
+				/// The amount of type 6 currency that has been wagered on this challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetCurrency6Wager () const
+					{
+						return m_Response.GetLong("currency6Wager");
+					}
+				/// <summary>
+				/// A list of PlayerDetail objects that represents the players that have declined this challenge.
+				/// </summary>
+					// method type 1
+					gsstl::vector<_PlayerDetail> GetDeclined() const
+					{
+						gsstl::vector<_PlayerDetail> result;
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getDeclined");
+						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
+						{
+							result.push_back(_PlayerDetail(*it));
+						}
+						return result; 
+					}
+				/// <summary>
+				/// The date when the challenge ends.
+				/// </summary>
+					// method type 4
+					GameSparks::Core::GSDateTime::t_Optional GetEndDate () const
+					{
+						return m_Response.GetDate("endDate");
+					}
+				/// <summary>
+				/// The latest date that a player can accept the challenge.
+				/// </summary>
+					// method type 4
+					GameSparks::Core::GSDateTime::t_Optional GetExpiryDate () const
+					{
+						return m_Response.GetDate("expiryDate");
+					}
+				/// <summary>
+				/// The maximum number of turns that this challenge is configured for.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetMaxTurns () const
+					{
+						return m_Response.GetLong("maxTurns");
+					}
+				/// <summary>
+				/// In a turn based challenge this fields contains the player's id whose turn it is next.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetNextPlayer () const
+					{
+						return m_Response.GetString("nextPlayer");
+					}
+				/// <summary>
+				/// The challenge's short code.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetShortCode () const
+					{
+						return m_Response.GetString("shortCode");
+					}
+				/// <summary>
+				/// The date when the challenge starts.
+				/// </summary>
+					// method type 4
+					GameSparks::Core::GSDateTime::t_Optional GetStartDate () const
+					{
+						return m_Response.GetDate("startDate");
+					}
+				/// <summary>
+				/// One of these possible state values: ISSUED, EXPIRED, ACCEPTED, DECLINED, COMPLETE, WITHDRAWN, RUNNING, WAITING, RECEIVED
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetState () const
+					{
+						return m_Response.GetString("state");
+					}
+				/// <summary>
+				/// A collection containing the number of turns taken by each player that has accepted the challenge.
+				/// Each turn count is a Long keyed on a String that represents the player's id
+				/// </summary>
+					// method type 1
+					gsstl::vector<_PlayerTurnCount> GetTurnCount() const
+					{
+						gsstl::vector<_PlayerTurnCount> result;
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getTurnCount");
+						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
+						{
+							result.push_back(_PlayerTurnCount(*it));
+						}
+						return result; 
+					}
+		};
+				/// <summary>
+				/// An object representing the challenge.
+				/// </summary>
+					// method type 2
+					_Challenge GetChallenge() const
+					{
+						return _Challenge(m_Response.GetGSDataObject("challenge").GetValue());
+					}
+				/// <summary>
+				/// Flag indicating whether this message could be sent as a push notification or not.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_BoolOptional GetNotification () const
+					{
+						return m_Response.GetBoolean("notification");
+					}
+				/// <summary>
+				/// A textual title for the message.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetSubTitle () const
+					{
+						return m_Response.GetString("subTitle");
+					}
+				/// <summary>
+				/// A textual summary describing the message's purpose.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetSummary () const
+					{
+						return m_Response.GetString("summary");
+					}
+				/// <summary>
+				/// A textual title for the message.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetTitle () const
+					{
+						return m_Response.GetString("title");
+					}
+			};
+			
 			class ChallengeLostMessage : public GSMessage
 			{
 				public:
@@ -5369,80 +5689,6 @@ namespace GameSparks
 
 					}
 				public:
-		class _LeaderboardData : public GSTypedResponse
-		{
-		public:
-			_LeaderboardData(const GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-			
-				/// <summary>
-				/// The city where the player was located when they logged this leaderboard entry.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetCity () const
-					{
-						return m_Response.GetString("city");
-					}
-				/// <summary>
-				/// The country code where the player was located when they logged this leaderboard entry.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetCountry () const
-					{
-						return m_Response.GetString("country");
-					}
-				/// <summary>
-				/// The players rank.
-				/// </summary>
-					// method type 4
-					GameSparks::Core::GSData::t_Optional GetExternalIds () const
-					{
-						return m_Response.GetGSDataObject("externalIds");
-					}
-				/// <summary>
-				/// The unique leaderboard id.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetId () const
-					{
-						return m_Response.GetString("id");
-					}
-				/// <summary>
-				/// The players rank.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_LongOptional GetRank () const
-					{
-						return m_Response.GetLong("rank");
-					}
-				/// <summary>
-				/// The unique player id for this leaderboard entry.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetUserId () const
-					{
-						return m_Response.GetString("userId");
-					}
-				/// <summary>
-				/// The players display name.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetUserName () const
-					{
-						return m_Response.GetString("userName");
-					}
-				/// <summary>
-				/// The date when this leaderboard entry was created.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetWhen () const
-					{
-						return m_Response.GetString("when");
-					}
-		};
 		class _LeaderboardRankDetails : public GSTypedResponse
 		{
 		public:
@@ -5633,6 +5879,80 @@ namespace GameSparks
 							result.push_back(_LeaderboardData(*it));
 						}
 						return result; 
+					}
+		};
+		class _LeaderboardData : public GSTypedResponse
+		{
+		public:
+			_LeaderboardData(const GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+			
+				/// <summary>
+				/// The city where the player was located when they logged this leaderboard entry.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCity () const
+					{
+						return m_Response.GetString("city");
+					}
+				/// <summary>
+				/// The country code where the player was located when they logged this leaderboard entry.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCountry () const
+					{
+						return m_Response.GetString("country");
+					}
+				/// <summary>
+				/// The players rank.
+				/// </summary>
+					// method type 4
+					GameSparks::Core::GSData::t_Optional GetExternalIds () const
+					{
+						return m_Response.GetGSDataObject("externalIds");
+					}
+				/// <summary>
+				/// The unique leaderboard id.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetId () const
+					{
+						return m_Response.GetString("id");
+					}
+				/// <summary>
+				/// The players rank.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetRank () const
+					{
+						return m_Response.GetLong("rank");
+					}
+				/// <summary>
+				/// The unique player id for this leaderboard entry.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetUserId () const
+					{
+						return m_Response.GetString("userId");
+					}
+				/// <summary>
+				/// The players display name.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetUserName () const
+					{
+						return m_Response.GetString("userName");
+					}
+				/// <summary>
+				/// The date when this leaderboard entry was created.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetWhen () const
+					{
+						return m_Response.GetString("when");
 					}
 		};
 				/// <summary>
@@ -5716,80 +6036,6 @@ namespace GameSparks
 
 					}
 				public:
-		class _LeaderboardData : public GSTypedResponse
-		{
-		public:
-			_LeaderboardData(const GSData& data) 
-				: GSTypedResponse(data)
-			{
-
-			}
-			
-				/// <summary>
-				/// The city where the player was located when they logged this leaderboard entry.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetCity () const
-					{
-						return m_Response.GetString("city");
-					}
-				/// <summary>
-				/// The country code where the player was located when they logged this leaderboard entry.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetCountry () const
-					{
-						return m_Response.GetString("country");
-					}
-				/// <summary>
-				/// The players rank.
-				/// </summary>
-					// method type 4
-					GameSparks::Core::GSData::t_Optional GetExternalIds () const
-					{
-						return m_Response.GetGSDataObject("externalIds");
-					}
-				/// <summary>
-				/// The unique leaderboard id.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetId () const
-					{
-						return m_Response.GetString("id");
-					}
-				/// <summary>
-				/// The players rank.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_LongOptional GetRank () const
-					{
-						return m_Response.GetLong("rank");
-					}
-				/// <summary>
-				/// The unique player id for this leaderboard entry.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetUserId () const
-					{
-						return m_Response.GetString("userId");
-					}
-				/// <summary>
-				/// The players display name.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetUserName () const
-					{
-						return m_Response.GetString("userName");
-					}
-				/// <summary>
-				/// The date when this leaderboard entry was created.
-				/// </summary>
-					// method type 4
-					GameSparks::Optional::t_StringOptional GetWhen () const
-					{
-						return m_Response.GetString("when");
-					}
-		};
 		class _LeaderboardRankDetails : public GSTypedResponse
 		{
 		public:
@@ -5980,6 +6226,80 @@ namespace GameSparks
 							result.push_back(_LeaderboardData(*it));
 						}
 						return result; 
+					}
+		};
+		class _LeaderboardData : public GSTypedResponse
+		{
+		public:
+			_LeaderboardData(const GSData& data) 
+				: GSTypedResponse(data)
+			{
+
+			}
+			
+				/// <summary>
+				/// The city where the player was located when they logged this leaderboard entry.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCity () const
+					{
+						return m_Response.GetString("city");
+					}
+				/// <summary>
+				/// The country code where the player was located when they logged this leaderboard entry.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetCountry () const
+					{
+						return m_Response.GetString("country");
+					}
+				/// <summary>
+				/// The players rank.
+				/// </summary>
+					// method type 4
+					GameSparks::Core::GSData::t_Optional GetExternalIds () const
+					{
+						return m_Response.GetGSDataObject("externalIds");
+					}
+				/// <summary>
+				/// The unique leaderboard id.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetId () const
+					{
+						return m_Response.GetString("id");
+					}
+				/// <summary>
+				/// The players rank.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_LongOptional GetRank () const
+					{
+						return m_Response.GetLong("rank");
+					}
+				/// <summary>
+				/// The unique player id for this leaderboard entry.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetUserId () const
+					{
+						return m_Response.GetString("userId");
+					}
+				/// <summary>
+				/// The players display name.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetUserName () const
+					{
+						return m_Response.GetString("userName");
+					}
+				/// <summary>
+				/// The date when this leaderboard entry was created.
+				/// </summary>
+					// method type 4
+					GameSparks::Optional::t_StringOptional GetWhen () const
+					{
+						return m_Response.GetString("when");
 					}
 		};
 				/// <summary>

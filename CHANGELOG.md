@@ -1,7 +1,43 @@
-
 # ChangeLog
 
-## beta 2
+## rc3 (2015-03-27)
+
+### base SDK (affects all platforms)
+- also building libs for the iOS-Simmulator (x86 and x64)
+- fixed a crash on disconnect
+- added hint about wrong credentials if connecting fails
+- fixed timing logic for backing off and timeouts
+- fixed looking up with the wrong key in the auto-generated code
+- fixed cleanup if a GS_-object goes out of scope
+- It's now possible to send the same GSRequest twice
+- better socket-error handling
+- fixed leaking the platform-object in the samples
+- fixed the live-service URL
+- minor cleanups
+- fixed a bug that caused the creation of invalid JSON-Objects (keys where added multiple times instead of replaced)
+- fixed samples to pass the correct time units (seconds) to update() 
+- if the connection fails, the SDK now backs off for five seconds
+- fixed a crash when a websocket timed out
+- fixed a crash that occured if the websocket was destructed after a failed DNS-Lookup attempt
+- added a stress-test sample
+- added some tests
+- improved continious integration (building for more platforms, running tests, etc.)
+
+### Cocos2d-x
+- removed cocos 2d from the repository
+- added instruction on how to build the cocos sample
+- added build-scripts to download cocos and build the sample
+- added on-screen loggin to the cocos sample
+- sample project now also supports the iOS-simmulator
+
+### marmalade
+- fixed error handling in websocket-code
+- fixed cleanup in websocket code
+- fixed samples to pass seconds to update()
+- fixed a compile error in GSPlatformDeduction.h
+
+
+## beta 2 (2015-01-24)
 
 - Added support for Marmalade
 - Changed SSL-Method to TLS1

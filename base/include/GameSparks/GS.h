@@ -55,11 +55,11 @@ namespace GameSparks
 
 			void Send(GSRequest& request);
 
-			int GetRequestTimeoutSeconds();
+			Seconds GetRequestTimeoutSeconds();
 
 			bool GetGameSparksAvailable();
 
-			void Update(float deltaTime);
+			void Update(Seconds deltaTimeInSeconds);
 			
 			void OnWebSocketClientError(const gsstl::string& errorMessage, GSConnection* connection);
 			void OnMessageReceived(const gsstl::string& message, GSConnection& connection);
@@ -106,17 +106,17 @@ namespace GameSparks
                 }
             }
 		private:
-			void UpdateConnections(float deltaTime);
+			void UpdateConnections(Seconds deltaTimeInSeconds);
 			void Stop(bool termiante);
 			void NewConnection();
 			void Handshake(GSObject& response, GSConnection& connection);
 			void SendHandshake(GSObject& response, GSConnection& connection);
 			gsstl::string GetUniqueRequestId();
 			void ConnectIfRequired();
-			void ProcessSendQueue(float deltaTime);
+			void ProcessSendQueue(Seconds deltaTimeInSeconds);
 			void CancelRequest(GSRequest& request);
 			void CancelRequest(GSRequest& request, GSConnection* connection);
-			void ProcessQueues(float deltaTime);
+			void ProcessQueues(Seconds deltaTimeInSeconds);
 			void TrimOldConnections();
 			void ProcessReceivedRepsonse(const GSObject& response, GSConnection* connection);
 			void ProcessReceivedItem(const GSObject& response, GSConnection* connection);
@@ -130,10 +130,12 @@ namespace GameSparks
 			t_SendQueue m_SendQueue;
 
 			long m_RequestCounter;
+
+			// BS: we might want to change this to a state enum. they appear to be mutually exclusive.
 			bool m_Ready;
-			bool m_Error;
 			bool m_Paused;
 			bool m_Initialized;
+			Seconds m_backOffForSeconds;
 			gsstl::string m_SessionId;
 
 			friend class GSConnection;
