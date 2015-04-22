@@ -41,13 +41,47 @@ void CreateChallengeRequest_Response(GameSparks::Core::GS_& gsInstance, const Ga
     request.Send(GetChallengeRequest_Response);
 }
 
+// forward declaration
+void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available);
+
+void RegistrationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::RegistrationResponse& response)
+{
+    if (response.GetHasErrors())
+    {
+        std::cout << "something went wrong during the authentication" << std::endl;
+        std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
+    }
+    else
+    {
+        std::cout << "new user created" << std::endl;
+        // instead of duplicating the code that send out an authentication request, we're just calling GameSparksAvailable here.
+        GameSparksAvailable(gsInstance, true);
+    }
+}
+
 void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
     // when we login successfully, we want to call a custom event
     if (response.GetHasErrors())
     {
-        std::cout << "something went wrong during the authentication" << std::endl;
-        std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
+        // In case you're running the sample the first time, the test user might not exist. So we just create it here
+        static bool user_creation_tried = false;
+        if (!user_creation_tried)
+        {
+            std::cout << "Authentication failed, creating test user." << std::endl;
+            GameSparks::Api::Requests::RegistrationRequest request(gsInstance);
+            request.SetDisplayName("SDK Sample Test User");
+            request.SetUserName("abcdefgh");
+            request.SetPassword("abcdefgh");
+
+            // send the request
+            request.Send(RegistrationRequest_Response);
+        }
+        else
+        {
+            std::cout << "something went wrong during the authentication" << std::endl;
+            std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;            
+        }
     }
     else
     {

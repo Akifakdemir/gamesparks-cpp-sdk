@@ -1,4 +1,4 @@
-== Structure of the tests
+Structure of the tests
 
 The tests are defined in the folder "tests" and then in their projects. Within each projects are the test groups irganized into folders. Those folders have at least three files:
 

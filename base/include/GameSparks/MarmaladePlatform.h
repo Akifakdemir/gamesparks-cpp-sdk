@@ -13,6 +13,7 @@ namespace GameSparks
 {
 	namespace Core
 	{
+		/// IGSPlatform implementation for [Marmalade](https://www.madewithmarmalade.com/)
 		class MarmaladePlatform : public IGSPlatform
 		{
 			public:

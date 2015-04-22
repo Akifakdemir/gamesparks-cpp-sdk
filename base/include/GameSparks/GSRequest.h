@@ -15,6 +15,7 @@ namespace GameSparks
 	{
 		class GS_;
 
+		/// A request to GameSparks
 		class GSRequest : public GSObject
 		{
 			public:
@@ -24,22 +25,22 @@ namespace GameSparks
 					typedef void(*t_Callback)(const GSObject&);
 				#endif /* GS_USE_STD_FUNCTION */
 
-				GSRequest(GS_& gsInstance, const gsstl::string& requestType);
-				GSRequest(GS_& gsInstance, cJSON* data);
-
-				bool GetDurable() const { return m_Durable; }
-				void SetDurable(bool durable) { m_Durable = durable; }
-
 				Seconds GetCancelSeconds() const { return m_CancelSeconds; }
 				void SetCancelSeconds(Seconds cancelSeconds) { m_CancelSeconds = cancelSeconds; }
 
 				Seconds GetWaitForResponseSeconds() const { return m_WaitForResponseSeconds; }
 				void SetWaitForResponseSeconds(Seconds waitForRepsonseSeconds) { m_WaitForResponseSeconds = waitForRepsonseSeconds; }
 			
+			private:
+				// TODO: check if this works/is needed
+				bool GetDurable() const { return m_Durable; }
+				void SetDurable(bool durable) { m_Durable = durable; }
 				Seconds GetDurableRetrySeconds() const { return m_DurableRetrySeconds; }
 				void SetDurableRetrySeconds(Seconds durableRetrySeconds) { m_DurableRetrySeconds = durableRetrySeconds; }
-		
 			private:
+				GSRequest(GS_& gsInstance, const gsstl::string& requestType);
+				GSRequest(GS_& gsInstance, cJSON* data);
+
 				GS_& GetGSInstance() const { return *m_GSInstance; }
 
 				void Complete(const GSObject& response);			
@@ -127,6 +128,7 @@ namespace GameSparks
                         GS_LEAK_DETECTOR(BaseCallbacksPtr);
 				};
 
+				// TODO: check if the type cound be changed to Seconds
 				void Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds);
 				GSObject Send();
 

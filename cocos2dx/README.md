@@ -1,4 +1,4 @@
-# GameSparks Cocos2D-x Samples
+# using the GameSparks C++ SDK with Cocos2D-x
 
 ## Directory Layout
 * Sample - the sample for Cocos2D-x 3

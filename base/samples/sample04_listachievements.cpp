@@ -76,7 +76,7 @@ void ListAchievementsRequest_Response(GameSparks::Core::GS_& gsInstance, const G
 
 	auto achievements = response.GetAchievements();
 
-	for (gsstl::vector<GameSparks::Api::Responses::ListAchievementsResponse::_Achievement>::iterator it = achievements.begin(); it != achievements.end(); ++it)
+	for (gsstl::vector<GameSparks::Api::Types::Achievement>::iterator it = achievements.begin(); it != achievements.end(); ++it)
 	{
 		std::cout << it->GetName().GetValue().c_str() << std::endl;
 	}

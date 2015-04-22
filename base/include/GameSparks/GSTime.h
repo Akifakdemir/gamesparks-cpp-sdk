@@ -5,7 +5,7 @@
 
 namespace GameSparks
 {
-	// typedef for the type to use for seconds. While this does not provide type safety, it at least names it properly.
+	/// typedef for the type to use for seconds. While this does not provide type safety, it at least names it properly.
 	typedef float Seconds;
 }
 

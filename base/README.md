@@ -1,4 +1,4 @@
-# GameSparks SDK Sources
+# GameSparks C++ SDK
 
 ## Directory Layout
 * build_scripts - scripts to perform the builds for various platforms

@@ -4,7 +4,7 @@
 
 #pragma once
 
-/*
+/*!
 	This header is here, so that we can easily switch between
 	different STL implementations. Current choices are:
 		- STD-STL (what ever your compiler uses)
@@ -47,6 +47,7 @@
 #	include <set>
 #endif /* defined(GS_USE_EASTL */
 
+//! This namespace provides forwarding to the concrete STL implementation used. If GS_USE_EASTL is set to 1, EASTL (https://github.com/paulhodge/EASTL) is used. The STL provided by your compiler otherwise.
 namespace gsstl
 {
 #if defined(GS_USE_EASTL)
@@ -56,10 +57,11 @@ namespace gsstl
 #endif /* defined(USE_EASTL */
 }
 
-#ifndef nullptr
+#if !defined(nullptr) && !defined(DOXYGEN)
 namespace gsstl
 {
-    //based on SC22/WG21/N2431 = J16/07-0301
+    //!  a nullptr implementation for compilers that do not support the C++11 nullptr yet.
+    //! based on SC22/WG21/N2431 = J16/07-0301
     struct nullptr_t
     {
         template<typename any> operator any * () const

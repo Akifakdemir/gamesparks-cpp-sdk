@@ -14,63 +14,76 @@ using namespace GameSparks::Optional;
 
 namespace GameSparks
 {
+	namespace Core
+	{
+		class GS_;
+	}
+
 	namespace Api
 	{
 		namespace Messages
 		{
-			 class GSMessage : public GSTypedResponse
-			 {
-			 protected:
-				const static gsstl::string MESSAGE_ID_KEY;
+			/// base class for all messages
+			class GSMessage : public GSTypedResponse
+			{
+				public:
+					/// construct from GSData
+					GSMessage(const GSData& message) 
+					: GSTypedResponse(message)
+					{
 
-				#if defined(GS_USE_STD_FUNCTION)
+					}
+
+					/// get the id of this message
+					t_StringOptional GetMessageId() const
+					{
+						return m_Response.GetString(MESSAGE_ID_KEY);
+					}
+
+				protected:
+					/// @internal
+					const static gsstl::string MESSAGE_ID_KEY; ///< key name to access the message id
+
+					#if defined(GS_USE_STD_FUNCTION)
+					/// create message function as a std::function
 					typedef gsstl::function<void(const GSData&)> t_CreateMessageFunction;
-				#else
+					#else
+					/// create message function as a c function pointer
 					typedef void(*t_CreateMessageFunction)(const GSData&);
-				#endif /* GS_USE_STD_FUNCTION */
-				typedef gsstl::map<gsstl::string, t_CreateMessageFunction> t_CreateMessageFunctionMap;
-				static t_CreateMessageFunctionMap m_Handlers;		 
+					#endif /* GS_USE_STD_FUNCTION */
+					/// maps class name to factory function
+					typedef gsstl::map<gsstl::string, t_CreateMessageFunction> t_CreateMessageFunctionMap;
+					/// a static instance of the factory map
+					static t_CreateMessageFunctionMap m_Handlers;
+					/// @endinternal
 
-			 public:
-				 GSMessage(const GSData& message) 
-					 : GSTypedResponse(message)
-				 {
-					 
-				 }
-				
-				 t_StringOptional GetMessageId() const
-				 {
-					 return m_Response.GetString(MESSAGE_ID_KEY);
-				 }
-			 public:
+				private:
+					friend class Core::GS_;
+					static void NotifyHandlers(const GSObject& message)
+					{
+						t_CreateMessageFunctionMap::iterator find = m_Handlers.find(message.GetType().GetValue());
+						if (find != m_Handlers.end())
+						{ 
+							find->second(message);
+						}
+						/*
+						internal static void NotifyHandlers(GSObject message){
 
-				 static void NotifyHandlers(const GSObject& message)
-				 {
+						if (message.ContainsKey("extCode")) {
+						if (handlers.ContainsKey(message.Type + "_" + message.GetString("extCode"))) {
+						handlers[message.Type + "_" + message.GetString("extCode")](message);
+						return;
+						}
+						}
 
+						if (handlers.ContainsKey(message.Type)) {
+						handlers[message.Type](message);
+						}
+						}
 
-					 t_CreateMessageFunctionMap::iterator find = m_Handlers.find(message.GetType().GetValue());
-					 if (find != m_Handlers.end())
-					 { 
-						 find->second(message);
-					 }
-					 /*
-					 internal static void NotifyHandlers(GSObject message){
-
-					 if (message.ContainsKey("extCode")) {
-					 if (handlers.ContainsKey(message.Type + "_" + message.GetString("extCode"))) {
-					 handlers[message.Type + "_" + message.GetString("extCode")](message);
-					 return;
-					 }
-					 }
-
-					 if (handlers.ContainsKey(message.Type)) {
-					 handlers[message.Type](message);
-					 }
-					 }
-
-					 */
-				 }
-			 };
+						*/
+					}
+			};
 		}
 	}
 }

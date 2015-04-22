@@ -1,4 +1,4 @@
-# GameSparks C++ SDK for Marmalade
+# using the GameSparks C++ SDK with Marmalade
 
 ## HOWTO
 

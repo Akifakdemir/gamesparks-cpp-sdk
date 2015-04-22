@@ -42,11 +42,8 @@ def build():
 	gs_sdk_dist = os.path.abspath(os.path.join(config.BUILD_ROOT, '..', 'gs_sdk-dist'))
 	gs_sdk_dist += native_script_extension
 
-	exit_code = subprocess.call([gs_sdk_dist], env=env)
-	if exit_code != 0:
-		print('=============== BUILD FAILED ===============')
-		sys.exit(exit_code)
-
+	print('running ' + gs_sdk_dist)
+	subprocess.check_call([gs_sdk_dist], env=env)
 
 
 def main():

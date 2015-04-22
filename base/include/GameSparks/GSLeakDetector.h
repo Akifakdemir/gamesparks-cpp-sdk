@@ -9,7 +9,7 @@
 #undef GS_USE_LEAK_DETECTOR
 //#define GS_USE_LEAK_DETECTOR 1
 
-#if defined(GS_USE_LEAK_DETECTOR)
+#if defined(GS_USE_LEAK_DETECTOR) && !defined(DOXYGEN)
 namespace GameSparks {
     namespace Util
     {

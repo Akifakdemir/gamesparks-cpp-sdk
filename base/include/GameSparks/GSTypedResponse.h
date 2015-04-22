@@ -11,67 +11,74 @@ namespace GameSparks
 {
 	namespace Core
 	{
-		 class GSTypedResponse
-		 {
-		 protected:
-			 const static gsstl::string SCRIPT_DATA_KEY;
-			 const static gsstl::string ERROR_KEY;
-			 const static gsstl::string REQUEST_ID_KEY;
-		 public:
-			
-			 // declare this class as abstract without other pure virtual functions
-			 //virtual ~GSTypedResponse() = 0;
+		/// base class for all responses
+		class GSTypedResponse
+		{
+			protected:
+				 const static gsstl::string SCRIPT_DATA_KEY; ///< the key name of the users script data inside the response object
+				 const static gsstl::string ERROR_KEY;       ///< the key name of the server-side errors embedded in this response
+				 const static gsstl::string REQUEST_ID_KEY;  ///< the key name of the request id
+			public:
 
-			GSTypedResponse(const GSData& response)
-				: m_Response(response)
-			{
-			}
+				/// construct from GSData
+				GSTypedResponse(const GSData& response)
+					: m_Response(response)
+				{
+				}
 
-			GSTypedResponse(const GSTypedResponse& other)
-				: m_Response(other.m_Response)
-			{
+				/// construct from GSTypedResponse
+				GSTypedResponse(const GSTypedResponse& other)
+					: m_Response(other.m_Response)
+				{
 
-			}
+				}
 
-			gsstl::string GetJSONString() const
-			{
-				return m_Response.GetJSON();
-			}
+				/// get the response-data as a JSON formated string
+				gsstl::string GetJSONString() const
+				{
+					return m_Response.GetJSON();
+				}
 
-			const cJSON* GetJSONData() const
-			{
-				return m_Response.GetBaseData();
-			}
+				/// accessor for the internal cJSON object associated with this response.
+				const cJSON* GetJSONData() const
+				{
+					return m_Response.GetBaseData();
+				}
 
-			GSData::t_Optional GetScriptData() const
-			{
-				return m_Response.GetGSDataObject(SCRIPT_DATA_KEY);
-			}
-		
-			bool GetHasErrors() const
-			{
-				return m_Response.ContainsKey(ERROR_KEY);
-			}
+				/// get the ScriptData associated with this response
+				GSData::t_Optional GetScriptData() const
+				{
+					return m_Response.GetGSDataObject(SCRIPT_DATA_KEY);
+				}
 
-			GSData::t_Optional GetErrors() const
-			{
-				return m_Response.GetGSDataObject(ERROR_KEY);
-			}
+				/// returns true, if a server-side error occured, false otherwise.
+				bool GetHasErrors() const
+				{
+					return m_Response.ContainsKey(ERROR_KEY);
+				}
 
-			Optional::t_StringOptional GetRequestId() const
-			{
-				return m_Response.GetString(REQUEST_ID_KEY);
-			}
+				/// return an Optional GSData object containing the errors associated with this response
+				GSData::t_Optional GetErrors() const
+				{
+					return m_Response.GetGSDataObject(ERROR_KEY);
+				}
 
-			const GSData& GetBaseData() const
-			{
-				return m_Response;
-			}
-		 protected:
-			 GSData m_Response;
-             
-             GS_LEAK_DETECTOR(GSTypedResponse);
-		 };
+				/// the id of the request that caused this response
+				Optional::t_StringOptional GetRequestId() const
+				{
+					return m_Response.GetString(REQUEST_ID_KEY);
+				}
+
+				/// the internal GSData object
+				const GSData& GetBaseData() const
+				{
+					return m_Response;
+				}
+				protected:
+					GSData m_Response; ///< the wrapped response data
+				private:
+					GS_LEAK_DETECTOR(GSTypedResponse);
+		};
 	}
 }
 #endif // GSTypedResponse_h__

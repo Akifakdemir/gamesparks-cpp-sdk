@@ -11,112 +11,114 @@ namespace GameSparks
 {
 	namespace Core
 	{
+		/// a mutable version of GSData
 		class GSRequestData : public GSData
 		{
-            GS_LEAK_DETECTOR(GSRequestData);
+			public:
+				GSRequestData() : GSData() {}
 
-			/* conversions from native datatypes to cJSON obejcts */
-			cJSON* createFromNative(const gsstl::string& value) { return cJSON_CreateString(value.c_str()); }
-			cJSON* createFromNative(bool value) { return cJSON_CreateBool(value); }
-			cJSON* createFromNative(int value) { return cJSON_CreateNumber(value); }
-			cJSON* createFromNative(long value) { return cJSON_CreateNumber(value); }
-			cJSON* createFromNative(float value) { return cJSON_CreateNumber(value); }
-			cJSON* createFromNative(double value) { return cJSON_CreateNumber(value); }
-			cJSON* createFromNative(const GSData& value) { return cJSON_Duplicate(value.GetBaseData(), 1); }
-			cJSON* createFromNative(const gsstl::vector<int>& value) { return cJSON_CreateIntArray(&value[0], value.size()); }
-			cJSON* createFromNative(const gsstl::vector<float>& value) { return cJSON_CreateFloatArray(&value[0], value.size()); }
-			cJSON* createFromNative(const gsstl::vector<double>& value) { return cJSON_CreateDoubleArray(&value[0], value.size()); }
+				GSRequestData(const GSData& wrapper) : GSData(wrapper) {}
 
-			// convert vector of ContainedType
-			template <typename ContainedType>
-			cJSON* createFromNative(const gsstl::vector<ContainedType>& value)
-			{
-				cJSON* json_array = cJSON_CreateArray();
-				for (typename gsstl::vector<ContainedType>::const_iterator it = value.begin(); it != value.end(); ++it)
+				GSRequestData(const GSRequestData& other)
+				: GSData(other.m_Data) {}
+
+				GSRequestData(cJSON* data) : GSData(data){}
+
+				GSRequestData& AddString(const gsstl::string& paramName, const gsstl::string& value)
 				{
-					cJSON_AddItemToArray(json_array, createFromNative(*it));
+					return Add(paramName, value);
 				}
-				return json_array;
-			}
 
-			// add or replace value named paramName
-			template <typename T>
-			GSRequestData& Add(const gsstl::string& paramName, T value)
-			{
-				cJSON* node = createFromNative(value);
+				GSRequestData& AddObject(const gsstl::string& paramName, const GSData& value)
+				{
+					return Add(paramName, value);
+				}
 
-				if (cJSON_GetObjectItem(m_Data, paramName.c_str()))
-					cJSON_ReplaceItemInObject(m_Data, paramName.c_str(), node);
-				else
-					cJSON_AddItemToObject(m_Data, paramName.c_str(), node);
+				GSRequestData& AddDate(const gsstl::string& paramName, const GSDateTime& date)
+				{
+					return Add(paramName, date.ToString());
+				}
 
-				return *this;
-			}
-		public:
-			GSRequestData() : GSData() {}
+				GSRequestData& AddNumber(const gsstl::string& paramName, float value)
+				{
+					return Add(paramName, value);
+				}
 
-			GSRequestData(const GSData& wrapper) : GSData(wrapper) {}
+				GSRequestData& AddNumber(const gsstl::string& paramName, double value)
+				{
+					return Add(paramName, value);
+				}
 
-			GSRequestData(const GSRequestData& other)
-			: GSData(other.m_Data) {}
+				GSRequestData& AddNumber(const gsstl::string& paramName, int value)
+				{
+					return Add(paramName, value);
+				}
+	            
+	            GSRequestData& AddNumber(const gsstl::string& paramName, long value)
+	            {
+	                return Add(paramName, value);
+	            }
 
-			GSRequestData(cJSON* data) : GSData(data){}
+				GSRequestData& AddBoolean(const gsstl::string& paramName, bool value)
+				{
+					return Add(paramName, value);
+				}
 
-			GSRequestData& AddString(const gsstl::string& paramName, const gsstl::string& value)
-			{
-				return Add(paramName, value);
-			}
+				GSRequestData& AddStringList(const gsstl::string& paramName, const gsstl::vector<gsstl::string>& value)
+				{
+					return Add(paramName, value);
+				}
 
-			GSRequestData& AddObject(const gsstl::string& paramName, const GSData& value)
-			{
-				return Add(paramName, value);
-			}
+				GSRequestData& AddObjectList(const gsstl::string& paramName, const gsstl::vector<GSData>& value)
+				{
+					return Add(paramName, value);
+				}
 
-			GSRequestData& AddDate(const gsstl::string& paramName, const GSDateTime& date)
-			{
-				return Add(paramName, date.ToString());
-			}
+				template <typename NativeNumberType>
+				GSRequestData& AddNumberList(const gsstl::string& paramName, const gsstl::vector<NativeNumberType>& value)
+				{
+					return Add(paramName, value);
+				}
+			private:
+				GS_LEAK_DETECTOR(GSRequestData);
 
-			GSRequestData& AddNumber(const gsstl::string& paramName, float value)
-			{
-				return Add(paramName, value);
-			}
+				/* conversions from native datatypes to cJSON obejcts */
+				cJSON* createFromNative(const gsstl::string& value) { return cJSON_CreateString(value.c_str()); }
+				cJSON* createFromNative(bool value) { return cJSON_CreateBool(value); }
+				cJSON* createFromNative(int value) { return cJSON_CreateNumber(value); }
+				cJSON* createFromNative(long value) { return cJSON_CreateNumber(value); }
+				cJSON* createFromNative(float value) { return cJSON_CreateNumber(value); }
+				cJSON* createFromNative(double value) { return cJSON_CreateNumber(value); }
+				cJSON* createFromNative(const GSData& value) { return cJSON_Duplicate(value.GetBaseData(), 1); }
+				cJSON* createFromNative(const gsstl::vector<int>& value) { return cJSON_CreateIntArray(&value[0], value.size()); }
+				cJSON* createFromNative(const gsstl::vector<float>& value) { return cJSON_CreateFloatArray(&value[0], value.size()); }
+				cJSON* createFromNative(const gsstl::vector<double>& value) { return cJSON_CreateDoubleArray(&value[0], value.size()); }
 
-			GSRequestData& AddNumber(const gsstl::string& paramName, double value)
-			{
-				return Add(paramName, value);
-			}
+				// convert vector of ContainedType
+				template <typename ContainedType>
+				cJSON* createFromNative(const gsstl::vector<ContainedType>& value)
+				{
+					cJSON* json_array = cJSON_CreateArray();
+					for (typename gsstl::vector<ContainedType>::const_iterator it = value.begin(); it != value.end(); ++it)
+					{
+						cJSON_AddItemToArray(json_array, createFromNative(*it));
+					}
+					return json_array;
+				}
 
-			GSRequestData& AddNumber(const gsstl::string& paramName, int value)
-			{
-				return Add(paramName, value);
-			}
-            
-            GSRequestData& AddNumber(const gsstl::string& paramName, long value)
-            {
-                return Add(paramName, value);
-            }
+				// add or replace value named paramName
+				template <typename T>
+				GSRequestData& Add(const gsstl::string& paramName, T value)
+				{
+					cJSON* node = createFromNative(value);
 
-			GSRequestData& AddBoolean(const gsstl::string& paramName, bool value)
-			{
-				return Add(paramName, value);
-			}
+					if (cJSON_GetObjectItem(m_Data, paramName.c_str()))
+						cJSON_ReplaceItemInObject(m_Data, paramName.c_str(), node);
+					else
+						cJSON_AddItemToObject(m_Data, paramName.c_str(), node);
 
-			GSRequestData& AddStringList(const gsstl::string& paramName, const gsstl::vector<gsstl::string>& value)
-			{
-				return Add(paramName, value);
-			}
-
-			GSRequestData& AddObjectList(const gsstl::string& paramName, const gsstl::vector<GSData>& value)
-			{
-				return Add(paramName, value);
-			}
-
-			template <typename NativeNumberType>
-			GSRequestData& AddNumberList(const gsstl::string& paramName, const gsstl::vector<NativeNumberType>& value)
-			{
-				return Add(paramName, value);
-			}
+					return *this;
+				}
 		};
 	}
 }

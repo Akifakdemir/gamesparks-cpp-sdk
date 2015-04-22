@@ -13,121 +13,143 @@ namespace GameSparks
 {
 	namespace Core
 	{
+		//! This class is passed to the constructor of the GS_ class.
+		//! If you want to customize platofrm related behaviour of the SDK you can inherit from
+		//! this class. There already are specialisations for Cocos2dx, Marmalade and Unreal.
 		class IGSPlatform
 		{
-		public:
-			IGSPlatform(const gsstl::string& apikey, const gsstl::string& secret, bool usePreviewServer, bool verboseLogging=false)
-				: m_apiKey(apikey)
-				, m_secret(secret)
-				, m_verboseLogging(verboseLogging)
-			{
-				SetPreviewMode(usePreviewServer);
+			public:
+				/*! Construct a IGSPlatform.
+				 * @param apiKey the "GameSparks Api Key" of your project received from https://portal.gamesparks.net/
+				 * @param apiKey the "GameSparks Api Secret" of your project received from https://portal.gamesparks.net/
+				 * @param usePreviewServer pass true if you want to use the preview server. Use false for the production server
+				 * @param verboseLogging more verbose logging. Usefull for debugging
+				 */
+				IGSPlatform(const gsstl::string& apikey, const gsstl::string& secret, bool usePreviewServer, bool verboseLogging=false)
+					: m_apiKey(apikey)
+					, m_secret(secret)
+					, m_verboseLogging(verboseLogging)
+				{
+					SetPreviewMode(usePreviewServer);
 
-				m_AuthToken = "";
-				m_RequestTimeoutSeconds = 5.0f;
-				m_PreviewMode = true;
-			}
+					m_AuthToken = "";
+					m_RequestTimeoutSeconds = 5.0f;
+				}
 
-			//Gets a unique identifier for the device
-			virtual gsstl::string GetDeviceId() const = 0;
+				//! Gets a unique identifier for the device
+				virtual gsstl::string GetDeviceId() const = 0;
 
-			//IOS or AND or WP8 - Required for in app purchases
-			virtual gsstl::string GetDeviceOS() const
-			{
-				#if GS_TARGET_PLATFORM == GS_PLATFORM_MAC
-					return "OSX";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_IOS
-					return "IOS";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_ANDROID
-					return "Android";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_WIN32
-					return "Win32";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_LINUX
-					return "Linux";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_MARMALADE
-					return "Marmelade";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_BADA
-					return "Bada";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_BLACKBERRY
-					return "Blackberry";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_NACL
-					return "NaCl";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_EMSCRIPTEN
-					return "emscripten";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_TIZEN
-					return "Tizen";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_QT5
-					return "QTS";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_WINRT
-					return "W8";
-				#elif GS_TARGET_PLATFORM == GS_PLATFORM_WP8
-					return "WP8";
-				#else
-				#   error "Unsupported platform or not compiling for cocos"
-					return "Unknown";
-				#endif
-			}
+				//! IOS or AND or WP8 - Required for in app purchases
+				virtual gsstl::string GetDeviceOS() const
+				{
+					#if GS_TARGET_PLATFORM == GS_PLATFORM_MAC
+						return "OSX";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_IOS
+						return "IOS";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_ANDROID
+						return "Android";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_WIN32
+						return "Win32";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_LINUX
+						return "Linux";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_MARMALADE
+						return "Marmelade";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_BADA
+						return "Bada";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_BLACKBERRY
+						return "Blackberry";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_NACL
+						return "NaCl";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_EMSCRIPTEN
+						return "emscripten";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_TIZEN
+						return "Tizen";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_QT5
+						return "QTS";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_WINRT
+						return "W8";
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_WP8
+						return "WP8";
+					#else
+					#   error "Unsupported platform or not compiling for cocos"
+						return "Unknown";
+					#endif
+				}
 
-			//Will be used in analytics reports
-			virtual gsstl::string GetPlatform() const
-			{
-				return GetDeviceOS();
-			}
+				//! Will be used in analytics reports
+				virtual gsstl::string GetPlatform() const
+				{
+					return GetDeviceOS();
+				}
 
-			//Will be used in analytics reports
-			virtual gsstl::string GetSDK() const = 0;
+				//! Will be used in analytics reports
+				virtual gsstl::string GetSDK() const = 0;
 
-			//Will be used in analytics reports
-			virtual gsstl::string GetDeviceType() const = 0;
+				//! Will be used in analytics reports
+				virtual gsstl::string GetDeviceType() const = 0;
 
-			//Set to true to get extended debugging information
-			virtual bool GetExtraDebug() const
-			{
-				return m_verboseLogging;
-			}
+				//! Set to true to get extended debugging information
+				virtual bool GetExtraDebug() const
+				{
+					return m_verboseLogging;
+				}
 
-			virtual gsstl::string GetGameSparksSecret() const
-			{
-				return m_secret;
-			}
+				//! return the API secret. The default returns the value passed into the constructor
+				virtual gsstl::string GetGameSparksSecret() const
+				{
+					return m_secret;
+				}
 
-			virtual gsstl::string GetPreviewServiceUrl() const
-			{
-				return "wss://preview.gamesparks.net/ws/" + m_apiKey;
-			}
+				//! return the preview service url. You probably don't want to customize this
+				virtual gsstl::string GetPreviewServiceUrl() const
+				{
+					return "wss://preview.gamesparks.net/ws/" + m_apiKey;
+				}
 
-			virtual gsstl::string GetLiveServiceUrl() const
-			{
-				return "wss://service.gamesparks.net/ws/" + m_apiKey;
-			}
+				//! return the live service url. You probably don't want to customize this
+				virtual gsstl::string GetLiveServiceUrl() const
+				{
+					return "wss://service.gamesparks.net/ws/" + m_apiKey;
+				}
 
-			//Service url from the portal
-			virtual gsstl::string GetServiceUrl() { return GetPreviewMode() ? GetPreviewServiceUrl() : GetLiveServiceUrl(); }
+				//! Service url from the portal
+				virtual gsstl::string GetServiceUrl() { return GetPreviewMode() ? GetPreviewServiceUrl() : GetLiveServiceUrl(); }
 
-			virtual gsstl::string GetAuthToken() const { return m_AuthToken; }
-			virtual void SetAuthToken(const gsstl::string& authToken) { m_AuthToken = authToken; }
+				/// returns the Auth token
+				virtual gsstl::string GetAuthToken() const { return m_AuthToken; }
 
-			//Receives debugging information from the API
-			virtual void DebugMsg(const gsstl::string& message) const = 0;
+				/// sets the auth token
+				virtual void SetAuthToken(const gsstl::string& authToken) { m_AuthToken = authToken; }
 
-			virtual Seconds GetRequestTimeoutSeconds() const { return m_RequestTimeoutSeconds; }
-			virtual void SetRequestTimeoutSeconds(Seconds requestTimeoutSeconds) { m_RequestTimeoutSeconds = requestTimeoutSeconds; }
+				//! Receives debugging information from the API
+				//! If you need more sophisticated logging, this is the method you should override
+				virtual void DebugMsg(const gsstl::string& message) const = 0;
 
-			virtual void SetPreviewMode(bool previewModeActive) { m_PreviewMode = previewModeActive; }
-			virtual bool GetPreviewMode() const { return m_PreviewMode; }
+				/// returns the request timeout in seconds.
+				virtual Seconds GetRequestTimeoutSeconds() const { return m_RequestTimeoutSeconds; }
 
-			//void ExecuteOnMainThread(Action action);
-		protected:
-			gsstl::string m_AuthToken;
-			Seconds m_RequestTimeoutSeconds;
-			bool m_PreviewMode;
+				/// sets the request timeout in seconds
+				virtual void SetRequestTimeoutSeconds(Seconds requestTimeoutSeconds) { m_RequestTimeoutSeconds = requestTimeoutSeconds; }
 
-			gsstl::string m_apiKey;
-			gsstl::string m_secret;
+				/// sets wether to use the preview or the live server.
+				/// should be called before the GS-Service is initialized
+				virtual void SetPreviewMode(bool previewModeActive) { m_PreviewMode = previewModeActive; }
 
-			bool m_verboseLogging;
-            
-            GS_LEAK_DETECTOR(IGSPlatform);
+				/// return true, if the preview server is used; false if the production server is used.
+				virtual bool GetPreviewMode() const { return m_PreviewMode; }
+
+				//void ExecuteOnMainThread(Action action);
+			protected:
+				gsstl::string m_AuthToken; ///< the stored auth token received from the server
+				Seconds m_RequestTimeoutSeconds; ///< after how many seconds a request will time out
+				bool m_PreviewMode; ///< preview or production server?
+
+				gsstl::string m_apiKey; ///< the api key from https://portal.gamesparks.net/
+				gsstl::string m_secret; ///< the secret from from https://portal.gamesparks.net/
+
+				bool m_verboseLogging; ///< use verbose logging?
+           	private:
+	            GS_LEAK_DETECTOR(IGSPlatform);
 		};
 	}
 }

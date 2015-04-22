@@ -23,9 +23,9 @@ GS_::GS_()
 	: m_GSPlatform(NULL)
 	, m_Ready(false)
 	, m_Paused(false)
-	, m_SessionId("")
 	, m_Initialized(false)
 	, m_backOffForSeconds(0.0f)
+	, m_SessionId("")
 	, GameSparksAvailable()
 {
 	/*
@@ -201,11 +201,11 @@ void GameSparks::Core::GS_::SendHandshake(GSObject& response, GSConnection& conn
 
 void GameSparks::Core::GS_::Send(GSRequest& request)
 {
-	if (request.GetDurable())
+	/*if (request.GetDurable())
 	{
 		SendDurable(request);
 		return;
-	}
+	}*/
 
 	if (request.GetCancelSeconds() == 0)
 	{
@@ -247,11 +247,11 @@ void GameSparks::Core::GS_::DebugLog(const gsstl::string& message)
 
 void GS_::UpdateConnections(Seconds deltaTimeInSeconds)
 {
-	for (t_ConnectionContainer::size_type i = 0; i < m_Connections.size(); ++i)
+	for (t_ConnectionContainer::size_type i = 0; i < m_Connections.size(); )
 	{
 		GSConnection* connection = m_Connections[i];
 
-		size_t numConnections = m_Connections.size();
+		//size_t numConnections = m_Connections.size();
 		connection->Update(deltaTimeInSeconds);
 
 		// connection->Update might indirectly call OnWebSocketClientError, which creates a new connection
@@ -313,10 +313,10 @@ bool GameSparks::Core::GS_::GetAuthenticated() const
 	return m_Ready && m_GSPlatform->GetAuthToken() != "" && m_GSPlatform->GetAuthToken() != "0";
 }
 
-void GameSparks::Core::GS_::SendDurable(GSRequest& request)
+/*void GameSparks::Core::GS_::SendDurable(GSRequest& request)
 {
 
-}
+}*/
 
 void GameSparks::Core::GS_::ProcessSendQueue(Seconds deltaTimeInSeconds)
 {

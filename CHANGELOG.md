@@ -1,5 +1,14 @@
 # ChangeLog
 
+## rc4 (2015-04-22)
+
+### base SDK (affects all platforms)
+- added documentation (execute docs/make.py for a preview)
+- fixed a bug that caused update calls to connection to skipped
+- fixed DeviceAuthenticationRequest (the getters and setters where missing)
+- made some not yet implemented methods private 
+
+
 ## rc3 (2015-03-27)
 
 ### base SDK (affects all platforms)

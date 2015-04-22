@@ -186,8 +186,10 @@ def perform_checks():
 	check_does_not_contain_credentials('cocos2dx', 'Sample', 'Classes', 'AppDelegate.cpp')
 
 	# check wether the creditials for the test repository are still in this file
-	result, full_path = contains(':tra' + 'sh', ('base', 'build_scripts', 'make_release.py'))
-	if not is_running_on_test_machine and result:
+	result1, full_path = contains(':tra' + 'sh', ('base', 'build_scripts', 'make_release.py'))
+	result2, full_path = contains('hA' + '4i', ('base', 'build_scripts', 'make_release.py'))
+
+	if not is_running_on_test_machine and (result1 or result2):
 		raise RuntimeError('The file "' + full_path + '" does contain credentials. Please clean up the repository before doing a release.')
 
 
@@ -245,6 +247,10 @@ def copy_private_to_public():
 		for file in files:
 			abs_path = os.path.abspath(os.path.join( root, file ))
 			if '.git' in abs_path:
+				continue
+
+			# dont copy over files that are in subdirectories that start with a dot
+			if '/.' in os.path.dirname(abs_path.replace('\\', '/')):
 				continue
 
 			# TODO: are those blocks still needed?

@@ -22,6 +22,7 @@ namespace GameSparks
 		class GS_;
 		class GSRequest;
 
+		/// represents a connection. This is an internal class and there should be no need to interact with it directly.
 		class GSConnection
 		{
 		public:

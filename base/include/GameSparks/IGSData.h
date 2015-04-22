@@ -11,11 +11,13 @@ namespace GameSparks
 {
 	namespace Core
 	{
+		/// base class for GSData objects
 		class IGSData
 		{
             GS_LEAK_DETECTOR(IGSData);
 		public:
 
+			/// access the internal cJSON object
 			virtual const cJSON* GetBaseData() const = 0;
 		};
 	}

@@ -13,64 +13,88 @@ namespace GameSparks
 {
 	namespace Core
 	{
+		/// You can think of this as a convenient C++ wrapper around cJSON.
+		/// This class is used to construct json objects in memory.
 		class GSData : public IGSData
 		{
-		public:
-			typedef GameSparks::Optional::Optional_<GSData> t_Optional;
+			public:
+				/// optional GSData
+				typedef GameSparks::Optional::Optional_<GSData> t_Optional;
 
-			GSData();
+				/// construct an empty GSData object
+				GSData();
 
-			GSData(const GSData& other);
+				/// copy-constructor
+				GSData(const GSData& other);
 
-			GSData(cJSON* data);
+				/// construct a GSData object from a cJSON object
+				GSData(cJSON* data);
 
-			virtual ~GSData();
+				/// destructor
+				virtual ~GSData();
 
-			GSData& operator=(GSData other);
+				/// assingment operator
+				GSData& operator=(GSData other);
 
-			virtual bool ContainsKey(const gsstl::string& key) const;
+				/// returns true, if this GSData objects contains the given key. false otherwise.
+				/// @param key the key to check for
+				virtual bool ContainsKey(const gsstl::string& key) const;
+				
+				/// try to retrieve the string names name from this GSData object
+				virtual Optional::t_StringOptional GetString(const gsstl::string& name) const;
 
-			
-			virtual Optional::t_StringOptional GetString(const gsstl::string& name) const;
+				/// get an optional int
+				virtual Optional::t_IntOptional GetInt(const gsstl::string& name) const;
 
-			virtual Optional::t_IntOptional GetInt(const gsstl::string& name) const;
+				/// get an optional long
+				virtual Optional::t_LongOptional GetLong(const gsstl::string& name) const;
 
-			virtual Optional::t_LongOptional GetLong(const gsstl::string& name) const;
+				/// get an optional long
+				virtual Optional::t_LongOptional GetNumber(const gsstl::string& name) const;
 
-			virtual Optional::t_LongOptional GetNumber(const gsstl::string& name) const;
+				/// get an optional double
+				virtual Optional::t_DoubleOptional GetDouble(const gsstl::string& name) const;
 
-			virtual Optional::t_DoubleOptional GetDouble(const gsstl::string& name) const;
+				/// get an optional float
+				virtual Optional::t_FloatOptional GetFloat(const gsstl::string& name) const;
 
-			virtual Optional::t_FloatOptional GetFloat(const gsstl::string& name) const;
+				/// get an optional boolean
+				virtual Optional::t_BoolOptional GetBoolean(const gsstl::string& name) const;
 
-			virtual Optional::t_BoolOptional GetBoolean(const gsstl::string& name) const;
+				/// get an optional embedded object
+				virtual t_Optional GetGSDataObject(const gsstl::string& name) const;
 
-			virtual t_Optional GetGSDataObject(const gsstl::string& name) const;
+				/// get an optional date
+				virtual GSDateTime::t_Optional GetDate(const gsstl::string& name) const;
 
-			virtual GSDateTime::t_Optional GetDate(const gsstl::string& name) const;
+				/// get a list of strings
+				virtual gsstl::vector<gsstl::string> GetStringList(const gsstl::string& name) const;
 
-			virtual gsstl::vector<gsstl::string> GetStringList(const gsstl::string& name) const;
+				/// get a list of floats
+				virtual gsstl::vector<float> GetFloatList(const gsstl::string& name) const;
 
-			virtual gsstl::vector<float> GetFloatList(const gsstl::string& name) const;
+				/// get a list of doubles
+				virtual gsstl::vector<double> GetDoubleList(const gsstl::string& name) const;
 
-			virtual gsstl::vector<double> GetDoubleList(const gsstl::string& name) const;
+				/// get a list of ints
+				virtual gsstl::vector<int> GetIntList(const gsstl::string& name) const;
 
-			virtual gsstl::vector<int> GetIntList(const gsstl::string& name) const;
+				/// get a list of longs
+				virtual gsstl::vector<long> GetLongList(const gsstl::string& name) const;
 
-			virtual gsstl::vector<long> GetLongList(const gsstl::string& name) const;
+				/// get a list of GSData-objects
+				virtual gsstl::vector<GSData> GetGSDataObjectList(const gsstl::string& name) const;
 
+				/// get the internal cJSON object. be careful when using this
+				virtual cJSON* GetBaseData() const;
 
-			virtual gsstl::vector<GSData> GetGSDataObjectList(const gsstl::string& name) const;
-
-			virtual cJSON* GetBaseData() const;
-
-			virtual gsstl::string GetJSON() const;
-
-
-		protected:
-			cJSON* m_Data;
+				/// serialize this GSData object to json
+				virtual gsstl::string GetJSON() const;
+			protected:
+				cJSON* m_Data;
             
-            GS_LEAK_DETECTOR(GSData);
+            private:
+	            GS_LEAK_DETECTOR(GSData);
 		};
 	}	
 }

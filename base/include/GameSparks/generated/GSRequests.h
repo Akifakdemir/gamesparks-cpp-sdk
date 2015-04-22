@@ -15,13 +15,17 @@ namespace GameSparks
 	{
 		namespace Requests
 		{
+			/*!
+			\ingroup Challenges
+			Accepts a challenge that has been issued to the current player.
+			*/
 			class AcceptChallengeRequest : public GameSparks::Core::GSTypedRequest < AcceptChallengeRequest, GameSparks::Api::Responses::AcceptChallengeResponse >
 			{
 			public:
 				AcceptChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AcceptChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -44,26 +48,37 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Retrieves the details of the current authenticated player.
+			*/
 			class AccountDetailsRequest : public GameSparks::Core::GSTypedRequest < AccountDetailsRequest, GameSparks::Api::Responses::AccountDetailsResponse >
 			{
 			public:
 				AccountDetailsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AccountDetailsRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Store
+			Processes the receipt from an Amazon in app purchase.
+			The GameSparks platform will validate the amazonUserId and receiptId with Amazon using the Amazon Purchase Secret configured against the game.
+			The receiptId in the data will be recorded and the request will be rejected if the receiptId has previously been processed, this prevents replay attacks.
+			Once verfied, the players account will be credited with the Virtual Good, or Virtual Currency the purchase contains. The virtual good will be looked up by matching the productId in the receipt with the 'Amazon Product Id' configured against the virtual good.
+			*/
 			class AmazonBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < AmazonBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
 				AmazonBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AmazonBuyGoodsRequest")
 				{
-
+					
 				}
 			
 
@@ -95,13 +110,22 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows an Amazon access token to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Amazon platform and store them within GameSparks.
+			If the Amazon user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Amazon user is not already registered with the game, the Amazon user will be linked to the current player.
+			If the current player has not authenticated and the Amazon user is not known, a new player will be created using the Amazon details and the session will be authenticated against the new player.
+			If the Amazon user is already known, the session will switch to being the previously created user.
+			*/
 			class AmazonConnectRequest : public GameSparks::Core::GSTypedRequest < AmazonConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				AmazonConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AmazonConnectRequest")
 				{
-
+					
 				}
 			
 
@@ -149,13 +173,23 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Analytics
+			Records some custom analytical data.
+			Simple analytics, where you just need to track the number of times something happened, just take a key parameter. We'll record the players id against the data to allow you to report on averages per user
+			Timed analytics allow you to send start and end timer requests, and with this data GameSparks can track the length of time something takes.
+			If an end request is sent without a matching start timer the request will fail silently and your analytics data might not contain what you expect.
+			If both start and end are supplied, the request will be treated as a start timer.
+			An additional data payload can be attached to the event for advanced reporting. This data can be a string, number or JSON object.
+			If a second start timer is created using a key that has already had a start timer created without an end, the previous one will be marked as abandoned.
+			*/
 			class AnalyticsRequest : public GameSparks::Core::GSTypedRequest < AnalyticsRequest, GameSparks::Api::Responses::AnalyticsResponse >
 			{
 			public:
 				AnalyticsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AnalyticsRequest")
 				{
-
+					
 				}
 			
 
@@ -194,13 +228,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Leaderboards
+			Returns leaderboard data that is adjacent to the currently signed in player's position within the given leaderboard.
+			*/
 			class AroundMeLeaderboardRequest : public GameSparks::Core::GSTypedRequest < AroundMeLeaderboardRequest, GameSparks::Api::Responses::AroundMeLeaderboardResponse >
 			{
 			public:
 				AroundMeLeaderboardRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AroundMeLeaderboardRequest")
 				{
-
+					
 				}
 			
 
@@ -246,6 +284,14 @@ namespace GameSparks
 				return *this;
 			}
 			/// <summary>
+			/// Returns the leaderboard excluding the player's social friends
+			/// </summary>
+			AroundMeLeaderboardRequest& SetInverseSocial( bool inverseSocial )
+			{
+				m_Request.AddBoolean("inverseSocial", inverseSocial);
+				return *this;
+			}
+			/// <summary>
 			/// The short code of the leaderboard
 			/// </summary>
 			AroundMeLeaderboardRequest& SetLeaderboardShortCode( const gsstl::string& leaderboardShortCode )
@@ -279,13 +325,18 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Authentication
+			Provides authentication using a username/password combination.
+			The username will have been previously created using a RegistrationRequest.
+			*/
 			class AuthenticationRequest : public GameSparks::Core::GSTypedRequest < AuthenticationRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				AuthenticationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AuthenticationRequest")
 				{
-
+					
 				}
 			
 
@@ -308,13 +359,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Store
+			Purchases a virtual good with an in game currency. Once purchased the virtual good will be added to the players account.
+			*/
 			class BuyVirtualGoodsRequest : public GameSparks::Core::GSTypedRequest < BuyVirtualGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
 				BuyVirtualGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".BuyVirtualGoodsRequest")
 				{
-
+					
 				}
 			
 
@@ -345,13 +400,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Change the display name of the currently signed in Player.
+			*/
 			class ChangeUserDetailsRequest : public GameSparks::Core::GSTypedRequest < ChangeUserDetailsRequest, GameSparks::Api::Responses::ChangeUserDetailsResponse >
 			{
 			public:
 				ChangeUserDetailsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ChangeUserDetailsRequest")
 				{
-
+					
 				}
 			
 
@@ -398,13 +457,18 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Sends a message to all players involved in the challenge. The current player must be involved in the challenge for the message to be sent.
+			As the message is sent to all players, the current player will also see details of the message in the response. Read the section on response message aggregation for a description of this.
+			*/
 			class ChatOnChallengeRequest : public GameSparks::Core::GSTypedRequest < ChatOnChallengeRequest, GameSparks::Api::Responses::ChatOnChallengeResponse >
 			{
 			public:
 				ChatOnChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ChatOnChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -427,13 +491,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Store
+			Consumes a given amount of the specified virtual good.
+			*/
 			class ConsumeVirtualGoodRequest : public GameSparks::Core::GSTypedRequest < ConsumeVirtualGoodRequest, GameSparks::Api::Responses::ConsumeVirtualGoodResponse >
 			{
 			public:
 				ConsumeVirtualGoodRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ConsumeVirtualGoodRequest")
 				{
-
+					
 				}
 			
 
@@ -456,13 +524,19 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Issues a challenge to a group of players from the currently signed in player.
+			The endTime field must be present unless the challenge template has an achievement set in the 'First to Achievement' field.
+			The usersToChallenge field must be present for this request if the acessType is PRIVATE (which is the default).
+			*/
 			class CreateChallengeRequest : public GameSparks::Core::GSTypedRequest < CreateChallengeRequest, GameSparks::Api::Responses::CreateChallengeResponse >
 			{
 			public:
 				CreateChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".CreateChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -615,13 +689,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Allows a new team to be created.
+			*/
 			class CreateTeamRequest : public GameSparks::Core::GSTypedRequest < CreateTeamRequest, GameSparks::Api::Responses::CreateTeamResponse >
 			{
 			public:
 				CreateTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".CreateTeamRequest")
 				{
-
+					
 				}
 			
 
@@ -652,13 +730,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Declines a challenge that has been issued to the current player.
+			*/
 			class DeclineChallengeRequest : public GameSparks::Core::GSTypedRequest < DeclineChallengeRequest, GameSparks::Api::Responses::DeclineChallengeResponse >
 			{
 			public:
 				DeclineChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DeclineChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -681,23 +763,77 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows a device id to be used to create an anonymous profile in the game.
+			This allows the player to be tracked and have data stored against them before using FacebookConnectRequest to create a full profile.
+			DeviceAuthenticationRequest should not be used in conjunction with RegistrationRequest as the two accounts will not be merged.
+			*/
 			class DeviceAuthenticationRequest : public GameSparks::Core::GSTypedRequest < DeviceAuthenticationRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				DeviceAuthenticationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DeviceAuthenticationRequest")
 				{
-
+					
 				}
 			
 
 
+			/// <summary>
+			/// A unique device identifier. Each platform has it's own method for getting a unique id
+			/// </summary>
+			DeviceAuthenticationRequest& SetDeviceId( const gsstl::string& deviceId )
+			{
+				m_Request.AddString("deviceId", deviceId);
+				return *this;
+			}
+			/// <summary>
+			/// The device model
+			/// </summary>
+			DeviceAuthenticationRequest& SetDeviceModel( const gsstl::string& deviceModel )
+			{
+				m_Request.AddString("deviceModel", deviceModel);
+				return *this;
+			}
+			/// <summary>
+			/// The device name
+			/// </summary>
+			DeviceAuthenticationRequest& SetDeviceName( const gsstl::string& deviceName )
+			{
+				m_Request.AddString("deviceName", deviceName);
+				return *this;
+			}
+			/// <summary>
+			/// An indicator of the device platform, should be IOS, ANDROID, WP8 or W8
+			/// </summary>
+			DeviceAuthenticationRequest& SetDeviceOS( const gsstl::string& deviceOS )
+			{
+				m_Request.AddString("deviceOS", deviceOS);
+				return *this;
+			}
+			/// <summary>
+			/// The device type
+			/// </summary>
+			DeviceAuthenticationRequest& SetDeviceType( const gsstl::string& deviceType )
+			{
+				m_Request.AddString("deviceType", deviceType);
+				return *this;
+			}
 			/// <summary>
 			/// An optional displayname for the player
 			/// </summary>
 			DeviceAuthenticationRequest& SetDisplayName( const gsstl::string& displayName )
 			{
 				m_Request.AddString("displayName", displayName);
+				return *this;
+			}
+			/// <summary>
+			/// The device type
+			/// </summary>
+			DeviceAuthenticationRequest& SetOperatingSystem( const gsstl::string& operatingSystem )
+			{
+				m_Request.AddString("operatingSystem", operatingSystem);
 				return *this;
 			}
 			/// <summary>
@@ -711,13 +847,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Allows a message to be dismissed. Once dismissed the message will no longer appear in either ListMessageResponse or ListMessageSummaryResponse.
+			*/
 			class DismissMessageRequest : public GameSparks::Core::GSTypedRequest < DismissMessageRequest, GameSparks::Api::Responses::DismissMessageResponse >
 			{
 			public:
 				DismissMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DismissMessageRequest")
 				{
-
+					
 				}
 			
 
@@ -732,13 +872,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Allows a player to drop a team.
+			*/
 			class DropTeamRequest : public GameSparks::Core::GSTypedRequest < DropTeamRequest, GameSparks::Api::Responses::DropTeamResponse >
 			{
 			public:
 				DropTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DropTeamRequest")
 				{
-
+					
 				}
 			
 
@@ -769,26 +913,41 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Analytics
+			Records the end of the current player's active session.
+			The SDK will automatically create a new session ID when the application is started, this method can be useful to call when the app goes into the background to allow reporting on player session length.
+			*/
 			class EndSessionRequest : public GameSparks::Core::GSTypedRequest < EndSessionRequest, GameSparks::Api::Responses::EndSessionResponse >
 			{
 			public:
 				EndSessionRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".EndSessionRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows either a Facebook access token, or a Facebook authorization code to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Facebook platform and store them within GameSparks.
+			GameSparks will determine the player's friends and whether any of them are currently registered with the game.
+			If the Facebook user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Facebook user is not already registered with the game, the Facebook user will be linked to the current player.
+			If the current player has not authenticated and the Facebook user is not known, a new player will be created using the Facebook details and the session will be authenticated against the new player.
+			If the Facebook user is already known, the session will switch to being the previously created user.
+			*/
 			class FacebookConnectRequest : public GameSparks::Core::GSTypedRequest < FacebookConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				FacebookConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".FacebookConnectRequest")
 				{
-
+					
 				}
 			
 
@@ -847,19 +1006,23 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Allows a player to find challenges that they are eligible to join.
+			*/
 			class FindChallengeRequest : public GameSparks::Core::GSTypedRequest < FindChallengeRequest, GameSparks::Api::Responses::FindChallengeResponse >
 			{
 			public:
 				FindChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".FindChallengeRequest")
 				{
-
+					
 				}
 			
 
 
 			/// <summary>
-			/// The type of challenge to find, either PUBLIC or FRIENDS
+			/// The type of challenge to find, either PUBLIC or FRIENDS.  Defaults to FRIENDS
 			/// </summary>
 			FindChallengeRequest& SetAccessType( const gsstl::string& accessType )
 			{
@@ -900,13 +1063,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Gets the details of a challenge. The current player must be involved in the challenge for the request to succeed.
+			*/
 			class GetChallengeRequest : public GameSparks::Core::GSTypedRequest < GetChallengeRequest, GameSparks::Api::Responses::GetChallengeResponse >
 			{
 			public:
 				GetChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -929,13 +1096,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Misc
+			Returns a secure, time sensitive url to allow the game to download a piece of downloadable content stored in the GameSparks platform.
+			*/
 			class GetDownloadableRequest : public GameSparks::Core::GSTypedRequest < GetDownloadableRequest, GameSparks::Api::Responses::GetDownloadableResponse >
 			{
 			public:
 				GetDownloadableRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetDownloadableRequest")
 				{
-
+					
 				}
 			
 
@@ -950,13 +1121,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Leaderboards
+			Get the leaderboard entry data for the current player or a given player.
+			*/
 			class GetLeaderboardEntriesRequest : public GameSparks::Core::GSTypedRequest < GetLeaderboardEntriesRequest, GameSparks::Api::Responses::GetLeaderboardEntriesResponse >
 			{
 			public:
 				GetLeaderboardEntriesRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetLeaderboardEntriesRequest")
 				{
-
+					
 				}
 			
 
@@ -967,6 +1142,14 @@ namespace GameSparks
 			GetLeaderboardEntriesRequest& SetChallenges( gsstl::vector<gsstl::string> challenges )
 			{
 				m_Request.AddStringList("challenges", challenges);
+				return *this;
+			}
+			/// <summary>
+			/// Returns the leaderboard excluding the player's social friends
+			/// </summary>
+			GetLeaderboardEntriesRequest& SetInverseSocial( bool inverseSocial )
+			{
+				m_Request.AddBoolean("inverseSocial", inverseSocial);
 				return *this;
 			}
 			/// <summary>
@@ -1003,13 +1186,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Returns the full details of a message.
+			*/
 			class GetMessageRequest : public GameSparks::Core::GSTypedRequest < GetMessageRequest, GameSparks::Api::Responses::GetMessageResponse >
 			{
 			public:
 				GetMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetMessageRequest")
 				{
-
+					
 				}
 			
 
@@ -1024,13 +1211,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Get the teams that the player is in. Can be filtered on team type and also on those teams that the player owns.
+			*/
 			class GetMyTeamsRequest : public GameSparks::Core::GSTypedRequest < GetMyTeamsRequest, GameSparks::Api::Responses::GetMyTeamsResponse >
 			{
 			public:
 				GetMyTeamsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetMyTeamsRequest")
 				{
-
+					
 				}
 			
 
@@ -1053,13 +1244,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Misc
+			Get the aggregation data for a group of the player's friends given running total specified by short code.
+			*/
 			class GetRunningTotalsRequest : public GameSparks::Core::GSTypedRequest < GetRunningTotalsRequest, GameSparks::Api::Responses::GetRunningTotalsResponse >
 			{
 			public:
 				GetRunningTotalsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetRunningTotalsRequest")
 				{
-
+					
 				}
 			
 
@@ -1082,13 +1277,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Allows the details of a team to be retrieved.
+			*/
 			class GetTeamRequest : public GameSparks::Core::GSTypedRequest < GetTeamRequest, GameSparks::Api::Responses::GetTeamResponse >
 			{
 			public:
 				GetTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetTeamRequest")
 				{
-
+					
 				}
 			
 
@@ -1119,13 +1318,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Misc
+			Returns a secure, time sensitive URL to allow the game to upload a piece of player content to the GameSparks platform.
+			*/
 			class GetUploadUrlRequest : public GameSparks::Core::GSTypedRequest < GetUploadUrlRequest, GameSparks::Api::Responses::GetUploadUrlResponse >
 			{
 			public:
 				GetUploadUrlRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetUploadUrlRequest")
 				{
-
+					
 				}
 			
 
@@ -1140,13 +1343,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Misc
+			Returns a secure, time sensitive URL to a piece of content that was previously uploaded to the GameSparks platform by a player.
+			*/
 			class GetUploadedRequest : public GameSparks::Core::GSTypedRequest < GetUploadedRequest, GameSparks::Api::Responses::GetUploadedResponse >
 			{
 			public:
 				GetUploadedRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetUploadedRequest")
 				{
-
+					
 				}
 			
 
@@ -1161,13 +1368,21 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Store
+			Processes the response from a Google Play in app purchase flow.
+			The GameSparks platform will validate the signature and signed data with the Google Play Public Key configured against the game.
+			The orderId in the data will be recorded and the request will be rejected if the orderId has previously been processed, this prevents replay attacks.
+			Once verfied, the players account will be credited with the Virtual Good, or Virtual Currency the purchase contains. The virtual good will be looked up by matching the productId in the signed data with the 'Google Product ID' configured against the virtual good.
+			It is critical that the signedData is sent exactly as it is returned form google, including any whitespace. Any modification of the signedData will cause the verification process to fail.
+			*/
 			class GooglePlayBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < GooglePlayBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
 				GooglePlayBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GooglePlayBuyGoodsRequest")
 				{
-
+					
 				}
 			
 
@@ -1199,13 +1414,23 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows either a Google Plus access code to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Google Plus platform and store them within GameSparks.
+			GameSparks will determine the player's friends and whether any of them are currently registered with the game.
+			If the Google Plus user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Google Plus user is not already registered with the game, the Google Plus user will be linked to the current player.
+			If the current player has not authenticated and the Google Plus user is not known, a new player will be created using the Google Plus details and the session will be authenticated against the new player.
+			If the Google Plus user is already known, the session will switch to being the previously created user.
+			*/
 			class GooglePlusConnectRequest : public GameSparks::Core::GSTypedRequest < GooglePlusConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				GooglePlusConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GooglePlusConnectRequest")
 				{
-
+					
 				}
 			
 
@@ -1235,6 +1460,14 @@ namespace GameSparks
 				return *this;
 			}
 			/// <summary>
+			/// Only required when the access code has been granted using an explicit redirectUri, for example when using the mechanism described in https://developers.google.com/+/web/signin/server-side-flow
+			/// </summary>
+			GooglePlusConnectRequest& SetRedirectUri( const gsstl::string& redirectUri )
+			{
+				m_Request.AddString("redirectUri", redirectUri);
+				return *this;
+			}
+			/// <summary>
 			/// An optional segment configuration for this request.
 			/// If this request creates a new player on the gamesparks platform, the segments of the new player will match the values provided
 			/// </summary>
@@ -1253,13 +1486,19 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Store
+			Processes a transaction receipt from an App Store in app purchase.
+			The GameSparks platform will validate the receipt with Apple and process the response. The transaction_id in the response will be recorded and the request will be rejected if the transaction_id has previously been processed, this prevents replay attacks.
+			Once verified, the players account will be credited with the Virtual Good, or Virtual Currency the purchase contains. The virtual good will be looked up by matching the product_id in the response with the 'IOS Product ID' configured against the virtual good.
+			*/
 			class IOSBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < IOSBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
 				IOSBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".IOSBuyGoodsRequest")
 				{
-
+					
 				}
 			
 
@@ -1291,13 +1530,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Allows a player to join an open challenge.
+			*/
 			class JoinChallengeRequest : public GameSparks::Core::GSTypedRequest < JoinChallengeRequest, GameSparks::Api::Responses::JoinChallengeResponse >
 			{
 			public:
 				JoinChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".JoinChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -1328,13 +1571,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Allows a player to join a team of a team to be retrieved.
+			*/
 			class JoinTeamRequest : public GameSparks::Core::GSTypedRequest < JoinTeamRequest, GameSparks::Api::Responses::JoinTeamResponse >
 			{
 			public:
 				JoinTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".JoinTeamRequest")
 				{
-
+					
 				}
 			
 
@@ -1365,13 +1612,19 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Leaderboards
+			Returns the top data for either the specified global leaderboard or the specified challenges leaderboard. The data is sorted as defined in the rules specified in the leaderboard configuration.
+			The response contains the top of the leaderboard, and returns the number of entries as defined in the entryCount parameter.
+			If a shortCode is supplied, the response will contain the global leaderboard data. If a challengeInstanceId is supplied, the response will contain the leaderboard data for the challenge.
+			*/
 			class LeaderboardDataRequest : public GameSparks::Core::GSTypedRequest < LeaderboardDataRequest, GameSparks::Api::Responses::LeaderboardDataResponse >
 			{
 			public:
 				LeaderboardDataRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LeaderboardDataRequest")
 				{
-
+					
 				}
 			
 
@@ -1417,6 +1670,14 @@ namespace GameSparks
 				return *this;
 			}
 			/// <summary>
+			/// Returns the leaderboard excluding the player's social friends
+			/// </summary>
+			LeaderboardDataRequest& SetInverseSocial( bool inverseSocial )
+			{
+				m_Request.AddBoolean("inverseSocial", inverseSocial);
+				return *this;
+			}
+			/// <summary>
 			/// The short code of the leaderboard
 			/// </summary>
 			LeaderboardDataRequest& SetLeaderboardShortCode( const gsstl::string& leaderboardShortCode )
@@ -1458,13 +1719,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Allows a player to leave a team.
+			*/
 			class LeaveTeamRequest : public GameSparks::Core::GSTypedRequest < LeaveTeamRequest, GameSparks::Api::Responses::LeaveTeamResponse >
 			{
 			public:
 				LeaveTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LeaveTeamRequest")
 				{
-
+					
 				}
 			
 
@@ -1495,26 +1760,42 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Retrieves a list of the configured achievements in the game, along with whether the current player has earned the achievement.
+			*/
 			class ListAchievementsRequest : public GameSparks::Core::GSTypedRequest < ListAchievementsRequest, GameSparks::Api::Responses::ListAchievementsResponse >
 			{
 			public:
 				ListAchievementsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListAchievementsRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Challenges
+			Returns a list of challenges in the state defined in the 'state' field.
+			The response can be further filtered by passing a shortCode field which will limit the returned lists to challenges of that short code.
+			Valid states are:
+			WAITING : The challenge has been issued and accepted and is waiting for the start date.
+			RUNNING : The challenge is active.
+			ISSUED : The challenge has been issued by the current player and is waiting to be accepted.
+			RECEIVED : The challenge has been issued to the current player and is waiting to be accepted.
+			COMPLETE : The challenge has completed.
+			DECLINED : The challenge has been issued by the current player and has been declined.
+			*/
 			class ListChallengeRequest : public GameSparks::Core::GSTypedRequest < ListChallengeRequest, GameSparks::Api::Responses::ListChallengeResponse >
 			{
 			public:
 				ListChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -1561,65 +1842,89 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Returns the list of configured challenge types.
+			*/
 			class ListChallengeTypeRequest : public GameSparks::Core::GSTypedRequest < ListChallengeTypeRequest, GameSparks::Api::Responses::ListChallengeTypeResponse >
 			{
 			public:
 				ListChallengeTypeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListChallengeTypeRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Player
+			Returns the list of the current players game friends.
+			A Game friend is someone in their social network who also plays the game.
+			Against each friend, and indicator is supplied to show whether the friend is currently connected to the GameSparks service
+			*/
 			class ListGameFriendsRequest : public GameSparks::Core::GSTypedRequest < ListGameFriendsRequest, GameSparks::Api::Responses::ListGameFriendsResponse >
 			{
 			public:
 				ListGameFriendsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListGameFriendsRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Player
+			Returns a list of non game friends.
+			A non game friend is someone in their social network who does not play the game.
+			*/
 			class ListInviteFriendsRequest : public GameSparks::Core::GSTypedRequest < ListInviteFriendsRequest, GameSparks::Api::Responses::ListInviteFriendsResponse >
 			{
 			public:
 				ListInviteFriendsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListInviteFriendsRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Leaderboards
+			Returns a list of all leaderboards configured in the game.
+			*/
 			class ListLeaderboardsRequest : public GameSparks::Core::GSTypedRequest < ListLeaderboardsRequest, GameSparks::Api::Responses::ListLeaderboardsResponse >
 			{
 			public:
 				ListLeaderboardsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListLeaderboardsRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Player
+			Returns the list of the current players messages / notifications.
+			The list only contains un-dismissed messages, to dismiss a message see DismissMessageRequest Read the section on Messages to the the complete list of messages and their meaning.
+			*/
 			class ListMessageRequest : public GameSparks::Core::GSTypedRequest < ListMessageRequest, GameSparks::Api::Responses::ListMessageResponse >
 			{
 			public:
 				ListMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListMessageRequest")
 				{
-
+					
 				}
 			
 
@@ -1642,13 +1947,19 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Returns a summary of the list of the current players messages / notifications.
+			The list only contains un-dismissed messages, to dismiss a message see DismissMessageRequest.
+			The full message can be retrieved using GetMessageRequest Read the section on Messages to see the complete list of messages and their meanings.
+			*/
 			class ListMessageSummaryRequest : public GameSparks::Core::GSTypedRequest < ListMessageSummaryRequest, GameSparks::Api::Responses::ListMessageSummaryResponse >
 			{
 			public:
 				ListMessageSummaryRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListMessageSummaryRequest")
 				{
-
+					
 				}
 			
 
@@ -1671,13 +1982,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Get a list of the messages sent to the team (by players using SendTeamChatMessageRequest).
+			*/
 			class ListTeamChatRequest : public GameSparks::Core::GSTypedRequest < ListTeamChatRequest, GameSparks::Api::Responses::ListTeamChatResponse >
 			{
 			public:
 				ListTeamChatRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListTeamChatRequest")
 				{
-
+					
 				}
 			
 
@@ -1724,26 +2039,36 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Store
+			Returns the list of configured virtual goods.
+			*/
 			class ListVirtualGoodsRequest : public GameSparks::Core::GSTypedRequest < ListVirtualGoodsRequest, GameSparks::Api::Responses::ListVirtualGoodsResponse >
 			{
 			public:
 				ListVirtualGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListVirtualGoodsRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Challenges
+			Allows a user defined event to be triggered. The event will be posted to the challenge specified.
+			This call differs from most as it does not have a fixed format. The @class, challengeInstanceId and eventKey attributes are common, but the rest of the attributes are as defined in the Event object configured in the dev portal.
+			The example below shows a request to en event with a short code of HS with 2 attributes, 'HS' & 'GL'.
+			*/
 			class LogChallengeEventRequest : public GameSparks::Core::GSTypedRequest < LogChallengeEventRequest, GameSparks::Api::Responses::LogChallengeEventResponse >
 			{
 			public:
 				LogChallengeEventRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LogChallengeEventRequest")
 				{
-
+					
 				}
 			
 
@@ -1813,13 +2138,19 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Allows a user defined event to be triggered.
+			This call differs from most as it does not have a fixed format. The @class and eventKey attributes are common, but the rest of the attributes are as defined in the Event object configured in the dev portal.
+			The example below shows a request to an event with a short code of HS with 2 attributes, 'HS' & 'GL'.
+			*/
 			class LogEventRequest : public GameSparks::Core::GSTypedRequest < LogEventRequest, GameSparks::Api::Responses::LogEventResponse >
 			{
 			public:
 				LogEventRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LogEventRequest")
 				{
-
+					
 				}
 			
 
@@ -1881,17 +2212,30 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Misc
+			Registers the current device for push notifications. Currently GameSparks supports iOS, GCM & Microsoft Push notifications.
+			Supply the device type, and the push notification identifier for the device.
+			*/
 			class PushRegistrationRequest : public GameSparks::Core::GSTypedRequest < PushRegistrationRequest, GameSparks::Api::Responses::PushRegistrationResponse >
 			{
 			public:
 				PushRegistrationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".PushRegistrationRequest")
 				{
-
+					
 				}
 			
 
 
+			/// <summary>
+			/// The type of id, valid values are ios, android, wp8, w8 or kindle
+			/// </summary>
+			PushRegistrationRequest& SetDeviceOS( const gsstl::string& deviceOS )
+			{
+				m_Request.AddString("deviceOS", deviceOS);
+				return *this;
+			}
 			/// <summary>
 			/// The push notification identifier for the device
 			/// </summary>
@@ -1902,13 +2246,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows a new player to be created using a username, password display name.
+			*/
 			class RegistrationRequest : public GameSparks::Core::GSTypedRequest < RegistrationRequest, GameSparks::Api::Responses::RegistrationResponse >
 			{
 			public:
 				RegistrationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".RegistrationRequest")
 				{
-
+					
 				}
 			
 
@@ -1948,13 +2296,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Sends a message to one or more game friend(s). A game friend is someone in the players social network who also plays the game.
+			*/
 			class SendFriendMessageRequest : public GameSparks::Core::GSTypedRequest < SendFriendMessageRequest, GameSparks::Api::Responses::SendFriendMessageResponse >
 			{
 			public:
 				SendFriendMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SendFriendMessageRequest")
 				{
-
+					
 				}
 			
 
@@ -1977,13 +2329,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Teams
+			Send a message to all the players who are member of the given team
+			*/
 			class SendTeamChatMessageRequest : public GameSparks::Core::GSTypedRequest < SendTeamChatMessageRequest, GameSparks::Api::Responses::SendTeamChatMessageResponse >
 			{
 			public:
 				SendTeamChatMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SendTeamChatMessageRequest")
 				{
-
+					
 				}
 			
 
@@ -2022,13 +2378,17 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Player
+			Allows a player's internal profile to be disconnected from an external system to which it is linked.  Any friends linked as result of this connection will be removed.
+			*/
 			class SocialDisconnectRequest : public GameSparks::Core::GSTypedRequest < SocialDisconnectRequest, GameSparks::Api::Responses::SocialDisconnectResponse >
 			{
 			public:
 				SocialDisconnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialDisconnectRequest")
 				{
-
+					
 				}
 			
 
@@ -2043,13 +2403,19 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Leaderboards
+			Returns leaderboard data that only contains entries of players that are game friends with the current player.
+			The GameSparks platform will attempt to return players both ahead and behind the current player, where data is available.
+			The entry count defines how many player should be returned both ahead and behind. The numer of results may vary if there are not enough friends either ahead or behind.
+			*/
 			class SocialLeaderboardDataRequest : public GameSparks::Core::GSTypedRequest < SocialLeaderboardDataRequest, GameSparks::Api::Responses::LeaderboardDataResponse >
 			{
 			public:
 				SocialLeaderboardDataRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialLeaderboardDataRequest")
 				{
-
+					
 				}
 			
 
@@ -2095,6 +2461,14 @@ namespace GameSparks
 				return *this;
 			}
 			/// <summary>
+			/// Returns the leaderboard excluding the player's social friends
+			/// </summary>
+			SocialLeaderboardDataRequest& SetInverseSocial( bool inverseSocial )
+			{
+				m_Request.AddBoolean("inverseSocial", inverseSocial);
+				return *this;
+			}
+			/// <summary>
 			/// The short code of the leaderboard
 			/// </summary>
 			SocialLeaderboardDataRequest& SetLeaderboardShortCode( const gsstl::string& leaderboardShortCode )
@@ -2136,26 +2510,40 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Misc
+			Returns detials of the current social connections of this player. Each connection .
+			*/
 			class SocialStatusRequest : public GameSparks::Core::GSTypedRequest < SocialStatusRequest, GameSparks::Api::Responses::SocialStatusResponse >
 			{
 			public:
 				SocialStatusRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialStatusRequest")
 				{
-
+					
 				}
 			
 
 
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows a Steam sessionTicket to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Steam platform and store them within GameSparks.
+			GameSparks will determine the player's friends and whether any of them are currently registered with the game.
+			If the Steam user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Steam user is not already registered with the game, the Steam user will be linked to the current player.
+			If the current player has not authenticated and the Steam user is not known, a new player will be created using the Steam details and the session will be authenticated against the new player.
+			If the Steam user is already known, the session will switch to being the previously created user.
+			*/
 			class SteamConnectRequest : public GameSparks::Core::GSTypedRequest < SteamConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				SteamConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SteamConnectRequest")
 				{
-
+					
 				}
 			
 
@@ -2203,13 +2591,23 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows a Twitter account to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Twitter platform and store them within GameSparks.
+			GameSparks will determine the player's friends and whether any of them are currently registered with the game.
+			If the Twitter user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Twitter user is not already registered with the game, the Twitter user will be linked to the current player.
+			If the current player has not authenticated and the Twitter user is not known, a new player will be created using the Twitter details and the session will be authenticated against the new player.
+			If the Twitter user is already known, the session will switch to being the previously created user.
+			*/
 			class TwitterConnectRequest : public GameSparks::Core::GSTypedRequest < TwitterConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				TwitterConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".TwitterConnectRequest")
 				{
-
+					
 				}
 			
 
@@ -2267,13 +2665,19 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Store
+			Processes a transaction receipt from a windows store purchase.
+			The GameSparks platform will validate the receipt using the signature embedded in the xml. The Id in the xml will be recorded and the request will be rejected if the Id has previously been processed, this prevents replay attacks.
+			Once verified, the players account will be credited with the Virtual Good, or Virtual Currency the purchase contains. The virtual good will be looked up by matching the productId in the xml with the 'WP8 Product ID' configured against the virtual good.
+			*/
 			class WindowsBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < WindowsBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
 				WindowsBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".WindowsBuyGoodsRequest")
 				{
-
+					
 				}
 			
 
@@ -2305,13 +2709,18 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Challenges
+			Withdraws a challenge previously issued by the current player.
+			This can only be done while the challenge is in the ISSUED state. Once it's been accepted the challenge can not be withdrawn.
+			*/
 			class WithdrawChallengeRequest : public GameSparks::Core::GSTypedRequest < WithdrawChallengeRequest, GameSparks::Api::Responses::WithdrawChallengeResponse >
 			{
 			public:
 				WithdrawChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".WithdrawChallengeRequest")
 				{
-
+					
 				}
 			
 
@@ -2334,13 +2743,23 @@ namespace GameSparks
 			}
 			};
 			
+			/*!
+			\ingroup Authentication
+			Allows an Xbox Live Shared Token String to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Xbox Live and store them within GameSparks.
+			GameSparks will determine the player's friends and whether any of them are currently registered with the game.
+			If the Xbox user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Xbox user is not already registered with the game, the Xbox user will be linked to the current player.
+			If the current player has not authenticated and the Xbox user is not known, a new player will be created using the Xbox details and the session will be authenticated against the new player.
+			If the Xbox user is already known, the session will switch to being the previously created user.
+			*/
 			class XBOXLiveConnectRequest : public GameSparks::Core::GSTypedRequest < XBOXLiveConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
 				XBOXLiveConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".XBOXLiveConnectRequest")
 				{
-
+					
 				}
 			
 
@@ -2394,6 +2813,16 @@ namespace GameSparks
 	}
 }
 
+/*!
+\addtogroup Analytics
+\addtogroup Authentication
+\addtogroup Challenges
+\addtogroup Leaderboards
+\addtogroup Misc
+\addtogroup Player
+\addtogroup Store
+\addtogroup Teams
+*/
 
 
 

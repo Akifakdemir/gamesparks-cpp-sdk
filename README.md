@@ -8,7 +8,7 @@ Documentation and Tutorials can be found at: https://docs.gamesparks.net
 For Support visit: https://support.gamesparks.net/support/home  
 
 
-# GameSparks C++ SDK 
+## GameSparks C++ SDK 
 
 This is the repository for all GameSparks C++ SDK implementations. We provide a open source implementation for a Base C++ SDK, an Unreal Engine 4 Plugin and a Cocos2Dx sample implementation.
 
@@ -19,7 +19,7 @@ The folder structure is
 * *cocos2dx* - A sample implementation for a cocos project with build scripts for a fast setup.
 * *unrealengine* - The Unreal Engine plugin and a sample project to show how to use it.
 
-# Dependencies
+## Dependencies
 
 We are proud to use the following projects to get our SDK running
 
