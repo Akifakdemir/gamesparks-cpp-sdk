@@ -3,8 +3,8 @@
 ## rc5 (2015-05-16)
 
 ### base SDK (affects all platforms)
-- added documentation for compile options
 - documentation tweaks
+- added documentation for compile options
 - compile option USE_CYASSL (enabled by default on Marmalade)
   - The SDK now works with OpenSSL and CYA_SSL
 - Request id's now start at zero
