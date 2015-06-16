@@ -11,6 +11,26 @@
 
 */
 
+
+
+#if defined(DOXYGEN)
+/// wether to use EASTL or the STL provided by the compiler
+/// @ingroup CompileOptions
+#define GS_USE_EASTL <platform-dependend>
+
+/// if set to 1, the stl provided by the compiler is used.
+/// @ingroup CompileOptions
+#define USE_STD_STL <platform-dependend>
+
+/// if set to 1, std::function will be used for callbacks. This also enables support for C++11 lambdas.
+/// This is disabled on Marmalade.
+/// @ingroup CompileOptions
+#define STL_FUNCTIONAL_SUPPORTED <platform-dependend>
+
+#endif
+
+
+
 #if defined(GS_USE_EASTL)
 #	undef USE_STD_STL
 #else

@@ -3,6 +3,7 @@ $( document ).ready(function() {
     $('a[href="pages.html"]').html('<span>Guides</span>');
     $('li > a[href="pages.html"] > span').before("<i class='fa fa-graduation-cap'></i> ");
 
+    $("div[class='title']:contains('Related Pages')").html('<div class="title h1"><i class="fa fa-graduation-cap"></i> Guides</div>');
 
     $('li > a[href="examples.html"] > span').before("<i class='fa fa-lightbulb-o'></i> ");
     $('li > a[href="files.html"] > span').before("<i class='fa fa-file-code-o'></i> ");

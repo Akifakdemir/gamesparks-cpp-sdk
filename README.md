@@ -4,6 +4,8 @@ GameSparks is a cloud based platform that provides developers with the tools the
 
 For more information about GameSparks visit: http://www.gamesparks.com
 
+API Documentation and examples for the C++ SDK can be found at http://gamesparks.bitbucket.org/cpp-sdk/
+
 Documentation and Tutorials can be found at: https://docs.gamesparks.net
 For Support visit: https://support.gamesparks.net/support/home  
 

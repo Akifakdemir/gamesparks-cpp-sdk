@@ -24,7 +24,7 @@ else:
 	raise NotImplementedError('platform %s is currently not supported' % platform)
 
 cmake_package = os.path.join(config.BUILD_ROOT, CMAKE_URL.split('/')[-1])
-ndk_package = os.path.join(config.BUILD_ROOT, cmake_package.split('/')[-1])
+ndk_package = os.path.join(config.BUILD_ROOT, NDK_URL.split('/')[-1])
 android_sdk_package = os.path.join(config.BUILD_ROOT, ANDROID_SDK_URL.split('/')[-1])
 
 
@@ -44,28 +44,33 @@ def download(url, destination):
 # the android sdk contains some eclipse files, which are very long
 # and cause a extraction error during a simple extraction
 # therefore I wrote this function, which extracts the files if possible
-def unzip(zip_file_location, extract_location):
-	max_path_size = 240
-	skipped_files = 0
-	with zipfile.ZipFile(zip_file_location, 'r') as zf:
-		for archive_member in zf.infolist():
-			dst_path = os.path.join(extract_location, archive_member.filename)
-			if len(dst_path) > max_path_size:
-				skipped_files += 1
-				print('skipping: ' + archive_member.filename)
-			else:
-				print('extract: ' + archive_member.filename)
-				zf.extract(archive_member, extract_location)	
+#def unzip(zip_file_location, extract_location):
+#	max_path_size = 240
+#	skipped_files = 0
+#	with zipfile.ZipFile(zip_file_location, 'r') as zf:
+#		for archive_member in zf.infolist():
+#			dst_path = os.path.join(extract_location, archive_member.filename)
+#			if len(dst_path) > max_path_size:
+#				skipped_files += 1
+#				print('skipping: ' + archive_member.filename)
+#			else:
+#				print('extract: ' + archive_member.filename)
+#				zf.extract(archive_member, extract_location)	
+#
+#	print('skipped files total: ' + str(skipped_files))
 
-	print('skipped files total: ' + str(skipped_files))
+def unzip(package, dst):
+	# http://stackoverflow.com/questions/13113568/python-ioerror-exception-when-unzipping-archive-with-deep-directory-structure
+	if platform == 'win32':
+		dst = u'\\\\?\\' + unicode(os.path.abspath(dst))
+		print('***** Enabling support for long paths %s' % dst)
 
-#def unzip(package, dst):
-#	print('unzipping "%s"' % package)
-#	with zipfile.ZipFile(package, 'r') as zf:
-#		root_in_zip = zf.namelist()[0].split('/')[0]
-#		zf.extractall()
-#		shutil.move( root_in_zip, dst)
-#	print('[done]')
+	print('unzipping "%s"' % package)
+	with zipfile.ZipFile(package, 'r') as zf:
+		root_in_zip = zf.namelist()[0].split('/')[0]
+		zf.extractall()
+		shutil.move( root_in_zip, dst)
+	print('[done]')
 
 def untar(package, dst):
 	print('untarring "%s"' % package)
@@ -96,6 +101,8 @@ def install_ndk():
 	if not os.path.exists(os.path.join(config.NDK_ROOT, 'ndk-build')):
 		if not os.path.exists(ndk_package):
 			download(NDK_URL, ndk_package)
+		else:
+			print ndk_package
 
 		subprocess.call([ndk_package, '-y'])
 		shutil.move('android-ndk-r10d', config.NDK_ROOT)
@@ -113,7 +120,7 @@ def install_androidsdk():
 def install_dependencies():
 	install_cmake()
 	install_ndk()
-	install_androidsdk()
+	#install_androidsdk()
 
 if __name__ == '__main__':
 	os.chdir(config.BUILD_ROOT)

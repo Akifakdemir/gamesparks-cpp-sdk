@@ -248,5 +248,20 @@ namespace GameSparks
 		//! Types used commonly by the built-in Requests, Responses and Messages
 		namespace Types {}
 	}
+
+	#if defined(DOXYGEN)
+		/// @defgroup CompileOptions Compile Options
+		/// preprocessor defines that control features of the library
+
+		/// this controlls wether to compile the library with SSL support. Note that this is always enabled
+		/// @ingroup CompileOptions
+		#define SSL_SUPPORT 1
+
+		/// if you set this to 1, CyaSSL will be used as the SSL implementation, OpenSSL will be used otherwise.
+		/// This has no effect, if SSL_SUPPORT is not defined.
+		/// CyaSSL is the default on marmalade. But you can change that in GameSparks.mkf
+		/// @ingroup CompileOptions
+		#define USE_CYASSL 1
+	#endif
 }
 #endif // GS_h__

@@ -19,6 +19,7 @@ defines
 {
 	SSL_SUPPORT
 	MARMALADE
+	USE_CYASSL=1
 }
 
 files

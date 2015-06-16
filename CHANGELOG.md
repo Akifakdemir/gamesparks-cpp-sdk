@@ -1,5 +1,22 @@
 # ChangeLog
 
+## rc5 (2015-05-16)
+
+### base SDK (affects all platforms)
+- added documentation for compile options
+- documentation tweaks
+- compile option USE_CYASSL (enabled by default on Marmalade)
+  - The SDK now works with OpenSSL and CYA_SSL
+- Request id's now start at zero
+- fixed a possible crash when a web-socket is closed
+- increaed minimum required CMake version (fixes error about target_include_directories)
+
+### Marmalade
+- edits in documentation
+
+### Cocos2d-x
+- added qick start guide
+
 ## rc4 (2015-04-22)
 
 ### base SDK (affects all platforms)

@@ -2,8 +2,17 @@
 
 ## Prerequisites
 
-- [download](https://www.madewithmarmalade.com/) and install Marmalade
-- [download](https://www.python.org/downloads/) and install python 2.7 (only required on windows)
+### OS X
+
+1. [download](https://www.madewithmarmalade.com/) and install Marmalade
+2. [XCode](https://developer.apple.com/xcode/downloads/)
+
+### Windows
+
+1. [download](https://www.madewithmarmalade.com/) and install Marmalade
+2. [download](https://www.python.org/downloads/) and install python 2.7 (only required on windows)
+3. [Visual Studio](http://www.visualstudio.com/downloads/download-visual-studio-vs.aspx)
+
 
 ## Prepare the SDK
 
@@ -36,4 +45,4 @@ Double click on copy_sdk_sources.py in the marmalade folder of the GameSparks C+
 
 ## Next Steps
 
-explore the [API docs](../annotated.html) and the [Examples](../examples.html) of the base SDK.
+explore the [API docs](./annotated.html) and the [Examples](./examples.html) of the base SDK.

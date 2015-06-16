@@ -29,6 +29,7 @@ doxygen_input = (
 	#Guides
 	'../base/guide/README.md '
 	'../marmalade/guide/README.md '
+	'../cocos2dx/guide/README.md '
 
 	# Readmes
 	'../README.md '
@@ -52,14 +53,14 @@ doxygen_exclude = (
 
 doxygen_example_path = '../base/samples'
 
-use_github_pages = True
+template = 'bitbucket' # must be one of 'github', 'bitbucket', 'plain'
 
 # these only need to be set, if use_github_pages is true
-forkme_url = 'https://github.com/beschulz/asio_service_discovery'
-zip_download_url = 'https://github.com/beschulz/asio_service_discovery/zipball/master'
-tar_download_url = 'https://github.com/beschulz/asio_service_discovery/tarball/master'
-maintainer_name = 'beschulz'
-maintainer_url = 'https://github.com/beschulz'
+forkme_url = 'https://bitbucket.org/gamesparks/gamesparks-cpp-sdk/'
+zip_download_url = 'https://bitbucket.org/gamesparks/gamesparks-cpp-sdk/get/HEAD.zip'
+tar_download_url = 'https://bitbucket.org/gamesparks/gamesparks-cpp-sdk/get/HEAD.tar.gz'
+maintainer_name = 'GameSparks'
+maintainer_url = 'http://www.gamesparks.com/'
 logo_href = 'http://www.gamesparks.com/'
 
 HAVE_DOT = 'YES' #set to YES if you have graphviz, to NO otherwise. Setting it to YES increases the time it takes to generate the documentation

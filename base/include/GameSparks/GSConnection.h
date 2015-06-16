@@ -40,7 +40,7 @@ namespace GameSparks
 			void SetReady(bool ready);
 			void SendImmediate(GSRequest& request);
 
-			void Update(float deltaTime);
+			bool Update(float deltaTime);
 			 GS_* GetGSInstance() const { return m_GS; }
 			 bool IsWebSocketConnectionAlive() const;
 		protected:

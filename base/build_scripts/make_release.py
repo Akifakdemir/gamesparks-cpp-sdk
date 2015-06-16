@@ -30,7 +30,7 @@ is_running_on_test_machine = socket.gethostname() in ('xim00171.local', 'xim0017
 if is_running_on_test_machine:
 	print('setting up test environment')
 
-	os.environ['PUBLIC_REPOSITORY_URL'] = ''
+	os.environ['PUBLIC_REPOSITORY_URL'] = os.environ.get('PUBLIC_REPOSITORY_URL', '')
 	os.environ['COMMIT_MESSAGE'] = 'release of version %(version)s'
 	os.environ['CHANGE_LOG'] = '''
 	* new stuff
@@ -77,6 +77,7 @@ def which(program):
                 return exe_file
 
     return None
+
 
 print('====================')
 print('git is at ' + (which('git') or which('git.exe')))
@@ -188,46 +189,52 @@ def perform_checks():
 	# check wether the creditials for the test repository are still in this file
 	result1, full_path = contains(':tra' + 'sh', ('base', 'build_scripts', 'make_release.py'))
 	result2, full_path = contains('hA' + '4i', ('base', 'build_scripts', 'make_release.py'))
+	result2, full_path = contains('hA' + '4i', ('docs', 'publish_docs.py'))
 
 	if not is_running_on_test_machine and (result1 or result2):
 		raise RuntimeError('The file "' + full_path + '" does contain credentials. Please clean up the repository before doing a release.')
 
 
-def clone_public_repository():
+def onerror(func, path, exc_info):
+    """
+    Error handler for ``shutil.rmtree``.
+
+    If the error is due to an access error (read only file)
+    it attempts to add write permission and then retries.
+
+    If the error is for another reason it re-raises the error.
+
+    Usage : ``shutil.rmtree(path, onerror=onerror)``
+    """
+    import stat
+    if not os.access(path, os.W_OK):
+        # Is the error an access error ?
+        os.chmod(path, stat.S_IWUSR)
+        func(path)
+    else:
+        raise
+
+
+def clone_repository(src_url, dst_path):
 	'''
 		Clones the public repository and fails spectacularly if the keys have not properly set up
 	'''
 	print('======== Cloning public repository ...')
 
-	def onerror(func, path, exc_info):
-	    """
-	    Error handler for ``shutil.rmtree``.
-
-	    If the error is due to an access error (read only file)
-	    it attempts to add write permission and then retries.
-
-	    If the error is for another reason it re-raises the error.
-
-	    Usage : ``shutil.rmtree(path, onerror=onerror)``
-	    """
-	    import stat
-	    if not os.access(path, os.W_OK):
-	        # Is the error an access error ?
-	        os.chmod(path, stat.S_IWUSR)
-	        func(path)
-	    else:
-	        raise
-
-
-	if os.path.exists(PUBLIC_REPOSITORY_PATH):
-		shutil.rmtree(PUBLIC_REPOSITORY_PATH, onerror=onerror)
+	if os.path.exists(dst_path):
+		shutil.rmtree(dst_path, onerror=onerror)
 
 	subprocess.check_call([
 		'git',
 		'clone',
-		PUBLIC_REPOSITORY_URL,
-		PUBLIC_REPOSITORY_PATH
+		src_url,
+		dst_path
 	])
+
+
+def clone_public_repository():
+	clone_repository(PUBLIC_REPOSITORY_URL, PUBLIC_REPOSITORY_PATH)
+
 
 def clean_public_repository():
 	print('======== cleaning public repository =========')
@@ -305,13 +312,10 @@ namespace GameSparks
 ''' % vars)
 
 
-def commit_public_repository():
+def commit_and_push(working_copy_path, user_name, user_email, commit_message):
 	print('======== Commiting into public repository ...')
 
-	os.chdir(PUBLIC_REPOSITORY_PATH)
-
-	user_name = '%s Release Bot' % platform.system()
-	user_email = 'release-bot@gamesparks.com'
+	os.chdir(working_copy_path)
 
 	subprocess.check_call([
 		'git',
@@ -340,7 +344,7 @@ def commit_public_repository():
 		'-a',
 		'--author="%(user_name)s <%(user_email)s>"' % locals(),
 		'-m',
-		COMMIT_MESSAGE % { 'version' : VERSION_CODE }
+		commit_message
 	])
 
 	subprocess.check_call([
@@ -350,6 +354,14 @@ def commit_public_repository():
 		'master'
 	])
 
+
+def commit_public_repository():
+	commit_and_push(
+		PUBLIC_REPOSITORY_PATH,
+		'%s Release Bot' % platform.system(),
+		'release-bot@gamesparks.com',
+		COMMIT_MESSAGE % { 'version' : VERSION_CODE }
+	)
 
 def copy_test_results():
 	print('copying test results')

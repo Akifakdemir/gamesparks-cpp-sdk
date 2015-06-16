@@ -132,20 +132,22 @@ void GSConnection::OnWebSocketError(const easywsclient::WSError& error, void* us
 	}
 }
 
-void GSConnection::Update(float deltaTime)
+bool GSConnection::Update(float deltaTime)
 {
 	if (m_WebSocket != NULL)
 	{
 		if (m_WebSocket->getReadyState() != WebSocket::CLOSED)
 		{
 			m_WebSocket->poll(0, OnWebSocketError, this);
-			if (m_Stopped) return;
+			if (m_Stopped) false;
 			m_WebSocket->dispatch(OnWebSocketCallback, OnWebSocketError, this);
-			if (m_Stopped) return;
+			if (m_Stopped) false;
 		}
 		else if (m_WebSocket->getReadyState() == WebSocket::CLOSED)
 		{
 			m_GSPlatform->DebugMsg("Websocket closed");
 		}
 	}
+
+	return true;
 }

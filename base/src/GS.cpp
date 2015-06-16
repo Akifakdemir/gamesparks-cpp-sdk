@@ -27,6 +27,7 @@ GS_::GS_()
 	, m_backOffForSeconds(0.0f)
 	, m_SessionId("")
 	, GameSparksAvailable()
+	, m_RequestCounter(0)
 {
 	/*
 		If this assertion fails, your compiler fails to initialize
@@ -252,11 +253,8 @@ void GS_::UpdateConnections(Seconds deltaTimeInSeconds)
 		GSConnection* connection = m_Connections[i];
 
 		//size_t numConnections = m_Connections.size();
-		connection->Update(deltaTimeInSeconds);
-
-		// connection->Update might indirectly call OnWebSocketClientError, which creates a new connection
-		//if (numConnections != m_Connections.size())
-		//	break;
+		if (!connection->Update(deltaTimeInSeconds))
+			break; // websocket error, m_Connections might have changed
 
 		// delete a finished websocket
 		if (connection->IsWebSocketConnectionAlive() == false)

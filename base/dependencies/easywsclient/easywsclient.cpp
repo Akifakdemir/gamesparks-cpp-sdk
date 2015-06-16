@@ -669,7 +669,7 @@ namespace { // private module-only namespace
             #ifdef SSL_SUPPORT
                 static bool ssl_initialized = false;
             
-                #ifdef MARMALADE
+                #ifdef USE_CYASSL
                     InitCyaSSL();
                 #else
                     sslContext = new SSL_CTX;
@@ -691,7 +691,7 @@ namespace { // private module-only namespace
 					sslContext = SSL_CTX_new (TLSv1_client_method());
                     if (sslContext == NULL)
                     {
-                        #ifndef MARMALADE
+                        #ifndef USE_CYASSL
                             ERR_print_errors_fp (stderr);
 						#else
 							fprintf(stderr, "failed to create SSL Context\n");
@@ -708,7 +708,7 @@ namespace { // private module-only namespace
                     sslHandle = SSL_new (sslContext);
                     if (sslHandle == NULL)
                     {
-                        #ifndef MARMALADE
+                        #ifndef USE_CYASSL
                             ERR_print_errors_fp (stderr);
 						#else
 							fprintf(stderr, "failed to create SSL Handle\n");
@@ -723,7 +723,7 @@ namespace { // private module-only namespace
                     
                     if (!SSL_set_fd (sslHandle, sockfd))
                     {
-                        #ifndef MARMALADE
+                        #ifndef USE_CYASSL
                             ERR_print_errors_fp (stderr);
 						#else
 							fprintf(stderr, "failed to set SSL file descriptor\n");
@@ -739,7 +739,7 @@ namespace { // private module-only namespace
                     
                     if (SSL_connect (sslHandle) != 1)
                     {
-                        #ifndef MARMALADE
+                        #ifndef USE_CYASSL
                             ERR_print_errors_fp (stderr);
 						#else
 							fprintf(stderr, "failed to SSL-Connect\n");

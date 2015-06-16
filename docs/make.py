@@ -44,11 +44,11 @@ def patch_file(ctx, template_file_name, output_file_name=None):
 
 
 def patch_templates():
-	config.use_github_pages = '-disabled-style' if config.use_github_pages else ''
 	ctx = config.__dict__
 
-	patch_file(ctx, os.path.join(MY_DIR, 'files', 'header.html.in'))
-	patch_file(ctx, os.path.join(MY_DIR, 'files', 'footer.html.in'))
+	patch_file(ctx, os.path.join(MY_DIR, 'files', 'header.%(template)s.html.in' % ctx ), os.path.join(MY_DIR, 'files', 'header.html'))
+	patch_file(ctx, os.path.join(MY_DIR, 'files', 'footer.%(template)s.html.in' % ctx ), os.path.join(MY_DIR, 'files', 'footer.html'))
+
 	patch_file(ctx, os.path.join(MY_DIR, 'Doxyfile.in'))
 
 
@@ -59,6 +59,7 @@ def doxygen():
 def copy_assets():
 	shutil.copytree('files/font-awesome', 'html/font-awesome')
 	shutil.copytree('files/github/images', 'html/images')
+	shutil.copytree('files/bitbucket/images', 'html/images/bitbucket')
 	shutil.copytree('files/github/stylesheets', 'html/stylesheets')
 
 
