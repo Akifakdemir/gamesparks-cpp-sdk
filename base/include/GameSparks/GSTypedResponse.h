@@ -23,12 +23,14 @@ namespace GameSparks
 				/// construct from GSData
 				GSTypedResponse(const GSData& response)
 					: m_Response(response)
+                    , m_userData()
 				{
 				}
 
 				/// construct from GSTypedResponse
 				GSTypedResponse(const GSTypedResponse& other)
 					: m_Response(other.m_Response)
+                    , m_userData()
 				{
 
 				}
@@ -74,9 +76,24 @@ namespace GameSparks
 				{
 					return m_Response;
 				}
+            
+                bool HasUserData() const
+                {
+                    return m_userData != 0;
+                }
+            
+                void* GetUserData() const
+                {
+                    return m_userData;
+                }
+            
 				protected:
 					GSData m_Response; ///< the wrapped response data
 				private:
+                    template<typename RequestType, typename ResponseType>
+                    friend class GSTypedRequest;
+            
+                    void* m_userData;
 					GS_LEAK_DETECTOR(GSTypedResponse);
 		};
 	}

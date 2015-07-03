@@ -43,7 +43,7 @@
 #endif
 
 // std function can only be used, if we have at least c++11 
-#if (__cplusplus >= 201103L || _MSC_VER >= 1800 ) && USE_STD_STL && STL_FUNCTIONAL_SUPPORTED
+#if (__cplusplus >= 201103L || _MSC_VER >= 1800 ) /*&& USE_STD_STL*/ && STL_FUNCTIONAL_SUPPORTED
 #	define GS_USE_STD_FUNCTION 1
 #	include <functional>
 #else
@@ -75,6 +75,10 @@ namespace gsstl
 #else
     using namespace std;
 #endif /* defined(USE_EASTL */
+    
+#if GS_USE_STD_FUNCTION
+    using std::function;
+#endif
 }
 
 #if !defined(nullptr) && !defined(DOXYGEN)

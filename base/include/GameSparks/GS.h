@@ -37,9 +37,53 @@ namespace GameSparks
 				/// Callback which is triggered whenever the service becomes available or the connection to the service is lost. 
 				t_AvailableCallback GameSparksAvailable;
 
+				#if defined(GS_USE_STD_FUNCTION)
+					typedef gsstl::function<void(GS_&,const gsstl::string& userId)> t_AuthenticatedCallback;
+				#else
+					typedef void(*t_AuthenticatedCallback)(GS_&, const gsstl::string& userId);
+				#endif /* GS_USE_STD_FUNCTION */
+
+				/// Callback which is triggered whenever a new user is authenticated
+				t_AuthenticatedCallback GameSparksAuthenticated;
+
 				GS_();
 
 				~GS_();
+
+				bool GetDurableQueueRunning();
+				void SetDurableQueueRunning(bool running);
+
+				typedef gsstl::list<GSRequest> t_PersistentQueue;
+            
+                /*!
+                    This gives you direct access to the items currently in the durable queue.
+
+                    Note, that this is slighly different to the .NET SDK: The .NET SDK is returning
+                    a list of references to requests. The C++ SDK is returning an internal referecne.
+                 */
+				t_PersistentQueue& GetDurableQueueEntries();
+
+				bool RemoveDurableQueueEntry(const GSRequest& request);
+
+				int GetRequestQueueCount();
+
+				#if defined(GS_USE_STD_FUNCTION)
+					typedef gsstl::function<void(GS_&)> t_OnPersistentQueueLoadedCallback;
+				#else
+					typedef void(*t_OnPersistentQueueLoadedCallback)(GS_&);
+				#endif /* GS_USE_STD_FUNCTION */
+            
+                /*!
+             
+                    This callback will be called each time the persistent queue is deserialized. It can be used
+                    to re-attach the callbacks to the requests in the persistent queue via request.SetCallback.
+             
+                    This is necessary because callbacks cannot be serialized.
+             
+                    Be carfull when modifying the passed queue !
+                 */
+                t_OnPersistentQueueLoadedCallback OnPersistentQueueLoadedCallback;
+
 
 				/// Initialize this GS_ instance. This has to be called before calling any other member functions.
 				void Initialise(IGSPlatform* gSPlatform);
@@ -69,7 +113,7 @@ namespace GameSparks
 				/// Durable requests are persisted automatically. 
 				/// If it cannot be send right now the sdk will try to send it later. 
 				/// </summary>
-				//void SendDurable(GSRequest& request);
+				void SendDurable(GSRequest& request);
 
 				/// Send the given request. 
 				void Send(GSRequest& request);
@@ -134,6 +178,7 @@ namespace GameSparks
 	            	assert(m_GSPlatform);
 	            	return m_GSPlatform->GetDeviceOS();
 	            }*/
+
 			private:
 				friend class GSConnection;
 				void OnWebSocketClientError(const gsstl::string& errorMessage, GSConnection* connection);
@@ -150,7 +195,7 @@ namespace GameSparks
 				void NewConnection();
 				void Handshake(GSObject& response, GSConnection& connection);
 				void SendHandshake(GSObject& response, GSConnection& connection);
-				gsstl::string GetUniqueRequestId();
+				gsstl::string GetUniqueRequestId(bool durable=false);
 				void ConnectIfRequired();
 				void ProcessSendQueue(Seconds deltaTimeInSeconds);
 				void CancelRequest(GSRequest& request);
@@ -159,6 +204,16 @@ namespace GameSparks
 				void TrimOldConnections();
 				void ProcessReceivedRepsonse(const GSObject& response, GSConnection* connection);
 				void ProcessReceivedItem(const GSObject& response, GSConnection* connection);
+				
+				void InitialisePersistentQueue();
+				void ProcessPersistantQueue(Seconds deltaTimeInSeconds);
+				void WritePersistentQueue();
+				void SetUserId(const gsstl::string& userId);
+
+
+				
+				gsstl::string SerializeRequestQueue(const t_PersistentQueue& q);
+				t_PersistentQueue DeserializeRequestQueue(const gsstl::string& s);
 
 				IGSPlatform* m_GSPlatform;
 				typedef gsstl::vector<GSConnection*> t_ConnectionContainer;
@@ -168,12 +223,16 @@ namespace GameSparks
 				typedef gsstl::list<GSRequest> t_SendQueue;
 				t_SendQueue m_SendQueue;
 
+				t_PersistentQueue m_PersistentQueue;
+
 				long m_RequestCounter;
 
 				// BS: we might want to change this to a state enum. they appear to be mutually exclusive.
 				bool m_Ready;
 				bool m_Paused;
 				bool m_Initialized;
+				bool m_durableQueuePaused; // internal value
+				bool m_durableQueueRunning; // user controlled value
 				Seconds m_backOffForSeconds;
 				gsstl::string m_SessionId;
 

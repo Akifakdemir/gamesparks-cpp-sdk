@@ -8,6 +8,41 @@
 #include <GameSparks/GSLeakDetector.h>
 #include <GameSparks/GSPlatformDeduction.h>
 #include "GSTime.h"
+#include <cassert>
+
+#if GS_TARGET_PLATFORM == GS_PLATFORM_ANDROID
+#	include <sys/types.h>
+#	include <unistd.h>
+#elif GS_TARGET_PLATFORM == GS_PLATFORM_WIN32
+#	include <shlwapi.h>
+#	pragma comment(lib,"shlwapi.lib")
+#	include "shlobj.h"
+#elif GS_TARGET_PLATFORM == GS_PLATFORM_MAC
+#   include "TargetConditionals.h"
+#   include <sys/stat.h> // for mkdir
+
+/* works like mkdir(1) used as "mkdir -p" */
+static void mkdirp(const char *dir) {
+    char tmp[PATH_MAX];
+    char *p = NULL;
+    size_t len;
+    
+    snprintf(tmp, sizeof(tmp),"%s",dir);
+    len = strlen(tmp);
+    if(tmp[len - 1] == '/')
+        tmp[len - 1] = 0;
+    for(p = tmp + 1; *p; p++)
+        if(*p == '/') {
+            *p = 0;
+            mkdir(tmp, S_IRWXU | S_IRWXG);
+            *p = '/';
+        }
+    mkdir(tmp, S_IRWXU | S_IRWXG);
+}
+#elif GS_TARGET_PLATFORM == GS_PLATFORM_IOS
+    gsstl::string gs_ios_get_writeable_base_path();
+#endif
+
 
 namespace GameSparks
 {
@@ -49,7 +84,7 @@ namespace GameSparks
 					#elif GS_TARGET_PLATFORM == GS_PLATFORM_ANDROID
 						return "Android";
 					#elif GS_TARGET_PLATFORM == GS_PLATFORM_WIN32
-						return "Win32";
+						return "W8";
 					#elif GS_TARGET_PLATFORM == GS_PLATFORM_LINUX
 						return "Linux";
 					#elif GS_TARGET_PLATFORM == GS_PLATFORM_MARMALADE
@@ -71,7 +106,7 @@ namespace GameSparks
 					#elif GS_TARGET_PLATFORM == GS_PLATFORM_WP8
 						return "WP8";
 					#else
-					#   error "Unsupported platform or not compiling for cocos"
+					#   error "Unsupported platform"
 						return "Unknown";
 					#endif
 				}
@@ -119,7 +154,21 @@ namespace GameSparks
 				virtual gsstl::string GetAuthToken() const { return m_AuthToken; }
 
 				/// sets the auth token
-				virtual void SetAuthToken(const gsstl::string& authToken) { m_AuthToken = authToken; }
+                virtual void SetAuthToken(const gsstl::string& authToken)
+                {
+                    m_AuthToken = authToken;
+                    StoreValue("gamesparks.authtoken", authToken);
+                }
+
+				/// returns the player id of the currently authenticated user
+				virtual gsstl::string GetUserId() const { return m_UserId; }
+
+				/// sets the player id for the currently authenticated user
+                virtual void SetUserId( const gsstl::string& userId)
+                {
+                    m_UserId = userId;
+                    StoreValue("gamesparks.userid", userId);
+                }
 
 				//! Receives debugging information from the API
 				//! If you need more sophisticated logging, this is the method you should override
@@ -139,8 +188,150 @@ namespace GameSparks
 				virtual bool GetPreviewMode() const { return m_PreviewMode; }
 
 				//void ExecuteOnMainThread(Action action);
+
+                //! store *value* at *key*.
+				void StoreValue(const gsstl::string& key, const gsstl::string& value)
+				{
+					// TODO: port to all the platforms
+					FILE* f = fopen(ToWritableLocation(key).c_str(), "wb");
+					assert(f);
+					if (!f)
+					{
+                    	DebugMsg("**** Failed to store value to '" + ToWritableLocation(key) + "'");
+                    	return;
+					}
+					size_t written = fwrite(value.c_str(), 1, value.size(), f);
+					assert(written == value.size());
+					fclose(f);
+				}
+
+                //! Load Value associated with *key*. returns empty string, if key could not be retrieved.
+				gsstl::string LoadValue(const gsstl::string& key)
+				{
+					// TODO: port to all the platforms
+					FILE *f = fopen(ToWritableLocation(key).c_str(), "rb");
+					
+                    if(!f)
+                    {
+                    	//DebugMsg("**** Failed to load value from '" + ToWritableLocation(key) + "'");
+                        return "";
+                    }
+                    
+					fseek(f, 0, SEEK_END);
+					long fsize = ftell(f);
+					if (fsize == 0)
+					{
+						fclose(f);
+						return "";
+					}
+					fseek(f, 0, SEEK_SET);
+					gsstl::vector<char> bytes(fsize);
+					size_t read_bytes = fread(&bytes.front(), 1, fsize, f);
+					assert(read_bytes == fsize);
+					fclose(f);
+					return gsstl::string( bytes.begin(), bytes.end() );
+				}
+
+				// TODO: port to all the platforms
+				virtual gsstl::string ToWritableLocation(gsstl::string desired_name)
+				{
+					desired_name = "gamesparks_" + desired_name;
+
+					#if GS_TARGET_PLATFORM == GS_PLATFORM_MARMALADE || defined(GS_OVERRIDE_TOWRITABLELOCATION) // marmalade || windows; Note, that windows is for testing only. You should not put the files into the working directoy
+                    // http://docs.madewithmarmalade.com/display/MD/S3E+File+overview
+					// This should work on marmalade
+					return desired_name;
+
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_WIN32
+
+					static gsstl::string base_path;
+
+					if (base_path.empty())
+					{
+						TCHAR szPath[MAX_PATH];
+						if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, szPath)))
+						{
+							base_path = szPath;
+						}
+						else
+						{
+							DebugMsg("Failed to get CSIDL_APPDATA path.");
+							base_path = "./";
+							assert(false);
+						}
+
+						base_path += "\\GameSparks\\" + m_apiKey + "\\";
+
+						int result = SHCreateDirectoryEx(NULL, base_path.c_str(), NULL);
+
+						if (
+							result != ERROR_SUCCESS &&
+							result != ERROR_FILE_EXISTS &&
+							result != ERROR_ALREADY_EXISTS
+						)
+						{
+							DebugMsg("Failed to create directory.");
+							assert(false);
+						}
+					}
+
+					assert(!base_path.empty());
+
+					return base_path + desired_name;
+
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_ANDROID
+                    
+                    //////////////////////////////// Android
+					// http://stackoverflow.com/questions/6276933/getfilesdir-from-ndk
+					char buf[200]; // 64bit int can be 20 digits at most
+					sprintf(buf,"/proc/%i/cmdline", (int)getpid());
+
+					FILE* f = fopen(buf, "rb");
+					if (!f)
+					{
+						DebugMsg("Failed to get writable path");
+						return desired_name;
+					}
+					fread(buf, 1, sizeof(buf), f);
+					fclose(f);
+					// bytes not contains the list of null separated command line arguments, the string constructor below will copy until the first null byte
+					return "/data/data/" + gsstl::string(buf) + "/" + desired_name;
+
+					#elif GS_TARGET_PLATFORM == GS_PLATFORM_MAC
+
+                    ////////////////// OS X
+                    static gsstl::string base_path;
+                    if (base_path.empty())
+                    {
+                        char* homedir = getenv("HOME");
+                        assert(homedir);
+                        
+                        gsstl::string writable_path(homedir);
+                        
+                        writable_path += "/Library/Application Support/GameSparks/" + m_apiKey + "/";
+                        
+                        struct stat s = {0};
+                        
+                        if (0 != stat(writable_path.c_str(), &s) ) // Check if directory exists
+                        {
+                            mkdirp(writable_path.c_str());
+                        }
+                    
+                        base_path = writable_path;
+                    }
+                    
+                    return base_path + desired_name;
+                    
+                    #elif GS_TARGET_PLATFORM == GS_PLATFORM_IOS
+                    static gsstl::string base_path = gs_ios_get_writeable_base_path();
+                    return base_path + "/" + desired_name;
+					#else
+                    #   error "ToWritableLocation not implemented for this platform. If you're planing on overriding it yourself, please define GS_OVERRIDE_TOWRITABLELOCATION"
+					#endif
+				}
 			protected:
 				gsstl::string m_AuthToken; ///< the stored auth token received from the server
+				gsstl::string m_UserId; ///< id of currently authenticated user
 				Seconds m_RequestTimeoutSeconds; ///< after how many seconds a request will time out
 				bool m_PreviewMode; ///< preview or production server?
 
@@ -149,6 +340,13 @@ namespace GameSparks
 
 				bool m_verboseLogging; ///< use verbose logging?
            	private:
+           		friend class GS_;
+           		void DurableInit()
+           		{
+                    m_AuthToken = LoadValue("gamesparks.authtoken");
+                    m_UserId = LoadValue("gamesparks.userid");
+           		}
+
 	            GS_LEAK_DETECTOR(IGSPlatform);
 		};
 	}

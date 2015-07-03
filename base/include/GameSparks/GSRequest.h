@@ -20,9 +20,9 @@ namespace GameSparks
 		{
 			public:
 				#if defined(GS_USE_STD_FUNCTION)
-					typedef gsstl::function<void (const GSObject&)> t_Callback;
+					typedef gsstl::function<void (GS_&, const GSObject&)> t_Callback;
 				#else
-					typedef void(*t_Callback)(const GSObject&);
+					typedef void(*t_Callback)(GS_&, const GSObject&);
 				#endif /* GS_USE_STD_FUNCTION */
 
 				Seconds GetCancelSeconds() const { return m_CancelSeconds; }
@@ -30,7 +30,33 @@ namespace GameSparks
 
 				Seconds GetWaitForResponseSeconds() const { return m_WaitForResponseSeconds; }
 				void SetWaitForResponseSeconds(Seconds waitForRepsonseSeconds) { m_WaitForResponseSeconds = waitForRepsonseSeconds; }
-			
+
+				bool operator==(const GSRequest& other) const;
+
+                bool HasCallbacks() const
+                {
+                    return m_callbacks;
+                }
+
+                void SetCallbacks(const t_Callback& successCallback, const t_Callback& errorCallback)
+                {
+                    m_callbacks = new Callbacks(successCallback, errorCallback, m_userData);
+                }
+            
+                void SetCallback(const t_Callback& successCallback)
+                {
+                    m_callbacks = new Callbacks(successCallback, t_Callback(), m_userData);
+                }
+            
+                bool HasUserData() const
+                {
+                    return m_userData != 0;
+                }
+            
+                void SetUserData(void* userData)
+                {
+                    m_userData = userData;
+                }
 			private:
 				// TODO: check if this works/is needed
 				bool GetDurable() const { return m_Durable; }
@@ -49,8 +75,6 @@ namespace GameSparks
 
 				GS_* m_GSInstance; ///< this is a pointer, so that the auto-generated assignement operator works
 
-				t_Callback m_Completer;
-
 				bool m_Durable;
 				Seconds m_CancelSeconds;
 				Seconds m_WaitForResponseSeconds;
@@ -66,10 +90,12 @@ namespace GameSparks
 				*/
 				struct BaseCallbacks
 				{
-					virtual ~BaseCallbacks() {}
+                    BaseCallbacks() : m_userData() {}
+                    virtual ~BaseCallbacks() {}
 					virtual void OnSucess(GS_& gsInstance, const GSObject& response) = 0;
 					virtual void OnError (GS_& gsInstance, const GSObject& response) = 0;
 					virtual BaseCallbacks* Clone() const = 0;
+                    void* m_userData;
                     GS_LEAK_DETECTOR(BaseCallbacks)
 				};
 
@@ -127,6 +153,32 @@ namespace GameSparks
                     
                         GS_LEAK_DETECTOR(BaseCallbacksPtr);
 				};
+            
+                class Callbacks : public BaseCallbacks
+                {
+                    public:
+                        Callbacks(t_Callback onSuccess, t_Callback onError, void* userData)
+                        :m_onSuccess(onSuccess), m_onError(onError) { m_userData = userData; }
+                
+                        virtual void OnSucess(GS_& gsInstance, const GSObject& response)
+                        {
+                            if ( m_onSuccess ) m_onSuccess( gsInstance, response );
+                        }
+                
+                        virtual void OnError (GS_& gsInstance, const GSObject& response)
+                        {
+                            if ( m_onError ) m_onError( gsInstance, response );
+                        }
+                
+                        virtual Callbacks* Clone() const
+                        {
+                            return new Callbacks( m_onSuccess, m_onError, m_userData );
+                        }
+                    
+                    private:
+                        t_Callback m_onSuccess;
+                        t_Callback m_onError;
+                };
 
 				// TODO: check if the type cound be changed to Seconds
 				void Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds);
@@ -139,6 +191,8 @@ namespace GameSparks
 				friend class GSTypedRequest;
 	
 				friend class GS_;
+            
+                void* m_userData;
             
                 GS_LEAK_DETECTOR(GSRequest);
 		};

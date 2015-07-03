@@ -87,7 +87,7 @@ def main():
 
 	# copy gamesparks libs
 	cpy_if_exists(os.path.join(sdk_lib_path, 'iOS_eastl', 'libGamesparks.a'), os.path.join(plugin_lib_gamesparks_path, 'libIOS', 'libGamesparks.a'))
-	cpy_if_exists(os.path.join(sdk_lib_path, 'OSX_eastl', 'libGamesparks.a'), os.path.join(plugin_lib_gamesparks_path, 'libOSX', 'libGamesparks.a'))
+	cpy_if_exists(os.path.join(sdk_lib_path, 'OSX_stl', 'libGamesparks.a'), os.path.join(plugin_lib_gamesparks_path, 'libOSX', 'libGamesparks.a'))
 
 	cpy_if_exists(os.path.join(sdk_lib_path, 'win32_vs2013', 'Gamesparks.lib'), os.path.join(plugin_lib_gamesparks_path, 'libVSWin32', 'Gamesparks.lib'))
 	cpy_if_exists(os.path.join(sdk_lib_path, 'win64_vs2013', 'Gamesparks.lib'), os.path.join(plugin_lib_gamesparks_path, 'libVSWin64', 'Gamesparks.lib'))

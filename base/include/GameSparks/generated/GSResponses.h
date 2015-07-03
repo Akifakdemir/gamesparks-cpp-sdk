@@ -63,7 +63,7 @@ namespace GameSparks
 			/// </summary>
 						gsstl::vector<gsstl::string> GetAchievements() const
 						{
-							return m_Response.GetStringList("getAchievements");
+							return m_Response.GetStringList("achievements");
 						}
 			/// <summary>
 			/// The amount of type 1 currency that the player holds
@@ -254,7 +254,7 @@ namespace GameSparks
 					gsstl::vector<Types::LeaderboardData> GetData() const
 					{
 						gsstl::vector<Types::LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getData");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("data");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::LeaderboardData(*it));
@@ -268,7 +268,7 @@ namespace GameSparks
 					gsstl::vector<Types::LeaderboardData> GetFirst() const
 					{
 						gsstl::vector<Types::LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFirst");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("first");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::LeaderboardData(*it));
@@ -282,7 +282,7 @@ namespace GameSparks
 					gsstl::vector<Types::LeaderboardData> GetLast() const
 					{
 						gsstl::vector<Types::LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getLast");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("last");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::LeaderboardData(*it));
@@ -390,7 +390,7 @@ namespace GameSparks
 					gsstl::vector<Types::Boughtitem> GetBoughtItems() const
 					{
 						gsstl::vector<Types::Boughtitem> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getBoughtItems");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("boughtItems");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Boughtitem(*it));
@@ -571,7 +571,7 @@ namespace GameSparks
 					gsstl::vector<Types::Player> GetMembers() const
 					{
 						gsstl::vector<Types::Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Player(*it));
@@ -674,7 +674,7 @@ namespace GameSparks
 					gsstl::vector<Types::Player> GetMembers() const
 					{
 						gsstl::vector<Types::Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Player(*it));
@@ -750,12 +750,93 @@ namespace GameSparks
 					gsstl::vector<Types::Challenge> GetChallengeInstances() const
 					{
 						gsstl::vector<Types::Challenge> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallengeInstances");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challengeInstances");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Challenge(*it));
 						}
 						return result; 
+					}
+			};
+			/*!
+			\ingroup Challenges
+			A response to a find match request
+			*/
+			class FindMatchResponse : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				FindMatchResponse(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				FindMatchResponse(const FindMatchResponse& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			/// <summary>
+			/// The accessToken used to authenticate this player for this match
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetAccessToken () const
+					{
+						return m_Response.GetString("accessToken");
+					}
+			/// <summary>
+			/// The host to connect to for this match
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetHost () const
+					{
+						return m_Response.GetString("host");
+					}
+			/// <summary>
+			/// The id for this match instance
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetMatchId () const
+					{
+						return m_Response.GetString("matchId");
+					}
+			/// <summary>
+			/// The opponents this player has been matched against
+			/// </summary>
+					// method type 1
+					gsstl::vector<Types::Player> GetOpponents() const
+					{
+						gsstl::vector<Types::Player> result;
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("opponents");
+						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
+						{
+							result.push_back(Types::Player(*it));
+						}
+						return result; 
+					}
+			/// <summary>
+			/// The peerId of this player within the match
+			/// </summary>
+					// method type 4
+					Optional::t_IntOptional GetPeerId () const
+					{
+						return m_Response.GetInt("peerId");
+					}
+			/// <summary>
+			/// The id of the current player
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetPlayerId () const
+					{
+						return m_Response.GetString("playerId");
+					}
+			/// <summary>
+			/// The port to connect to for this match
+			/// </summary>
+					// method type 4
+					Optional::t_IntOptional GetPort () const
+					{
+						return m_Response.GetInt("port");
 					}
 			};
 			/*!
@@ -904,9 +985,9 @@ namespace GameSparks
 			/// The message data
 			/// </summary>
 					// method type 4
-					Optional::t_StringOptional GetMessage () const
+					GameSparks::Core::GSData::t_Optional GetMessage () const
 					{
-						return m_Response.GetString("message");
+						return m_Response.GetGSDataObject("message");
 					}
 			};
 			/*!
@@ -934,7 +1015,7 @@ namespace GameSparks
 					gsstl::vector<Types::Team> GetTeams() const
 					{
 						gsstl::vector<Types::Team> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getTeams");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("teams");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Team(*it));
@@ -994,7 +1075,7 @@ namespace GameSparks
 					gsstl::vector<Types::Player> GetMembers() const
 					{
 						gsstl::vector<Types::Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Player(*it));
@@ -1132,7 +1213,7 @@ namespace GameSparks
 					gsstl::vector<Types::Player> GetMembers() const
 					{
 						gsstl::vector<Types::Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Player(*it));
@@ -1197,7 +1278,7 @@ namespace GameSparks
 					gsstl::vector<Types::LeaderboardData> GetData() const
 					{
 						gsstl::vector<Types::LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getData");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("data");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::LeaderboardData(*it));
@@ -1211,7 +1292,7 @@ namespace GameSparks
 					gsstl::vector<Types::LeaderboardData> GetFirst() const
 					{
 						gsstl::vector<Types::LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFirst");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("first");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::LeaderboardData(*it));
@@ -1225,7 +1306,7 @@ namespace GameSparks
 					gsstl::vector<Types::LeaderboardData> GetLast() const
 					{
 						gsstl::vector<Types::LeaderboardData> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getLast");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("last");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::LeaderboardData(*it));
@@ -1266,7 +1347,7 @@ namespace GameSparks
 					gsstl::vector<Types::Player> GetMembers() const
 					{
 						gsstl::vector<Types::Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMembers");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("members");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Player(*it));
@@ -1323,7 +1404,7 @@ namespace GameSparks
 					gsstl::vector<Types::Achievement> GetAchievements() const
 					{
 						gsstl::vector<Types::Achievement> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getAchievements");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("achievements");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Achievement(*it));
@@ -1356,7 +1437,7 @@ namespace GameSparks
 					gsstl::vector<Types::Challenge> GetChallengeInstances() const
 					{
 						gsstl::vector<Types::Challenge> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallengeInstances");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challengeInstances");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Challenge(*it));
@@ -1389,7 +1470,7 @@ namespace GameSparks
 					gsstl::vector<Types::ChallengeType> GetChallengeTemplates() const
 					{
 						gsstl::vector<Types::ChallengeType> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getChallengeTemplates");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("challengeTemplates");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::ChallengeType(*it));
@@ -1422,7 +1503,7 @@ namespace GameSparks
 					gsstl::vector<Types::Player> GetFriends() const
 					{
 						gsstl::vector<Types::Player> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFriends");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("friends");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Player(*it));
@@ -1455,7 +1536,7 @@ namespace GameSparks
 					gsstl::vector<Types::InvitableFriend> GetFriends() const
 					{
 						gsstl::vector<Types::InvitableFriend> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getFriends");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("friends");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::InvitableFriend(*it));
@@ -1488,7 +1569,7 @@ namespace GameSparks
 					gsstl::vector<Types::Leaderboard> GetLeaderboards() const
 					{
 						gsstl::vector<Types::Leaderboard> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getLeaderboards");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("leaderboards");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::Leaderboard(*it));
@@ -1521,7 +1602,7 @@ namespace GameSparks
 						gsstl::vector<GameSparks::Core::GSData::t_Optional> GetMessageList() const
 						{
 							gsstl::vector<GameSparks::Core::GSData::t_Optional> result;
-							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMessageList");
+							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("messageList");
 							for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 							{
 								result.push_back(GameSparks::Core::GSData::t_Optional(*it, true));
@@ -1554,7 +1635,7 @@ namespace GameSparks
 						gsstl::vector<GameSparks::Core::GSData::t_Optional> GetMessageList() const
 						{
 							gsstl::vector<GameSparks::Core::GSData::t_Optional> result;
-							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getMessageList");
+							gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("messageList");
 							for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 							{
 								result.push_back(GameSparks::Core::GSData::t_Optional(*it, true));
@@ -1606,7 +1687,7 @@ namespace GameSparks
 					gsstl::vector<Types::VirtualGood> GetVirtualGoods() const
 					{
 						gsstl::vector<Types::VirtualGood> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getVirtualGoods");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("virtualGoods");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::VirtualGood(*it));
@@ -1651,6 +1732,87 @@ namespace GameSparks
 				{
 				}
 
+			};
+			/*!
+			\ingroup Challenges
+			A response to a match details request
+			*/
+			class MatchDetailsResponse : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				MatchDetailsResponse(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				MatchDetailsResponse(const MatchDetailsResponse& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			/// <summary>
+			/// The accessToken used to authenticate this player for this match
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetAccessToken () const
+					{
+						return m_Response.GetString("accessToken");
+					}
+			/// <summary>
+			/// The host to connect to for this match
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetHost () const
+					{
+						return m_Response.GetString("host");
+					}
+			/// <summary>
+			/// The id for this match instance
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetMatchId () const
+					{
+						return m_Response.GetString("matchId");
+					}
+			/// <summary>
+			/// The opponents this player has been matched against
+			/// </summary>
+					// method type 1
+					gsstl::vector<Types::Player> GetOpponents() const
+					{
+						gsstl::vector<Types::Player> result;
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("opponents");
+						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
+						{
+							result.push_back(Types::Player(*it));
+						}
+						return result; 
+					}
+			/// <summary>
+			/// The peerId of this player within the match
+			/// </summary>
+					// method type 4
+					Optional::t_IntOptional GetPeerId () const
+					{
+						return m_Response.GetInt("peerId");
+					}
+			/// <summary>
+			/// The id of the current player
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetPlayerId () const
+					{
+						return m_Response.GetString("playerId");
+					}
+			/// <summary>
+			/// The port to connect to for this match
+			/// </summary>
+					// method type 4
+					Optional::t_IntOptional GetPort () const
+					{
+						return m_Response.GetInt("port");
+					}
 			};
 			/*!
 			\ingroup Misc
@@ -1820,7 +1982,7 @@ namespace GameSparks
 					gsstl::vector<Types::SocialStatus> GetStatuses() const
 					{
 						gsstl::vector<Types::SocialStatus> result;
-						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("getStatuses");
+						gsstl::vector<GameSparks::Core::GSData> dataList = m_Response.GetGSDataObjectList("statuses");
 						for (gsstl::vector<GameSparks::Core::GSData>::iterator it = dataList.begin(); it != dataList.end(); ++it)
 						{
 							result.push_back(Types::SocialStatus(*it));

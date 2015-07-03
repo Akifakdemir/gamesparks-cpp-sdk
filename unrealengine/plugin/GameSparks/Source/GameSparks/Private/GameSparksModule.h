@@ -2,12 +2,22 @@
 
 #include "GameSparks/gsstl.h"
 #include "GameSparks/GS.h"
+#include "GSMessageListeners.h"
 #include "IGameSparks.h"
 #include "Runtime/Engine/Public/Tickable.h"
 #include "GameSparksComponent.h"
 
 
 DECLARE_LOG_CATEGORY_EXTERN(UGameSparksModuleLog, Log, All);
+
+namespace UGameSparksModuleNS
+{
+    static TArray< UWorld* > WorldList;
+    
+    static FWorldDelegates::FWorldInitializationEvent::FDelegate OnWorldCreatedDelegate;
+    static FWorldDelegates::FWorldEvent::FDelegate OnWorldDestroyedDelegate;
+}
+
 
 class UGameSparksModule : public IGameSparks, public FTickableGameObject
 {
@@ -18,9 +28,9 @@ public:
 	virtual void ShutdownModule();
 
 	/** FTickableGameObject implementation */
-	virtual bool IsTickableWhenPaused() const;
-	virtual bool IsTickableInEditor() const;
-	virtual void Tick(float DeltaTime);
+    virtual bool IsTickableWhenPaused() const;
+    virtual bool IsTickableInEditor() const;
+    virtual void Tick(float DeltaTime);
 	virtual bool IsTickable() const;
 	virtual TStatId GetStatId() const;
 
@@ -33,30 +43,22 @@ public:
 	void SendGameSparksAvailableToComponents(bool available);
 	void SendDebugLogToComponents(const gsstl::string& message);
 
-
-	DECLARE_DELEGATE_OneParam(FTestingEventCallback, bool /* bQueryWasSuccessful */);
-
-	/**
-	* Asynchronously queries a list of live streams that are currently in progress for the specified game name.  Note that some
-	* services may not support this feature.  Your callback function will be called with the list of live streams that were found.
-	* In the case there was an error or this feature wasn't supported, your callback will still be executed but will contain
-	* a status variable that indicates failure
-	*
-	* @param	GameName				The name of the game to search for
-	* @param	CompletionCallback		The function to invoke when the query has finished (or if an error occurs)
-	*/
-	virtual void TestingEvent(const FString& GameName);
-
     GameSparks::Core::GS_& GetGSInstance() { return GS; }
     const GameSparks::Core::GS_& GetGSInstance() const { return GS; }
+    
+    void RegisterListeners();
+    
+    // we need to notified when worlds are connected and disconnected
+    static void OnWorldConnected(UWorld* World);
+    static void OnWorldDisconnected(UWorld* World);
+
 
 private:
-	// iterate over the worlds and get all gamesparks components
-	TArray<UGameSparksComponent*> GetGameSparksComponents();
 
-	// we need to notified when worlds are created and destroyed
-	static void OnWorldCreated(UWorld* World, const UWorld::InitializationValues IVS);
-	static void OnWorldDestroyed(UWorld* World);
     
     GameSparks::Core::GS_ GS;
+    
+    bool isInitialised = false;
+    
+
 };

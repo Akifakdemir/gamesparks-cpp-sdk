@@ -8,28 +8,34 @@ using namespace GameSparks::Core;
 
 GSRequest::GSRequest(GS_& gsInstance, const gsstl::string& requestType)
 	: m_GSInstance(&gsInstance) // use static instance if no instance was passed
-	, m_Completer()
 	, m_Durable(false)
+	, m_DurableRetrySeconds(1) // if the request is durable, we'll try to send it immediately
+    , m_userData()
 {
-	// if these assertions fail, your compiler failed to initialize m_Callback et al. even though default initialization was requested via the initializer list 
-	assert(!m_Completer);
-
 	AddString("@class", requestType);
 }
 
 GameSparks::Core::GSRequest::GSRequest(GS_& gsInstance, cJSON* data)
 	: GSObject(data)
 	, m_GSInstance(&gsInstance) // use static instance if no instance was passed
+	, m_DurableRetrySeconds(1) // if the request is durable, we'll try to send it immediately
+    , m_userData()
 {
 
 }
+
+bool GameSparks::Core::GSRequest::operator==(const GSRequest& other) const
+{
+	return GetJSON() == other.GetJSON();
+}
+
 
 void GameSparks::Core::GSRequest::Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds)
 {
 	assert(callbacks);
 	m_callbacks = callbacks;
 	m_GSInstance->Send(*this);
-	m_callbacks = 0; // release the callback, so that this GSRequest instance can be re-used
+	m_callbacks = 0; // release the callback, so that this GSRequest instance can be re-used - Note: a copy is inside m_GSInstance
 }
 
 GameSparks::Core::GSObject GameSparks::Core::GSRequest::Send()
@@ -41,8 +47,6 @@ GameSparks::Core::GSObject GameSparks::Core::GSRequest::Send()
 void GameSparks::Core::GSRequest::Complete(const GSObject& response)
 {
 	m_Response = response;
-
-	if (m_Completer) m_Completer(response);
 
 	if (m_callbacks)
 	{

@@ -1,6 +1,29 @@
 # ChangeLog
 
-## rc5 (2015-05-16)
+## rc6 (2015-07-03)
+
+### base SDK (affects all platforms)
+- support for durable requests
+  - GS_ now has GetDurableQueue
+  - added HasCalbacks and SetCallbacks to GSRequest. If you're using durable requests, make sure to re-attach your callbacks via OnPersistentQueueLoadedCallback
+  - fixed a missing return in WebSocket error handling
+  - request and response objects now have HasUserData and GetUserData respectively SetUserData - User data also needs to be re-attached via OnPersistentQueueLoadedCallback, because it is a void* and will not be persisted
+- fixed message callbacks
+- IGSPlatform now has LoadValue and StoreValue so that the SDK can store persistent data.
+  - We have implementations for Windows / OS X / iOS / Android / Marmalade in the base class
+  - If you need to customize the behaviour, you can either override gsstl::string ToWritableLocation(gsstl::string desired_name) and/or IGSPlatform::StoreValue() IGSPlatform::LoadValue()
+- format of request-ids now match the ones from the .NET SDK
+- updated openssl binaries for iOS
+- the samples and tests now also run in the iOS simulator
+- If you want to run the samples on a device, you might have to change PRODUCT_NAME and the provisioning profile in the Xcode settings
+
+
+### Unreal Engine
+- Blueprint support!
+- works with UE 4.7 and 4.8
+
+
+## rc5 (2015-06-16)
 
 ### base SDK (affects all platforms)
 - documentation tweaks

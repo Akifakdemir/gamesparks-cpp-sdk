@@ -75,6 +75,7 @@ public class GameSparks : ModuleRules
                 AddPublicLibrary(Path.Combine(GameSparksPath, "libs", "GameSparks", "libIOS", "libGamesparks.a"));
                 AddPublicLibrary(Path.Combine(GameSparksPath, "libs", "openssl", "libIOS", "libcrypto.a"));
                 AddPublicLibrary(Path.Combine(GameSparksPath, "libs", "openssl", "libIOS", "libssl.a"));
+                //AddPublicLibrary("c++");
                 Definitions.Add("STL_FUNCTIONAL_SUPPORTED=0");
                 Definitions.Add("GS_USE_EASTL=1");
                 break;
@@ -82,8 +83,8 @@ public class GameSparks : ModuleRules
                 AddPublicLibrary(Path.Combine(GameSparksPath, "libs", "GameSparks", "libOSX", "libGamesparks.a"));
                 AddPublicLibrary(Path.Combine(GameSparksPath, "libs", "openssl", "libOSX", "libcrypto.a"));
                 AddPublicLibrary(Path.Combine(GameSparksPath, "libs", "openssl", "libOSX", "libssl.a"));
-                Definitions.Add("STL_FUNCTIONAL_SUPPORTED=0");
-                Definitions.Add("GS_USE_EASTL=1");
+                //Definitions.Add("STL_FUNCTIONAL_SUPPORTED=0");
+                //Definitions.Add("GS_USE_EASTL=1");
                 break;
             case UnrealTargetPlatform.XboxOne:
             case UnrealTargetPlatform.PS4:

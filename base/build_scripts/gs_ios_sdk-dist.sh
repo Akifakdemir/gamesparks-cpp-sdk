@@ -17,7 +17,7 @@ pushd "$OUTPUT_DIRECTORY"
 	mkdir -p xcode/iOSSim_eastl || exit $?
 
 	pushd xcode/iOS_eastl
-		cmake $CMAKE_SRC_DIR -DNO_STL_FUNCTIONAL=1 -DBUILD_IOS=1 -DUSE_EASTL=1 -GXcode || exit $?
+		cmake $CMAKE_SRC_DIR -DBUILD_IOS=1 -DUSE_EASTL=1 -DNO_STL_FUNCTIONAL=1 -GXcode || exit $?
 		xcodebuild -project Gamesparks.xcodeproj -target Gamesparks -configuration $CONFIGURATION || exit $?
 	popd
 
@@ -27,7 +27,7 @@ pushd "$OUTPUT_DIRECTORY"
 	popd
 
 	pushd xcode/iOSSim_eastl
-		cmake $CMAKE_SRC_DIR -DNO_STL_FUNCTIONAL=1 -DBUILD_IOS=1 -DUSE_EASTL=1 -DIOS_PLATFORM=SIMULATOR -GXcode || exit $?
+		cmake $CMAKE_SRC_DIR  -DBUILD_IOS=1 -DUSE_EASTL=1 -DNO_STL_FUNCTIONAL=1 -DIOS_PLATFORM=SIMULATOR -GXcode || exit $?
 		xcodebuild -project Gamesparks.xcodeproj -target Gamesparks -configuration $CONFIGURATION || exit $?
 	popd
 

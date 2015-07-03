@@ -76,6 +76,8 @@ IF (APPLE)
 		set (WS_LIBS	"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libIOS/libcrypto.a"
 						"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libIOS/libssl.a"
 					)
+
+		set(SOURCES ${SOURCES} "${PROJECT_SOURCE_DIR}/../src/GSIosHelper.mm")
 	ELSE (BUILD_IOS)
 		set (WS_LIBS	"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libOSX/libcrypto.a"
 						"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libOSX/libssl.a"
@@ -136,6 +138,10 @@ IF (APPLE)
 	# set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 ENDIF()
 
+if (BUILD_IOS)
+set(SAMPLE_EXTRA_ARG "MACOSX_BUNDLE")
+endif(BUILD_IOS)
+
 #IF (NOT BUILD_IOS)
 #
 #	Samples
@@ -145,7 +151,7 @@ file(GLOB SAMPLE_FILES "${PROJECT_SOURCE_DIR}/../samples/*.cpp")
 # export variable to parent scope
 set(WS_LIBS ${WS_LIBS} PARENT_SCOPE)
 
-IF(NOT BUILD_IOS)
+#IF(NOT BUILD_IOS)
 foreach(SAMPLE_FILE ${SAMPLE_FILES})
 	#add_test(validate_${i}, "validator", ${SAMPLE_FILE})
 
@@ -159,10 +165,21 @@ foreach(SAMPLE_FILE ${SAMPLE_FILES})
 		set(SAMPLE_EXTRA_FILES "")
 	ENDIF()
 
+	# add extra sources for simulator
+	IF ("${BUILD_IOS}" STREQUAL "1")
+		if (${IOS_PLATFORM} STREQUAL "SIMULATOR")
+			set(SAMPLE_EXTRA_FILES ${SAMPLE_EXTRA_FILES} "${PROJECT_SOURCE_DIR}/../samples/extra/UNIX2003_Fix.c")
+		endif()
+	ENDIF()
 
+
+	if (BUILD_IOS)
+	set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.mycompany.\${PRODUCT_NAME:identifier}")
+	endif()
 
 	ADD_EXECUTABLE (
-		${SAMPLE_NAME} 
+		${SAMPLE_NAME}
+		${SAMPLE_EXTRA_ARG}
 		${SAMPLE_FILE}
 		"${PROJECT_SOURCE_DIR}/../samples/sample_configuration.h"
 		"${PROJECT_SOURCE_DIR}/../samples/extra/usleep.cpp"
@@ -170,7 +187,12 @@ foreach(SAMPLE_FILE ${SAMPLE_FILES})
 		#"${PROJECT_SOURCE_DIR}/../samples/extra/UNIX2003_Fix.c"
 	)
 
-	TARGET_LINK_LIBRARIES (${SAMPLE_NAME} Gamesparks ${WS_LIBS}) 
+	TARGET_LINK_LIBRARIES (${SAMPLE_NAME} Gamesparks ${WS_LIBS})
+
+	if (BUILD_IOS)
+		set_target_properties(${SAMPLE_NAME} PROPERTIES XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iOS Developer")
+		TARGET_LINK_LIBRARIES (${SAMPLE_NAME} Gamesparks "-framework Foundation")
+	endif()
 endforeach()
-ENDIF()
+#ENDIF()
 #ENDIF()

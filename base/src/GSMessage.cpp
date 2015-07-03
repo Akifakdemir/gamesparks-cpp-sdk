@@ -7,9 +7,7 @@ namespace GameSparks
 	{
 		namespace Messages
 		{
-			GSMessage::t_CreateMessageFunctionMap GSMessage::m_Handlers;
 			const gsstl::string GSMessage::MESSAGE_ID_KEY = "messageId";
-
 		}
 	}
 }

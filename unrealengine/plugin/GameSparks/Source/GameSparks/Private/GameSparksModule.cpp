@@ -8,12 +8,14 @@
 
 #include "GameSparksComponent.h"
 
-#include "GameSparks/GS.h"
-#include "GSUnrealPlatform.h"
+#include "GameSparks/generated/GSMessages.h"
+#include "GameSparksUnrealPlatform.h"
+#include "GSMessageListeners.h"
 #include <functional>
 
 using namespace GameSparks::Core;
 using namespace GameSparks::UnrealEngineSDK;
+
 
 //DEFINE_LOG_CATEGORY(FGameSparks);
 IMPLEMENT_MODULE(UGameSparksModule, GameSparks);
@@ -21,38 +23,24 @@ IMPLEMENT_MODULE(UGameSparksModule, GameSparks);
 
 DEFINE_LOG_CATEGORY(UGameSparksModuleLog);
 
-namespace UGameSparksModuleNS
-{
-	//static TMap< UWorld*, UPaperBatchComponent* > WorldToBatcherMap;
-
-	static TArray< UWorld* > WorldList;
-
-	static FWorldDelegates::FWorldInitializationEvent::FDelegate OnWorldCreatedDelegate;
-	static FWorldDelegates::FWorldEvent::FDelegate OnWorldDestroyedDelegate;
-}
-
 void GameSparksAvailable_Static(GameSparks::Core::GS_& gsInstance, bool available)
 {
+    UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::GameSparksAvailable_Static"));
 	UGameSparksModule::GetModulePtr()->SendGameSparksAvailableToComponents(available);
 }
 
 void UGameSparksModule::StartupModule()
-{	
+{
+    UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::StartupModule"));
 	GS.GameSparksAvailable = GameSparksAvailable_Static;
-
-	UGameSparksModuleNS::OnWorldCreatedDelegate = FWorldDelegates::FWorldInitializationEvent::FDelegate::CreateStatic(&UGameSparksModule::OnWorldCreated);
-	FWorldDelegates::OnPostWorldInitialization.Add(UGameSparksModuleNS::OnWorldCreatedDelegate);
-
-	UGameSparksModuleNS::OnWorldDestroyedDelegate = FWorldDelegates::FWorldEvent::FDelegate::CreateStatic(&UGameSparksModule::OnWorldDestroyed);
-	FWorldDelegates::OnPreWorldFinishDestroy.Add(UGameSparksModuleNS::OnWorldDestroyedDelegate);
-
-	UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::StartupModule"));
-
+    UGSMessageListeners::RegisterListeners(GS);
+    
 }
 
 void UGameSparksModule::ShutdownModule()
 {
 	GS.ShutDown();
+    isInitialised = false;
 }
 
 bool UGameSparksModule::IsTickableWhenPaused() const
@@ -62,7 +50,7 @@ bool UGameSparksModule::IsTickableWhenPaused() const
 
 bool UGameSparksModule::IsTickableInEditor() const
 {
-	return true;
+	return false;
 }
 
 void UGameSparksModule::Tick(float DeltaTime)
@@ -82,12 +70,20 @@ TStatId UGameSparksModule::GetStatId() const
 
 void UGameSparksModule::Initialize(FString apikey, FString secret, bool previewServer)
 {
-	GS.Initialise(new GSUnrealPlatform(TCHAR_TO_ANSI(*apikey), TCHAR_TO_ANSI(*secret), previewServer));
+    if(!isInitialised){
+        UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::Initialize"));
+        GS.Initialise(new GameSparksUnrealPlatform(TCHAR_TO_ANSI(*apikey), TCHAR_TO_ANSI(*secret), previewServer));
+        isInitialised = true;
+    }
 }
 
 void UGameSparksModule::Shutdown()
 {
-	GS.ShutDown();
+    if(isInitialised){
+        UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::Shutdown"));
+        GS.ShutDown();
+        isInitialised = false;
+    }
 }
 
 UGameSparksModule* UGameSparksModule::GetModulePtr()
@@ -97,56 +93,41 @@ UGameSparksModule* UGameSparksModule::GetModulePtr()
 
 void UGameSparksModule::SendGameSparksAvailableToComponents(bool available)
 {
-	for (UGameSparksComponent* gsComponent : GetGameSparksComponents())
-	{
-		gsComponent->OnGameSparksAvailableDelegate.Broadcast(available);
-	}
+    for ( TObjectIterator<UGameSparksComponent> Itr; Itr; ++Itr )
+    {
+        if(UGameSparksModuleNS::WorldList.Contains(Itr->GetWorld())){
+            Itr->OnGameSparksAvailableDelegate.Broadcast(available);
+        }
+    }
 }
 
 void UGameSparksModule::SendDebugLogToComponents(const gsstl::string& message)
 {
-	FString str = FString(message.c_str());
+    FString str = FString(message.c_str());
+    
+    UE_LOG(UGameSparksModuleLog, Log, TEXT("%s"), *str);
+
 	if (GEngine != NULL)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *str);
-
-		for (UGameSparksComponent* gsComponent : GetGameSparksComponents())
-		{
-			gsComponent->OnGameSparksLogEventDelegate.Broadcast(str);
-		}
+        for ( TObjectIterator<UGameSparksComponent> Itr; Itr; ++Itr )
+        {
+            if(UGameSparksModuleNS::WorldList.Contains(Itr->GetWorld())){
+                Itr->OnGameSparksDebugLog.Broadcast(str);
+            }
+        }
 	}
 }
 
-TArray<UGameSparksComponent*> UGameSparksModule::GetGameSparksComponents()
-{
-	TArray<UGameSparksComponent*> result;
-	for (int32 i = 0; i < UGameSparksModuleNS::WorldList.Num(); ++i)
-	{
-		UWorld* world = UGameSparksModuleNS::WorldList[i];
 
-		for (TActorIterator<AActor> ActorItr(world); ActorItr; ++ActorItr)
-		{
-			UGameSparksComponent* comp = dynamic_cast<UGameSparksComponent*>(ActorItr->GetComponentByClass(UGameSparksComponent::StaticClass()));
-			if (comp != nullptr)
-			{
-				result.Add(comp);
-			}
-		}
-	}
-	return result;
+void UGameSparksModule::OnWorldConnected(UWorld* World)
+{
+	UGameSparksModuleNS::WorldList.AddUnique(World);
 }
 
-void UGameSparksModule::OnWorldCreated(UWorld* World, const UWorld::InitializationValues IVS)
-{
-	UGameSparksModuleNS::WorldList.Add(World);
-}
-
-void UGameSparksModule::OnWorldDestroyed(UWorld* World)
+void UGameSparksModule::OnWorldDisconnected(UWorld* World)
 {
 	UGameSparksModuleNS::WorldList.Remove(World);
 }
 
-void UGameSparksModule::TestingEvent(const FString& GameName)
-{
 
-}
+

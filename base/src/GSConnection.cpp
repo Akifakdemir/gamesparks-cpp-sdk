@@ -139,9 +139,9 @@ bool GSConnection::Update(float deltaTime)
 		if (m_WebSocket->getReadyState() != WebSocket::CLOSED)
 		{
 			m_WebSocket->poll(0, OnWebSocketError, this);
-			if (m_Stopped) false;
+			if (m_Stopped) return false;
 			m_WebSocket->dispatch(OnWebSocketCallback, OnWebSocketError, this);
-			if (m_Stopped) false;
+			if (m_Stopped) return false;
 		}
 		else if (m_WebSocket->getReadyState() == WebSocket::CLOSED)
 		{

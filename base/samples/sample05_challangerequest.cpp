@@ -70,17 +70,36 @@ void AuthenticationRequest_Response(GS_& gsInstance, const GameSparks::Api::Resp
 	}
 }
 
-void GameSparksAvailable(GS_& gsInstance, bool available)
+void RegistrationRequest_Response(GS_& gsInstance, const GameSparks::Api::Responses::RegistrationResponse& response)
 {
-	std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
-	
-	if (available)
+	if (response.GetHasErrors() && response.GetErrors().GetValue().GetString("USERNAME").GetValue() != "TAKEN")
+	{
+		std::cout << "something went wrong during the registration" << std::endl;
+		std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
+	}
+	else
 	{
 		// login immediately when gamesparks is available
 		GameSparks::Api::Requests::AuthenticationRequest request(gsInstance);
 		request.SetUserName("abcdefgh");
 		request.SetPassword("abcdefgh");
 		request.Send(AuthenticationRequest_Response);
+	}
+}
+
+void GameSparksAvailable(GS_& gsInstance, bool available)
+{
+	std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
+	
+	if (available)
+	{
+		{
+			GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
+			req.SetUserName("abcdefgh");
+			req.SetPassword("abcdefgh");
+			req.SetDisplayName("SuperPlayer007");
+			req.Send(RegistrationRequest_Response);
+		}
 	}
 }
 

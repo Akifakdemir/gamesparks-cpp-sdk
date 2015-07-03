@@ -51,50 +51,6 @@ namespace GameSparks
 
 			/*!
 			\ingroup Types
-			A the details of a social connection
-			*/
-			class SocialStatus : public  GameSparks::Core::GSTypedResponse
-			{
-			public:
-				SocialStatus(const GameSparks::Core::GSData& data)
-					: GSTypedResponse(data)
-				{
-
-				}
-
-				SocialStatus(const SocialStatus& other)
-					: GSTypedResponse(other)
-				{
-				}
-
-			/// <summary>
-			/// When the token is still active.
-			/// </summary>
-					// method type 4
-					Optional::t_BoolOptional GetActive () const
-					{
-						return m_Response.GetBoolean("active");
-					}
-			/// <summary>
-			/// When the token expires (if available).
-			/// </summary>
-					// method type 4
-					GameSparks::Core::GSDateTime::t_Optional GetExpires () const
-					{
-						return m_Response.GetDate("expires");
-					}
-			/// <summary>
-			/// The identifier of the external platform.
-			/// </summary>
-					// method type 4
-					Optional::t_StringOptional GetSystemId () const
-					{
-						return m_Response.GetString("systemId");
-					}
-			};
-
-			/*!
-			\ingroup Types
 			A nested object that represents the invitable friend.
 			*/
 			class InvitableFriend : public  GameSparks::Core::GSTypedResponse
@@ -134,6 +90,50 @@ namespace GameSparks
 					Optional::t_StringOptional GetProfilePic () const
 					{
 						return m_Response.GetString("profilePic");
+					}
+			};
+
+			/*!
+			\ingroup Types
+			A the details of a social connection
+			*/
+			class SocialStatus : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				SocialStatus(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				SocialStatus(const SocialStatus& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			/// <summary>
+			/// When the token is still active.
+			/// </summary>
+					// method type 4
+					Optional::t_BoolOptional GetActive () const
+					{
+						return m_Response.GetBoolean("active");
+					}
+			/// <summary>
+			/// When the token expires (if available).
+			/// </summary>
+					// method type 4
+					GameSparks::Core::GSDateTime::t_Optional GetExpires () const
+					{
+						return m_Response.GetDate("expires");
+					}
+			/// <summary>
+			/// The identifier of the external platform.
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetSystemId () const
+					{
+						return m_Response.GetString("systemId");
 					}
 			};
 
@@ -652,42 +652,6 @@ namespace GameSparks
 
 			/*!
 			\ingroup Types
-			A nested object that represents a bought item.
-			*/
-			class Boughtitem : public  GameSparks::Core::GSTypedResponse
-			{
-			public:
-				Boughtitem(const GameSparks::Core::GSData& data)
-					: GSTypedResponse(data)
-				{
-
-				}
-
-				Boughtitem(const Boughtitem& other)
-					: GSTypedResponse(other)
-				{
-				}
-
-			/// <summary>
-			/// The quantity of the bought item
-			/// </summary>
-					// method type 4
-					Optional::t_LongOptional GetQuantity () const
-					{
-						return m_Response.GetLong("quantity");
-					}
-			/// <summary>
-			/// The short code of the bought item
-			/// </summary>
-					// method type 4
-					Optional::t_StringOptional GetShortCode () const
-					{
-						return m_Response.GetString("shortCode");
-					}
-			};
-
-			/*!
-			\ingroup Types
 			A nested object that represents the challenge data.
 			*/
 			class Challenge : public  GameSparks::Core::GSTypedResponse
@@ -901,6 +865,42 @@ namespace GameSparks
 
 			/*!
 			\ingroup Types
+			A nested object that represents a bought item.
+			*/
+			class Boughtitem : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				Boughtitem(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				Boughtitem(const Boughtitem& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			/// <summary>
+			/// The quantity of the bought item
+			/// </summary>
+					// method type 4
+					Optional::t_LongOptional GetQuantity () const
+					{
+						return m_Response.GetLong("quantity");
+					}
+			/// <summary>
+			/// The short code of the bought item
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetShortCode () const
+					{
+						return m_Response.GetString("shortCode");
+					}
+			};
+
+			/*!
+			\ingroup Types
 			A nested object that represents the virtual good.
 			*/
 			class VirtualGood : public  GameSparks::Core::GSTypedResponse
@@ -917,6 +917,22 @@ namespace GameSparks
 				{
 				}
 
+			/// <summary>
+			/// The Windows Phone 8 productId of the item.
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetWP8StoreProductId () const
+					{
+						return m_Response.GetString("WP8StoreProductId");
+					}
+			/// <summary>
+			/// The Amazon Store productId of the item.
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetAmazonStoreProductId () const
+					{
+						return m_Response.GetString("amazonStoreProductId");
+					}
 			/// <summary>
 			/// The Currency1 cost of the Virtual Good
 			/// </summary>
@@ -974,6 +990,22 @@ namespace GameSparks
 						return m_Response.GetString("description");
 					}
 			/// <summary>
+			/// The google play productId of the item.
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetGooglePlayProductId () const
+					{
+						return m_Response.GetString("googlePlayProductId");
+					}
+			/// <summary>
+			/// The iOS AppStore productId of the item.
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetIosAppStoreProductId () const
+					{
+						return m_Response.GetString("iosAppStoreProductId");
+					}
+			/// <summary>
 			/// The maximum number of the Virtual Good that can be owned at one time
 			/// </summary>
 					// method type 4
@@ -1005,57 +1037,21 @@ namespace GameSparks
 					{
 						return m_Response.GetString("tags");
 					}
-			};
-
-			/*!
-			\ingroup Types
-			A nested object that represents the achievement data.
-			*/
-			class Achievement : public  GameSparks::Core::GSTypedResponse
-			{
-			public:
-				Achievement(const GameSparks::Core::GSData& data)
-					: GSTypedResponse(data)
-				{
-
-				}
-
-				Achievement(const Achievement& other)
-					: GSTypedResponse(other)
-				{
-				}
-
 			/// <summary>
-			/// The desciption of the Achievement
+			/// The type of the virtual good, "VGOOD" or "CURRENCY"
 			/// </summary>
 					// method type 4
-					Optional::t_StringOptional GetDescription () const
+					Optional::t_StringOptional GetType () const
 					{
-						return m_Response.GetString("description");
+						return m_Response.GetString("type");
 					}
 			/// <summary>
-			/// Whether to current player has earned the achievement
+			/// The Windows 8 productId of the item.
 			/// </summary>
 					// method type 4
-					Optional::t_BoolOptional GetEarned () const
+					Optional::t_StringOptional GetW8StoreProductId () const
 					{
-						return m_Response.GetBoolean("earned");
-					}
-			/// <summary>
-			/// The name of the Achievement
-			/// </summary>
-					// method type 4
-					Optional::t_StringOptional GetName () const
-					{
-						return m_Response.GetString("name");
-					}
-			/// <summary>
-			/// The shortCode of the Achievement
-			/// </summary>
-					// method type 4
-					Optional::t_StringOptional GetShortCode () const
-					{
-						return m_Response.GetString("shortCode");
+						return m_Response.GetString("w8StoreProductId");
 					}
 			};
 
@@ -1116,6 +1112,58 @@ namespace GameSparks
 					Optional::t_StringOptional GetTags () const
 					{
 						return m_Response.GetString("tags");
+					}
+			};
+
+			/*!
+			\ingroup Types
+			A nested object that represents the achievement data.
+			*/
+			class Achievement : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				Achievement(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				Achievement(const Achievement& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			/// <summary>
+			/// The desciption of the Achievement
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetDescription () const
+					{
+						return m_Response.GetString("description");
+					}
+			/// <summary>
+			/// Whether to current player has earned the achievement
+			/// </summary>
+					// method type 4
+					Optional::t_BoolOptional GetEarned () const
+					{
+						return m_Response.GetBoolean("earned");
+					}
+			/// <summary>
+			/// The name of the Achievement
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetName () const
+					{
+						return m_Response.GetString("name");
+					}
+			/// <summary>
+			/// The shortCode of the Achievement
+			/// </summary>
+					// method type 4
+					Optional::t_StringOptional GetShortCode () const
+					{
+						return m_Response.GetString("shortCode");
 					}
 			};
 		}

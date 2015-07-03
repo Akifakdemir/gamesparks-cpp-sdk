@@ -86,19 +86,29 @@ namespace GameSparks
 					m_Request.SetDurable(durable);
 					return static_cast<RequestType&>(*this);
 				}
-
+*/
 				virtual RequestType& SetScriptData(const GSRequestData& data)
 				{
 					m_Request.AddObject("scriptData", data);
 					return static_cast<RequestType&>(*this);
-				}*/
+				}
 
 				/// send this request to the server
 				virtual ResponseType Send()
 				{
 					return m_Request.Send();
 				}
-
+            
+                bool HasUserData() const
+                {
+                    return m_Request.HasUserData();
+                }
+            
+                void SetUserData(void* userData)
+                {
+                    m_Request.SetUserData(userData);
+                }
+            
 				// TODO: check if the type cound be changed to Seconds
 				/// send this request with a response-callback and optional timeout (in seconds)
 				/// callback will be called in case of success and error. you have to examine the passed response
@@ -106,36 +116,52 @@ namespace GameSparks
 				/// TODO: 
 				virtual void Send(t_ResponseCallback callback, int timeoutSeconds=-1)
 				{
-					m_Request.Send(new Callbacks(callback, callback), timeoutSeconds);
+					m_Request.Send(new Callbacks(callback, callback, m_Request.m_userData), timeoutSeconds);
 				}
 
 				// TODO: check if the type cound be changed to Seconds
 				/// send this request with a successCallback, errorCallback and optional timeout (in seconds)
 				virtual void Send(t_ResponseCallback successCallback, t_ResponseCallback errorCallback, int timeoutSeconds=-1)
 				{
-					m_Request.Send(new Callbacks(successCallback, errorCallback), timeoutSeconds);
+					m_Request.Send(new Callbacks(successCallback, errorCallback, m_Request.m_userData), timeoutSeconds);
+				}
+
+				GSTypedRequest<RequestType, ResponseType>& SetDurable(bool value)
+				{
+					m_Request.m_Durable = value;
+					return *this;
 				}
 
 				private:
 					class Callbacks : public GSRequest::BaseCallbacks
 					{
 						public:
-							Callbacks(t_ResponseCallback onSuccess, t_ResponseCallback onError = t_ResponseCallback())
-							:m_onSuccess(onSuccess), m_onError(onError) {}
+							Callbacks(t_ResponseCallback onSuccess, t_ResponseCallback onError, void* userData)
+                            :m_onSuccess(onSuccess), m_onError(onError) { m_userData = userData; }
 
 							virtual void OnSucess(GS_& gsInstance, const GSObject& response)
 							{
-								if ( m_onSuccess ) m_onSuccess( gsInstance, response );
+								if ( m_onSuccess )
+                                {
+                                    ResponseType typedResponse(response); // the constructor of ResponseType takes a GSObject
+                                    typedResponse.m_userData = m_userData;
+                                    m_onSuccess( gsInstance, typedResponse );
+                                }
 							}
 
 							virtual void OnError (GS_& gsInstance, const GSObject& response)
 							{
-								if ( m_onError ) m_onError( gsInstance, response );
+								if ( m_onError )
+                                {
+                                    ResponseType typedResponse(response); // the constructor of ResponseType takes a GSObject
+                                    typedResponse.m_userData = m_userData;
+                                    m_onError( gsInstance, typedResponse );
+                                }
 							}
 
 							virtual Callbacks* Clone() const
 							{
-								return new Callbacks( m_onSuccess, m_onError );
+								return new Callbacks( m_onSuccess, m_onError, m_userData );
 							}
 						private:
 							t_ResponseCallback m_onSuccess;

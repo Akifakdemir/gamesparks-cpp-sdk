@@ -43,46 +43,7 @@ namespace GameSparks
 				protected:
 					/// @internal
 					const static gsstl::string MESSAGE_ID_KEY; ///< key name to access the message id
-
-					#if defined(GS_USE_STD_FUNCTION)
-					/// create message function as a std::function
-					typedef gsstl::function<void(const GSData&)> t_CreateMessageFunction;
-					#else
-					/// create message function as a c function pointer
-					typedef void(*t_CreateMessageFunction)(const GSData&);
-					#endif /* GS_USE_STD_FUNCTION */
-					/// maps class name to factory function
-					typedef gsstl::map<gsstl::string, t_CreateMessageFunction> t_CreateMessageFunctionMap;
-					/// a static instance of the factory map
-					static t_CreateMessageFunctionMap m_Handlers;
-					/// @endinternal
-
 				private:
-					friend class Core::GS_;
-					static void NotifyHandlers(const GSObject& message)
-					{
-						t_CreateMessageFunctionMap::iterator find = m_Handlers.find(message.GetType().GetValue());
-						if (find != m_Handlers.end())
-						{ 
-							find->second(message);
-						}
-						/*
-						internal static void NotifyHandlers(GSObject message){
-
-						if (message.ContainsKey("extCode")) {
-						if (handlers.ContainsKey(message.Type + "_" + message.GetString("extCode"))) {
-						handlers[message.Type + "_" + message.GetString("extCode")](message);
-						return;
-						}
-						}
-
-						if (handlers.ContainsKey(message.Type)) {
-						handlers[message.Type](message);
-						}
-						}
-
-						*/
-					}
 			};
 		}
 	}

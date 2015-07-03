@@ -25,7 +25,7 @@ namespace GameSparks
 				AcceptChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AcceptChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -58,7 +58,7 @@ namespace GameSparks
 				AccountDetailsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AccountDetailsRequest")
 				{
-					
+
 				}
 			
 
@@ -78,7 +78,7 @@ namespace GameSparks
 				AmazonBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AmazonBuyGoodsRequest")
 				{
-					
+
 				}
 			
 
@@ -125,7 +125,7 @@ namespace GameSparks
 				AmazonConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AmazonConnectRequest")
 				{
-					
+
 				}
 			
 
@@ -171,6 +171,14 @@ namespace GameSparks
 				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
 				return *this;
 			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			AmazonConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
 			};
 			
 			/*!
@@ -189,7 +197,7 @@ namespace GameSparks
 				AnalyticsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AnalyticsRequest")
 				{
-					
+
 				}
 			
 
@@ -238,7 +246,7 @@ namespace GameSparks
 				AroundMeLeaderboardRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AroundMeLeaderboardRequest")
 				{
-					
+
 				}
 			
 
@@ -336,7 +344,7 @@ namespace GameSparks
 				AuthenticationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".AuthenticationRequest")
 				{
-					
+
 				}
 			
 
@@ -369,7 +377,7 @@ namespace GameSparks
 				BuyVirtualGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".BuyVirtualGoodsRequest")
 				{
-					
+
 				}
 			
 
@@ -410,7 +418,7 @@ namespace GameSparks
 				ChangeUserDetailsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ChangeUserDetailsRequest")
 				{
-					
+
 				}
 			
 
@@ -468,7 +476,7 @@ namespace GameSparks
 				ChatOnChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ChatOnChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -501,7 +509,7 @@ namespace GameSparks
 				ConsumeVirtualGoodRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ConsumeVirtualGoodRequest")
 				{
-					
+
 				}
 			
 
@@ -536,7 +544,7 @@ namespace GameSparks
 				CreateChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".CreateChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -547,6 +555,14 @@ namespace GameSparks
 			CreateChallengeRequest& SetAccessType( const gsstl::string& accessType )
 			{
 				m_Request.AddString("accessType", accessType);
+				return *this;
+			}
+			/// <summary>
+			/// Whether this challenge should automatically start when a new player joins and maxPlayers is reached
+			/// </summary>
+			CreateChallengeRequest& SetAutoStartJoinedChallengeOnMaxPlayers( bool autoStartJoinedChallengeOnMaxPlayers )
+			{
+				m_Request.AddBoolean("autoStartJoinedChallengeOnMaxPlayers", autoStartJoinedChallengeOnMaxPlayers);
 				return *this;
 			}
 			/// <summary>
@@ -699,7 +715,7 @@ namespace GameSparks
 				CreateTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".CreateTeamRequest")
 				{
-					
+
 				}
 			
 
@@ -740,7 +756,7 @@ namespace GameSparks
 				DeclineChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DeclineChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -775,7 +791,7 @@ namespace GameSparks
 				DeviceAuthenticationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DeviceAuthenticationRequest")
 				{
-					
+
 				}
 			
 
@@ -857,7 +873,7 @@ namespace GameSparks
 				DismissMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DismissMessageRequest")
 				{
-					
+
 				}
 			
 
@@ -882,7 +898,7 @@ namespace GameSparks
 				DropTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".DropTeamRequest")
 				{
-					
+
 				}
 			
 
@@ -924,7 +940,7 @@ namespace GameSparks
 				EndSessionRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".EndSessionRequest")
 				{
-					
+
 				}
 			
 
@@ -947,7 +963,7 @@ namespace GameSparks
 				FacebookConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".FacebookConnectRequest")
 				{
-					
+
 				}
 			
 
@@ -1004,6 +1020,14 @@ namespace GameSparks
 				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
 				return *this;
 			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			FacebookConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
 			};
 			
 			/*!
@@ -1016,7 +1040,7 @@ namespace GameSparks
 				FindChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".FindChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -1056,9 +1080,170 @@ namespace GameSparks
 			/// <summary>
 			/// Optional shortCodes to filter the results by challenge type
 			/// </summary>
-			FindChallengeRequest& SetShortCode( const gsstl::string& shortCode )
+			FindChallengeRequest& SetShortCode( gsstl::vector<gsstl::string> shortCode )
 			{
-				m_Request.AddString("shortCode", shortCode);
+				m_Request.AddStringList("shortCode", shortCode);
+				return *this;
+			}
+			};
+			
+			/*!
+			\ingroup Challenges
+			Find a match for this player, using the given skill and matchShortCode.
+			Players looking for a match using the same matchShortCode will be considered for a match, based on the matchConfig.
+			The mathConfig can be overridden in this request.
+			Each player must match the other for the match to be found.
+			The matchConfig contains an array of thresholds that determine what constitutes an acceptable match.
+			Each threshold specifies a period in seconds from when that threshold will be considered when matching this player.
+			Thresholds contain a min and max value that determine the range that the other player's skill must lie within for a match to be found.
+			The range calculation can be one of PERCENT, RELATIVE or ABSOLUTE.  PERCENT and RELATIVE both start from the current player's skill and look between min and max (subtracting min and adding max to calculate the range) for a suitable match.  ABSOLUTE looks for a player with skill that lies between the provided min and max values.  In all cases we will attempt to match a player with the nearest skill to the current player, as long as they are within range.
+			Optionally, the threshold can specify a maxDistance in metres as well.  If specified, we will only match this player with players who are within maxDistance of the current player.
+			*/
+			class FindMatchRequest : public GameSparks::Core::GSTypedRequest < FindMatchRequest, GameSparks::Api::Responses::FindMatchResponse >
+			{
+			public:
+				FindMatchRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".FindMatchRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// Optional. Players will be grouped based on the distinct value passed in here, only players in the same group can be matched together
+			/// </summary>
+			FindMatchRequest& SetMatchGroup( const gsstl::string& matchGroup )
+			{
+				m_Request.AddString("matchGroup", matchGroup);
+				return *this;
+			}
+			/// <summary>
+			/// The shortCode of the match type this player is registering for
+			/// </summary>
+			FindMatchRequest& SetMatchShortCode( const gsstl::string& matchShortCode )
+			{
+				m_Request.AddString("matchShortCode", matchShortCode);
+				return *this;
+			}
+			/// <summary>
+			/// The skill of the player looking for a match
+			/// </summary>
+			FindMatchRequest& SetSkill( long skill )
+			{
+				m_Request.AddNumber("skill", skill);
+				return *this;
+			}
+			};
+			
+			/*!
+			\ingroup Authentication
+			Allows an Apple account that has GameCenter to be used as an authentication mechanism.
+			The request must supply the GameCenter user details, such as the player id and username.
+			If the GameCenter user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the GameCenter user is not already registered with the game, the GameCenter user will be linked to the current player.
+			If the current player has not authenticated and the GameCenter user is not known, a new player will be created using the GameCenter details and the session will be authenticated against the new player.
+			If the GameCenter user is already known, the session will switch to being the previously created user.
+			This API call requires the output details from GKLocalPlayer.generateIdentityVerificationSignatureWithCompletionHandler on your iOS device
+			*/
+			class GameCenterConnectRequest : public GameSparks::Core::GSTypedRequest < GameCenterConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
+			{
+			public:
+				GameCenterConnectRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".GameCenterConnectRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// The display of the current player from GameCenter. This will be used as the displayName of the gamesparks player if created (or syncDisplayname is true)
+			/// </summary>
+			GameCenterConnectRequest& SetDisplayName( const gsstl::string& displayName )
+			{
+				m_Request.AddString("displayName", displayName);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the server should not try to link the external profile with the current player.  If false, links the external profile to the currently signed in player.  If true, creates a new player and links the external profile to them.  Defaults to false.
+			/// </summary>
+			GameCenterConnectRequest& SetDoNotLinkToCurrentPlayer( bool doNotLinkToCurrentPlayer )
+			{
+				m_Request.AddBoolean("doNotLinkToCurrentPlayer", doNotLinkToCurrentPlayer);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates whether the server should return an error if an account switch would have occurred, rather than switching automatically.  Defaults to false.
+			/// </summary>
+			GameCenterConnectRequest& SetErrorOnSwitch( bool errorOnSwitch )
+			{
+				m_Request.AddBoolean("errorOnSwitch", errorOnSwitch);
+				return *this;
+			}
+			/// <summary>
+			/// The game center id of the current player. This value obtained be obtained from GKLocalPlayer playerID
+			/// </summary>
+			GameCenterConnectRequest& SetExternalPlayerId( const gsstl::string& externalPlayerId )
+			{
+				m_Request.AddString("externalPlayerId", externalPlayerId);
+				return *this;
+			}
+			/// <summary>
+			/// The url from where we will download the public key. This value should be obtained from generateIdentityVerificationSignatureWithCompletionHandler. 
+			/// </summary>
+			GameCenterConnectRequest& SetPublicKeyUrl( const gsstl::string& publicKeyUrl )
+			{
+				m_Request.AddString("publicKeyUrl", publicKeyUrl);
+				return *this;
+			}
+			/// <summary>
+			/// The salt is needed in order to prevent request forgery. This value should be obtained from generateIdentityVerificationSignatureWithCompletionHandler and should be base64 encoded using [salt base64Encoding]
+			/// </summary>
+			GameCenterConnectRequest& SetSalt( const gsstl::string& salt )
+			{
+				m_Request.AddString("salt", salt);
+				return *this;
+			}
+			/// <summary>
+			/// An optional segment configuration for this request.
+			/// If this request creates a new player on the gamesparks platform, the segments of the new player will match the values provided
+			/// </summary>
+			GameCenterConnectRequest& SetSegments( const GameSparks::Core::GSRequestData& segments )
+			{
+				m_Request.AddObject("segments", segments);
+				return *this;
+			}
+			/// <summary>
+			/// The signature is needed to validate that the request is genuine and that we can save the player. This value should be obtained from generateIdentityVerificationSignatureWithCompletionHandler and should be base64 encoded using [signature base64Encoding]
+			/// </summary>
+			GameCenterConnectRequest& SetSignature( const gsstl::string& signature )
+			{
+				m_Request.AddString("signature", signature);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the server should switch to the supplied profile if it isalready associated to a player. Defaults to false.
+			/// </summary>
+			GameCenterConnectRequest& SetSwitchIfPossible( bool switchIfPossible )
+			{
+				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			GameCenterConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
+			/// <summary>
+			/// The timestamp is needed to validate the request signature. This value should be obtained from generateIdentityVerificationSignatureWithCompletionHandler
+			/// </summary>
+			GameCenterConnectRequest& SetTimestamp( long timestamp )
+			{
+				m_Request.AddNumber("timestamp", timestamp);
 				return *this;
 			}
 			};
@@ -1073,7 +1258,7 @@ namespace GameSparks
 				GetChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -1106,7 +1291,7 @@ namespace GameSparks
 				GetDownloadableRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetDownloadableRequest")
 				{
-					
+
 				}
 			
 
@@ -1131,7 +1316,7 @@ namespace GameSparks
 				GetLeaderboardEntriesRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetLeaderboardEntriesRequest")
 				{
-					
+
 				}
 			
 
@@ -1196,7 +1381,7 @@ namespace GameSparks
 				GetMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetMessageRequest")
 				{
-					
+
 				}
 			
 
@@ -1221,7 +1406,7 @@ namespace GameSparks
 				GetMyTeamsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetMyTeamsRequest")
 				{
-					
+
 				}
 			
 
@@ -1254,7 +1439,7 @@ namespace GameSparks
 				GetRunningTotalsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetRunningTotalsRequest")
 				{
-					
+
 				}
 			
 
@@ -1287,7 +1472,7 @@ namespace GameSparks
 				GetTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetTeamRequest")
 				{
-					
+
 				}
 			
 
@@ -1328,7 +1513,7 @@ namespace GameSparks
 				GetUploadUrlRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetUploadUrlRequest")
 				{
-					
+
 				}
 			
 
@@ -1353,7 +1538,7 @@ namespace GameSparks
 				GetUploadedRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetUploadedRequest")
 				{
-					
+
 				}
 			
 
@@ -1382,7 +1567,7 @@ namespace GameSparks
 				GooglePlayBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GooglePlayBuyGoodsRequest")
 				{
-					
+
 				}
 			
 
@@ -1430,13 +1615,21 @@ namespace GameSparks
 				GooglePlusConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".GooglePlusConnectRequest")
 				{
-					
+
 				}
 			
 
 
 			/// <summary>
-			/// The access code is used by the client to make authenticated requests on behalf of the end user.
+			/// The access token is used when using the service id and certificate.
+			/// </summary>
+			GooglePlusConnectRequest& SetAccessToken( const gsstl::string& accessToken )
+			{
+				m_Request.AddString("accessToken", accessToken);
+				return *this;
+			}
+			/// <summary>
+			/// The access code is used by the client to make authenticated requests on behalf of the end user. Requires clientId and clientsecret to be set
 			/// </summary>
 			GooglePlusConnectRequest& SetCode( const gsstl::string& code )
 			{
@@ -1484,6 +1677,14 @@ namespace GameSparks
 				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
 				return *this;
 			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			GooglePlusConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
 			};
 			
 			/*!
@@ -1498,7 +1699,7 @@ namespace GameSparks
 				IOSBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".IOSBuyGoodsRequest")
 				{
-					
+
 				}
 			
 
@@ -1540,7 +1741,7 @@ namespace GameSparks
 				JoinChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".JoinChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -1581,7 +1782,7 @@ namespace GameSparks
 				JoinTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".JoinTeamRequest")
 				{
-					
+
 				}
 			
 
@@ -1613,6 +1814,85 @@ namespace GameSparks
 			};
 			
 			/*!
+			\ingroup Authentication
+			Allows a Kongregate account to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Kongregate platform and store them within GameSparks.
+			If the Kongregate user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Kongregate user is not already registered with the game, the Kongregate user will be linked to the current player.
+			If the current player has not authenticated and the Kongregate user is not known, a new player will be created using the Kongregate details and the session will be authenticated against the new player.
+			If the Kongregate user is already known, the session will switch to being the previously created user.
+			*/
+			class KongregateConnectRequest : public GameSparks::Core::GSTypedRequest < KongregateConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
+			{
+			public:
+				KongregateConnectRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".KongregateConnectRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// Indicates that the server should not try to link the external profile with the current player.  If false, links the external profile to the currently signed in player.  If true, creates a new player and links the external profile to them.  Defaults to false.
+			/// </summary>
+			KongregateConnectRequest& SetDoNotLinkToCurrentPlayer( bool doNotLinkToCurrentPlayer )
+			{
+				m_Request.AddBoolean("doNotLinkToCurrentPlayer", doNotLinkToCurrentPlayer);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates whether the server should return an error if an account switch would have occurred, rather than switching automatically.  Defaults to false.
+			/// </summary>
+			KongregateConnectRequest& SetErrorOnSwitch( bool errorOnSwitch )
+			{
+				m_Request.AddBoolean("errorOnSwitch", errorOnSwitch);
+				return *this;
+			}
+			/// <summary>
+			/// The gameAuthToken, together with the userID are used by the client to make authenticated requests on behalf of the end user.
+			/// </summary>
+			KongregateConnectRequest& SetGameAuthToken( const gsstl::string& gameAuthToken )
+			{
+				m_Request.AddString("gameAuthToken", gameAuthToken);
+				return *this;
+			}
+			/// <summary>
+			/// An optional segment configuration for this request.
+			/// If this request creates a new player on the gamesparks platform, the segments of the new player will match the values provided
+			/// </summary>
+			KongregateConnectRequest& SetSegments( const GameSparks::Core::GSRequestData& segments )
+			{
+				m_Request.AddObject("segments", segments);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the server should switch to the supplied profile if it isalready associated to a player. Defaults to false.
+			/// </summary>
+			KongregateConnectRequest& SetSwitchIfPossible( bool switchIfPossible )
+			{
+				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			KongregateConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
+			/// <summary>
+			/// The userID, together with the gameAuthToken are used by the client to make authenticated requests on behalf of the end user.
+			/// </summary>
+			KongregateConnectRequest& SetUserId( const gsstl::string& userId )
+			{
+				m_Request.AddString("userId", userId);
+				return *this;
+			}
+			};
+			
+			/*!
 			\ingroup Leaderboards
 			Returns the top data for either the specified global leaderboard or the specified challenges leaderboard. The data is sorted as defined in the rules specified in the leaderboard configuration.
 			The response contains the top of the leaderboard, and returns the number of entries as defined in the entryCount parameter.
@@ -1624,7 +1904,7 @@ namespace GameSparks
 				LeaderboardDataRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LeaderboardDataRequest")
 				{
-					
+
 				}
 			
 
@@ -1729,7 +2009,7 @@ namespace GameSparks
 				LeaveTeamRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LeaveTeamRequest")
 				{
-					
+
 				}
 			
 
@@ -1770,7 +2050,7 @@ namespace GameSparks
 				ListAchievementsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListAchievementsRequest")
 				{
-					
+
 				}
 			
 
@@ -1795,7 +2075,7 @@ namespace GameSparks
 				ListChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -1852,7 +2132,7 @@ namespace GameSparks
 				ListChallengeTypeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListChallengeTypeRequest")
 				{
-					
+
 				}
 			
 
@@ -1871,7 +2151,7 @@ namespace GameSparks
 				ListGameFriendsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListGameFriendsRequest")
 				{
-					
+
 				}
 			
 
@@ -1889,7 +2169,7 @@ namespace GameSparks
 				ListInviteFriendsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListInviteFriendsRequest")
 				{
-					
+
 				}
 			
 
@@ -1906,7 +2186,7 @@ namespace GameSparks
 				ListLeaderboardsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListLeaderboardsRequest")
 				{
-					
+
 				}
 			
 
@@ -1924,7 +2204,7 @@ namespace GameSparks
 				ListMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListMessageRequest")
 				{
-					
+
 				}
 			
 
@@ -1959,7 +2239,7 @@ namespace GameSparks
 				ListMessageSummaryRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListMessageSummaryRequest")
 				{
-					
+
 				}
 			
 
@@ -1992,7 +2272,7 @@ namespace GameSparks
 				ListTeamChatRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListTeamChatRequest")
 				{
-					
+
 				}
 			
 
@@ -2049,7 +2329,7 @@ namespace GameSparks
 				ListVirtualGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListVirtualGoodsRequest")
 				{
-					
+
 				}
 			
 
@@ -2068,7 +2348,7 @@ namespace GameSparks
 				LogChallengeEventRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LogChallengeEventRequest")
 				{
-					
+
 				}
 			
 
@@ -2150,7 +2430,7 @@ namespace GameSparks
 				LogEventRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".LogEventRequest")
 				{
-					
+
 				}
 			
 
@@ -2213,6 +2493,31 @@ namespace GameSparks
 			};
 			
 			/*!
+			\ingroup Challenges
+			Find the details of an existing match this player belongs to, using the matchId
+			*/
+			class MatchDetailsRequest : public GameSparks::Core::GSTypedRequest < MatchDetailsRequest, GameSparks::Api::Responses::MatchDetailsResponse >
+			{
+			public:
+				MatchDetailsRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".MatchDetailsRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// The matchId to find the details of
+			/// </summary>
+			MatchDetailsRequest& SetMatchId( const gsstl::string& matchId )
+			{
+				m_Request.AddString("matchId", matchId);
+				return *this;
+			}
+			};
+			
+			/*!
 			\ingroup Misc
 			Registers the current device for push notifications. Currently GameSparks supports iOS, GCM & Microsoft Push notifications.
 			Supply the device type, and the push notification identifier for the device.
@@ -2223,7 +2528,7 @@ namespace GameSparks
 				PushRegistrationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".PushRegistrationRequest")
 				{
-					
+
 				}
 			
 
@@ -2256,7 +2561,7 @@ namespace GameSparks
 				RegistrationRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".RegistrationRequest")
 				{
-					
+
 				}
 			
 
@@ -2306,7 +2611,7 @@ namespace GameSparks
 				SendFriendMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SendFriendMessageRequest")
 				{
-					
+
 				}
 			
 
@@ -2339,7 +2644,7 @@ namespace GameSparks
 				SendTeamChatMessageRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SendTeamChatMessageRequest")
 				{
-					
+
 				}
 			
 
@@ -2388,7 +2693,7 @@ namespace GameSparks
 				SocialDisconnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialDisconnectRequest")
 				{
-					
+
 				}
 			
 
@@ -2415,7 +2720,7 @@ namespace GameSparks
 				SocialLeaderboardDataRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialLeaderboardDataRequest")
 				{
-					
+
 				}
 			
 
@@ -2520,7 +2825,7 @@ namespace GameSparks
 				SocialStatusRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialStatusRequest")
 				{
-					
+
 				}
 			
 
@@ -2543,7 +2848,7 @@ namespace GameSparks
 				SteamConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".SteamConnectRequest")
 				{
-					
+
 				}
 			
 
@@ -2589,6 +2894,85 @@ namespace GameSparks
 				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
 				return *this;
 			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			SteamConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
+			};
+			
+			/*!
+			\ingroup Authentication
+			Allows a Twitch account to be used as an authentication mechanism.
+			Once authenticated the platform can determine the current players details from the Twitch platform and store them within GameSparks.
+			If the Twitch user is already linked to a player, the current session will switch to the linked player.
+			If the current player has previously created an account using either DeviceAuthentictionRequest or RegistrationRequest AND the Twitch user is not already registered with the game, the Twitch user will be linked to the current player.
+			If the current player has not authenticated and the Twitch user is not known, a new player will be created using the Twitch details and the session will be authenticated against the new player.
+			If the Twitch user is already known, the session will switch to being the previously created user.
+			*/
+			class TwitchConnectRequest : public GameSparks::Core::GSTypedRequest < TwitchConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
+			{
+			public:
+				TwitchConnectRequest(Core::GS_& gsInstance)
+					: GSTypedRequest(gsInstance, ".TwitchConnectRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// The access token is used by the client to make authenticated requests on behalf of the end user.
+			/// </summary>
+			TwitchConnectRequest& SetAccessToken( const gsstl::string& accessToken )
+			{
+				m_Request.AddString("accessToken", accessToken);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the server should not try to link the external profile with the current player.  If false, links the external profile to the currently signed in player.  If true, creates a new player and links the external profile to them.  Defaults to false.
+			/// </summary>
+			TwitchConnectRequest& SetDoNotLinkToCurrentPlayer( bool doNotLinkToCurrentPlayer )
+			{
+				m_Request.AddBoolean("doNotLinkToCurrentPlayer", doNotLinkToCurrentPlayer);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates whether the server should return an error if an account switch would have occurred, rather than switching automatically.  Defaults to false.
+			/// </summary>
+			TwitchConnectRequest& SetErrorOnSwitch( bool errorOnSwitch )
+			{
+				m_Request.AddBoolean("errorOnSwitch", errorOnSwitch);
+				return *this;
+			}
+			/// <summary>
+			/// An optional segment configuration for this request.
+			/// If this request creates a new player on the gamesparks platform, the segments of the new player will match the values provided
+			/// </summary>
+			TwitchConnectRequest& SetSegments( const GameSparks::Core::GSRequestData& segments )
+			{
+				m_Request.AddObject("segments", segments);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the server should switch to the supplied profile if it isalready associated to a player. Defaults to false.
+			/// </summary>
+			TwitchConnectRequest& SetSwitchIfPossible( bool switchIfPossible )
+			{
+				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			TwitchConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
 			};
 			
 			/*!
@@ -2607,7 +2991,7 @@ namespace GameSparks
 				TwitterConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".TwitterConnectRequest")
 				{
-					
+
 				}
 			
 
@@ -2663,6 +3047,14 @@ namespace GameSparks
 				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
 				return *this;
 			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			TwitterConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
+				return *this;
+			}
 			};
 			
 			/*!
@@ -2677,7 +3069,7 @@ namespace GameSparks
 				WindowsBuyGoodsRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".WindowsBuyGoodsRequest")
 				{
-					
+
 				}
 			
 
@@ -2720,7 +3112,7 @@ namespace GameSparks
 				WithdrawChallengeRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".WithdrawChallengeRequest")
 				{
-					
+
 				}
 			
 
@@ -2759,7 +3151,7 @@ namespace GameSparks
 				XBOXLiveConnectRequest(Core::GS_& gsInstance)
 					: GSTypedRequest(gsInstance, ".XBOXLiveConnectRequest")
 				{
-					
+
 				}
 			
 
@@ -2805,6 +3197,14 @@ namespace GameSparks
 			XBOXLiveConnectRequest& SetSwitchIfPossible( bool switchIfPossible )
 			{
 				m_Request.AddBoolean("switchIfPossible", switchIfPossible);
+				return *this;
+			}
+			/// <summary>
+			/// Indicates that the associated players displayName should be kept in syn with this profile when it's updated by the external provider.
+			/// </summary>
+			XBOXLiveConnectRequest& SetSyncDisplayName( bool syncDisplayName )
+			{
+				m_Request.AddBoolean("syncDisplayName", syncDisplayName);
 				return *this;
 			}
 			};
