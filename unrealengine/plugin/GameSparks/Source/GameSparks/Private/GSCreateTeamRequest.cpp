@@ -6,16 +6,16 @@
 void CreateTeamRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::CreateTeamResponse& response){
     
     FGSCreateTeamResponse unreal_response = FGSCreateTeamResponse(response.GetBaseData());
-
-	UGSCreateTeamRequest* g_UGSCreateTeamRequest = static_cast<UGSCreateTeamRequest*>(response.GetUserData());
+    
+    UGSCreateTeamRequest* g_UGSCreateTeamRequest = static_cast<UGSCreateTeamRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSCreateTeamRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSCreateTeamRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSCreateTeamRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSCreateTeamRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSCreateTeamRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(CreateTeamRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(CreateTeamRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

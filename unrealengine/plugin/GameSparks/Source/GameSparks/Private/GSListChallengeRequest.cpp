@@ -6,16 +6,16 @@
 void ListChallengeRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListChallengeResponse& response){
     
     FGSListChallengeResponse unreal_response = FGSListChallengeResponse(response.GetBaseData());
-
-	UGSListChallengeRequest* g_UGSListChallengeRequest = static_cast<UGSListChallengeRequest*>(response.GetUserData());
+    
+    UGSListChallengeRequest* g_UGSListChallengeRequest = static_cast<UGSListChallengeRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSListChallengeRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSListChallengeRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSListChallengeRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSListChallengeRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -66,13 +66,14 @@ void UGSListChallengeRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(ListChallengeRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(ListChallengeRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

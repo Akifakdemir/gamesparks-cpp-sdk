@@ -6,16 +6,16 @@
 void ChangeUserDetailsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ChangeUserDetailsResponse& response){
     
     FGSChangeUserDetailsResponse unreal_response = FGSChangeUserDetailsResponse(response.GetBaseData());
-
-	UGSChangeUserDetailsRequest* g_UGSChangeUserDetailsRequest = static_cast<UGSChangeUserDetailsRequest*>(response.GetUserData());
+    
+    UGSChangeUserDetailsRequest* g_UGSChangeUserDetailsRequest = static_cast<UGSChangeUserDetailsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSChangeUserDetailsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSChangeUserDetailsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSChangeUserDetailsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSChangeUserDetailsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -59,13 +59,14 @@ void UGSChangeUserDetailsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(ChangeUserDetailsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(ChangeUserDetailsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

@@ -6,16 +6,16 @@
 void TwitchConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSTwitchConnectRequest* g_UGSTwitchConnectRequest = static_cast<UGSTwitchConnectRequest*>(response.GetUserData());
+    
+    UGSTwitchConnectRequest* g_UGSTwitchConnectRequest = static_cast<UGSTwitchConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSTwitchConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSTwitchConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSTwitchConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSTwitchConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -63,13 +63,14 @@ void UGSTwitchConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(TwitchConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(TwitchConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

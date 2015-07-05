@@ -6,16 +6,16 @@
 void GetDownloadableRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::GetDownloadableResponse& response){
     
     FGSGetDownloadableResponse unreal_response = FGSGetDownloadableResponse(response.GetBaseData());
-
-	UGSGetDownloadableRequest* g_UGSGetDownloadableRequest = static_cast<UGSGetDownloadableRequest*>(response.GetUserData());
+    
+    UGSGetDownloadableRequest* g_UGSGetDownloadableRequest = static_cast<UGSGetDownloadableRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSGetDownloadableRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSGetDownloadableRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSGetDownloadableRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSGetDownloadableRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -43,13 +43,14 @@ void UGSGetDownloadableRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(GetDownloadableRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(GetDownloadableRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

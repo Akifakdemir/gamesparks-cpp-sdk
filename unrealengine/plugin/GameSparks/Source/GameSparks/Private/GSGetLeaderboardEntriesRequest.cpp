@@ -6,16 +6,16 @@
 void GetLeaderboardEntriesRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::GetLeaderboardEntriesResponse& response){
     
     FGSGetLeaderboardEntriesResponse unreal_response = FGSGetLeaderboardEntriesResponse(response.GetBaseData());
-
-	UGSGetLeaderboardEntriesRequest* g_UGSGetLeaderboardEntriesRequest = static_cast<UGSGetLeaderboardEntriesRequest*>(response.GetUserData());
+    
+    UGSGetLeaderboardEntriesRequest* g_UGSGetLeaderboardEntriesRequest = static_cast<UGSGetLeaderboardEntriesRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSGetLeaderboardEntriesRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSGetLeaderboardEntriesRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSGetLeaderboardEntriesRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSGetLeaderboardEntriesRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -84,13 +84,14 @@ void UGSGetLeaderboardEntriesRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(GetLeaderboardEntriesRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(GetLeaderboardEntriesRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

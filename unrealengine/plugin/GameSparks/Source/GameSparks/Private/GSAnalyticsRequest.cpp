@@ -6,16 +6,16 @@
 void AnalyticsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AnalyticsResponse& response){
     
     FGSAnalyticsResponse unreal_response = FGSAnalyticsResponse(response.GetBaseData());
-
-	UGSAnalyticsRequest* g_UGSAnalyticsRequest = static_cast<UGSAnalyticsRequest*>(response.GetUserData());
+    
+    UGSAnalyticsRequest* g_UGSAnalyticsRequest = static_cast<UGSAnalyticsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSAnalyticsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSAnalyticsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSAnalyticsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSAnalyticsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -55,13 +55,14 @@ void UGSAnalyticsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(AnalyticsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(AnalyticsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

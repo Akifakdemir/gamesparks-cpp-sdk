@@ -6,16 +6,16 @@
 void EndSessionRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::EndSessionResponse& response){
     
     FGSEndSessionResponse unreal_response = FGSEndSessionResponse(response.GetBaseData());
-
-	UGSEndSessionRequest* g_UGSEndSessionRequest = static_cast<UGSEndSessionRequest*>(response.GetUserData());
+    
+    UGSEndSessionRequest* g_UGSEndSessionRequest = static_cast<UGSEndSessionRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSEndSessionRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSEndSessionRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSEndSessionRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSEndSessionRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -39,13 +39,14 @@ void UGSEndSessionRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(EndSessionRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(EndSessionRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

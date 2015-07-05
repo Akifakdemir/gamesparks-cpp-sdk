@@ -18,6 +18,9 @@ public:
     static UGameSparksScriptData* CreateGameSparksScriptData(UObject* WorldContextObject);
 
     UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
+    FString JSONString();
+    
+    UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
     bool HasString(const FString& name);
     
     UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
@@ -34,6 +37,24 @@ public:
     
     UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
     UGameSparksScriptData* SetStringArray(const FString& name, const TArray<FString> value);
+    
+    UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
+    bool HasFloat(const FString& name);
+    
+    UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
+    float GetFloat(const FString& name);
+    
+    UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
+    UGameSparksScriptData* SetFloat(const FString& name, const float value);
+    
+    UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
+    bool HasFloatArray(const FString& name);
+    
+    UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
+    TArray<float> GetFloatArray(const FString& name);
+    
+    UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
+    UGameSparksScriptData* SetFloatArray(const FString& name, const TArray<float> value);
     
     UFUNCTION(BlueprintPure, Category = "GameSparks|Data")
     bool HasNumber(const FString& name);

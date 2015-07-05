@@ -6,16 +6,16 @@
 void ListTeamChatRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListTeamChatResponse& response){
     
     FGSListTeamChatResponse unreal_response = FGSListTeamChatResponse(response.GetBaseData());
-
-	UGSListTeamChatRequest* g_UGSListTeamChatRequest = static_cast<UGSListTeamChatRequest*>(response.GetUserData());
+    
+    UGSListTeamChatRequest* g_UGSListTeamChatRequest = static_cast<UGSListTeamChatRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSListTeamChatRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSListTeamChatRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSListTeamChatRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSListTeamChatRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -59,13 +59,14 @@ void UGSListTeamChatRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(ListTeamChatRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(ListTeamChatRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

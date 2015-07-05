@@ -6,16 +6,16 @@
 void TwitterConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSTwitterConnectRequest* g_UGSTwitterConnectRequest = static_cast<UGSTwitterConnectRequest*>(response.GetUserData());
+    
+    UGSTwitterConnectRequest* g_UGSTwitterConnectRequest = static_cast<UGSTwitterConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSTwitterConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSTwitterConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSTwitterConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSTwitterConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -67,13 +67,14 @@ void UGSTwitterConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(TwitterConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(TwitterConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

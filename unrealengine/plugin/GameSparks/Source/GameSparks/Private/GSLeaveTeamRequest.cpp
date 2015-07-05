@@ -6,16 +6,16 @@
 void LeaveTeamRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::LeaveTeamResponse& response){
     
     FGSLeaveTeamResponse unreal_response = FGSLeaveTeamResponse(response.GetBaseData());
-
-	UGSLeaveTeamRequest* g_UGSLeaveTeamRequest = static_cast<UGSLeaveTeamRequest*>(response.GetUserData());
+    
+    UGSLeaveTeamRequest* g_UGSLeaveTeamRequest = static_cast<UGSLeaveTeamRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSLeaveTeamRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSLeaveTeamRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSLeaveTeamRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSLeaveTeamRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSLeaveTeamRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(LeaveTeamRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(LeaveTeamRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

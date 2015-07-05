@@ -6,16 +6,16 @@
 void SendFriendMessageRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::SendFriendMessageResponse& response){
     
     FGSSendFriendMessageResponse unreal_response = FGSSendFriendMessageResponse(response.GetBaseData());
-
-	UGSSendFriendMessageRequest* g_UGSSendFriendMessageRequest = static_cast<UGSSendFriendMessageRequest*>(response.GetUserData());
+    
+    UGSSendFriendMessageRequest* g_UGSSendFriendMessageRequest = static_cast<UGSSendFriendMessageRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSSendFriendMessageRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSSendFriendMessageRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSSendFriendMessageRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSSendFriendMessageRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -54,13 +54,14 @@ void UGSSendFriendMessageRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(SendFriendMessageRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(SendFriendMessageRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

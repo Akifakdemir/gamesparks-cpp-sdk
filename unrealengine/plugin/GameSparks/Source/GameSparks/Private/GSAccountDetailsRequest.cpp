@@ -6,16 +6,16 @@
 void AccountDetailsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AccountDetailsResponse& response){
     
     FGSAccountDetailsResponse unreal_response = FGSAccountDetailsResponse(response.GetBaseData());
-
-	UGSAccountDetailsRequest* g_UGSAccountDetailsRequest = static_cast<UGSAccountDetailsRequest*>(response.GetUserData());
+    
+    UGSAccountDetailsRequest* g_UGSAccountDetailsRequest = static_cast<UGSAccountDetailsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSAccountDetailsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSAccountDetailsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSAccountDetailsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSAccountDetailsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -39,13 +39,14 @@ void UGSAccountDetailsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(AccountDetailsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(AccountDetailsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

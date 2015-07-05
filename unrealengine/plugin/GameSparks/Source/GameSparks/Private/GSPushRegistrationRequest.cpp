@@ -6,16 +6,16 @@
 void PushRegistrationRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::PushRegistrationResponse& response){
     
     FGSPushRegistrationResponse unreal_response = FGSPushRegistrationResponse(response.GetBaseData());
-
-	UGSPushRegistrationRequest* g_UGSPushRegistrationRequest = static_cast<UGSPushRegistrationRequest*>(response.GetUserData());
+    
+    UGSPushRegistrationRequest* g_UGSPushRegistrationRequest = static_cast<UGSPushRegistrationRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSPushRegistrationRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSPushRegistrationRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSPushRegistrationRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSPushRegistrationRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -47,13 +47,14 @@ void UGSPushRegistrationRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(PushRegistrationRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(PushRegistrationRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

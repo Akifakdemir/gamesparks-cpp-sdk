@@ -6,16 +6,16 @@
 void DismissMessageRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::DismissMessageResponse& response){
     
     FGSDismissMessageResponse unreal_response = FGSDismissMessageResponse(response.GetBaseData());
-
-	UGSDismissMessageRequest* g_UGSDismissMessageRequest = static_cast<UGSDismissMessageRequest*>(response.GetUserData());
+    
+    UGSDismissMessageRequest* g_UGSDismissMessageRequest = static_cast<UGSDismissMessageRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSDismissMessageRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSDismissMessageRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSDismissMessageRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSDismissMessageRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -43,13 +43,14 @@ void UGSDismissMessageRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(DismissMessageRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(DismissMessageRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

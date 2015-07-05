@@ -6,16 +6,16 @@
 void GameCenterConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSGameCenterConnectRequest* g_UGSGameCenterConnectRequest = static_cast<UGSGameCenterConnectRequest*>(response.GetUserData());
+    
+    UGSGameCenterConnectRequest* g_UGSGameCenterConnectRequest = static_cast<UGSGameCenterConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSGameCenterConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSGameCenterConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSGameCenterConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSGameCenterConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -83,13 +83,14 @@ void UGSGameCenterConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(GameCenterConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(GameCenterConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

@@ -1,5 +1,14 @@
 # ChangeLog
 
+## patch rc6-p1 (2015-07-05)
+
+### Unreal Engine
+- Fix incorrect boolean HasErrors in response events
+- Add BP Node access to response errors as GameSparksScriptData
+- Add Get/Set Float and FloatList in GameSparksScriptData
+- JSONString property on GameSparksScriptData for debugging
+- Remove some unused classes from previous SDK version
+
 ## rc6 (2015-07-03)
 
 ### base SDK (affects all platforms)

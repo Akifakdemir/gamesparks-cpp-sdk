@@ -6,16 +6,16 @@
 void SteamConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSSteamConnectRequest* g_UGSSteamConnectRequest = static_cast<UGSSteamConnectRequest*>(response.GetUserData());
+    
+    UGSSteamConnectRequest* g_UGSSteamConnectRequest = static_cast<UGSSteamConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSSteamConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSSteamConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSSteamConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSSteamConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -63,13 +63,14 @@ void UGSSteamConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(SteamConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(SteamConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

@@ -6,16 +6,16 @@
 void GetUploadUrlRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::GetUploadUrlResponse& response){
     
     FGSGetUploadUrlResponse unreal_response = FGSGetUploadUrlResponse(response.GetBaseData());
-
-	UGSGetUploadUrlRequest* g_UGSGetUploadUrlRequest = static_cast<UGSGetUploadUrlRequest*>(response.GetUserData());
+    
+    UGSGetUploadUrlRequest* g_UGSGetUploadUrlRequest = static_cast<UGSGetUploadUrlRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSGetUploadUrlRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSGetUploadUrlRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSGetUploadUrlRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSGetUploadUrlRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -43,13 +43,14 @@ void UGSGetUploadUrlRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(GetUploadUrlRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(GetUploadUrlRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

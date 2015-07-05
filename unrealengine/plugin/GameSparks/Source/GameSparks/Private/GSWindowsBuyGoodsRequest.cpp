@@ -6,16 +6,16 @@
 void WindowsBuyGoodsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::BuyVirtualGoodResponse& response){
     
     FGSBuyVirtualGoodResponse unreal_response = FGSBuyVirtualGoodResponse(response.GetBaseData());
-
-	UGSWindowsBuyGoodsRequest* g_UGSWindowsBuyGoodsRequest = static_cast<UGSWindowsBuyGoodsRequest*>(response.GetUserData());
+    
+    UGSWindowsBuyGoodsRequest* g_UGSWindowsBuyGoodsRequest = static_cast<UGSWindowsBuyGoodsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSWindowsBuyGoodsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSWindowsBuyGoodsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSWindowsBuyGoodsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSWindowsBuyGoodsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSWindowsBuyGoodsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(WindowsBuyGoodsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(WindowsBuyGoodsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

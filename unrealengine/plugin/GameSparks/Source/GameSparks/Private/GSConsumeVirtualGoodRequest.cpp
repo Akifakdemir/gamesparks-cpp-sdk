@@ -6,16 +6,16 @@
 void ConsumeVirtualGoodRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ConsumeVirtualGoodResponse& response){
     
     FGSConsumeVirtualGoodResponse unreal_response = FGSConsumeVirtualGoodResponse(response.GetBaseData());
-
-	UGSConsumeVirtualGoodRequest* g_UGSConsumeVirtualGoodRequest = static_cast<UGSConsumeVirtualGoodRequest*>(response.GetUserData());
+    
+    UGSConsumeVirtualGoodRequest* g_UGSConsumeVirtualGoodRequest = static_cast<UGSConsumeVirtualGoodRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSConsumeVirtualGoodRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSConsumeVirtualGoodRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSConsumeVirtualGoodRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSConsumeVirtualGoodRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -47,13 +47,14 @@ void UGSConsumeVirtualGoodRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(ConsumeVirtualGoodRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(ConsumeVirtualGoodRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

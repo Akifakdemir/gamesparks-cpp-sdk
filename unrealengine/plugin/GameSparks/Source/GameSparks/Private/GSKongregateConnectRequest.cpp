@@ -6,16 +6,16 @@
 void KongregateConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSKongregateConnectRequest* g_UGSKongregateConnectRequest = static_cast<UGSKongregateConnectRequest*>(response.GetUserData());
+    
+    UGSKongregateConnectRequest* g_UGSKongregateConnectRequest = static_cast<UGSKongregateConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSKongregateConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSKongregateConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSKongregateConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSKongregateConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -67,13 +67,14 @@ void UGSKongregateConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(KongregateConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(KongregateConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

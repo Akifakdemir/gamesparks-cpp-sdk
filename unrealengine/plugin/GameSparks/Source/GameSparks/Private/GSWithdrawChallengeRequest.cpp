@@ -6,16 +6,16 @@
 void WithdrawChallengeRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::WithdrawChallengeResponse& response){
     
     FGSWithdrawChallengeResponse unreal_response = FGSWithdrawChallengeResponse(response.GetBaseData());
-
-	UGSWithdrawChallengeRequest* g_UGSWithdrawChallengeRequest = static_cast<UGSWithdrawChallengeRequest*>(response.GetUserData());
+    
+    UGSWithdrawChallengeRequest* g_UGSWithdrawChallengeRequest = static_cast<UGSWithdrawChallengeRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSWithdrawChallengeRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSWithdrawChallengeRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSWithdrawChallengeRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSWithdrawChallengeRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -47,13 +47,14 @@ void UGSWithdrawChallengeRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(WithdrawChallengeRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(WithdrawChallengeRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

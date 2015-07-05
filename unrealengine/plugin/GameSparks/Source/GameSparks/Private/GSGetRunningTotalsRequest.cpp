@@ -6,16 +6,16 @@
 void GetRunningTotalsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::GetRunningTotalsResponse& response){
     
     FGSGetRunningTotalsResponse unreal_response = FGSGetRunningTotalsResponse(response.GetBaseData());
-
-	UGSGetRunningTotalsRequest* g_UGSGetRunningTotalsRequest = static_cast<UGSGetRunningTotalsRequest*>(response.GetUserData());
+    
+    UGSGetRunningTotalsRequest* g_UGSGetRunningTotalsRequest = static_cast<UGSGetRunningTotalsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSGetRunningTotalsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSGetRunningTotalsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSGetRunningTotalsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSGetRunningTotalsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -54,13 +54,14 @@ void UGSGetRunningTotalsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(GetRunningTotalsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(GetRunningTotalsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

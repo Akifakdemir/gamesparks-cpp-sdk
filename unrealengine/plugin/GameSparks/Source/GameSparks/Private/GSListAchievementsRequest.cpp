@@ -6,16 +6,16 @@
 void ListAchievementsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListAchievementsResponse& response){
     
     FGSListAchievementsResponse unreal_response = FGSListAchievementsResponse(response.GetBaseData());
-
-	UGSListAchievementsRequest* g_UGSListAchievementsRequest = static_cast<UGSListAchievementsRequest*>(response.GetUserData());
+    
+    UGSListAchievementsRequest* g_UGSListAchievementsRequest = static_cast<UGSListAchievementsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSListAchievementsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSListAchievementsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSListAchievementsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSListAchievementsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -39,13 +39,14 @@ void UGSListAchievementsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(ListAchievementsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(ListAchievementsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

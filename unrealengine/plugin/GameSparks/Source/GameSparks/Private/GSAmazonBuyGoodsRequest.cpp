@@ -6,16 +6,16 @@
 void AmazonBuyGoodsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::BuyVirtualGoodResponse& response){
     
     FGSBuyVirtualGoodResponse unreal_response = FGSBuyVirtualGoodResponse(response.GetBaseData());
-
-	UGSAmazonBuyGoodsRequest* g_UGSAmazonBuyGoodsRequest = static_cast<UGSAmazonBuyGoodsRequest*>(response.GetUserData());
+    
+    UGSAmazonBuyGoodsRequest* g_UGSAmazonBuyGoodsRequest = static_cast<UGSAmazonBuyGoodsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSAmazonBuyGoodsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSAmazonBuyGoodsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSAmazonBuyGoodsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSAmazonBuyGoodsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSAmazonBuyGoodsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(AmazonBuyGoodsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(AmazonBuyGoodsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

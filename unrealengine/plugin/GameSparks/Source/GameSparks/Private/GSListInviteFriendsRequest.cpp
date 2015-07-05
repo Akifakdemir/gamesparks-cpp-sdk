@@ -6,16 +6,16 @@
 void ListInviteFriendsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListInviteFriendsResponse& response){
     
     FGSListInviteFriendsResponse unreal_response = FGSListInviteFriendsResponse(response.GetBaseData());
-
-	UGSListInviteFriendsRequest* g_UGSListInviteFriendsRequest = static_cast<UGSListInviteFriendsRequest*>(response.GetUserData());
+    
+    UGSListInviteFriendsRequest* g_UGSListInviteFriendsRequest = static_cast<UGSListInviteFriendsRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSListInviteFriendsRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSListInviteFriendsRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSListInviteFriendsRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSListInviteFriendsRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -39,13 +39,14 @@ void UGSListInviteFriendsRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(ListInviteFriendsRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(ListInviteFriendsRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

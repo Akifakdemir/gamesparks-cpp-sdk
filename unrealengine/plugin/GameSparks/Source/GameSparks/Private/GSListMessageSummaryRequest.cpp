@@ -6,16 +6,16 @@
 void ListMessageSummaryRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListMessageSummaryResponse& response){
     
     FGSListMessageSummaryResponse unreal_response = FGSListMessageSummaryResponse(response.GetBaseData());
-
-	UGSListMessageSummaryRequest* g_UGSListMessageSummaryRequest = static_cast<UGSListMessageSummaryRequest*>(response.GetUserData());
+    
+    UGSListMessageSummaryRequest* g_UGSListMessageSummaryRequest = static_cast<UGSListMessageSummaryRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSListMessageSummaryRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSListMessageSummaryRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSListMessageSummaryRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSListMessageSummaryRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -47,13 +47,14 @@ void UGSListMessageSummaryRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(ListMessageSummaryRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(ListMessageSummaryRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

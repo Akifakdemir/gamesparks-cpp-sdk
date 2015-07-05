@@ -6,16 +6,16 @@
 void JoinChallengeRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::JoinChallengeResponse& response){
     
     FGSJoinChallengeResponse unreal_response = FGSJoinChallengeResponse(response.GetBaseData());
-
-	UGSJoinChallengeRequest* g_UGSJoinChallengeRequest = static_cast<UGSJoinChallengeRequest*>(response.GetUserData());
+    
+    UGSJoinChallengeRequest* g_UGSJoinChallengeRequest = static_cast<UGSJoinChallengeRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSJoinChallengeRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSJoinChallengeRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSJoinChallengeRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSJoinChallengeRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSJoinChallengeRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(JoinChallengeRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(JoinChallengeRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

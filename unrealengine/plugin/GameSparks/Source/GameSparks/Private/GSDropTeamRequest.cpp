@@ -6,16 +6,16 @@
 void DropTeamRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::DropTeamResponse& response){
     
     FGSDropTeamResponse unreal_response = FGSDropTeamResponse(response.GetBaseData());
-
-	UGSDropTeamRequest* g_UGSDropTeamRequest = static_cast<UGSDropTeamRequest*>(response.GetUserData());
+    
+    UGSDropTeamRequest* g_UGSDropTeamRequest = static_cast<UGSDropTeamRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSDropTeamRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSDropTeamRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSDropTeamRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSDropTeamRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSDropTeamRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(DropTeamRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(DropTeamRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

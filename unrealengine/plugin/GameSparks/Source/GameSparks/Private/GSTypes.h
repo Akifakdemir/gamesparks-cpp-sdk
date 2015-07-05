@@ -25,11 +25,10 @@ struct FGSUploadData
 			PlayerId = wrappedData.GetString("playerId").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -43,6 +42,10 @@ struct FGSUploadData
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString PlayerId;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -77,11 +80,10 @@ struct FGSInvitableFriend
 			ProfilePic = wrappedData.GetString("profilePic").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -101,6 +103,10 @@ struct FGSInvitableFriend
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString ProfilePic;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -135,11 +141,10 @@ struct FGSSocialStatus
 			SystemId = wrappedData.GetString("systemId").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -159,6 +164,10 @@ struct FGSSocialStatus
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	FString SystemId;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -223,11 +232,10 @@ struct FGSPlayer
             }
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -274,6 +282,10 @@ struct FGSPlayer
 	TArray<FString> VirtualGoods;
 	
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 		ExternalIds = nullptr;
@@ -309,11 +321,10 @@ struct FGSPlayerDetail
 			Name = wrappedData.GetString("name").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -333,6 +344,10 @@ struct FGSPlayerDetail
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString Name;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -374,11 +389,10 @@ struct FGSLocation
 			Longditute = wrappedData.GetFloat("longditute").GetValue();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|")
@@ -404,6 +418,10 @@ struct FGSLocation
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|")
 	float Longditute;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -447,11 +465,10 @@ struct FGSTeam
 			TeamType = wrappedData.GetString("teamType").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -478,6 +495,10 @@ struct FGSTeam
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString TeamType;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -506,11 +527,10 @@ struct FGSPlayerTurnCount
 			PlayerId = wrappedData.GetString("playerId").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -524,6 +544,10 @@ struct FGSPlayerTurnCount
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString PlayerId;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -558,11 +582,10 @@ struct FGSLeaderboard
 			ShortCode = wrappedData.GetString("shortCode").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -582,6 +605,10 @@ struct FGSLeaderboard
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString ShortCode;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -646,11 +673,10 @@ struct FGSLeaderboardData
 			When = wrappedData.GetString("when").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -700,6 +726,10 @@ struct FGSLeaderboardData
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString When;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -795,11 +825,10 @@ struct FGSLeaderboardRankDetails
             }
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -874,6 +903,10 @@ struct FGSLeaderboardRankDetails
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	TArray<FGSLeaderboardData> TopNPassed;
+	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
 	
 	
 	void Destroy()
@@ -1035,11 +1068,10 @@ struct FGSChallenge
             }
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -1178,6 +1210,10 @@ struct FGSChallenge
 	TArray<FGSPlayerTurnCount> TurnCount;
 	
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -1205,11 +1241,10 @@ struct FGSBoughtitem
 			ShortCode = wrappedData.GetString("shortCode").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|")
@@ -1223,6 +1258,10 @@ struct FGSBoughtitem
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|")
 	FString ShortCode;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -1341,11 +1380,10 @@ struct FGSVirtualGood
 			W8StoreProductId = wrappedData.GetString("w8StoreProductId").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -1450,6 +1488,10 @@ struct FGSVirtualGood
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString W8StoreProductId;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -1495,11 +1537,10 @@ struct FGSChallengeType
 			Tags = wrappedData.GetString("tags").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
@@ -1531,6 +1572,10 @@ struct FGSChallengeType
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Helper")
 	FString Tags;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -1571,11 +1616,10 @@ struct FGSAchievement
 			ShortCode = wrappedData.GetString("shortCode").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|")
@@ -1601,6 +1645,10 @@ struct FGSAchievement
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|")
 	FString ShortCode;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -1636,11 +1684,16 @@ struct FGSAcceptChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -1660,6 +1713,10 @@ struct FGSAcceptChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -1793,11 +1850,16 @@ struct FGSAccountDetailsResponse
 			VirtualGoods = NewObject<UGameSparksScriptData>();VirtualGoods->SetGSData(wrappedData.GetGSDataObject("virtualGoods").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -1915,6 +1977,10 @@ struct FGSAccountDetailsResponse
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* VirtualGoods = nullptr;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 		ExternalIds = nullptr;
@@ -1950,11 +2016,16 @@ struct FGSAnalyticsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Analytics")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Analytics")
@@ -1968,6 +2039,10 @@ struct FGSAnalyticsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Analytics")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2041,11 +2116,16 @@ struct FGSAroundMeLeaderboardResponse
 			Social = wrappedData.GetBoolean("social").GetValue();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -2098,6 +2178,10 @@ struct FGSAroundMeLeaderboardResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	bool Social;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2156,11 +2240,16 @@ struct FGSAuthenticationResponse
 			UserId = wrappedData.GetString("userId").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
@@ -2204,6 +2293,10 @@ struct FGSAuthenticationResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
 	FString UserId;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2289,11 +2382,16 @@ struct FGSBuyVirtualGoodResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
@@ -2363,6 +2461,10 @@ struct FGSBuyVirtualGoodResponse
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
 	UGameSparksScriptData* ScriptData = nullptr;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -2390,11 +2492,16 @@ struct FGSChangeUserDetailsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -2408,6 +2515,10 @@ struct FGSChangeUserDetailsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2442,11 +2553,16 @@ struct FGSChatOnChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -2466,6 +2582,10 @@ struct FGSChatOnChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2494,11 +2614,16 @@ struct FGSConsumeVirtualGoodResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
@@ -2512,6 +2637,10 @@ struct FGSConsumeVirtualGoodResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2540,11 +2669,16 @@ struct FGSCreateChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -2558,6 +2692,10 @@ struct FGSCreateChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2601,11 +2739,16 @@ struct FGSCreateTeamResponse
 			TeamType = wrappedData.GetString("teamType").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -2632,6 +2775,10 @@ struct FGSCreateTeamResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	FString TeamType;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2666,11 +2813,16 @@ struct FGSDeclineChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -2690,6 +2842,10 @@ struct FGSDeclineChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2718,11 +2874,16 @@ struct FGSDismissMessageResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -2736,6 +2897,10 @@ struct FGSDismissMessageResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2779,11 +2944,16 @@ struct FGSDropTeamResponse
 			TeamType = wrappedData.GetString("teamType").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -2810,6 +2980,10 @@ struct FGSDropTeamResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	FString TeamType;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2838,11 +3012,16 @@ struct FGSEndSessionResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -2856,6 +3035,10 @@ struct FGSEndSessionResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2893,11 +3076,16 @@ struct FGSFindChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -2918,6 +3106,10 @@ struct FGSFindChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -2991,11 +3183,16 @@ struct FGSFindMatchResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -3053,6 +3250,10 @@ struct FGSFindMatchResponse
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -3080,11 +3281,16 @@ struct FGSGameSparksErrorResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -3098,6 +3304,10 @@ struct FGSGameSparksErrorResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3132,11 +3342,16 @@ struct FGSGetChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -3156,6 +3371,10 @@ struct FGSGetChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3208,11 +3427,16 @@ struct FGSGetDownloadableResponse
 			Url = wrappedData.GetString("url").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -3251,6 +3475,10 @@ struct FGSGetDownloadableResponse
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	FString Url;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -3284,11 +3512,16 @@ struct FGSGetLeaderboardEntriesResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -3308,6 +3541,10 @@ struct FGSGetLeaderboardEntriesResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3343,11 +3580,16 @@ struct FGSGetMessageResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -3367,6 +3609,10 @@ struct FGSGetMessageResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3405,11 +3651,16 @@ struct FGSGetMyTeamsResponse
             }
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -3429,6 +3680,10 @@ struct FGSGetMyTeamsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	TArray<FGSTeam> Teams;
+	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
 	
 	
 	void Destroy()
@@ -3464,11 +3719,16 @@ struct FGSGetRunningTotalsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -3488,6 +3748,10 @@ struct FGSGetRunningTotalsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3532,11 +3796,16 @@ struct FGSGetTeamResponse
 			TeamType = wrappedData.GetString("teamType").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -3563,6 +3832,10 @@ struct FGSGetTeamResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	FString TeamType;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3597,11 +3870,16 @@ struct FGSGetUploadUrlResponse
 			Url = wrappedData.GetString("url").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -3621,6 +3899,10 @@ struct FGSGetUploadUrlResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	FString Url;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3661,11 +3943,16 @@ struct FGSGetUploadedResponse
 			Url = wrappedData.GetString("url").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -3691,6 +3978,10 @@ struct FGSGetUploadedResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	FString Url;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3719,11 +4010,16 @@ struct FGSJoinChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -3737,6 +4033,10 @@ struct FGSJoinChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3780,11 +4080,16 @@ struct FGSJoinTeamResponse
 			TeamType = wrappedData.GetString("teamType").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -3811,6 +4116,10 @@ struct FGSJoinTeamResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	FString TeamType;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -3878,11 +4187,16 @@ struct FGSLeaderboardDataResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -3930,6 +4244,10 @@ struct FGSLeaderboardDataResponse
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	UGameSparksScriptData* ScriptData = nullptr;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -3972,11 +4290,16 @@ struct FGSLeaveTeamResponse
 			TeamType = wrappedData.GetString("teamType").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -4003,6 +4326,10 @@ struct FGSLeaveTeamResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	FString TeamType;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4040,11 +4367,16 @@ struct FGSListAchievementsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -4065,6 +4397,10 @@ struct FGSListAchievementsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4102,11 +4438,16 @@ struct FGSListChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -4127,6 +4468,10 @@ struct FGSListChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4164,11 +4509,16 @@ struct FGSListChallengeTypeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -4189,6 +4539,10 @@ struct FGSListChallengeTypeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4226,11 +4580,16 @@ struct FGSListGameFriendsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -4251,6 +4610,10 @@ struct FGSListGameFriendsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4288,11 +4651,16 @@ struct FGSListInviteFriendsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -4313,6 +4681,10 @@ struct FGSListInviteFriendsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4350,11 +4722,16 @@ struct FGSListLeaderboardsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -4375,6 +4752,10 @@ struct FGSListLeaderboardsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4412,11 +4793,16 @@ struct FGSListMessageResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -4437,6 +4823,10 @@ struct FGSListMessageResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4474,11 +4864,16 @@ struct FGSListMessageSummaryResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -4499,6 +4894,10 @@ struct FGSListMessageSummaryResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4527,11 +4926,16 @@ struct FGSListTeamChatResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -4545,6 +4949,10 @@ struct FGSListTeamChatResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4582,11 +4990,16 @@ struct FGSListVirtualGoodsResponse
             }
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
@@ -4606,6 +5019,10 @@ struct FGSListVirtualGoodsResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Store")
 	TArray<FGSVirtualGood> VirtualGoods;
+	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
 	
 	
 	void Destroy()
@@ -4635,11 +5052,16 @@ struct FGSLogChallengeEventResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -4653,6 +5075,10 @@ struct FGSLogChallengeEventResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4681,11 +5107,16 @@ struct FGSLogEventResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -4699,6 +5130,10 @@ struct FGSLogEventResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4772,11 +5207,16 @@ struct FGSMatchDetailsResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -4834,6 +5274,10 @@ struct FGSMatchDetailsResponse
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -4867,11 +5311,16 @@ struct FGSPushRegistrationResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -4891,6 +5340,10 @@ struct FGSPushRegistrationResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -4949,11 +5402,16 @@ struct FGSRegistrationResponse
 			UserId = wrappedData.GetString("userId").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
@@ -4998,6 +5456,10 @@ struct FGSRegistrationResponse
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
 	FString UserId;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -5025,11 +5487,16 @@ struct FGSSendFriendMessageResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -5043,6 +5510,10 @@ struct FGSSendFriendMessageResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -5071,11 +5542,16 @@ struct FGSSendTeamChatMessageResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -5089,6 +5565,10 @@ struct FGSSendTeamChatMessageResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -5117,11 +5597,16 @@ struct FGSSocialDisconnectResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -5135,6 +5620,10 @@ struct FGSSocialDisconnectResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -5172,11 +5661,16 @@ struct FGSSocialStatusResponse
             }
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -5196,6 +5690,10 @@ struct FGSSocialStatusResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	TArray<FGSSocialStatus> Statuses;
+	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
 	
 	
 	void Destroy()
@@ -5231,11 +5729,16 @@ struct FGSWithdrawChallengeResponse
 			ScriptData = NewObject<UGameSparksScriptData>();ScriptData->SetGSData(wrappedData.GetGSDataObject("scriptData").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+		if(wrappedData.ContainsKey("error")){
+			Errors = NewObject<UGameSparksScriptData>();Errors->SetGSData(wrappedData.GetGSDataObject("error").GetValue());
+    	}
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
+	UGameSparksScriptData* Errors = nullptr;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -5255,6 +5758,10 @@ struct FGSWithdrawChallengeResponse
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	UGameSparksScriptData* ScriptData = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -5362,11 +5869,10 @@ struct FGSAchievementEarnedMessage
 			VirtualGoodEarned = wrappedData.GetString("virtualGoodEarned").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -5459,6 +5965,10 @@ struct FGSAchievementEarnedMessage
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	FString VirtualGoodEarned;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -5528,11 +6038,10 @@ struct FGSChallengeAcceptedMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -5588,6 +6097,10 @@ struct FGSChallengeAcceptedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -5658,11 +6171,10 @@ struct FGSChallengeChangedMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -5718,6 +6230,10 @@ struct FGSChallengeChangedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -5788,11 +6304,10 @@ struct FGSChallengeChatMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -5848,6 +6363,10 @@ struct FGSChallengeChatMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -5918,11 +6437,10 @@ struct FGSChallengeDeclinedMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -5978,6 +6496,10 @@ struct FGSChallengeDeclinedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6042,11 +6564,10 @@ struct FGSChallengeDrawnMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6096,6 +6617,10 @@ struct FGSChallengeDrawnMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Title;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6154,11 +6679,10 @@ struct FGSChallengeExpiredMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6202,6 +6726,10 @@ struct FGSChallengeExpiredMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Title;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6272,11 +6800,10 @@ struct FGSChallengeIssuedMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6332,6 +6859,10 @@ struct FGSChallengeIssuedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6402,11 +6933,10 @@ struct FGSChallengeJoinedMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6462,6 +6992,10 @@ struct FGSChallengeJoinedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6520,11 +7054,10 @@ struct FGSChallengeLapsedMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6568,6 +7101,10 @@ struct FGSChallengeLapsedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Title;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6638,11 +7175,10 @@ struct FGSChallengeLostMessage
 			WinnerName = wrappedData.GetString("winnerName").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6698,6 +7234,10 @@ struct FGSChallengeLostMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString WinnerName;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6756,11 +7296,10 @@ struct FGSChallengeStartedMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6804,6 +7343,10 @@ struct FGSChallengeStartedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Title;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6868,11 +7411,10 @@ struct FGSChallengeTurnTakenMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -6922,6 +7464,10 @@ struct FGSChallengeTurnTakenMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -6980,11 +7526,10 @@ struct FGSChallengeWaitingMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -7028,6 +7573,10 @@ struct FGSChallengeWaitingMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Title;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -7098,11 +7647,10 @@ struct FGSChallengeWithdrawnMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -7158,6 +7706,10 @@ struct FGSChallengeWithdrawnMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -7264,11 +7816,10 @@ struct FGSChallengeWonMessage
 			WinnerName = wrappedData.GetString("winnerName").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
@@ -7361,6 +7912,10 @@ struct FGSChallengeWonMessage
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Challenges")
 	FString WinnerName;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -7430,11 +7985,10 @@ struct FGSFriendMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
@@ -7490,6 +8044,10 @@ struct FGSFriendMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Player")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -7572,11 +8130,10 @@ struct FGSGlobalRankChangedMessage
 			You = FGSLeaderboardData(wrappedData.GetGSDataObject("you").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -7644,6 +8201,10 @@ struct FGSGlobalRankChangedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	FGSLeaderboardData You;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -7720,11 +8281,10 @@ struct FGSNewHighScoreMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -7786,6 +8346,10 @@ struct FGSNewHighScoreMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	FString Title;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -7862,11 +8426,10 @@ struct FGSNewTeamScoreMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -7928,6 +8491,10 @@ struct FGSNewTeamScoreMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	FString Title;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -7992,11 +8559,10 @@ struct FGSScriptMessage
 			Title = wrappedData.GetString("title").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -8047,6 +8613,10 @@ struct FGSScriptMessage
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	FString Title;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 		Data = nullptr;
@@ -8069,11 +8639,10 @@ struct FGSSessionTerminatedMessage
 			AuthToken = wrappedData.GetString("authToken").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -8081,6 +8650,10 @@ struct FGSSessionTerminatedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	FString AuthToken;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -8163,11 +8736,10 @@ struct FGSSocialRankChangedMessage
 			You = FGSLeaderboardData(wrappedData.GetGSDataObject("you").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
@@ -8235,6 +8807,10 @@ struct FGSSocialRankChangedMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Leaderboards")
 	FGSLeaderboardData You;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -8329,11 +8905,10 @@ struct FGSTeamChatMessage
 			Who = wrappedData.GetString("who").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -8413,6 +8988,10 @@ struct FGSTeamChatMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	FString Who;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{
@@ -8495,11 +9074,10 @@ struct FGSTeamRankChangedMessage
 			You = FGSLeaderboardData(wrappedData.GetGSDataObject("you").GetValue());
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
@@ -8568,6 +9146,10 @@ struct FGSTeamRankChangedMessage
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Teams")
 	FGSLeaderboardData You;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
+	
 	void Destroy()
 	{
 	}
@@ -8631,11 +9213,10 @@ struct FGSUploadCompleteMessage
 			UploadId = wrappedData.GetString("uploadId").GetValue().c_str();
 		}
 		
-	    JSON = wrappedData.GetJSON().c_str();
+	
+	    JSONString = wrappedData.GetJSON().c_str();
 	}
 
-    UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
-    FString JSON;
 	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
@@ -8685,6 +9266,10 @@ struct FGSUploadCompleteMessage
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Misc")
 	FString UploadId;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GameSparks|Authentication")
+    FString JSONString;
+	
 	
 	void Destroy()
 	{

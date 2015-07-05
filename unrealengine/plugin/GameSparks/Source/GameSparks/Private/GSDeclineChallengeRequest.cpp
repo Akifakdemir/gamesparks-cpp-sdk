@@ -6,16 +6,16 @@
 void DeclineChallengeRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::DeclineChallengeResponse& response){
     
     FGSDeclineChallengeResponse unreal_response = FGSDeclineChallengeResponse(response.GetBaseData());
-
-	UGSDeclineChallengeRequest* g_UGSDeclineChallengeRequest = static_cast<UGSDeclineChallengeRequest*>(response.GetUserData());
+    
+    UGSDeclineChallengeRequest* g_UGSDeclineChallengeRequest = static_cast<UGSDeclineChallengeRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSDeclineChallengeRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSDeclineChallengeRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSDeclineChallengeRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSDeclineChallengeRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -47,13 +47,14 @@ void UGSDeclineChallengeRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(DeclineChallengeRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(DeclineChallengeRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

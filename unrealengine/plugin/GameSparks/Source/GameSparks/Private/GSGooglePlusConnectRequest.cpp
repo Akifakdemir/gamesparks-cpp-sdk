@@ -6,16 +6,16 @@
 void GooglePlusConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSGooglePlusConnectRequest* g_UGSGooglePlusConnectRequest = static_cast<UGSGooglePlusConnectRequest*>(response.GetUserData());
+    
+    UGSGooglePlusConnectRequest* g_UGSGooglePlusConnectRequest = static_cast<UGSGooglePlusConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSGooglePlusConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSGooglePlusConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSGooglePlusConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSGooglePlusConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -71,13 +71,14 @@ void UGSGooglePlusConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(GooglePlusConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(GooglePlusConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

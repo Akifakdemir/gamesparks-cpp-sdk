@@ -6,16 +6,16 @@
 void SocialDisconnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::SocialDisconnectResponse& response){
     
     FGSSocialDisconnectResponse unreal_response = FGSSocialDisconnectResponse(response.GetBaseData());
-
-	UGSSocialDisconnectRequest* g_UGSSocialDisconnectRequest = static_cast<UGSSocialDisconnectRequest*>(response.GetUserData());
+    
+    UGSSocialDisconnectRequest* g_UGSSocialDisconnectRequest = static_cast<UGSSocialDisconnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSSocialDisconnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSSocialDisconnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSSocialDisconnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSSocialDisconnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -43,13 +43,14 @@ void UGSSocialDisconnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(SocialDisconnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(SocialDisconnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

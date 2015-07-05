@@ -6,16 +6,16 @@
 void FindMatchRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::FindMatchResponse& response){
     
     FGSFindMatchResponse unreal_response = FGSFindMatchResponse(response.GetBaseData());
-
-	UGSFindMatchRequest* g_UGSFindMatchRequest = static_cast<UGSFindMatchRequest*>(response.GetUserData());
+    
+    UGSFindMatchRequest* g_UGSFindMatchRequest = static_cast<UGSFindMatchRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSFindMatchRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSFindMatchRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSFindMatchRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSFindMatchRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSFindMatchRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(FindMatchRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(FindMatchRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

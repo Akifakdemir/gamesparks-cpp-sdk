@@ -6,16 +6,16 @@
 void XBOXLiveConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSXBOXLiveConnectRequest* g_UGSXBOXLiveConnectRequest = static_cast<UGSXBOXLiveConnectRequest*>(response.GetUserData());
+    
+    UGSXBOXLiveConnectRequest* g_UGSXBOXLiveConnectRequest = static_cast<UGSXBOXLiveConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSXBOXLiveConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSXBOXLiveConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSXBOXLiveConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSXBOXLiveConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -63,13 +63,14 @@ void UGSXBOXLiveConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(XBOXLiveConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(XBOXLiveConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

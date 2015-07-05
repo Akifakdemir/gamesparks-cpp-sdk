@@ -6,16 +6,16 @@
 void SocialLeaderboardDataRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::LeaderboardDataResponse& response){
     
     FGSLeaderboardDataResponse unreal_response = FGSLeaderboardDataResponse(response.GetBaseData());
-
-	UGSSocialLeaderboardDataRequest* g_UGSSocialLeaderboardDataRequest = static_cast<UGSSocialLeaderboardDataRequest*>(response.GetUserData());
+    
+    UGSSocialLeaderboardDataRequest* g_UGSSocialLeaderboardDataRequest = static_cast<UGSSocialLeaderboardDataRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSSocialLeaderboardDataRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSSocialLeaderboardDataRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSSocialLeaderboardDataRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSSocialLeaderboardDataRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -104,13 +104,14 @@ void UGSSocialLeaderboardDataRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(SocialLeaderboardDataRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(SocialLeaderboardDataRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

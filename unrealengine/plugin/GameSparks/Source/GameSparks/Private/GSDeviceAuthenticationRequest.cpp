@@ -6,16 +6,16 @@
 void DeviceAuthenticationRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSDeviceAuthenticationRequest* g_UGSDeviceAuthenticationRequest = static_cast<UGSDeviceAuthenticationRequest*>(response.GetUserData());
+    
+    UGSDeviceAuthenticationRequest* g_UGSDeviceAuthenticationRequest = static_cast<UGSDeviceAuthenticationRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSDeviceAuthenticationRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSDeviceAuthenticationRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSDeviceAuthenticationRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSDeviceAuthenticationRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -71,13 +71,14 @@ void UGSDeviceAuthenticationRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(DeviceAuthenticationRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(DeviceAuthenticationRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

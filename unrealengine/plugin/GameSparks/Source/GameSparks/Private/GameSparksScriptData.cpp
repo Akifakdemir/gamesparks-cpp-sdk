@@ -15,6 +15,10 @@ UGameSparksScriptData* UGameSparksScriptData::CreateGameSparksScriptData(UObject
     return proxy;
 };
 
+FString UGameSparksScriptData::JSONString(){
+    return m_Data->GetJSON().c_str();
+}
+
 bool UGameSparksScriptData::HasString(const FString& name){
     return m_Data->ContainsKey(TCHAR_TO_UTF8(*name)) && m_Data->GetString(TCHAR_TO_UTF8(*name)).HasValue();
 };
@@ -80,6 +84,42 @@ TArray<int32> UGameSparksScriptData::GetNumberArray(const FString& name){
 UGameSparksScriptData* UGameSparksScriptData::SetNumberArray(const FString& name, const TArray<int32> value){
     gsstl::vector<long> arrValue;
     for(int32 b_arrValue = 0; b_arrValue < value.Num(); b_arrValue++)
+    {
+        arrValue.push_back(value[b_arrValue]);
+    }
+    m_Data->AddNumberList(TCHAR_TO_UTF8(*name), arrValue);
+    return this;
+};
+
+bool UGameSparksScriptData::HasFloat(const FString& name){
+    return m_Data->ContainsKey(TCHAR_TO_UTF8(*name)) && m_Data->GetFloat(TCHAR_TO_UTF8(*name)).HasValue();
+}
+
+float UGameSparksScriptData::GetFloat(const FString& name){
+    return m_Data->GetFloat(TCHAR_TO_UTF8(*name)).HasValue() ? m_Data->GetFloat(TCHAR_TO_UTF8(*name)).GetValue() : 0;
+}
+
+UGameSparksScriptData* UGameSparksScriptData::SetFloat(const FString& name, const float value){
+    m_Data->AddNumber(TCHAR_TO_UTF8(*name), value);
+    return this;
+}
+
+bool UGameSparksScriptData::HasFloatArray(const FString& name){
+    return m_Data->ContainsKey(TCHAR_TO_UTF8(*name)) && m_Data->GetFloatList(TCHAR_TO_UTF8(*name)).size() > 0;
+};
+
+TArray<float> UGameSparksScriptData::GetFloatArray(const FString& name){
+    TArray<float> newArray;
+    gsstl::vector<float> data = m_Data->GetFloatList(TCHAR_TO_UTF8(*name));
+    for(gsstl::vector<float>::iterator it = data.begin(); it != data.end(); ++it) {
+        newArray.Add(*it);
+    }
+    return newArray;
+};
+
+UGameSparksScriptData* UGameSparksScriptData::SetFloatArray(const FString& name, const TArray<float> value){
+    gsstl::vector<float> arrValue;
+    for(float b_arrValue = 0; b_arrValue < value.Num(); b_arrValue++)
     {
         arrValue.push_back(value[b_arrValue]);
     }

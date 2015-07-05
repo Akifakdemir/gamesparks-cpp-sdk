@@ -6,16 +6,16 @@
 void JoinTeamRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::JoinTeamResponse& response){
     
     FGSJoinTeamResponse unreal_response = FGSJoinTeamResponse(response.GetBaseData());
-
-	UGSJoinTeamRequest* g_UGSJoinTeamRequest = static_cast<UGSJoinTeamRequest*>(response.GetUserData());
+    
+    UGSJoinTeamRequest* g_UGSJoinTeamRequest = static_cast<UGSJoinTeamRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSJoinTeamRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSJoinTeamRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSJoinTeamRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSJoinTeamRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -51,13 +51,14 @@ void UGSJoinTeamRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(JoinTeamRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(JoinTeamRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 

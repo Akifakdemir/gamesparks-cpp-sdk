@@ -6,16 +6,16 @@
 void FacebookConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
-
-	UGSFacebookConnectRequest* g_UGSFacebookConnectRequest = static_cast<UGSFacebookConnectRequest*>(response.GetUserData());
+    
+    UGSFacebookConnectRequest* g_UGSFacebookConnectRequest = static_cast<UGSFacebookConnectRequest*>(response.GetUserData());
                                              
     if (response.GetHasErrors())
     {
-        g_UGSFacebookConnectRequest->OnResponse.Broadcast(unreal_response, false);
+        g_UGSFacebookConnectRequest->OnResponse.Broadcast(unreal_response, true);
     }
     else
     {
-        g_UGSFacebookConnectRequest->OnResponse.Broadcast(unreal_response, true);
+        g_UGSFacebookConnectRequest->OnResponse.Broadcast(unreal_response, false);
     }
 }
 
@@ -67,13 +67,14 @@ void UGSFacebookConnectRequest::Activate()
     }
     
     gsRequest.SetUserData(this);
-    
+
     if(requestTimeoutSeconds > 0){
     	gsRequest.Send(FacebookConnectRequestResponseCallback, requestTimeoutSeconds);	
     } else {
     	gsRequest.Send(FacebookConnectRequestResponseCallback);
     }
-    
+	
+	
 	
 }
 
