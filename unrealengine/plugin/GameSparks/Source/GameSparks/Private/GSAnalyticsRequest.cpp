@@ -66,6 +66,6 @@ void UGSAnalyticsRequest::Activate()
 	
 }
 
-UGSAnalyticsRequest::UGSAnalyticsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSAnalyticsRequest::UGSAnalyticsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

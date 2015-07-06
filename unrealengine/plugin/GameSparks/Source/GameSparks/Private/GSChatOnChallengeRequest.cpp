@@ -58,6 +58,6 @@ void UGSChatOnChallengeRequest::Activate()
 	
 }
 
-UGSChatOnChallengeRequest::UGSChatOnChallengeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSChatOnChallengeRequest::UGSChatOnChallengeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

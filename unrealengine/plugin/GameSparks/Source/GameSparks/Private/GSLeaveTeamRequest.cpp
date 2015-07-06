@@ -62,6 +62,6 @@ void UGSLeaveTeamRequest::Activate()
 	
 }
 
-UGSLeaveTeamRequest::UGSLeaveTeamRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSLeaveTeamRequest::UGSLeaveTeamRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

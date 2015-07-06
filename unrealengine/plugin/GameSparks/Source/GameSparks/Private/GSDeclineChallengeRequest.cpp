@@ -58,6 +58,6 @@ void UGSDeclineChallengeRequest::Activate()
 	
 }
 
-UGSDeclineChallengeRequest::UGSDeclineChallengeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSDeclineChallengeRequest::UGSDeclineChallengeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

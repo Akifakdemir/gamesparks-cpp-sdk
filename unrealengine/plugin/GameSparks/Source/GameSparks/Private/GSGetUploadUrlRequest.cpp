@@ -54,6 +54,6 @@ void UGSGetUploadUrlRequest::Activate()
 	
 }
 
-UGSGetUploadUrlRequest::UGSGetUploadUrlRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGetUploadUrlRequest::UGSGetUploadUrlRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

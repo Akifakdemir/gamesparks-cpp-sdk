@@ -50,6 +50,6 @@ void UGSListVirtualGoodsRequest::Activate()
 	
 }
 
-UGSListVirtualGoodsRequest::UGSListVirtualGoodsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListVirtualGoodsRequest::UGSListVirtualGoodsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

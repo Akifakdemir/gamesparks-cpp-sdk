@@ -82,6 +82,6 @@ void UGSGooglePlusConnectRequest::Activate()
 	
 }
 
-UGSGooglePlusConnectRequest::UGSGooglePlusConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGooglePlusConnectRequest::UGSGooglePlusConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

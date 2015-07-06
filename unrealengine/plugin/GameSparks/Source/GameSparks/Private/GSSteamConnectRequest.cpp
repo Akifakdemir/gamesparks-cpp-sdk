@@ -74,6 +74,6 @@ void UGSSteamConnectRequest::Activate()
 	
 }
 
-UGSSteamConnectRequest::UGSSteamConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSSteamConnectRequest::UGSSteamConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

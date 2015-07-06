@@ -50,6 +50,6 @@ void UGSListInviteFriendsRequest::Activate()
 	
 }
 
-UGSListInviteFriendsRequest::UGSListInviteFriendsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListInviteFriendsRequest::UGSListInviteFriendsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

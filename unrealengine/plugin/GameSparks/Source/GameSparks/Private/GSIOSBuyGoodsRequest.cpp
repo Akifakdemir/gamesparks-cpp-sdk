@@ -62,6 +62,6 @@ void UGSIOSBuyGoodsRequest::Activate()
 	
 }
 
-UGSIOSBuyGoodsRequest::UGSIOSBuyGoodsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSIOSBuyGoodsRequest::UGSIOSBuyGoodsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

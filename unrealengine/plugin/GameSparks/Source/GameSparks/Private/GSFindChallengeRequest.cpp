@@ -77,6 +77,6 @@ void UGSFindChallengeRequest::Activate()
 	
 }
 
-UGSFindChallengeRequest::UGSFindChallengeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSFindChallengeRequest::UGSFindChallengeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

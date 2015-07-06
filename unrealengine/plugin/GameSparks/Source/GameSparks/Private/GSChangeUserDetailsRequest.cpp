@@ -70,6 +70,6 @@ void UGSChangeUserDetailsRequest::Activate()
 	
 }
 
-UGSChangeUserDetailsRequest::UGSChangeUserDetailsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSChangeUserDetailsRequest::UGSChangeUserDetailsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

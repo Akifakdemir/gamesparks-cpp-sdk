@@ -70,6 +70,6 @@ void UGSListTeamChatRequest::Activate()
 	
 }
 
-UGSListTeamChatRequest::UGSListTeamChatRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListTeamChatRequest::UGSListTeamChatRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

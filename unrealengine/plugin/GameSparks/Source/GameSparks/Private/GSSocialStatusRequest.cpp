@@ -50,6 +50,6 @@ void UGSSocialStatusRequest::Activate()
 	
 }
 
-UGSSocialStatusRequest::UGSSocialStatusRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSSocialStatusRequest::UGSSocialStatusRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

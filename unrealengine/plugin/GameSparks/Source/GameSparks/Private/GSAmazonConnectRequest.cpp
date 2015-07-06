@@ -74,6 +74,6 @@ void UGSAmazonConnectRequest::Activate()
 	
 }
 
-UGSAmazonConnectRequest::UGSAmazonConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSAmazonConnectRequest::UGSAmazonConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

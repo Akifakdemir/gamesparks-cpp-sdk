@@ -62,6 +62,6 @@ void UGSAmazonBuyGoodsRequest::Activate()
 	
 }
 
-UGSAmazonBuyGoodsRequest::UGSAmazonBuyGoodsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSAmazonBuyGoodsRequest::UGSAmazonBuyGoodsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

@@ -62,6 +62,6 @@ void UGSBuyVirtualGoodsRequest::Activate()
 	
 }
 
-UGSBuyVirtualGoodsRequest::UGSBuyVirtualGoodsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSBuyVirtualGoodsRequest::UGSBuyVirtualGoodsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

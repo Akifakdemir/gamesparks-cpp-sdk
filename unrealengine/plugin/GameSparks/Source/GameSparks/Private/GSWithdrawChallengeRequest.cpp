@@ -58,6 +58,6 @@ void UGSWithdrawChallengeRequest::Activate()
 	
 }
 
-UGSWithdrawChallengeRequest::UGSWithdrawChallengeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSWithdrawChallengeRequest::UGSWithdrawChallengeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

@@ -65,6 +65,6 @@ void UGSGetRunningTotalsRequest::Activate()
 	
 }
 
-UGSGetRunningTotalsRequest::UGSGetRunningTotalsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGetRunningTotalsRequest::UGSGetRunningTotalsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

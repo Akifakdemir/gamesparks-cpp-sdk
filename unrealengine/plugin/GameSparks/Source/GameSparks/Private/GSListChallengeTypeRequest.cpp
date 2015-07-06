@@ -50,6 +50,6 @@ void UGSListChallengeTypeRequest::Activate()
 	
 }
 
-UGSListChallengeTypeRequest::UGSListChallengeTypeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListChallengeTypeRequest::UGSListChallengeTypeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

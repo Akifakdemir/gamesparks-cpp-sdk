@@ -77,6 +77,6 @@ void UGSListChallengeRequest::Activate()
 	
 }
 
-UGSListChallengeRequest::UGSListChallengeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListChallengeRequest::UGSListChallengeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

@@ -78,6 +78,6 @@ void UGSKongregateConnectRequest::Activate()
 	
 }
 
-UGSKongregateConnectRequest::UGSKongregateConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSKongregateConnectRequest::UGSKongregateConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

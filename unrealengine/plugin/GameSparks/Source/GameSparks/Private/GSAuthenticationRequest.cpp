@@ -58,6 +58,6 @@ void UGSAuthenticationRequest::Activate()
 	
 }
 
-UGSAuthenticationRequest::UGSAuthenticationRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSAuthenticationRequest::UGSAuthenticationRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

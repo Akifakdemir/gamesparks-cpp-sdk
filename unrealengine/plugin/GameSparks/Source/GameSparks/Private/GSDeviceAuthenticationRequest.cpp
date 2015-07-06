@@ -82,6 +82,6 @@ void UGSDeviceAuthenticationRequest::Activate()
 	
 }
 
-UGSDeviceAuthenticationRequest::UGSDeviceAuthenticationRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSDeviceAuthenticationRequest::UGSDeviceAuthenticationRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

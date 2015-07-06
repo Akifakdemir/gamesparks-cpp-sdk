@@ -58,6 +58,6 @@ void UGSPushRegistrationRequest::Activate()
 	
 }
 
-UGSPushRegistrationRequest::UGSPushRegistrationRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSPushRegistrationRequest::UGSPushRegistrationRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

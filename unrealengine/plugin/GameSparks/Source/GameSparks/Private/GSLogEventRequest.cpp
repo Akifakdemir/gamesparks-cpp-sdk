@@ -54,6 +54,6 @@ void UGSLogEventRequest::Activate()
 	
 }
 
-UGSLogEventRequest::UGSLogEventRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSLogEventRequest::UGSLogEventRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

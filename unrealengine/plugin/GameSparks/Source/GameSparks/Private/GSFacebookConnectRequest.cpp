@@ -78,6 +78,6 @@ void UGSFacebookConnectRequest::Activate()
 	
 }
 
-UGSFacebookConnectRequest::UGSFacebookConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSFacebookConnectRequest::UGSFacebookConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

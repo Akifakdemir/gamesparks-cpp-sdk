@@ -74,6 +74,6 @@ void UGSTwitchConnectRequest::Activate()
 	
 }
 
-UGSTwitchConnectRequest::UGSTwitchConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSTwitchConnectRequest::UGSTwitchConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

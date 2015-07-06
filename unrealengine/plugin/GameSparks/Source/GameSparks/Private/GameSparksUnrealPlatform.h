@@ -1,7 +1,13 @@
 #pragma once
 
 #include "Platform.h"
+#ifdef PLATFORM_WINDOWS
+#include "AllowWindowsPlatformTypes.h"
+#endif
 #include <GameSparks/IGSPlatform.h>
+#ifdef PLATFORM_WINDOWS
+#include "HideWindowsPlatformTypes.h"
+#endif
 #include "GameSparksModule.h"
 
 namespace GameSparks
@@ -65,6 +71,14 @@ namespace GameSparks
 				if (UGameSparksModule::GetModulePtr())
 					UGameSparksModule::GetModulePtr()->SendDebugLogToComponents(message);
 			}
+            
+            virtual gsstl::string ToWritableLocation(gsstl::string desired_name){
+                FString writeableLocation = FPaths::GameDir();
+                writeableLocation += "gamesparks_";
+                writeableLocation += desired_name.c_str();
+                return TCHAR_TO_UTF8(*writeableLocation);
+            }
+
 		};
 	}
 }

@@ -50,6 +50,6 @@ void UGSEndSessionRequest::Activate()
 	
 }
 
-UGSEndSessionRequest::UGSEndSessionRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSEndSessionRequest::UGSEndSessionRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

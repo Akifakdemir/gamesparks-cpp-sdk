@@ -74,6 +74,6 @@ void UGSXBOXLiveConnectRequest::Activate()
 	
 }
 
-UGSXBOXLiveConnectRequest::UGSXBOXLiveConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSXBOXLiveConnectRequest::UGSXBOXLiveConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

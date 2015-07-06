@@ -58,6 +58,6 @@ void UGSAcceptChallengeRequest::Activate()
 	
 }
 
-UGSAcceptChallengeRequest::UGSAcceptChallengeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSAcceptChallengeRequest::UGSAcceptChallengeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

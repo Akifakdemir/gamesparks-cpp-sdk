@@ -65,6 +65,6 @@ void UGSSendFriendMessageRequest::Activate()
 	
 }
 
-UGSSendFriendMessageRequest::UGSSendFriendMessageRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSSendFriendMessageRequest::UGSSendFriendMessageRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

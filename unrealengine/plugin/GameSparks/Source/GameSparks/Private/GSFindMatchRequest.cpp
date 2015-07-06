@@ -62,6 +62,6 @@ void UGSFindMatchRequest::Activate()
 	
 }
 
-UGSFindMatchRequest::UGSFindMatchRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSFindMatchRequest::UGSFindMatchRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

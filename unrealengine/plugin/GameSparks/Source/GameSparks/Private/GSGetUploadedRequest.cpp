@@ -54,6 +54,6 @@ void UGSGetUploadedRequest::Activate()
 	
 }
 
-UGSGetUploadedRequest::UGSGetUploadedRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGetUploadedRequest::UGSGetUploadedRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

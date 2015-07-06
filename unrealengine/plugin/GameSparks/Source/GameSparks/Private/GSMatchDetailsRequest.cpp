@@ -54,6 +54,6 @@ void UGSMatchDetailsRequest::Activate()
 	
 }
 
-UGSMatchDetailsRequest::UGSMatchDetailsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSMatchDetailsRequest::UGSMatchDetailsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

@@ -50,6 +50,6 @@ void UGSListLeaderboardsRequest::Activate()
 	
 }
 
-UGSListLeaderboardsRequest::UGSListLeaderboardsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListLeaderboardsRequest::UGSListLeaderboardsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

@@ -17,7 +17,6 @@ base/build_scripts/jenkins/dist/
 unrealengine/plugin/GameSparks/Binaries
 unrealengine/plugin/GameSparks/Source/GameSparksBaseSDK
 unrealengine/GameSparksSample/Binaries
-unrealengine/GameSparksSample/Build
 unrealengine/GameSparksSample/Intermediate
 unrealengine/GameSparksSample/Plugins/GameSparks
 unrealengine/GameSparksSample/Saved

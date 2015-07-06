@@ -50,6 +50,6 @@ void UGSListAchievementsRequest::Activate()
 	
 }
 
-UGSListAchievementsRequest::UGSListAchievementsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListAchievementsRequest::UGSListAchievementsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

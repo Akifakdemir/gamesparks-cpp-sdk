@@ -58,6 +58,6 @@ void UGSListMessageSummaryRequest::Activate()
 	
 }
 
-UGSListMessageSummaryRequest::UGSListMessageSummaryRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListMessageSummaryRequest::UGSListMessageSummaryRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

@@ -9,6 +9,7 @@ public class GameSparks : ModuleRules
 	public GameSparks(TargetInfo Target)
 	{
         //Definitions.Add("GS_USE_EASTL=1");
+		Definitions.Add("GS_OVERRIDE_TOWRITABLELOCATION=1");
 
 		//Private Paths
         PrivateIncludePaths.AddRange(new string[] { 

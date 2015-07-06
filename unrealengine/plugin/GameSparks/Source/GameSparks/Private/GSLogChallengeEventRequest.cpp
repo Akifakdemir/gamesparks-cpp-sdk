@@ -58,6 +58,6 @@ void UGSLogChallengeEventRequest::Activate()
 	
 }
 
-UGSLogChallengeEventRequest::UGSLogChallengeEventRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSLogChallengeEventRequest::UGSLogChallengeEventRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

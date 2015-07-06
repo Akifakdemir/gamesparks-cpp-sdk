@@ -50,6 +50,6 @@ void UGSListGameFriendsRequest::Activate()
 	
 }
 
-UGSListGameFriendsRequest::UGSListGameFriendsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSListGameFriendsRequest::UGSListGameFriendsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

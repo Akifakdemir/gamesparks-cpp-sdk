@@ -54,6 +54,6 @@ void UGSSocialDisconnectRequest::Activate()
 	
 }
 
-UGSSocialDisconnectRequest::UGSSocialDisconnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSSocialDisconnectRequest::UGSSocialDisconnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

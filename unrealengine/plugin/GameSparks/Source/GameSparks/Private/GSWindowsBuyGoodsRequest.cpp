@@ -62,6 +62,6 @@ void UGSWindowsBuyGoodsRequest::Activate()
 	
 }
 
-UGSWindowsBuyGoodsRequest::UGSWindowsBuyGoodsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSWindowsBuyGoodsRequest::UGSWindowsBuyGoodsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

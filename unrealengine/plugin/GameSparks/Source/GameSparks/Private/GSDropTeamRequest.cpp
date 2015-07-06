@@ -62,6 +62,6 @@ void UGSDropTeamRequest::Activate()
 	
 }
 
-UGSDropTeamRequest::UGSDropTeamRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSDropTeamRequest::UGSDropTeamRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

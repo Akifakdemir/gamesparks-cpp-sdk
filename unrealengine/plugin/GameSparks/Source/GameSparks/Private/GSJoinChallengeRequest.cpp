@@ -62,6 +62,6 @@ void UGSJoinChallengeRequest::Activate()
 	
 }
 
-UGSJoinChallengeRequest::UGSJoinChallengeRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSJoinChallengeRequest::UGSJoinChallengeRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

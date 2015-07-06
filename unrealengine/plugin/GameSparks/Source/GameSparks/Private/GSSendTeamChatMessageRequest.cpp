@@ -66,6 +66,6 @@ void UGSSendTeamChatMessageRequest::Activate()
 	
 }
 
-UGSSendTeamChatMessageRequest::UGSSendTeamChatMessageRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSSendTeamChatMessageRequest::UGSSendTeamChatMessageRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

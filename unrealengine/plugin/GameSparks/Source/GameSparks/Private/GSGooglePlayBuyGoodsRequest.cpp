@@ -62,6 +62,6 @@ void UGSGooglePlayBuyGoodsRequest::Activate()
 	
 }
 
-UGSGooglePlayBuyGoodsRequest::UGSGooglePlayBuyGoodsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGooglePlayBuyGoodsRequest::UGSGooglePlayBuyGoodsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

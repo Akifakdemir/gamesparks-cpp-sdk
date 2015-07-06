@@ -54,6 +54,6 @@ void UGSGetMessageRequest::Activate()
 	
 }
 
-UGSGetMessageRequest::UGSGetMessageRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGetMessageRequest::UGSGetMessageRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

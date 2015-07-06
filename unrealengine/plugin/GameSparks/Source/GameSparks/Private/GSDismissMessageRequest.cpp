@@ -54,6 +54,6 @@ void UGSDismissMessageRequest::Activate()
 	
 }
 
-UGSDismissMessageRequest::UGSDismissMessageRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSDismissMessageRequest::UGSDismissMessageRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

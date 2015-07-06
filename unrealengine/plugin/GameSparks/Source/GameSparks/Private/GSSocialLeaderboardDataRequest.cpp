@@ -115,6 +115,6 @@ void UGSSocialLeaderboardDataRequest::Activate()
 	
 }
 
-UGSSocialLeaderboardDataRequest::UGSSocialLeaderboardDataRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSSocialLeaderboardDataRequest::UGSSocialLeaderboardDataRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

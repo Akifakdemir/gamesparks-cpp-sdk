@@ -94,6 +94,6 @@ void UGSGameCenterConnectRequest::Activate()
 	
 }
 
-UGSGameCenterConnectRequest::UGSGameCenterConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGameCenterConnectRequest::UGSGameCenterConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

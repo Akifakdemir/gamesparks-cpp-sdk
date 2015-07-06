@@ -95,6 +95,6 @@ void UGSGetLeaderboardEntriesRequest::Activate()
 	
 }
 
-UGSGetLeaderboardEntriesRequest::UGSGetLeaderboardEntriesRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGetLeaderboardEntriesRequest::UGSGetLeaderboardEntriesRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

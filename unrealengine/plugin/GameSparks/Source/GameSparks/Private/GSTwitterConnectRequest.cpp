@@ -78,6 +78,6 @@ void UGSTwitterConnectRequest::Activate()
 	
 }
 
-UGSTwitterConnectRequest::UGSTwitterConnectRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSTwitterConnectRequest::UGSTwitterConnectRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

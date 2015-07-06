@@ -58,6 +58,6 @@ void UGSConsumeVirtualGoodRequest::Activate()
 	
 }
 
-UGSConsumeVirtualGoodRequest::UGSConsumeVirtualGoodRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSConsumeVirtualGoodRequest::UGSConsumeVirtualGoodRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

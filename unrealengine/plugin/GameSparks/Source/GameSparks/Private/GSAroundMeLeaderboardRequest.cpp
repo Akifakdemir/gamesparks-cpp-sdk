@@ -111,6 +111,6 @@ void UGSAroundMeLeaderboardRequest::Activate()
 	
 }
 
-UGSAroundMeLeaderboardRequest::UGSAroundMeLeaderboardRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSAroundMeLeaderboardRequest::UGSAroundMeLeaderboardRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

@@ -62,6 +62,6 @@ void UGSGetTeamRequest::Activate()
 	
 }
 
-UGSGetTeamRequest::UGSGetTeamRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGetTeamRequest::UGSGetTeamRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

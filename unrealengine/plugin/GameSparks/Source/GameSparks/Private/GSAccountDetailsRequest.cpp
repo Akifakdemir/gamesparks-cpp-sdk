@@ -50,6 +50,6 @@ void UGSAccountDetailsRequest::Activate()
 	
 }
 
-UGSAccountDetailsRequest::UGSAccountDetailsRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSAccountDetailsRequest::UGSAccountDetailsRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 

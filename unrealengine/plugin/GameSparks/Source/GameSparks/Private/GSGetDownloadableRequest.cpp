@@ -54,6 +54,6 @@ void UGSGetDownloadableRequest::Activate()
 	
 }
 
-UGSGetDownloadableRequest::UGSGetDownloadableRequest(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP) {
+UGSGetDownloadableRequest::UGSGetDownloadableRequest(const class FObjectInitializer& PCIP) : Super(PCIP) {
 }
 
