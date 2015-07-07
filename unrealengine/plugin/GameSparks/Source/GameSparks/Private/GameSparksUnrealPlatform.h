@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Platform.h"
-#ifdef PLATFORM_WINDOWS
+#if PLATFORM_WINDOWS
 #include "AllowWindowsPlatformTypes.h"
 #endif
 #include <GameSparks/IGSPlatform.h>
-#ifdef PLATFORM_WINDOWS
+#if PLATFORM_WINDOWS
 #include "HideWindowsPlatformTypes.h"
 #endif
 #include "GameSparksModule.h"

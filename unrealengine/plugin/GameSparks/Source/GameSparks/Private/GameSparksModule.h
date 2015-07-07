@@ -1,11 +1,11 @@
 #pragma once
 
 #include "GameSparks/gsstl.h"
-#ifdef PLATFORM_WINDOWS
+#if PLATFORM_WINDOWS
 #include "AllowWindowsPlatformTypes.h"
 #endif
 #include "GameSparks/GS.h"
-#ifdef PLATFORM_WINDOWS
+#if PLATFORM_WINDOWS
 #include "HideWindowsPlatformTypes.h"
 #endif
 #include "GSMessageListeners.h"
