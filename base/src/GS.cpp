@@ -21,6 +21,7 @@ using namespace GameSparks::Api::Messages;
 
 GS_::GS_()
     : GameSparksAvailable()
+    , GameSparksAuthenticated()
     , m_GSPlatform(NULL)
     , m_RequestCounter(0)
     , m_Ready(false)
@@ -38,6 +39,7 @@ GS_::GS_()
 		requested in the initializer list.
 	*/
 	assert( !GameSparksAvailable );
+	assert( !GameSparksAuthenticated );
 }
 
 GS_::~GS_()

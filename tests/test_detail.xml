@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="9" failures="0" disabled="0" errors="0" timestamp="2015-07-03T19:06:07" time="23.795" name="AllTests">
-  <testsuite name="DurableQueue" tests="1" failures="0" disabled="0" errors="0" time="1.758">
+<testsuites tests="10" failures="0" disabled="0" errors="0" timestamp="2015-07-09T17:35:25" time="24.34" name="AllTests">
+  <testsuite name="Bugs" tests="1" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="UninitializedGameSparksAuthenticated" status="run" time="0" classname="Bugs" />
+  </testsuite>
+  <testsuite name="DurableQueue" tests="1" failures="0" disabled="0" errors="0" time="1.757">
     <testcase name="TestAttachCallbacks" status="run" time="1.757" classname="DurableQueue" />
   </testsuite>
-  <testsuite name="AuthenticationTest" tests="2" failures="0" disabled="0" errors="0" time="3.208">
-    <testcase name="Succeed" status="run" time="1.588" classname="AuthenticationTest" />
-    <testcase name="Fail" status="run" time="1.62" classname="AuthenticationTest" />
+  <testsuite name="AuthenticationTest" tests="2" failures="0" disabled="0" errors="0" time="3.28">
+    <testcase name="Succeed" status="run" time="1.676" classname="AuthenticationTest" />
+    <testcase name="Fail" status="run" time="1.603" classname="AuthenticationTest" />
   </testsuite>
-  <testsuite name="ConnectionTest" tests="2" failures="0" disabled="0" errors="0" time="2.739">
-    <testcase name="TestAvailableCalled" status="run" time="1.361" classname="ConnectionTest" />
-    <testcase name="Compact" status="run" time="1.378" classname="ConnectionTest" />
+  <testsuite name="ConnectionTest" tests="2" failures="0" disabled="0" errors="0" time="2.85">
+    <testcase name="TestAvailableCalled" status="run" time="1.38" classname="ConnectionTest" />
+    <testcase name="Compact" status="run" time="1.47" classname="ConnectionTest" />
   </testsuite>
-  <testsuite name="DeviceAuthenticationTest" tests="1" failures="0" disabled="0" errors="0" time="1.699">
-    <testcase name="Succeed" status="run" time="1.699" classname="DeviceAuthenticationTest" />
+  <testsuite name="DeviceAuthenticationTest" tests="1" failures="0" disabled="0" errors="0" time="1.701">
+    <testcase name="Succeed" status="run" time="1.701" classname="DeviceAuthenticationTest" />
   </testsuite>
-  <testsuite name="MessageDispatchingTest" tests="1" failures="0" disabled="0" errors="0" time="2.108">
-    <testcase name="Test01" status="run" time="2.108" classname="MessageDispatchingTest" />
+  <testsuite name="MessageDispatchingTest" tests="1" failures="0" disabled="0" errors="0" time="2.177">
+    <testcase name="Test01" status="run" time="2.177" classname="MessageDispatchingTest" />
   </testsuite>
-  <testsuite name="StressTest" tests="1" failures="0" disabled="0" errors="0" time="10.589">
-    <testcase name="Stress" status="run" time="10.589" classname="StressTest" />
+  <testsuite name="StressTest" tests="1" failures="0" disabled="0" errors="0" time="10.943">
+    <testcase name="Stress" status="run" time="10.943" classname="StressTest" />
   </testsuite>
-  <testsuite name="UserDataTest" tests="1" failures="0" disabled="0" errors="0" time="1.694">
-    <testcase name="Succeed" status="run" time="1.694" classname="UserDataTest" />
+  <testsuite name="UserDataTest" tests="1" failures="0" disabled="0" errors="0" time="1.632">
+    <testcase name="Succeed" status="run" time="1.632" classname="UserDataTest" />
   </testsuite>
 </testsuites>

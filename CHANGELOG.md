@@ -1,5 +1,14 @@
 # ChangeLog
 
+## patch rc6-p4 (2015-07-09)
+- fixed an unitialized valiable (GS_::GameSparksAuthenticated) when SDK was compiled without support for std::function<>
+
+## patch rc6-p3 (2015-07-06)
+- Fix OS X build remove unused blueprints from GameSparksSample
+
+## patch rc6-p2 (2015-07-06)
+- Wrap with AllowWindowsPlatformTypes and HideWindowsPlatformTypes in GameSparksUnrealPlatform and GameSparksModule.h Remove warnings regarding FPostConstructInitializeProperties in request constructors
+
 ## patch rc6-p1 (2015-07-05)
 
 ### Unreal Engine
