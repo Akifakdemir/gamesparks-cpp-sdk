@@ -14,5 +14,5 @@ APP_ABI := armeabi-v7a armeabi x86
 #-std=c++11
 
 APP_STL := gnustl_static
-APP_CPPFLAGS += -frtti -std=c++11 -fpic -fexceptions
+APP_CPPFLAGS += -frtti -std=c++11 -fpic -fexceptions -Wall -Werror -Wextra
 APP_CFLAGS += -Wno-error=format-security

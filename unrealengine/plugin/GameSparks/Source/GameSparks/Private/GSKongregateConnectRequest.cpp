@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSKongregateConnectRequest.h"
 
-void KongregateConnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
+void KongregateConnectRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response){
     
     FGSAuthenticationResponse unreal_response = FGSAuthenticationResponse(response.GetBaseData());
     

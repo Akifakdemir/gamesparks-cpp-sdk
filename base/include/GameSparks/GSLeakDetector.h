@@ -69,7 +69,7 @@ namespace GameSparks {
 #   define GS_LEAK_DETECTOR(OwnerClass) \
         friend struct GameSparks::Util::LeakDetector::LeakedObjectDetector<OwnerClass>; \
         static const char* getLeakedObjectClassName() { return #OwnerClass; } \
-        GameSparks::Util::LeakDetector::LeakedObjectDetector<OwnerClass> _gs_leak_detector_;//JUCE_JOIN_MACRO (leakDetector, __LINE__);
+        GameSparks::Util::LeakDetector::LeakedObjectDetector<OwnerClass> _gs_leak_detector_;
 #else
 #   define GS_LEAK_DETECTOR(OwnerClass)
 #endif /* GS_USE_LEAK_DETECTOR */

@@ -7,8 +7,8 @@
 using namespace GameSparks::Core;
 
 GameSparks::Core::GSDateTime::GSDateTime()
-	: m_IsLocalTime(false)
-	, m_time(0)
+	: m_time(0)
+    , m_IsLocalTime(false)
 {
 }
 
@@ -44,7 +44,7 @@ GameSparks::Core::GSDateTime::GSDateTime(const gsstl::string& iso8601_str)
 {
 	struct tm t;
 	memset(&t, 0, sizeof(tm));
-	char* ret = strptime(iso8601_str.c_str(), "%Y-%m-%dT%H:%M:%SZ", &t);
+	strptime(iso8601_str.c_str(), "%Y-%m-%dT%H:%M:%SZ", &t);
     m_time = _mkgmtime(&t);
 }
 

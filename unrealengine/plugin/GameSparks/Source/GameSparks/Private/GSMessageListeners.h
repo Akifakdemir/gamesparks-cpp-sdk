@@ -4,6 +4,7 @@
 #include "GameSparks/GS.h"
 #include "GameSparks/generated/GSMessages.h"
 #include "GameSparksModule.h"
+#include "GSTypes.h"
 #include "GSMessageListeners.generated.h"
 
 UCLASS(ClassGroup=(GameSparks), meta = (BlueprintSpawnableComponent))
@@ -14,7 +15,7 @@ class GAMESPARKS_API UGSMessageListeners : public USceneComponent
 public:
     UGSMessageListeners();
     
-    static void RegisterListeners(GS_& GS);
+    static void RegisterListeners(GS& GS);
     
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAchievementEarnedMessage, FGSAchievementEarnedMessage, AchievementEarnedMessage);
 	

@@ -17,7 +17,7 @@ pushd "$OUTPUT_DIRECTORY"
 	pushd xcode/OSX_stl
 		cmake "$CMAKE_SRC_DIR" -GXcode  || exit $?
 		xcodebuild -project Gamesparks.xcodeproj -target Gamesparks -configuration RelWithDebInfo || exit $?
-		xcodebuild -project Gamesparks.xcodeproj -target sample02_connect_static -configuration RelWithDebInfo || exit $?
+		xcodebuild -project Gamesparks.xcodeproj -target sample02ConnectStatic -configuration RelWithDebInfo || exit $?
 	popd
 
 	cp -R xcode/OSX_stl/RelWithDebInfo/libGamesparks.a OSX_stl || exit $?
@@ -25,7 +25,7 @@ pushd "$OUTPUT_DIRECTORY"
 	pushd xcode/OSX_eastl
 		cmake "$CMAKE_SRC_DIR" -DUSE_EASTL=1 -DNO_STL_FUNCTIONAL=1 -GXcode  || exit $?
 		xcodebuild -project Gamesparks.xcodeproj -target Gamesparks -configuration RelWithDebInfo || exit $?
-		xcodebuild -project Gamesparks.xcodeproj -target sample02_connect_static -configuration RelWithDebInfo || exit $?
+		xcodebuild -project Gamesparks.xcodeproj -target sample02ConnectStatic -configuration RelWithDebInfo || exit $?
 	popd
 
 	cp -R xcode/OSX_eastl/RelWithDebInfo/libGamesparks.a OSX_eastl || exit $?

@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSAccountDetailsRequest.h"
 
-void AccountDetailsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AccountDetailsResponse& response){
+void AccountDetailsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::AccountDetailsResponse& response){
     
     FGSAccountDetailsResponse unreal_response = FGSAccountDetailsResponse(response.GetBaseData());
     

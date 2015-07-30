@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSJoinTeamRequest.h"
 
-void JoinTeamRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::JoinTeamResponse& response){
+void JoinTeamRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::JoinTeamResponse& response){
     
     FGSJoinTeamResponse unreal_response = FGSJoinTeamResponse(response.GetBaseData());
     

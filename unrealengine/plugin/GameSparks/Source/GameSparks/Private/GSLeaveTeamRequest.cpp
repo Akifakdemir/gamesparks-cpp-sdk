@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSLeaveTeamRequest.h"
 
-void LeaveTeamRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::LeaveTeamResponse& response){
+void LeaveTeamRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::LeaveTeamResponse& response){
     
     FGSLeaveTeamResponse unreal_response = FGSLeaveTeamResponse(response.GetBaseData());
     

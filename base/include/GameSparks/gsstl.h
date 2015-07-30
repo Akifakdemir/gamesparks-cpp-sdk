@@ -81,7 +81,7 @@ namespace gsstl
 #endif
 }
 
-#if !defined(nullptr) && !defined(DOXYGEN)
+#if !defined(nullptr) && !defined(DOXYGEN) && !defined(GS_COMPILER_HAS_NULLPTR_SUPPORT)
 namespace gsstl
 {
     //!  a nullptr implementation for compilers that do not support the C++11 nullptr yet.
@@ -96,14 +96,14 @@ namespace gsstl
         {
             return 0;
         }
-        
-#ifdef _MSC_VER
-        struct pad {};
-        pad __[sizeof(void*)/sizeof(pad)];
-#else
-        char __[sizeof(void*)];
-#endif
     private:
+        #ifdef _MSC_VER
+                struct pad {};
+                pad __[sizeof(void*)/sizeof(pad)];
+        #else
+                char __[sizeof(void*)];
+        #endif
+
         //  nullptr_t();// {}
         //  nullptr_t(const nullptr_t&);
         //  void operator = (const nullptr_t&);
@@ -117,7 +117,7 @@ namespace gsstl
             /*I Love MSVC 2005!*/
         }
     };
-    static const nullptr_t nullptr_instance = {};
+    static const nullptr_t nullptr_instance = nullptr_t();// = {};
 }
 
 #define nullptr gsstl::nullptr_instance

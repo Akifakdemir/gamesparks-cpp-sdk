@@ -9,13 +9,13 @@
 
 #include "TestPlatform.h"
 
-void OnAuthenticated(GameSparks::Core::GS_& gs, const gsstl::string& userId) {}
+void OnAuthenticated(GameSparks::Core::GS& gs, const gsstl::string& userId) {}
 
 TEST(Bugs, UninitializedGameSparksAuthenticated)
 {
     using namespace GameSparks::Core;
 
-    GS_ gs;
+    GS gs;
 
     #if !defined(STL_FUNCTIONAL_SUPPORTED) || !STL_FUNCTIONAL_SUPPORTED
     ASSERT_EQ(gs.GameSparksAuthenticated, GameSparks::Core::GS_::t_AuthenticatedCallback());

@@ -19,14 +19,14 @@ namespace GameSparks
 {
 	namespace Core
 	{
-		class GS_;
+		class GS;
 		class GSRequest;
 
 		/// represents a connection. This is an internal class and there should be no need to interact with it directly.
 		class GSConnection
 		{
 		public:
-			GSConnection(GS_* gs, IGSPlatform* gsPlatform);
+			GSConnection(GS* gs, IGSPlatform* gsPlatform);
 			~GSConnection();
 
 			void Terminate();
@@ -41,13 +41,13 @@ namespace GameSparks
 			void SendImmediate(GSRequest& request);
 
 			bool Update(float deltaTime);
-			 GS_* GetGSInstance() const { return m_GS; }
+			 GS* GetGSInstance() const { return m_GS; }
 			 bool IsWebSocketConnectionAlive() const;
 		protected:
 			static void OnWebSocketCallback(const gsstl::string& message, void* userData);
 			static void OnWebSocketError(const easywsclient::WSError& error, void* userData);
 		private:
-			GS_* m_GS;
+			GS* m_GS;
 			IGSPlatform* m_GSPlatform;
 
 			easywsclient::WebSocket* m_WebSocket;
@@ -59,9 +59,9 @@ namespace GameSparks
 			typedef gsstl::pair<gsstl::string, GSRequest> t_RequestMapPair;
 			t_RequestMap m_PendingRequests;
 
-			friend class GS_;
+			friend class GS;
             
-            GS_LEAK_DETECTOR(GSConnection);
+            GS_LEAK_DETECTOR(GSConnection)
 		};
 	}
 }

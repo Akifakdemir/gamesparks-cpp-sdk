@@ -1,5 +1,7 @@
-
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
+
 #include "GameSparksComponent.h"
 #include "GameSparksModule.h"
 

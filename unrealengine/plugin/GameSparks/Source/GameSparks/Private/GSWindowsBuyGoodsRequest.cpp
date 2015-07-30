@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSWindowsBuyGoodsRequest.h"
 
-void WindowsBuyGoodsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::BuyVirtualGoodResponse& response){
+void WindowsBuyGoodsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::BuyVirtualGoodResponse& response){
     
     FGSBuyVirtualGoodResponse unreal_response = FGSBuyVirtualGoodResponse(response.GetBaseData());
     

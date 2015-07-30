@@ -1,4 +1,7 @@
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
+
 #include "GameSparksLogEventData.h"
 
 UGameSparksLogEventData::UGameSparksLogEventData(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}

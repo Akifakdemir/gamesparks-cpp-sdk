@@ -8,7 +8,7 @@ LOCAL_MODULE    := libcrypto
 ifeq ($(TARGET_ARCH),x86)
 	LOCAL_SRC_FILES := $(CPP_DEPS_PATH)/openssl/libAndroid/x86/libcrypto.a
 else
-	LOCAL_SRC_FILES := $(CPP_DEPS_PATH)/openssl/libAndroid/libcrypto.a
+	LOCAL_SRC_FILES := $(CPP_DEPS_PATH)/openssl/libAndroid/arm/libcrypto.a
 endif
 include $(PREBUILT_STATIC_LIBRARY)
 
@@ -17,7 +17,7 @@ LOCAL_MODULE    := libssl
 ifeq ($(TARGET_ARCH),x86)
 	LOCAL_SRC_FILES := $(CPP_DEPS_PATH)/openssl/libAndroid/x86/libssl.a
 else
-	LOCAL_SRC_FILES := $(CPP_DEPS_PATH)/openssl/libAndroid/libssl.a
+	LOCAL_SRC_FILES := $(CPP_DEPS_PATH)/openssl/libAndroid/arm/libssl.a
 endif
 include $(PREBUILT_STATIC_LIBRARY)
 

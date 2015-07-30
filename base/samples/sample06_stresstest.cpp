@@ -7,7 +7,7 @@
 #include "./extra/usleep.h"
 #include "sample_configuration.h"
 
-void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
+void AuthenticationRequest_Response(GameSparks::Core::GS&, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
 	if (response.GetHasErrors())
 	{
@@ -21,7 +21,7 @@ void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const Gam
 	}
 }
 
-void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
+void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 {
 	std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
 
@@ -43,32 +43,35 @@ void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
 
 int main(int argc, const char* argv[])
 {
-	using namespace GameSparks::Core;
+    (void)(argc); // unused
+    (void)(argv); // unused
 
-    GameSparks::Core::GS_ GS;
+    using namespace GameSparks::Core;
+
+    GameSparks::Core::GS gs;
     
     SampleConfiguration::NativePlatformDescription platform;
-	GS.Initialise(&platform);
+	gs.Initialise(&platform);
 
-	GS.GameSparksAvailable = GameSparksAvailable;
+	gs.GameSparksAvailable = GameSparksAvailable;
 
 	int cyclesLeft = 200000;
 	while (cyclesLeft-- > 0)
 	{
 		// deltaTime has to be provided in seconds
-		GS.Update(rand()%10); // note: time frame here varies randomly from 0..9 seconds to stress test timeouts
+		gs.Update(rand()%10); // note: time frame here varies randomly from 0..9 seconds to stress test timeouts
 		//usleep(100000);
 		usleep(1000);
 
 		if (rand() % 1000 == 0)
 		{
 			std::clog << "restart" << std::endl;
-			GS.ShutDown();
-			GS = GameSparks::Core::GS_();
-			GS.GameSparksAvailable = GameSparksAvailable;
-			GS.Initialise(&platform);
+			gs.ShutDown();
+			gs = GameSparks::Core::GS();
+			gs.GameSparksAvailable = GameSparksAvailable;
+			gs.Initialise(&platform);
 		}
 	}
 
-	GS.ShutDown();
+	gs.ShutDown();
 }

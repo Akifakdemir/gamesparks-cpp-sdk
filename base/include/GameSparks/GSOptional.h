@@ -19,19 +19,19 @@ namespace GameSparks
 		 */
 
 		template<typename ValueType>
-		class Optional_
+		class Optional
 		{
 			public:
-				//! construct an empty Optional_
-				Optional_()
+				//! construct an empty Optional
+				Optional()
 	                : m_Value(ValueType())
 	                , m_HasValue(false)
 				{
 
 				}
 
-				//! construct an Optional_ from a given value
-				Optional_(const ValueType& value)
+				//! construct an Optional from a given value
+				Optional(const ValueType& value)
 					: m_Value(value)
 	                , m_HasValue(true)
 				{
@@ -39,7 +39,7 @@ namespace GameSparks
 				}
 
 				/// construct an optional from value and hasValue
-				Optional_(const ValueType& value, bool hasValue)
+				Optional(const ValueType& value, bool hasValue)
 					: m_Value(value)
 	                , m_HasValue(hasValue)
 				{
@@ -47,16 +47,16 @@ namespace GameSparks
 				}
 
 				/// copy constructor
-				Optional_(const Optional_& other)
+				Optional(const Optional& other)
 					: m_Value(other.m_Value)
 	                , m_HasValue(other.m_HasValue)
 				{
 
 				}
 
-				//! compare two Optional_<T>. No implicity type conversion will be performed.
-				//! Two Optional_ are equal, if the wrapped value is equal AND both are set.
-				Optional_& operator=(const Optional_& other)
+				//! compare two Optional<T>. No implicity type conversion will be performed.
+				//! Two Optional are equal, if the wrapped value is equal AND both are set.
+				Optional& operator=(const Optional& other)
 				{
 					if (&other != this)
 					{
@@ -82,21 +82,21 @@ namespace GameSparks
 				ValueType m_Value;
 				bool m_HasValue;
 	            
-	            GS_LEAK_DETECTOR(Optional_);
-		};
+	            GS_LEAK_DETECTOR(Optional)
+        };
 
 		/// an optional string
-		typedef Optional_<gsstl::string> t_StringOptional;
+		typedef Optional<gsstl::string> t_StringOptional;
 		/// an optional int
-		typedef Optional_<int> t_IntOptional;
+		typedef Optional<int> t_IntOptional;
 		/// an optional long
-		typedef Optional_<long> t_LongOptional;
+		typedef Optional<long> t_LongOptional;
 		/// an optional float
-		typedef Optional_<float> t_FloatOptional;
+		typedef Optional<float> t_FloatOptional;
 		/// an optional double
-		typedef Optional_<double> t_DoubleOptional;
+		typedef Optional<double> t_DoubleOptional;
 		/// an optional bool
-		typedef Optional_<bool> t_BoolOptional;
+		typedef Optional<bool> t_BoolOptional;
 	}
 
 }

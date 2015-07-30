@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSSocialDisconnectRequest.h"
 
-void SocialDisconnectRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::SocialDisconnectResponse& response){
+void SocialDisconnectRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::SocialDisconnectResponse& response){
     
     FGSSocialDisconnectResponse unreal_response = FGSSocialDisconnectResponse(response.GetBaseData());
     

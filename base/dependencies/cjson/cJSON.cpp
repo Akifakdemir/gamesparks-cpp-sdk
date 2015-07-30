@@ -48,11 +48,9 @@ static void (*cJSON_free)(void *ptr) = free;
 
 static char* cJSON_strdup(const char* str)
 {
-      size_t len;
-      char* copy;
-
-      len = strlen(str) + 1;
-      if (!(copy = (char*)cJSON_malloc(len))) return 0;
+      size_t len = strlen(str) + 1;
+      char* copy = (char*)cJSON_malloc(len);
+      if (!copy) return 0;
       memcpy(copy,str,len);
       return copy;
 }
@@ -192,10 +190,10 @@ static const char *parse_string(cJSON *item,const char *str)
 					len=4;if (uc<0x80) len=1;else if (uc<0x800) len=2;else if (uc<0x10000) len=3; ptr2+=len;
 					
 					switch (len) {
-						case 4: *--ptr2 =((uc | 0x80) & 0xBF); uc >>= 6;
-						case 3: *--ptr2 =((uc | 0x80) & 0xBF); uc >>= 6;
-						case 2: *--ptr2 =((uc | 0x80) & 0xBF); uc >>= 6;
-						case 1: *--ptr2 =(uc | firstByteMark[len]);
+						case 4: *--ptr2 = ((uc | 0x80) & 0xBF); uc >>= 6;
+						case 3: *--ptr2 = ((uc | 0x80) & 0xBF); uc >>= 6;
+						case 2: *--ptr2 = ((uc | 0x80) & 0xBF); uc >>= 6;
+						case 1: *--ptr2 = char(uc | firstByteMark[len]);
 					}
 					ptr2+=len;
 					break;
@@ -333,8 +331,8 @@ static const char *parse_array(cJSON *item,const char *value)
 
 	while (*value==',')
 	{
-		cJSON *new_item;
-		if (!(new_item=cJSON_New_Item())) return 0; 	/* memory fail */
+		cJSON *new_item = cJSON_New_Item();
+		if (!new_item) return 0; 	/* memory fail */
 		child->next=new_item;new_item->prev=child;child=new_item;
 		value=skip(parse_value(child,skip(value+1)));
 		if (!value) return 0;	/* memory fail */
@@ -371,7 +369,7 @@ static char *print_array(cJSON *item,int depth,int fmt)
 	{
 		ret=print_value(child,depth+1,fmt);
 		entries[i++]=ret;
-		if (ret) len+=strlen(ret)+2+(fmt?1:0); else fail=1;
+		if (ret) len+=(int)strlen(ret)+2+(fmt?1:0); else fail=1;
 		child=child->next;
 	}
 	
@@ -423,8 +421,8 @@ static const char *parse_object(cJSON *item,const char *value)
 	
 	while (*value==',')
 	{
-		cJSON *new_item;
-		if (!(new_item=cJSON_New_Item()))	return 0; /* memory fail */
+		cJSON *new_item = cJSON_New_Item();
+		if (!new_item)	return 0; /* memory fail */
 		child->next=new_item;new_item->prev=child;child=new_item;
 		value=skip(parse_string(child,skip(value+1)));
 		if (!value) return 0;
@@ -471,7 +469,7 @@ static char *print_object(cJSON *item,int depth,int fmt)
 	{
 		names[i]=str=print_string_ptr(child->string);
 		entries[i++]=ret=print_value(child,depth,fmt);
-		if (str && ret) len+=strlen(ret)+strlen(str)+2+(fmt?2+depth:0); else fail=1;
+		if (str && ret) len+=(int)(strlen(ret)+strlen(str))+2+(fmt?2+depth:0); else fail=1;
 		child=child->next;
 	}
 	

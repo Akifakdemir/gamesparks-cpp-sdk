@@ -83,7 +83,7 @@ void AppDelegate::initGLContextAttrs()
 }
 
 // *GS* Callback for GameSparks::Api::Requests::AuthenticationRequest.Send()
-void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
+void AuthenticationRequest_Response(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
 	if (response.GetHasErrors())
 	{
@@ -98,7 +98,7 @@ void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const Gam
 }
 
 // *GS* this function gets called by the SDK.
-void OnGameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
+void OnGameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 {
 	//std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
 	cocos2d::log("GameSparks is %s.", (available ? "available" : "not available"));
@@ -136,7 +136,7 @@ struct GameSparksCocos
     //GameSparks::Core::Cocos2dxPlatform platform;
     OnScreenLoggingCocosPlatform platform;
 
-    GameSparks::Core::GS_ GS;
+    GameSparks::Core::GS GS;
     
 	void update(float dt)
 	{

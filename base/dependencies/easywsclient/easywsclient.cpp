@@ -1,78 +1,84 @@
 #ifdef _WIN32
-#if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
-#define _CRT_SECURE_NO_WARNINGS // _CRT_SECURE_NO_WARNINGS for sscanf errors in MSVC2013 Express
-#endif
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#include <fcntl.h>
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
-#include <WinSock2.h>
-#include <WS2tcpip.h>
-#pragma comment( lib, "ws2_32" )
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <io.h>
-#ifndef _SSIZE_T_DEFINED
-typedef long ssize_t;
-#define _SSIZE_T_DEFINED
-#endif
-#ifndef _SOCKET_T_DEFINED
-typedef SOCKET socket_t;
-#define _SOCKET_T_DEFINED
-#endif
-#ifndef snprintf
-#define snprintf _snprintf_s
-#endif
-#if _MSC_VER >=1600
-// vs2010 or later
-#include <stdint.h>
+#   if defined(_MSC_VER)
+#       pragma warning(disable : 4996)
+#   endif
+#   if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
+#       define _CRT_SECURE_NO_WARNINGS // _CRT_SECURE_NO_WARNINGS for sscanf errors in MSVC2013 Express
+#   endif
+#   ifndef WIN32_LEAN_AND_MEAN
+#       define WIN32_LEAN_AND_MEAN
+#   endif
+#   define _WINSOCK_DEPRECATED_NO_WARNINGS
+#   if !defined(UNREAL)
+#       include <WinSock2.h>
+#       include <WS2tcpip.h>
+#       pragma comment( lib, "ws2_32" )
+#   endif
+#   include <fcntl.h>
+#   include <stdio.h>
+#   include <stdlib.h>
+#   include <string.h>
+#   include <sys/types.h>
+#   include <io.h>
+#   ifndef _SSIZE_T_DEFINED
+        typedef long ssize_t;
+#       define _SSIZE_T_DEFINED
+#   endif
+#   ifndef _SOCKET_T_DEFINED
+        typedef SOCKET socket_t;
+#       define _SOCKET_T_DEFINED
+#   endif
+#   ifndef snprintf
+#       define snprintf _snprintf_s
+#   endif
+#   if _MSC_VER >=1600
+    // vs2010 or later
+#       include <stdint.h>
+#   else
+        typedef __int8 int8_t;
+        typedef unsigned __int8 uint8_t;
+        typedef __int32 int32_t;
+        typedef unsigned __int32 uint32_t;
+        typedef __int64 int64_t;
+        typedef unsigned __int64 uint64_t;
+#   endif
+#   define socketerrno WSAGetLastError()
+#   define SOCKET_EAGAIN_EINPROGRESS WSAEINPROGRESS
+#   define SOCKET_EWOULDBLOCK WSAEWOULDBLOCK
 #else
-typedef __int8 int8_t;
-typedef unsigned __int8 uint8_t;
-typedef __int32 int32_t;
-typedef unsigned __int32 uint32_t;
-typedef __int64 int64_t;
-typedef unsigned __int64 uint64_t;
-#endif
-#define socketerrno WSAGetLastError()
-#define SOCKET_EAGAIN_EINPROGRESS WSAEINPROGRESS
-#define SOCKET_EWOULDBLOCK WSAEWOULDBLOCK
-#else
-#include <fcntl.h>
-#include <netdb.h>
-#include <netinet/tcp.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdint.h>
-#ifndef _SOCKET_T_DEFINED
-typedef int socket_t;
-#define _SOCKET_T_DEFINED
-#endif
-#ifndef INVALID_SOCKET
-#define INVALID_SOCKET (-1)
-#endif
-#ifndef SOCKET_ERROR
-#define SOCKET_ERROR   (-1)
-#endif
-#define closesocket(s) ::close(s)
-#include <errno.h>
-#define socketerrno errno
-#define SOCKET_EAGAIN_EINPROGRESS EAGAIN
-#define SOCKET_EWOULDBLOCK EWOULDBLOCK
+#   include <fcntl.h>
+#   include <netdb.h>
+#   include <netinet/tcp.h>
+#   include <netinet/in.h>
+#   include <stdio.h>
+#   include <stdlib.h>
+#   include <string.h>
+#   include <sys/socket.h>
+#   include <sys/time.h>
+#   include <sys/types.h>
+#   include <unistd.h>
+#   include <stdint.h>
+#   ifndef _SOCKET_T_DEFINED
+        typedef int socket_t;
+#       define _SOCKET_T_DEFINED
+#   endif
+#   ifndef INVALID_SOCKET
+#       define INVALID_SOCKET (-1)
+#   endif
+#   ifndef SOCKET_ERROR
+#       define SOCKET_ERROR   (-1)
+#   endif
+#   define closesocket(s) ::close(s)
+#   include <errno.h>
+#   define socketerrno errno
+#   define SOCKET_EAGAIN_EINPROGRESS EAGAIN
+#   define SOCKET_EWOULDBLOCK EWOULDBLOCK
 #endif
 
 #include <GameSparks/gsstl.h>
 
 #include "easywsclient.hpp"
+#include <cassert>
 
 // use std::thread in MSVC11 (2012) or newer
 #if _MSC_VER >= 1700 && !defined(MARMALADE)
@@ -84,6 +90,16 @@ typedef int socket_t;
 #	undef USE_STD_THREAD
 #endif /* WIN32 */
 
+
+#ifdef GS_TESTING
+namespace gs_testing
+{
+	// variabled for messing with the socket during the tests
+	bool close_websocket = false;
+}
+#endif /* GS_TESTING */
+
+
 namespace { // private module-only namespace
 
 	namespace threading
@@ -93,7 +109,7 @@ namespace { // private module-only namespace
 		#ifdef USE_STD_THREAD
 			typedef std::mutex mutex;
 
-			void mutex_init(mutex& mtx)
+			void mutex_init(mutex&)
 			{
 				// nothing to do here
 			}
@@ -115,7 +131,7 @@ namespace { // private module-only namespace
 				t = thread(f, arg);
 			}
 
-			void thread_exit(thread& t)
+			void thread_exit(thread&)
 			{
 				// nothing to do
 			}
@@ -154,7 +170,7 @@ namespace { // private module-only namespace
 				pthread_create(&thread, NULL, f, arg);		
 			}
 
-			void thread_exit(thread& t)
+			void thread_exit(thread&)
 			{
 				pthread_exit(0);
 			}
@@ -164,7 +180,7 @@ namespace { // private module-only namespace
 				pthread_join(t, NULL);
 			}
 
-			bool thread_is_joinable(const thread& t)
+			bool thread_is_joinable(const thread&)
 			{
 				// http://pubs.opengroup.org/onlinepubs/007908799/xsh/pthread_join.html
 				// calling pthread_join twice is apparently ok
@@ -173,16 +189,6 @@ namespace { // private module-only namespace
 		#endif
 	}
 
-    class _DummyWebSocket : public easywsclient::WebSocket
-	{
-	public:
-		void poll(int timeout, WSErrorCallback errorCallback, void* userData) { }
-		void send(const gsstl::string& message) { }
-		void sendPing() { }
-		void close() { }
-		void _dispatch(WSMessageCallback message_callback, WSErrorCallback error_callback, void* data) { }
-		readyStateValues getReadyState() const { return CLOSED; }
-	};
 
 	class _RealWebSocket : public easywsclient::WebSocket
 	{
@@ -258,12 +264,12 @@ namespace { // private module-only namespace
             ipLookup = keNone;
         }
         
-		_RealWebSocket(socket_t sockfd, bool useMask, SSL* ssl, SSL_CTX* sslctx) : sockfd(sockfd),readyState(CLOSED), useMask(useMask),  sslHandle(ssl), sslContext(sslctx)
+		_RealWebSocket(socket_t sockfd_, bool useMask_, SSL* ssl, SSL_CTX* sslctx) : sockfd(sockfd_),readyState(CLOSED), useMask(useMask_),  sslHandle(ssl), sslContext(sslctx)
         {
             ipLookup = keNone;
 		}
 #endif
-		_RealWebSocket(socket_t sockfd, bool useMask) : sockfd(sockfd), readyState(CLOSED), useMask(useMask)
+		_RealWebSocket(socket_t sockfd_, bool useMask_) : sockfd(sockfd_), readyState(CLOSED), useMask(useMask_)
         {
             ipLookup = keNone;
 		}
@@ -313,6 +319,15 @@ namespace { // private module-only namespace
             }
             else if(ipLookup == keComplete)
             {
+                #ifdef GS_TESTING
+                if (gs_testing::close_websocket)
+                {
+                    forceClose();
+                    gs_testing::close_websocket = false;
+                }
+                #endif
+
+                
                 if (readyState == CLOSED)
                 {
                     if (timeout > 0)
@@ -331,27 +346,26 @@ namespace { // private module-only namespace
                     FD_ZERO(&wfds);
                     FD_SET(sockfd, &rfds);
                     if (txbuf.size()) { FD_SET(sockfd, &wfds); }
-                    select(sockfd + 1, &rfds, &wfds, NULL, &tv);
+                    // http://stackoverflow.com/questions/8695678/what-is-the-nfds-from-select-used-for
+                    select(int(sockfd + 1), &rfds, &wfds, NULL, &tv);
                 }
 
 				using namespace easywsclient;
 
-                while (true)
+                for(;;) // while(true), but without a warning about constant expression
                 {
                     // FD_ISSET(0, &rfds) will be true
-                    int N = rxbuf.size();
+                    gsstl::vector<char>::size_type N = rxbuf.size();
                     ssize_t ret;
                     rxbuf.resize(N + 1500);
+
                     #ifdef SSL_SUPPORT
                         ret = SSL_read(sslHandle, (char*)&rxbuf[0] + N, 1500);
                     #else
                         ret = recv(sockfd, (char*)&rxbuf[0] + N, 1500, 0);
                     #endif
-                    if (false)
-                    {
-                    
-                    }
-                    else if (ret < 0 && (socketerrno == SOCKET_EWOULDBLOCK || socketerrno == SOCKET_EAGAIN_EINPROGRESS))
+
+                    if (ret < 0 && (socketerrno == SOCKET_EWOULDBLOCK || socketerrno == SOCKET_EAGAIN_EINPROGRESS))
                     {
                         rxbuf.resize(N);
                         break;
@@ -375,21 +389,18 @@ namespace { // private module-only namespace
                     }
                     else
                     {
-                        rxbuf.resize(N + ret);
+                        rxbuf.resize(static_cast<gsstl::vector<char>::size_type>(N + ret));
                     }
                 }
                 while (txbuf.size())
                 {
                     #ifdef SSL_SUPPORT
-                        int ret = SSL_write(sslHandle, (char*)&txbuf[0], txbuf.size());
+                        int ret = SSL_write(sslHandle, &txbuf[0], static_cast<int>(txbuf.size()));
                     #else
                         int ret = ::send(sockfd, (char*)&txbuf[0], txbuf.size(), 0);
                     #endif
-                    if (false)
-                    {
-                    
-                    } // ??
-                    else if (ret < 0 && (socketerrno == SOCKET_EWOULDBLOCK || socketerrno == SOCKET_EAGAIN_EINPROGRESS))
+
+                    if (ret < 0 && (socketerrno == SOCKET_EWOULDBLOCK || socketerrno == SOCKET_EAGAIN_EINPROGRESS))
                     {
                         break;
                     }
@@ -434,62 +445,67 @@ namespace { // private module-only namespace
             if(readyState == CONNECTING) return;
             
 			// TODO: consider acquiring a lock on rxbuf...
-			while (true) {
-				wsheader_type ws;
-				if (rxbuf.size() < 2) { return; /* Need at least 2 */ }
-				const uint8_t * data = (uint8_t *) &rxbuf[0]; // peek, but don't consume
-				ws.fin = (data[0] & 0x80) == 0x80;
-				ws.opcode = (wsheader_type::opcode_type) (data[0] & 0x0f);
-				ws.mask = (data[1] & 0x80) == 0x80;
-				ws.N0 = (data[1] & 0x7f);
-				ws.header_size = 2 + (ws.N0 == 126? 2 : 0) + (ws.N0 == 127? 8 : 0) + (ws.mask? 4 : 0);
-				if (rxbuf.size() < ws.header_size) { return; /* Need: ws.header_size - rxbuf.size() */ }
-				int i;
-				if (ws.N0 < 126) {
-					ws.N = ws.N0;
-					i = 2;
-				}
-				else if (ws.N0 == 126) {
-					ws.N = 0;
-					ws.N |= ((uint64_t) data[2]) << 8;
-					ws.N |= ((uint64_t) data[3]) << 0;
-					i = 4;
-				}
-				else if (ws.N0 == 127) {
-					ws.N = 0;
-					ws.N |= ((uint64_t) data[2]) << 56;
-					ws.N |= ((uint64_t) data[3]) << 48;
-					ws.N |= ((uint64_t) data[4]) << 40;
-					ws.N |= ((uint64_t) data[5]) << 32;
-					ws.N |= ((uint64_t) data[6]) << 24;
-					ws.N |= ((uint64_t) data[7]) << 16;
-					ws.N |= ((uint64_t) data[8]) << 8;
-					ws.N |= ((uint64_t) data[9]) << 0;
-					i = 10;
-				}
-				if (ws.mask) {
-					ws.masking_key[0] = ((uint8_t) data[i+0]) << 0;
-					ws.masking_key[1] = ((uint8_t) data[i+1]) << 0;
-					ws.masking_key[2] = ((uint8_t) data[i+2]) << 0;
-					ws.masking_key[3] = ((uint8_t) data[i+3]) << 0;
-				}
-				else {
-					ws.masking_key[0] = 0;
-					ws.masking_key[1] = 0;
-					ws.masking_key[2] = 0;
-					ws.masking_key[3] = 0;
-				}
-				if (rxbuf.size() < ws.header_size+ws.N) { return; /* Need: ws.header_size+ws.N - rxbuf.size() */ }
+			for(;;) // while (true) withoput warning about constant expression
+            {
+                
+                wsheader_type ws;
+                {
+                    if (rxbuf.size() < 2) { return; /* Need at least 2 */ }
+                    const uint8_t * data = (uint8_t *) &rxbuf[0]; // peek, but don't consume
+                    ws.fin = (data[0] & 0x80) == 0x80;
+                    ws.opcode = (wsheader_type::opcode_type) (data[0] & 0x0f);
+                    ws.mask = (data[1] & 0x80) == 0x80;
+                    ws.N0 = (data[1] & 0x7f);
+                    ws.header_size = 2 + (ws.N0 == 126? 2 : 0) + (ws.N0 == 127? 8 : 0) + (ws.mask? 4 : 0);
+                    if (rxbuf.size() < ws.header_size) { return; /* Need: ws.header_size - rxbuf.size() */ }
+                    int data_offset = -1;
+                    if (ws.N0 < 126) {
+                        ws.N = ws.N0;
+                        data_offset = 2;
+                    }
+                    else if (ws.N0 == 126) {
+                        ws.N = 0;
+                        ws.N |= ((uint64_t) data[2]) << 8;
+                        ws.N |= ((uint64_t) data[3]) << 0;
+                        data_offset = 4;
+                    }
+                    else if (ws.N0 == 127) {
+                        ws.N = 0;
+                        ws.N |= ((uint64_t) data[2]) << 56;
+                        ws.N |= ((uint64_t) data[3]) << 48;
+                        ws.N |= ((uint64_t) data[4]) << 40;
+                        ws.N |= ((uint64_t) data[5]) << 32;
+                        ws.N |= ((uint64_t) data[6]) << 24;
+                        ws.N |= ((uint64_t) data[7]) << 16;
+                        ws.N |= ((uint64_t) data[8]) << 8;
+                        ws.N |= ((uint64_t) data[9]) << 0;
+                        data_offset = 10;
+                    }
+                    if (ws.mask) {
+                        assert(data_offset != -1);
+                        ws.masking_key[0] = ((uint8_t) data[data_offset+0]) << 0;
+                        ws.masking_key[1] = ((uint8_t) data[data_offset+1]) << 0;
+                        ws.masking_key[2] = ((uint8_t) data[data_offset+2]) << 0;
+                        ws.masking_key[3] = ((uint8_t) data[data_offset+3]) << 0;
+                    }
+                    else {
+                        ws.masking_key[0] = 0;
+                        ws.masking_key[1] = 0;
+                        ws.masking_key[2] = 0;
+                        ws.masking_key[3] = 0;
+                    }
+                    if (rxbuf.size() < ws.header_size+ws.N) { return; /* Need: ws.header_size+ws.N - rxbuf.size() */ }
+                }
+
 
 				// We got a whole message, now do something with it:
-				if (false) { }
-				else if (ws.opcode == wsheader_type::TEXT_FRAME && ws.fin) {
-					if (ws.mask) { for (size_t i = 0; i != ws.N; ++i) { rxbuf[i+ws.header_size] ^= ws.masking_key[i&0x3]; } }
+				if (ws.opcode == wsheader_type::TEXT_FRAME && ws.fin) {
+					if (ws.mask) { for (size_t i = 0; i != ws.N; ++i) { rxbuf[static_cast<gsstl::vector<char>::size_type>(i+ws.header_size)] ^= ws.masking_key[i&0x3]; } }
 					gsstl::string data(rxbuf.begin()+ws.header_size, rxbuf.begin()+ws.header_size+(size_t)ws.N);
 					messageCallback((const gsstl::string) data, userData);
 				}
 				else if (ws.opcode == wsheader_type::PING) {
-					if (ws.mask) { for (size_t i = 0; i != ws.N; ++i) { rxbuf[i+ws.header_size] ^= ws.masking_key[i&0x3]; } }
+					if (ws.mask) { for (size_t i = 0; i != ws.N; ++i) { rxbuf[static_cast<gsstl::vector<char>::size_type>(i+ws.header_size)] ^= ws.masking_key[i&0x3]; } }
 					gsstl::string data(rxbuf.begin()+ws.header_size, rxbuf.begin()+ws.header_size+(size_t)ws.N);
 					sendData(wsheader_type::PONG, data);
 				}
@@ -537,9 +553,9 @@ namespace { // private module-only namespace
 			gsstl::vector<uint8_t> header;
 			uint64_t message_size = message.size();
 			header.assign(2 + (message_size >= 126 ? 2 : 0) + (message_size >= 65536 ? 6 : 0) + (useMask ? 4 : 0), 0);
-			header[0] = 0x80 | type;
-			if (false) { }
-			else if (message_size < 126) {
+			header[0] = uint8_t(0x80 | type);
+
+			if (message_size < 126) {
 				header[1] = (message_size & 0xff) | (useMask ? 0x80 : 0);
 				if (useMask) {
 					header[2] = masking_key[0];
@@ -614,7 +630,7 @@ namespace { // private module-only namespace
             {
                 memset(&self->result, 0, sizeof(self->result));
                 self->result.sin_family = AF_INET;
-                self->result.sin_port = htons(self->m_port);
+                self->result.sin_port = htons((uint16_t)self->m_port);
                 self->result.sin_addr = *( (struct in_addr *)server_hostent->h_addr );
                 self->ipLookup = keComplete;
             }
@@ -683,7 +699,7 @@ namespace { // private module-only namespace
                     ssl_initialized = true;
                 }
     
-				#define SEND(buf)  SSL_write(sslHandle, buf, strlen(buf))
+				#define SEND(buf)  SSL_write(sslHandle, buf, (int)strlen(buf))
 				#define RECV(buf)  SSL_read(sslHandle, buf, 1)
     
                 if ( sockfd != INVALID_SOCKET && useSSL )
@@ -721,7 +737,7 @@ namespace { // private module-only namespace
 						return false;
 					}
                     
-                    if (!SSL_set_fd (sslHandle, sockfd))
+                    if (!SSL_set_fd (sslHandle, (int)sockfd))
                     {
                         #ifndef USE_CYASSL
                             ERR_print_errors_fp (stderr);
@@ -814,7 +830,7 @@ namespace { // private module-only namespace
 					return false;
 				}
                 // TODO: verify response headers,
-                while (true)
+                for(;;) // while (true)
 				{
                     for (i = 0; i < 2 || (i < 255 && line[i-2] != '\r' && line[i-1] != '\n'); ++i)
 					{
@@ -866,8 +882,8 @@ namespace { // private module-only namespace
 			fprintf(stderr, "ERROR: origin size limit exceeded: %s\n", origin.c_str());
 			return NULL;
 		}
-		if (false) { }
-		else if (sscanf(url.c_str(), "ws://%[^:/]:%d/%s", host, &port, path) == 3) {
+
+		if (sscanf(url.c_str(), "ws://%[^:/]:%d/%s", host, &port, path) == 3) {
 		}
 		else if (sscanf(url.c_str(), "ws://%[^:/]/%s", host, path) == 2) {
 			port = 80;
@@ -924,13 +940,6 @@ namespace { // private module-only namespace
 
 
 namespace easywsclient {
-
-	WebSocket::pointer WebSocket::create_dummy() {
-		static pointer dummy = pointer(new _DummyWebSocket);
-		return dummy;
-	}
-
-
 	WebSocket::pointer WebSocket::from_url(const gsstl::string& url, const gsstl::string& origin) {
 		return ::from_url(url, true, origin);
 	}

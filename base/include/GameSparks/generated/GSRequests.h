@@ -22,7 +22,7 @@ namespace GameSparks
 			class AcceptChallengeRequest : public GameSparks::Core::GSTypedRequest < AcceptChallengeRequest, GameSparks::Api::Responses::AcceptChallengeResponse >
 			{
 			public:
-				AcceptChallengeRequest(Core::GS_& gsInstance)
+				AcceptChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".AcceptChallengeRequest")
 				{
 
@@ -55,7 +55,7 @@ namespace GameSparks
 			class AccountDetailsRequest : public GameSparks::Core::GSTypedRequest < AccountDetailsRequest, GameSparks::Api::Responses::AccountDetailsResponse >
 			{
 			public:
-				AccountDetailsRequest(Core::GS_& gsInstance)
+				AccountDetailsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".AccountDetailsRequest")
 				{
 
@@ -75,7 +75,7 @@ namespace GameSparks
 			class AmazonBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < AmazonBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
-				AmazonBuyGoodsRequest(Core::GS_& gsInstance)
+				AmazonBuyGoodsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".AmazonBuyGoodsRequest")
 				{
 
@@ -122,7 +122,7 @@ namespace GameSparks
 			class AmazonConnectRequest : public GameSparks::Core::GSTypedRequest < AmazonConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				AmazonConnectRequest(Core::GS_& gsInstance)
+				AmazonConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".AmazonConnectRequest")
 				{
 
@@ -194,7 +194,7 @@ namespace GameSparks
 			class AnalyticsRequest : public GameSparks::Core::GSTypedRequest < AnalyticsRequest, GameSparks::Api::Responses::AnalyticsResponse >
 			{
 			public:
-				AnalyticsRequest(Core::GS_& gsInstance)
+				AnalyticsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".AnalyticsRequest")
 				{
 
@@ -243,7 +243,7 @@ namespace GameSparks
 			class AroundMeLeaderboardRequest : public GameSparks::Core::GSTypedRequest < AroundMeLeaderboardRequest, GameSparks::Api::Responses::AroundMeLeaderboardResponse >
 			{
 			public:
-				AroundMeLeaderboardRequest(Core::GS_& gsInstance)
+				AroundMeLeaderboardRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".AroundMeLeaderboardRequest")
 				{
 
@@ -257,6 +257,14 @@ namespace GameSparks
 			AroundMeLeaderboardRequest& SetChallengeInstanceId( const gsstl::string& challengeInstanceId )
 			{
 				m_Request.AddString("challengeInstanceId", challengeInstanceId);
+				return *this;
+			}
+			/// <summary>
+			/// The default behaviour on a social request is to error if the player has no friends (NOTSOCIAL).  Set this flag to suppress that error and return the player's leaderboard entry instead.
+			/// </summary>
+			AroundMeLeaderboardRequest& SetDontErrorOnNotSocial( bool dontErrorOnNotSocial )
+			{
+				m_Request.AddBoolean("dontErrorOnNotSocial", dontErrorOnNotSocial);
 				return *this;
 			}
 			/// <summary>
@@ -341,7 +349,7 @@ namespace GameSparks
 			class AuthenticationRequest : public GameSparks::Core::GSTypedRequest < AuthenticationRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				AuthenticationRequest(Core::GS_& gsInstance)
+				AuthenticationRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".AuthenticationRequest")
 				{
 
@@ -374,7 +382,7 @@ namespace GameSparks
 			class BuyVirtualGoodsRequest : public GameSparks::Core::GSTypedRequest < BuyVirtualGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
-				BuyVirtualGoodsRequest(Core::GS_& gsInstance)
+				BuyVirtualGoodsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".BuyVirtualGoodsRequest")
 				{
 
@@ -415,7 +423,7 @@ namespace GameSparks
 			class ChangeUserDetailsRequest : public GameSparks::Core::GSTypedRequest < ChangeUserDetailsRequest, GameSparks::Api::Responses::ChangeUserDetailsResponse >
 			{
 			public:
-				ChangeUserDetailsRequest(Core::GS_& gsInstance)
+				ChangeUserDetailsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ChangeUserDetailsRequest")
 				{
 
@@ -473,7 +481,7 @@ namespace GameSparks
 			class ChatOnChallengeRequest : public GameSparks::Core::GSTypedRequest < ChatOnChallengeRequest, GameSparks::Api::Responses::ChatOnChallengeResponse >
 			{
 			public:
-				ChatOnChallengeRequest(Core::GS_& gsInstance)
+				ChatOnChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ChatOnChallengeRequest")
 				{
 
@@ -506,7 +514,7 @@ namespace GameSparks
 			class ConsumeVirtualGoodRequest : public GameSparks::Core::GSTypedRequest < ConsumeVirtualGoodRequest, GameSparks::Api::Responses::ConsumeVirtualGoodResponse >
 			{
 			public:
-				ConsumeVirtualGoodRequest(Core::GS_& gsInstance)
+				ConsumeVirtualGoodRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ConsumeVirtualGoodRequest")
 				{
 
@@ -541,7 +549,7 @@ namespace GameSparks
 			class CreateChallengeRequest : public GameSparks::Core::GSTypedRequest < CreateChallengeRequest, GameSparks::Api::Responses::CreateChallengeResponse >
 			{
 			public:
-				CreateChallengeRequest(Core::GS_& gsInstance)
+				CreateChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".CreateChallengeRequest")
 				{
 
@@ -712,7 +720,7 @@ namespace GameSparks
 			class CreateTeamRequest : public GameSparks::Core::GSTypedRequest < CreateTeamRequest, GameSparks::Api::Responses::CreateTeamResponse >
 			{
 			public:
-				CreateTeamRequest(Core::GS_& gsInstance)
+				CreateTeamRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".CreateTeamRequest")
 				{
 
@@ -753,7 +761,7 @@ namespace GameSparks
 			class DeclineChallengeRequest : public GameSparks::Core::GSTypedRequest < DeclineChallengeRequest, GameSparks::Api::Responses::DeclineChallengeResponse >
 			{
 			public:
-				DeclineChallengeRequest(Core::GS_& gsInstance)
+				DeclineChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".DeclineChallengeRequest")
 				{
 
@@ -788,7 +796,7 @@ namespace GameSparks
 			class DeviceAuthenticationRequest : public GameSparks::Core::GSTypedRequest < DeviceAuthenticationRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				DeviceAuthenticationRequest(Core::GS_& gsInstance)
+				DeviceAuthenticationRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".DeviceAuthenticationRequest")
 				{
 
@@ -870,7 +878,7 @@ namespace GameSparks
 			class DismissMessageRequest : public GameSparks::Core::GSTypedRequest < DismissMessageRequest, GameSparks::Api::Responses::DismissMessageResponse >
 			{
 			public:
-				DismissMessageRequest(Core::GS_& gsInstance)
+				DismissMessageRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".DismissMessageRequest")
 				{
 
@@ -895,7 +903,7 @@ namespace GameSparks
 			class DropTeamRequest : public GameSparks::Core::GSTypedRequest < DropTeamRequest, GameSparks::Api::Responses::DropTeamResponse >
 			{
 			public:
-				DropTeamRequest(Core::GS_& gsInstance)
+				DropTeamRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".DropTeamRequest")
 				{
 
@@ -937,7 +945,7 @@ namespace GameSparks
 			class EndSessionRequest : public GameSparks::Core::GSTypedRequest < EndSessionRequest, GameSparks::Api::Responses::EndSessionResponse >
 			{
 			public:
-				EndSessionRequest(Core::GS_& gsInstance)
+				EndSessionRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".EndSessionRequest")
 				{
 
@@ -960,7 +968,7 @@ namespace GameSparks
 			class FacebookConnectRequest : public GameSparks::Core::GSTypedRequest < FacebookConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				FacebookConnectRequest(Core::GS_& gsInstance)
+				FacebookConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".FacebookConnectRequest")
 				{
 
@@ -1037,7 +1045,7 @@ namespace GameSparks
 			class FindChallengeRequest : public GameSparks::Core::GSTypedRequest < FindChallengeRequest, GameSparks::Api::Responses::FindChallengeResponse >
 			{
 			public:
-				FindChallengeRequest(Core::GS_& gsInstance)
+				FindChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".FindChallengeRequest")
 				{
 
@@ -1102,7 +1110,7 @@ namespace GameSparks
 			class FindMatchRequest : public GameSparks::Core::GSTypedRequest < FindMatchRequest, GameSparks::Api::Responses::FindMatchResponse >
 			{
 			public:
-				FindMatchRequest(Core::GS_& gsInstance)
+				FindMatchRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".FindMatchRequest")
 				{
 
@@ -1110,6 +1118,14 @@ namespace GameSparks
 			
 
 
+			/// <summary>
+			/// The action to take on the already in-flight request for this match. Currently supported actions are: 'cancel'
+			/// </summary>
+			FindMatchRequest& SetAction( const gsstl::string& action )
+			{
+				m_Request.AddString("action", action);
+				return *this;
+			}
 			/// <summary>
 			/// Optional. Players will be grouped based on the distinct value passed in here, only players in the same group can be matched together
 			/// </summary>
@@ -1149,7 +1165,7 @@ namespace GameSparks
 			class GameCenterConnectRequest : public GameSparks::Core::GSTypedRequest < GameCenterConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				GameCenterConnectRequest(Core::GS_& gsInstance)
+				GameCenterConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GameCenterConnectRequest")
 				{
 
@@ -1255,7 +1271,7 @@ namespace GameSparks
 			class GetChallengeRequest : public GameSparks::Core::GSTypedRequest < GetChallengeRequest, GameSparks::Api::Responses::GetChallengeResponse >
 			{
 			public:
-				GetChallengeRequest(Core::GS_& gsInstance)
+				GetChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetChallengeRequest")
 				{
 
@@ -1288,7 +1304,7 @@ namespace GameSparks
 			class GetDownloadableRequest : public GameSparks::Core::GSTypedRequest < GetDownloadableRequest, GameSparks::Api::Responses::GetDownloadableResponse >
 			{
 			public:
-				GetDownloadableRequest(Core::GS_& gsInstance)
+				GetDownloadableRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetDownloadableRequest")
 				{
 
@@ -1313,7 +1329,7 @@ namespace GameSparks
 			class GetLeaderboardEntriesRequest : public GameSparks::Core::GSTypedRequest < GetLeaderboardEntriesRequest, GameSparks::Api::Responses::GetLeaderboardEntriesResponse >
 			{
 			public:
-				GetLeaderboardEntriesRequest(Core::GS_& gsInstance)
+				GetLeaderboardEntriesRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetLeaderboardEntriesRequest")
 				{
 
@@ -1378,7 +1394,7 @@ namespace GameSparks
 			class GetMessageRequest : public GameSparks::Core::GSTypedRequest < GetMessageRequest, GameSparks::Api::Responses::GetMessageResponse >
 			{
 			public:
-				GetMessageRequest(Core::GS_& gsInstance)
+				GetMessageRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetMessageRequest")
 				{
 
@@ -1403,7 +1419,7 @@ namespace GameSparks
 			class GetMyTeamsRequest : public GameSparks::Core::GSTypedRequest < GetMyTeamsRequest, GameSparks::Api::Responses::GetMyTeamsResponse >
 			{
 			public:
-				GetMyTeamsRequest(Core::GS_& gsInstance)
+				GetMyTeamsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetMyTeamsRequest")
 				{
 
@@ -1431,12 +1447,62 @@ namespace GameSparks
 			
 			/*!
 			\ingroup Misc
+			Get the property for the given short Code.
+			*/
+			class GetPropertyRequest : public GameSparks::Core::GSTypedRequest < GetPropertyRequest, GameSparks::Api::Responses::GetPropertyResponse >
+			{
+			public:
+				GetPropertyRequest(Core::GS& gsInstance)
+					: GSTypedRequest(gsInstance, ".GetPropertyRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// The shortCode of the property to return.
+			/// </summary>
+			GetPropertyRequest& SetPropertyShortCode( const gsstl::string& propertyShortCode )
+			{
+				m_Request.AddString("propertyShortCode", propertyShortCode);
+				return *this;
+			}
+			};
+			
+			/*!
+			\ingroup Misc
+			Get the property set for the given short Code.
+			*/
+			class GetPropertySetRequest : public GameSparks::Core::GSTypedRequest < GetPropertySetRequest, GameSparks::Api::Responses::GetPropertySetResponse >
+			{
+			public:
+				GetPropertySetRequest(Core::GS& gsInstance)
+					: GSTypedRequest(gsInstance, ".GetPropertySetRequest")
+				{
+
+				}
+			
+
+
+			/// <summary>
+			/// The shortCode of the property set to return.
+			/// </summary>
+			GetPropertySetRequest& SetPropertySetShortCode( const gsstl::string& propertySetShortCode )
+			{
+				m_Request.AddString("propertySetShortCode", propertySetShortCode);
+				return *this;
+			}
+			};
+			
+			/*!
+			\ingroup Misc
 			Get the aggregation data for a group of the player's friends given running total specified by short code.
 			*/
 			class GetRunningTotalsRequest : public GameSparks::Core::GSTypedRequest < GetRunningTotalsRequest, GameSparks::Api::Responses::GetRunningTotalsResponse >
 			{
 			public:
-				GetRunningTotalsRequest(Core::GS_& gsInstance)
+				GetRunningTotalsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetRunningTotalsRequest")
 				{
 
@@ -1469,7 +1535,7 @@ namespace GameSparks
 			class GetTeamRequest : public GameSparks::Core::GSTypedRequest < GetTeamRequest, GameSparks::Api::Responses::GetTeamResponse >
 			{
 			public:
-				GetTeamRequest(Core::GS_& gsInstance)
+				GetTeamRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetTeamRequest")
 				{
 
@@ -1510,7 +1576,7 @@ namespace GameSparks
 			class GetUploadUrlRequest : public GameSparks::Core::GSTypedRequest < GetUploadUrlRequest, GameSparks::Api::Responses::GetUploadUrlResponse >
 			{
 			public:
-				GetUploadUrlRequest(Core::GS_& gsInstance)
+				GetUploadUrlRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetUploadUrlRequest")
 				{
 
@@ -1535,7 +1601,7 @@ namespace GameSparks
 			class GetUploadedRequest : public GameSparks::Core::GSTypedRequest < GetUploadedRequest, GameSparks::Api::Responses::GetUploadedResponse >
 			{
 			public:
-				GetUploadedRequest(Core::GS_& gsInstance)
+				GetUploadedRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GetUploadedRequest")
 				{
 
@@ -1564,7 +1630,7 @@ namespace GameSparks
 			class GooglePlayBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < GooglePlayBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
-				GooglePlayBuyGoodsRequest(Core::GS_& gsInstance)
+				GooglePlayBuyGoodsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GooglePlayBuyGoodsRequest")
 				{
 
@@ -1612,7 +1678,7 @@ namespace GameSparks
 			class GooglePlusConnectRequest : public GameSparks::Core::GSTypedRequest < GooglePlusConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				GooglePlusConnectRequest(Core::GS_& gsInstance)
+				GooglePlusConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".GooglePlusConnectRequest")
 				{
 
@@ -1696,7 +1762,7 @@ namespace GameSparks
 			class IOSBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < IOSBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
-				IOSBuyGoodsRequest(Core::GS_& gsInstance)
+				IOSBuyGoodsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".IOSBuyGoodsRequest")
 				{
 
@@ -1738,7 +1804,7 @@ namespace GameSparks
 			class JoinChallengeRequest : public GameSparks::Core::GSTypedRequest < JoinChallengeRequest, GameSparks::Api::Responses::JoinChallengeResponse >
 			{
 			public:
-				JoinChallengeRequest(Core::GS_& gsInstance)
+				JoinChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".JoinChallengeRequest")
 				{
 
@@ -1779,7 +1845,7 @@ namespace GameSparks
 			class JoinTeamRequest : public GameSparks::Core::GSTypedRequest < JoinTeamRequest, GameSparks::Api::Responses::JoinTeamResponse >
 			{
 			public:
-				JoinTeamRequest(Core::GS_& gsInstance)
+				JoinTeamRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".JoinTeamRequest")
 				{
 
@@ -1825,7 +1891,7 @@ namespace GameSparks
 			class KongregateConnectRequest : public GameSparks::Core::GSTypedRequest < KongregateConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				KongregateConnectRequest(Core::GS_& gsInstance)
+				KongregateConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".KongregateConnectRequest")
 				{
 
@@ -1901,7 +1967,7 @@ namespace GameSparks
 			class LeaderboardDataRequest : public GameSparks::Core::GSTypedRequest < LeaderboardDataRequest, GameSparks::Api::Responses::LeaderboardDataResponse >
 			{
 			public:
-				LeaderboardDataRequest(Core::GS_& gsInstance)
+				LeaderboardDataRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".LeaderboardDataRequest")
 				{
 
@@ -1915,6 +1981,14 @@ namespace GameSparks
 			LeaderboardDataRequest& SetChallengeInstanceId( const gsstl::string& challengeInstanceId )
 			{
 				m_Request.AddString("challengeInstanceId", challengeInstanceId);
+				return *this;
+			}
+			/// <summary>
+			/// The default behaviour on a social request is to error if the player has no friends (NOTSOCIAL).  Set this flag to suppress that error and return the player's leaderboard entry instead.
+			/// </summary>
+			LeaderboardDataRequest& SetDontErrorOnNotSocial( bool dontErrorOnNotSocial )
+			{
+				m_Request.AddBoolean("dontErrorOnNotSocial", dontErrorOnNotSocial);
 				return *this;
 			}
 			/// <summary>
@@ -2006,7 +2080,7 @@ namespace GameSparks
 			class LeaveTeamRequest : public GameSparks::Core::GSTypedRequest < LeaveTeamRequest, GameSparks::Api::Responses::LeaveTeamResponse >
 			{
 			public:
-				LeaveTeamRequest(Core::GS_& gsInstance)
+				LeaveTeamRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".LeaveTeamRequest")
 				{
 
@@ -2047,7 +2121,7 @@ namespace GameSparks
 			class ListAchievementsRequest : public GameSparks::Core::GSTypedRequest < ListAchievementsRequest, GameSparks::Api::Responses::ListAchievementsResponse >
 			{
 			public:
-				ListAchievementsRequest(Core::GS_& gsInstance)
+				ListAchievementsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListAchievementsRequest")
 				{
 
@@ -2072,7 +2146,7 @@ namespace GameSparks
 			class ListChallengeRequest : public GameSparks::Core::GSTypedRequest < ListChallengeRequest, GameSparks::Api::Responses::ListChallengeResponse >
 			{
 			public:
-				ListChallengeRequest(Core::GS_& gsInstance)
+				ListChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListChallengeRequest")
 				{
 
@@ -2129,7 +2203,7 @@ namespace GameSparks
 			class ListChallengeTypeRequest : public GameSparks::Core::GSTypedRequest < ListChallengeTypeRequest, GameSparks::Api::Responses::ListChallengeTypeResponse >
 			{
 			public:
-				ListChallengeTypeRequest(Core::GS_& gsInstance)
+				ListChallengeTypeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListChallengeTypeRequest")
 				{
 
@@ -2148,7 +2222,7 @@ namespace GameSparks
 			class ListGameFriendsRequest : public GameSparks::Core::GSTypedRequest < ListGameFriendsRequest, GameSparks::Api::Responses::ListGameFriendsResponse >
 			{
 			public:
-				ListGameFriendsRequest(Core::GS_& gsInstance)
+				ListGameFriendsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListGameFriendsRequest")
 				{
 
@@ -2166,7 +2240,7 @@ namespace GameSparks
 			class ListInviteFriendsRequest : public GameSparks::Core::GSTypedRequest < ListInviteFriendsRequest, GameSparks::Api::Responses::ListInviteFriendsResponse >
 			{
 			public:
-				ListInviteFriendsRequest(Core::GS_& gsInstance)
+				ListInviteFriendsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListInviteFriendsRequest")
 				{
 
@@ -2183,7 +2257,7 @@ namespace GameSparks
 			class ListLeaderboardsRequest : public GameSparks::Core::GSTypedRequest < ListLeaderboardsRequest, GameSparks::Api::Responses::ListLeaderboardsResponse >
 			{
 			public:
-				ListLeaderboardsRequest(Core::GS_& gsInstance)
+				ListLeaderboardsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListLeaderboardsRequest")
 				{
 
@@ -2201,7 +2275,7 @@ namespace GameSparks
 			class ListMessageRequest : public GameSparks::Core::GSTypedRequest < ListMessageRequest, GameSparks::Api::Responses::ListMessageResponse >
 			{
 			public:
-				ListMessageRequest(Core::GS_& gsInstance)
+				ListMessageRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListMessageRequest")
 				{
 
@@ -2236,7 +2310,7 @@ namespace GameSparks
 			class ListMessageSummaryRequest : public GameSparks::Core::GSTypedRequest < ListMessageSummaryRequest, GameSparks::Api::Responses::ListMessageSummaryResponse >
 			{
 			public:
-				ListMessageSummaryRequest(Core::GS_& gsInstance)
+				ListMessageSummaryRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListMessageSummaryRequest")
 				{
 
@@ -2269,7 +2343,7 @@ namespace GameSparks
 			class ListTeamChatRequest : public GameSparks::Core::GSTypedRequest < ListTeamChatRequest, GameSparks::Api::Responses::ListTeamChatResponse >
 			{
 			public:
-				ListTeamChatRequest(Core::GS_& gsInstance)
+				ListTeamChatRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListTeamChatRequest")
 				{
 
@@ -2326,7 +2400,7 @@ namespace GameSparks
 			class ListVirtualGoodsRequest : public GameSparks::Core::GSTypedRequest < ListVirtualGoodsRequest, GameSparks::Api::Responses::ListVirtualGoodsResponse >
 			{
 			public:
-				ListVirtualGoodsRequest(Core::GS_& gsInstance)
+				ListVirtualGoodsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".ListVirtualGoodsRequest")
 				{
 
@@ -2345,7 +2419,7 @@ namespace GameSparks
 			class LogChallengeEventRequest : public GameSparks::Core::GSTypedRequest < LogChallengeEventRequest, GameSparks::Api::Responses::LogChallengeEventResponse >
 			{
 			public:
-				LogChallengeEventRequest(Core::GS_& gsInstance)
+				LogChallengeEventRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".LogChallengeEventRequest")
 				{
 
@@ -2427,7 +2501,7 @@ namespace GameSparks
 			class LogEventRequest : public GameSparks::Core::GSTypedRequest < LogEventRequest, GameSparks::Api::Responses::LogEventResponse >
 			{
 			public:
-				LogEventRequest(Core::GS_& gsInstance)
+				LogEventRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".LogEventRequest")
 				{
 
@@ -2499,7 +2573,7 @@ namespace GameSparks
 			class MatchDetailsRequest : public GameSparks::Core::GSTypedRequest < MatchDetailsRequest, GameSparks::Api::Responses::MatchDetailsResponse >
 			{
 			public:
-				MatchDetailsRequest(Core::GS_& gsInstance)
+				MatchDetailsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".MatchDetailsRequest")
 				{
 
@@ -2525,7 +2599,7 @@ namespace GameSparks
 			class PushRegistrationRequest : public GameSparks::Core::GSTypedRequest < PushRegistrationRequest, GameSparks::Api::Responses::PushRegistrationResponse >
 			{
 			public:
-				PushRegistrationRequest(Core::GS_& gsInstance)
+				PushRegistrationRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".PushRegistrationRequest")
 				{
 
@@ -2558,7 +2632,7 @@ namespace GameSparks
 			class RegistrationRequest : public GameSparks::Core::GSTypedRequest < RegistrationRequest, GameSparks::Api::Responses::RegistrationResponse >
 			{
 			public:
-				RegistrationRequest(Core::GS_& gsInstance)
+				RegistrationRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".RegistrationRequest")
 				{
 
@@ -2608,7 +2682,7 @@ namespace GameSparks
 			class SendFriendMessageRequest : public GameSparks::Core::GSTypedRequest < SendFriendMessageRequest, GameSparks::Api::Responses::SendFriendMessageResponse >
 			{
 			public:
-				SendFriendMessageRequest(Core::GS_& gsInstance)
+				SendFriendMessageRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".SendFriendMessageRequest")
 				{
 
@@ -2641,7 +2715,7 @@ namespace GameSparks
 			class SendTeamChatMessageRequest : public GameSparks::Core::GSTypedRequest < SendTeamChatMessageRequest, GameSparks::Api::Responses::SendTeamChatMessageResponse >
 			{
 			public:
-				SendTeamChatMessageRequest(Core::GS_& gsInstance)
+				SendTeamChatMessageRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".SendTeamChatMessageRequest")
 				{
 
@@ -2690,7 +2764,7 @@ namespace GameSparks
 			class SocialDisconnectRequest : public GameSparks::Core::GSTypedRequest < SocialDisconnectRequest, GameSparks::Api::Responses::SocialDisconnectResponse >
 			{
 			public:
-				SocialDisconnectRequest(Core::GS_& gsInstance)
+				SocialDisconnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialDisconnectRequest")
 				{
 
@@ -2717,7 +2791,7 @@ namespace GameSparks
 			class SocialLeaderboardDataRequest : public GameSparks::Core::GSTypedRequest < SocialLeaderboardDataRequest, GameSparks::Api::Responses::LeaderboardDataResponse >
 			{
 			public:
-				SocialLeaderboardDataRequest(Core::GS_& gsInstance)
+				SocialLeaderboardDataRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialLeaderboardDataRequest")
 				{
 
@@ -2731,6 +2805,14 @@ namespace GameSparks
 			SocialLeaderboardDataRequest& SetChallengeInstanceId( const gsstl::string& challengeInstanceId )
 			{
 				m_Request.AddString("challengeInstanceId", challengeInstanceId);
+				return *this;
+			}
+			/// <summary>
+			/// The default behaviour on a social request is to error if the player has no friends (NOTSOCIAL).  Set this flag to suppress that error and return the player's leaderboard entry instead.
+			/// </summary>
+			SocialLeaderboardDataRequest& SetDontErrorOnNotSocial( bool dontErrorOnNotSocial )
+			{
+				m_Request.AddBoolean("dontErrorOnNotSocial", dontErrorOnNotSocial);
 				return *this;
 			}
 			/// <summary>
@@ -2822,7 +2904,7 @@ namespace GameSparks
 			class SocialStatusRequest : public GameSparks::Core::GSTypedRequest < SocialStatusRequest, GameSparks::Api::Responses::SocialStatusResponse >
 			{
 			public:
-				SocialStatusRequest(Core::GS_& gsInstance)
+				SocialStatusRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".SocialStatusRequest")
 				{
 
@@ -2845,7 +2927,7 @@ namespace GameSparks
 			class SteamConnectRequest : public GameSparks::Core::GSTypedRequest < SteamConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				SteamConnectRequest(Core::GS_& gsInstance)
+				SteamConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".SteamConnectRequest")
 				{
 
@@ -2916,7 +2998,7 @@ namespace GameSparks
 			class TwitchConnectRequest : public GameSparks::Core::GSTypedRequest < TwitchConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				TwitchConnectRequest(Core::GS_& gsInstance)
+				TwitchConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".TwitchConnectRequest")
 				{
 
@@ -2988,7 +3070,7 @@ namespace GameSparks
 			class TwitterConnectRequest : public GameSparks::Core::GSTypedRequest < TwitterConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				TwitterConnectRequest(Core::GS_& gsInstance)
+				TwitterConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".TwitterConnectRequest")
 				{
 
@@ -3066,7 +3148,7 @@ namespace GameSparks
 			class WindowsBuyGoodsRequest : public GameSparks::Core::GSTypedRequest < WindowsBuyGoodsRequest, GameSparks::Api::Responses::BuyVirtualGoodResponse >
 			{
 			public:
-				WindowsBuyGoodsRequest(Core::GS_& gsInstance)
+				WindowsBuyGoodsRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".WindowsBuyGoodsRequest")
 				{
 
@@ -3109,7 +3191,7 @@ namespace GameSparks
 			class WithdrawChallengeRequest : public GameSparks::Core::GSTypedRequest < WithdrawChallengeRequest, GameSparks::Api::Responses::WithdrawChallengeResponse >
 			{
 			public:
-				WithdrawChallengeRequest(Core::GS_& gsInstance)
+				WithdrawChallengeRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".WithdrawChallengeRequest")
 				{
 
@@ -3148,7 +3230,7 @@ namespace GameSparks
 			class XBOXLiveConnectRequest : public GameSparks::Core::GSTypedRequest < XBOXLiveConnectRequest, GameSparks::Api::Responses::AuthenticationResponse >
 			{
 			public:
-				XBOXLiveConnectRequest(Core::GS_& gsInstance)
+				XBOXLiveConnectRequest(Core::GS& gsInstance)
 					: GSTypedRequest(gsInstance, ".XBOXLiveConnectRequest")
 				{
 

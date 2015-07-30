@@ -6,7 +6,7 @@
 using namespace GameSparks;
 using namespace GameSparks::Core;
 
-GSRequest::GSRequest(GS_& gsInstance, const gsstl::string& requestType)
+GSRequest::GSRequest(GS& gsInstance, const gsstl::string& requestType)
 	: m_GSInstance(&gsInstance) // use static instance if no instance was passed
 	, m_Durable(false)
 	, m_DurableRetrySeconds(1) // if the request is durable, we'll try to send it immediately
@@ -15,7 +15,7 @@ GSRequest::GSRequest(GS_& gsInstance, const gsstl::string& requestType)
 	AddString("@class", requestType);
 }
 
-GameSparks::Core::GSRequest::GSRequest(GS_& gsInstance, cJSON* data)
+GameSparks::Core::GSRequest::GSRequest(GS& gsInstance, cJSON* data)
 	: GSObject(data)
 	, m_GSInstance(&gsInstance) // use static instance if no instance was passed
 	, m_DurableRetrySeconds(1) // if the request is durable, we'll try to send it immediately
@@ -32,16 +32,16 @@ bool GameSparks::Core::GSRequest::operator==(const GSRequest& other) const
 
 void GameSparks::Core::GSRequest::Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds)
 {
+    (void)(timeoutSeconds); // unused
 	assert(callbacks);
 	m_callbacks = callbacks;
 	m_GSInstance->Send(*this);
 	m_callbacks = 0; // release the callback, so that this GSRequest instance can be re-used - Note: a copy is inside m_GSInstance
 }
 
-GameSparks::Core::GSObject GameSparks::Core::GSRequest::Send()
+void GameSparks::Core::GSRequest::Send()
 {
 	m_GSInstance->Send(*this);
-	return m_Response;
 }
 
 void GameSparks::Core::GSRequest::Complete(const GSObject& response)

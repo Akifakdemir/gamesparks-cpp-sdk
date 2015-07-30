@@ -94,7 +94,7 @@ namespace GameSparks
                     friend class GSTypedRequest;
             
                     void* m_userData;
-					GS_LEAK_DETECTOR(GSTypedResponse);
+					GS_LEAK_DETECTOR(GSTypedResponse)
 		};
 	}
 }

@@ -19,7 +19,7 @@ namespace GameSparks
 		{
 			public:
 				/// optional GSData
-				typedef GameSparks::Optional::Optional_<GSData> t_Optional;
+				typedef GameSparks::Optional::Optional<GSData> t_Optional;
 
 				/// construct an empty GSData object
 				GSData();
@@ -94,7 +94,7 @@ namespace GameSparks
 				cJSON* m_Data;
             
             private:
-	            GS_LEAK_DETECTOR(GSData);
+	            GS_LEAK_DETECTOR(GSData)
 		};
 	}	
 }

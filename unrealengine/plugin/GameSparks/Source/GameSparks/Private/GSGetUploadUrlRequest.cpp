@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSGetUploadUrlRequest.h"
 
-void GetUploadUrlRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::GetUploadUrlResponse& response){
+void GetUploadUrlRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::GetUploadUrlResponse& response){
     
     FGSGetUploadUrlResponse unreal_response = FGSGetUploadUrlResponse(response.GetBaseData());
     

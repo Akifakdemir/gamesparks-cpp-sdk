@@ -1,5 +1,8 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
+
 #include "GameSparks/GSDateTime.h"
 #include "GameSparks/GSData.h"
 #include "GameSparks/GSRequestData.h"

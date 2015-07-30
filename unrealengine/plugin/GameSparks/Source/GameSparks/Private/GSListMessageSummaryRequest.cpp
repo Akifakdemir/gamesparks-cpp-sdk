@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSListMessageSummaryRequest.h"
 
-void ListMessageSummaryRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListMessageSummaryResponse& response){
+void ListMessageSummaryRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::ListMessageSummaryResponse& response){
     
     FGSListMessageSummaryResponse unreal_response = FGSListMessageSummaryResponse(response.GetBaseData());
     

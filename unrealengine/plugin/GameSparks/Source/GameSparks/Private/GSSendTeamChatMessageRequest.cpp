@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSSendTeamChatMessageRequest.h"
 
-void SendTeamChatMessageRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::SendTeamChatMessageResponse& response){
+void SendTeamChatMessageRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::SendTeamChatMessageResponse& response){
     
     FGSSendTeamChatMessageResponse unreal_response = FGSSendTeamChatMessageResponse(response.GetBaseData());
     

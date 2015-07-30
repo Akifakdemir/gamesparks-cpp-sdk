@@ -1025,6 +1025,60 @@ namespace GameSparks
 			};
 			/*!
 			\ingroup Misc
+			A response containing the requested property
+			*/
+			class GetPropertyResponse : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				GetPropertyResponse(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				GetPropertyResponse(const GetPropertyResponse& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			/// <summary>
+			/// The property value
+			/// </summary>
+					// method type 4
+					GameSparks::Core::GSData::t_Optional GetProperty () const
+					{
+						return m_Response.GetGSDataObject("property");
+					}
+			};
+			/*!
+			\ingroup Misc
+			A response containing the requested property set
+			*/
+			class GetPropertySetResponse : public  GameSparks::Core::GSTypedResponse
+			{
+			public:
+				GetPropertySetResponse(const GameSparks::Core::GSData& data)
+					: GSTypedResponse(data)
+				{
+
+				}
+
+				GetPropertySetResponse(const GetPropertySetResponse& other)
+					: GSTypedResponse(other)
+				{
+				}
+
+			/// <summary>
+			/// The property set
+			/// </summary>
+					// method type 4
+					GameSparks::Core::GSData::t_Optional GetPropertySet () const
+					{
+						return m_Response.GetGSDataObject("propertySet");
+					}
+			};
+			/*!
+			\ingroup Misc
 			A response containing aggregation data
 			*/
 			class GetRunningTotalsResponse : public  GameSparks::Core::GSTypedResponse

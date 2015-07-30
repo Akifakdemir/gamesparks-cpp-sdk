@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSFindMatchRequest.h"
 
-void FindMatchRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::FindMatchResponse& response){
+void FindMatchRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::FindMatchResponse& response){
     
     FGSFindMatchResponse unreal_response = FGSFindMatchResponse(response.GetBaseData());
     
@@ -19,9 +21,10 @@ void FindMatchRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const G
     }
 }
 
-UGSFindMatchRequest* UGSFindMatchRequest::SendFindMatchRequest(FString MatchGroup, FString MatchShortCode, int32 Skill,  UGameSparksScriptData* ScriptData, bool Durable, int32 RequestTimeoutSeconds)
+UGSFindMatchRequest* UGSFindMatchRequest::SendFindMatchRequest(FString Action, FString MatchGroup, FString MatchShortCode, int32 Skill,  UGameSparksScriptData* ScriptData, bool Durable, int32 RequestTimeoutSeconds)
 {
 	UGSFindMatchRequest* proxy = NewObject<UGSFindMatchRequest>();
+	proxy->action = Action;
 	proxy->matchGroup = MatchGroup;
 	proxy->matchShortCode = MatchShortCode;
 	proxy->skill = Skill;
@@ -34,6 +37,9 @@ UGSFindMatchRequest* UGSFindMatchRequest::SendFindMatchRequest(FString MatchGrou
 void UGSFindMatchRequest::Activate()
 {
 	GameSparks::Api::Requests::FindMatchRequest gsRequest(UGameSparksModule::GetModulePtr()->GetGSInstance());
+	if(action != ""){
+		gsRequest.SetAction(TCHAR_TO_UTF8(*action));
+	}
 	if(matchGroup != ""){
 		gsRequest.SetMatchGroup(TCHAR_TO_UTF8(*matchGroup));
 	}

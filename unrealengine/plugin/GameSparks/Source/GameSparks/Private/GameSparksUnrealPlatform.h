@@ -72,7 +72,7 @@ namespace GameSparks
 					UGameSparksModule::GetModulePtr()->SendDebugLogToComponents(message);
 			}
             
-            virtual gsstl::string ToWritableLocation(gsstl::string desired_name){
+            virtual gsstl::string ToWritableLocation(gsstl::string desired_name) const{
                 FString writeableLocation = FPaths::GameDir();
                 writeableLocation += "gamesparks_";
                 writeableLocation += desired_name.c_str();

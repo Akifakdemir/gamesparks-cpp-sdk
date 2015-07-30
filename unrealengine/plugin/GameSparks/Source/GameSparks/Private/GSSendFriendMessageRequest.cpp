@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSSendFriendMessageRequest.h"
 
-void SendFriendMessageRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::SendFriendMessageResponse& response){
+void SendFriendMessageRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::SendFriendMessageResponse& response){
     
     FGSSendFriendMessageResponse unreal_response = FGSSendFriendMessageResponse(response.GetBaseData());
     

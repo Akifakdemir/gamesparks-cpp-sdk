@@ -6,7 +6,7 @@
 #include "GameSparksComponent.h"
 #include "GameSparksModule.h"
 
-void UGSMessageListeners_OnAchievementEarnedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::AchievementEarnedMessage& message)
+void UGSMessageListeners_OnAchievementEarnedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::AchievementEarnedMessage& message)
 {
     FGSAchievementEarnedMessage unreal_message(message.GetBaseData());
     
@@ -19,7 +19,7 @@ void UGSMessageListeners_OnAchievementEarnedMessage(GameSparks::Core::GS_& gsIns
     }
 }
 
-void UGSMessageListeners_OnChallengeAcceptedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeAcceptedMessage& message)
+void UGSMessageListeners_OnChallengeAcceptedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeAcceptedMessage& message)
 {
     FGSChallengeAcceptedMessage unreal_message(message.GetBaseData());
     
@@ -32,7 +32,7 @@ void UGSMessageListeners_OnChallengeAcceptedMessage(GameSparks::Core::GS_& gsIns
     }
 }
 
-void UGSMessageListeners_OnChallengeChangedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeChangedMessage& message)
+void UGSMessageListeners_OnChallengeChangedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeChangedMessage& message)
 {
     FGSChallengeChangedMessage unreal_message(message.GetBaseData());
     
@@ -45,7 +45,7 @@ void UGSMessageListeners_OnChallengeChangedMessage(GameSparks::Core::GS_& gsInst
     }
 }
 
-void UGSMessageListeners_OnChallengeChatMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeChatMessage& message)
+void UGSMessageListeners_OnChallengeChatMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeChatMessage& message)
 {
     FGSChallengeChatMessage unreal_message(message.GetBaseData());
     
@@ -58,7 +58,7 @@ void UGSMessageListeners_OnChallengeChatMessage(GameSparks::Core::GS_& gsInstanc
     }
 }
 
-void UGSMessageListeners_OnChallengeDeclinedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeDeclinedMessage& message)
+void UGSMessageListeners_OnChallengeDeclinedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeDeclinedMessage& message)
 {
     FGSChallengeDeclinedMessage unreal_message(message.GetBaseData());
     
@@ -71,7 +71,7 @@ void UGSMessageListeners_OnChallengeDeclinedMessage(GameSparks::Core::GS_& gsIns
     }
 }
 
-void UGSMessageListeners_OnChallengeDrawnMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeDrawnMessage& message)
+void UGSMessageListeners_OnChallengeDrawnMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeDrawnMessage& message)
 {
     FGSChallengeDrawnMessage unreal_message(message.GetBaseData());
     
@@ -84,7 +84,7 @@ void UGSMessageListeners_OnChallengeDrawnMessage(GameSparks::Core::GS_& gsInstan
     }
 }
 
-void UGSMessageListeners_OnChallengeExpiredMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeExpiredMessage& message)
+void UGSMessageListeners_OnChallengeExpiredMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeExpiredMessage& message)
 {
     FGSChallengeExpiredMessage unreal_message(message.GetBaseData());
     
@@ -97,7 +97,7 @@ void UGSMessageListeners_OnChallengeExpiredMessage(GameSparks::Core::GS_& gsInst
     }
 }
 
-void UGSMessageListeners_OnChallengeIssuedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeIssuedMessage& message)
+void UGSMessageListeners_OnChallengeIssuedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeIssuedMessage& message)
 {
     FGSChallengeIssuedMessage unreal_message(message.GetBaseData());
     
@@ -110,7 +110,7 @@ void UGSMessageListeners_OnChallengeIssuedMessage(GameSparks::Core::GS_& gsInsta
     }
 }
 
-void UGSMessageListeners_OnChallengeJoinedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeJoinedMessage& message)
+void UGSMessageListeners_OnChallengeJoinedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeJoinedMessage& message)
 {
     FGSChallengeJoinedMessage unreal_message(message.GetBaseData());
     
@@ -123,7 +123,7 @@ void UGSMessageListeners_OnChallengeJoinedMessage(GameSparks::Core::GS_& gsInsta
     }
 }
 
-void UGSMessageListeners_OnChallengeLapsedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeLapsedMessage& message)
+void UGSMessageListeners_OnChallengeLapsedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeLapsedMessage& message)
 {
     FGSChallengeLapsedMessage unreal_message(message.GetBaseData());
     
@@ -136,7 +136,7 @@ void UGSMessageListeners_OnChallengeLapsedMessage(GameSparks::Core::GS_& gsInsta
     }
 }
 
-void UGSMessageListeners_OnChallengeLostMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeLostMessage& message)
+void UGSMessageListeners_OnChallengeLostMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeLostMessage& message)
 {
     FGSChallengeLostMessage unreal_message(message.GetBaseData());
     
@@ -149,7 +149,7 @@ void UGSMessageListeners_OnChallengeLostMessage(GameSparks::Core::GS_& gsInstanc
     }
 }
 
-void UGSMessageListeners_OnChallengeStartedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeStartedMessage& message)
+void UGSMessageListeners_OnChallengeStartedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeStartedMessage& message)
 {
     FGSChallengeStartedMessage unreal_message(message.GetBaseData());
     
@@ -162,7 +162,7 @@ void UGSMessageListeners_OnChallengeStartedMessage(GameSparks::Core::GS_& gsInst
     }
 }
 
-void UGSMessageListeners_OnChallengeTurnTakenMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeTurnTakenMessage& message)
+void UGSMessageListeners_OnChallengeTurnTakenMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeTurnTakenMessage& message)
 {
     FGSChallengeTurnTakenMessage unreal_message(message.GetBaseData());
     
@@ -175,7 +175,7 @@ void UGSMessageListeners_OnChallengeTurnTakenMessage(GameSparks::Core::GS_& gsIn
     }
 }
 
-void UGSMessageListeners_OnChallengeWaitingMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeWaitingMessage& message)
+void UGSMessageListeners_OnChallengeWaitingMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeWaitingMessage& message)
 {
     FGSChallengeWaitingMessage unreal_message(message.GetBaseData());
     
@@ -188,7 +188,7 @@ void UGSMessageListeners_OnChallengeWaitingMessage(GameSparks::Core::GS_& gsInst
     }
 }
 
-void UGSMessageListeners_OnChallengeWithdrawnMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeWithdrawnMessage& message)
+void UGSMessageListeners_OnChallengeWithdrawnMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeWithdrawnMessage& message)
 {
     FGSChallengeWithdrawnMessage unreal_message(message.GetBaseData());
     
@@ -201,7 +201,7 @@ void UGSMessageListeners_OnChallengeWithdrawnMessage(GameSparks::Core::GS_& gsIn
     }
 }
 
-void UGSMessageListeners_OnChallengeWonMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ChallengeWonMessage& message)
+void UGSMessageListeners_OnChallengeWonMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ChallengeWonMessage& message)
 {
     FGSChallengeWonMessage unreal_message(message.GetBaseData());
     
@@ -214,7 +214,7 @@ void UGSMessageListeners_OnChallengeWonMessage(GameSparks::Core::GS_& gsInstance
     }
 }
 
-void UGSMessageListeners_OnFriendMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::FriendMessage& message)
+void UGSMessageListeners_OnFriendMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::FriendMessage& message)
 {
     FGSFriendMessage unreal_message(message.GetBaseData());
     
@@ -227,7 +227,7 @@ void UGSMessageListeners_OnFriendMessage(GameSparks::Core::GS_& gsInstance, cons
     }
 }
 
-void UGSMessageListeners_OnGlobalRankChangedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::GlobalRankChangedMessage& message)
+void UGSMessageListeners_OnGlobalRankChangedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::GlobalRankChangedMessage& message)
 {
     FGSGlobalRankChangedMessage unreal_message(message.GetBaseData());
     
@@ -240,7 +240,7 @@ void UGSMessageListeners_OnGlobalRankChangedMessage(GameSparks::Core::GS_& gsIns
     }
 }
 
-void UGSMessageListeners_OnNewHighScoreMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::NewHighScoreMessage& message)
+void UGSMessageListeners_OnNewHighScoreMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::NewHighScoreMessage& message)
 {
     FGSNewHighScoreMessage unreal_message(message.GetBaseData());
     
@@ -253,7 +253,7 @@ void UGSMessageListeners_OnNewHighScoreMessage(GameSparks::Core::GS_& gsInstance
     }
 }
 
-void UGSMessageListeners_OnNewTeamScoreMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::NewTeamScoreMessage& message)
+void UGSMessageListeners_OnNewTeamScoreMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::NewTeamScoreMessage& message)
 {
     FGSNewTeamScoreMessage unreal_message(message.GetBaseData());
     
@@ -266,7 +266,7 @@ void UGSMessageListeners_OnNewTeamScoreMessage(GameSparks::Core::GS_& gsInstance
     }
 }
 
-void UGSMessageListeners_OnScriptMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::ScriptMessage& message)
+void UGSMessageListeners_OnScriptMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::ScriptMessage& message)
 {
     FGSScriptMessage unreal_message(message.GetBaseData());
     
@@ -279,7 +279,7 @@ void UGSMessageListeners_OnScriptMessage(GameSparks::Core::GS_& gsInstance, cons
     }
 }
 
-void UGSMessageListeners_OnSessionTerminatedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::SessionTerminatedMessage& message)
+void UGSMessageListeners_OnSessionTerminatedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::SessionTerminatedMessage& message)
 {
     FGSSessionTerminatedMessage unreal_message(message.GetBaseData());
     
@@ -292,7 +292,7 @@ void UGSMessageListeners_OnSessionTerminatedMessage(GameSparks::Core::GS_& gsIns
     }
 }
 
-void UGSMessageListeners_OnSocialRankChangedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::SocialRankChangedMessage& message)
+void UGSMessageListeners_OnSocialRankChangedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::SocialRankChangedMessage& message)
 {
     FGSSocialRankChangedMessage unreal_message(message.GetBaseData());
     
@@ -305,7 +305,7 @@ void UGSMessageListeners_OnSocialRankChangedMessage(GameSparks::Core::GS_& gsIns
     }
 }
 
-void UGSMessageListeners_OnTeamChatMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::TeamChatMessage& message)
+void UGSMessageListeners_OnTeamChatMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::TeamChatMessage& message)
 {
     FGSTeamChatMessage unreal_message(message.GetBaseData());
     
@@ -318,7 +318,7 @@ void UGSMessageListeners_OnTeamChatMessage(GameSparks::Core::GS_& gsInstance, co
     }
 }
 
-void UGSMessageListeners_OnTeamRankChangedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::TeamRankChangedMessage& message)
+void UGSMessageListeners_OnTeamRankChangedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::TeamRankChangedMessage& message)
 {
     FGSTeamRankChangedMessage unreal_message(message.GetBaseData());
     
@@ -331,7 +331,7 @@ void UGSMessageListeners_OnTeamRankChangedMessage(GameSparks::Core::GS_& gsInsta
     }
 }
 
-void UGSMessageListeners_OnUploadCompleteMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::UploadCompleteMessage& message)
+void UGSMessageListeners_OnUploadCompleteMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::UploadCompleteMessage& message)
 {
     FGSUploadCompleteMessage unreal_message(message.GetBaseData());
     
@@ -347,7 +347,7 @@ void UGSMessageListeners_OnUploadCompleteMessage(GameSparks::Core::GS_& gsInstan
 
 UGSMessageListeners::UGSMessageListeners(){}
 
-void UGSMessageListeners::RegisterListeners(GS_& GS)
+void UGSMessageListeners::RegisterListeners(GS& GS)
 {
     GS.SetMessageListener<GameSparks::Api::Messages::AchievementEarnedMessage>(UGSMessageListeners_OnAchievementEarnedMessage);
     GS.SetMessageListener<GameSparks::Api::Messages::ChallengeAcceptedMessage>(UGSMessageListeners_OnChallengeAcceptedMessage);

@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSPushRegistrationRequest.h"
 
-void PushRegistrationRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::PushRegistrationResponse& response){
+void PushRegistrationRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::PushRegistrationResponse& response){
     
     FGSPushRegistrationResponse unreal_response = FGSPushRegistrationResponse(response.GetBaseData());
     

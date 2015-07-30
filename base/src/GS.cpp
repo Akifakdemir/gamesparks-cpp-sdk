@@ -17,11 +17,12 @@ using namespace GameSparks;
 using namespace GameSparks::Core;
 using namespace GameSparks::Api::Messages;
 
-/*__declspec(dllexport) GS_ GameSparks::Core::GS = GS_();*/
+/*__declspec(dllexport) GS GameSparks::Core::GS = GS();*/
 
-GS_::GS_()
+GS::GS()
     : GameSparksAvailable()
     , GameSparksAuthenticated()
+    , OnPersistentQueueLoadedCallback()
     , m_GSPlatform(NULL)
     , m_RequestCounter(0)
     , m_Ready(false)
@@ -31,7 +32,6 @@ GS_::GS_()
     , m_durableQueueRunning(true)
     , m_backOffForSeconds(0.0f)
     , m_SessionId("")
-    , OnPersistentQueueLoadedCallback()
 {
 	/*
 		If this assertion fails, your compiler fails to initialize
@@ -42,7 +42,7 @@ GS_::GS_()
 	assert( !GameSparksAuthenticated );
 }
 
-GS_::~GS_()
+GS::~GS()
 {
 	for (t_ConnectionContainer::iterator it = m_Connections.begin(); it != m_Connections.end(); ++it)
 	{
@@ -57,7 +57,7 @@ GS_::~GS_()
     m_MessageHandlers.clear();
 }
 
-void GS_::Initialise(IGSPlatform* gSPlatform)
+void GS::Initialise(IGSPlatform* gSPlatform)
 {
 	m_Initialized = true;
 	m_Paused = false;
@@ -92,7 +92,7 @@ void GS_::Initialise(IGSPlatform* gSPlatform)
 	assert(SerializeRequestQueue(q) == SerializeRequestQueue(q2));*/
 }
 
-void GameSparks::Core::GS_::ShutDown()
+void GameSparks::Core::GS::ShutDown()
 {
 	//DebugLog("Shutdown");
 	m_Initialized = false;
@@ -102,7 +102,7 @@ void GameSparks::Core::GS_::ShutDown()
 	//UpdateConnections(0);
 }
 
-void GameSparks::Core::GS_::NewConnection()
+void GameSparks::Core::GS::NewConnection()
 {
 	if (!m_Paused)
 	{
@@ -114,7 +114,7 @@ void GameSparks::Core::GS_::NewConnection()
 	}
 }
 
-void GS_::Stop(bool termiante)
+void GS::Stop(bool termiante)
 {
 	for (t_ConnectionContainer::iterator it = m_Connections.begin(); it != m_Connections.end(); ++it)
 	{
@@ -127,7 +127,7 @@ void GS_::Stop(bool termiante)
 	SetAvailability(false);
 }
 
-void GS_::OnMessageReceived(const gsstl::string& message, GSConnection& connection)
+void GS::OnMessageReceived(const gsstl::string& message, GSConnection& connection)
 {
 	//std::cout << message.c_str() << std::endl;
 
@@ -166,7 +166,7 @@ void GS_::OnMessageReceived(const gsstl::string& message, GSConnection& connecti
 
 
 
-void GameSparks::Core::GS_::Handshake(GSObject& response, GSConnection& connection)
+void GameSparks::Core::GS::Handshake(GSObject& response, GSConnection& connection)
 {
 	if (response.ContainsKey("error"))
 	{
@@ -206,7 +206,7 @@ void GameSparks::Core::GS_::Handshake(GSObject& response, GSConnection& connecti
 	}
 }
 
-void GameSparks::Core::GS_::SendHandshake(GSObject& response, GSConnection& connection)
+void GameSparks::Core::GS::SendHandshake(GSObject& response, GSConnection& connection)
 {
 	GSRequest handshakeRequest(*this, ".AuthenticatedConnectRequest");
 	handshakeRequest.AddString("hmac", GameSparks::Util::getHMAC(response.GetString("nonce").GetValue(), m_GSPlatform->GetGameSparksSecret()));
@@ -228,14 +228,14 @@ void GameSparks::Core::GS_::SendHandshake(GSObject& response, GSConnection& conn
 	DebugLog("Handshake request sent");
 }
 
-void GameSparks::Core::GS_::SendDurable(GSRequest& request)
+void GameSparks::Core::GS::SendDurable(GSRequest& request)
 {
 	request.AddString("requestId", GetUniqueRequestId(true));
 	m_PersistentQueue.push_front(request);
 	WritePersistentQueue();
 }
 
-void GameSparks::Core::GS_::Send(GSRequest& request)
+void GameSparks::Core::GS::Send(GSRequest& request)
 {
 	if (request.GetDurable())
 	{
@@ -263,7 +263,7 @@ void GameSparks::Core::GS_::Send(GSRequest& request)
 	m_SendQueue.push_back(request);
 }
 
-void GS_::Update(Seconds deltaTimeInSeconds)
+void GS::Update(Seconds deltaTimeInSeconds)
 {
 	if (m_backOffForSeconds > 0)
 	{
@@ -276,12 +276,12 @@ void GS_::Update(Seconds deltaTimeInSeconds)
 	}
 }
 
-void GameSparks::Core::GS_::DebugLog(const gsstl::string& message)
+void GameSparks::Core::GS::DebugLog(const gsstl::string& message)
 {
 	m_GSPlatform->DebugMsg(message);
 }
 
-void GS_::UpdateConnections(Seconds deltaTimeInSeconds)
+void GS::UpdateConnections(Seconds deltaTimeInSeconds)
 {
 	for (t_ConnectionContainer::size_type i = 0; i < m_Connections.size(); )
 	{
@@ -304,7 +304,7 @@ void GS_::UpdateConnections(Seconds deltaTimeInSeconds)
 	}
 }
 
-gsstl::string GameSparks::Core::GS_::GetUniqueRequestId(bool durable)
+gsstl::string GameSparks::Core::GS::GetUniqueRequestId(bool durable)
 {
 	static char buffer[256];
 	snprintf(buffer, sizeof(buffer)/sizeof(buffer[0]), "%ld_%ld", (long)time(0), m_RequestCounter++);
@@ -318,16 +318,28 @@ gsstl::string GameSparks::Core::GS_::GetUniqueRequestId(bool durable)
 
 }
 
-void GameSparks::Core::GS_::OnWebSocketClientError(const gsstl::string& errorMessage, GSConnection* connection)
+void GameSparks::Core::GS::OnWebSocketClientError(const easywsclient::WSError& error, GSConnection* connection)
 {
-	DebugLog("Received websocket error: " + errorMessage);
+    (void)(connection); // unused
+	/*if(error.code == easywsclient::WSError::DNS_LOOKUP_FAILED)
+	{
+		Disconnect();
+	}
+
+	if(m_Connections.size() > 0 && m_Connections[0] == connection)
+	{
+		SetAvailability(false);
+
+	}*/
+
+	DebugLog("Received websocket error: " + error.message);
 	DebugLog("Got websocket error. Please make sure, that you've setup you credentials.");
 	DebugLog("Backing off for five seconds");
 	SetAvailability(false);
 	m_backOffForSeconds = 5.0f;
 }
 
-void GameSparks::Core::GS_::SetAvailability(bool available)
+void GameSparks::Core::GS::SetAvailability(bool available)
 {
 	if (m_Ready != available)
 	{
@@ -340,7 +352,7 @@ void GameSparks::Core::GS_::SetAvailability(bool available)
 	}
 }
 
-void GameSparks::Core::GS_::ConnectIfRequired()
+void GameSparks::Core::GS::ConnectIfRequired()
 {
 	if (m_Connections.size() == 0)
 	{
@@ -348,17 +360,17 @@ void GameSparks::Core::GS_::ConnectIfRequired()
 	}
 }
 
-bool GameSparks::Core::GS_::GetAuthenticated() const
+bool GameSparks::Core::GS::GetAuthenticated() const
 {
 	return m_Ready && m_GSPlatform->GetAuthToken() != "" && m_GSPlatform->GetAuthToken() != "0";
 }
 
-/*void GameSparks::Core::GS_::SendDurable(GSRequest& request)
+/*void GameSparks::Core::GS::SendDurable(GSRequest& request)
 {
 
 }*/
 
-void GameSparks::Core::GS_::ProcessSendQueue(Seconds deltaTimeInSeconds)
+void GameSparks::Core::GS::ProcessSendQueue(Seconds deltaTimeInSeconds)
 {
 	if (m_SendQueue.size() > 0)
 	{
@@ -380,7 +392,7 @@ void GameSparks::Core::GS_::ProcessSendQueue(Seconds deltaTimeInSeconds)
 	}
 }
 
-void GameSparks::Core::GS_::CancelRequest(GSRequest& request)
+void GameSparks::Core::GS::CancelRequest(GSRequest& request)
 {
 	GSObject error("ClientError");
 	error.AddObject("error", GSRequestData().AddString("error", "timeout"));
@@ -389,15 +401,15 @@ void GameSparks::Core::GS_::CancelRequest(GSRequest& request)
 	request.Complete(error);
 }
 
-void GameSparks::Core::GS_::CancelRequest(GSRequest& request, GSConnection* connection)
+void GameSparks::Core::GS::CancelRequest(GSRequest& request, GSConnection* connection)
 {
 	GSObject error("ClientError");
 	error.AddObject("error", GSRequestData().AddString("error", "timeout"));
 	error.AddString("requestId", request.GetString("requestId").GetValue());
-	ProcessReceivedRepsonse(error, connection);
+	ProcessReceivedResponse(error, connection);
 }
 
-void GameSparks::Core::GS_::ProcessQueues(Seconds deltaTimeInSeconds)
+void GameSparks::Core::GS::ProcessQueues(Seconds deltaTimeInSeconds)
 {
 	ConnectIfRequired();
 
@@ -406,7 +418,7 @@ void GameSparks::Core::GS_::ProcessQueues(Seconds deltaTimeInSeconds)
 	ProcessSendQueue(deltaTimeInSeconds);
 }
 
-void GameSparks::Core::GS_::TrimOldConnections()
+void GameSparks::Core::GS::TrimOldConnections()
 {
 	for (t_ConnectionContainer::iterator it = m_Connections.begin(); it != m_Connections.end(); )
 	{
@@ -425,7 +437,7 @@ void GameSparks::Core::GS_::TrimOldConnections()
 	}
 }
 
-void GameSparks::Core::GS_::ProcessReceivedRepsonse(const GSObject& response, GSConnection* connection)
+void GameSparks::Core::GS::ProcessReceivedResponse(const GSObject& response, GSConnection* connection)
 {
 	if (response.GetString("requestId").HasValue())
 	{
@@ -437,27 +449,25 @@ void GameSparks::Core::GS_::ProcessReceivedRepsonse(const GSObject& response, GS
 			GSRequest request = findIt->second;
 			connection->m_PendingRequests.erase(findIt);
 
-			if (request.GetDurableRetrySeconds() > 0)
+			if (request.GetDurable() && request.GetDurableRetrySeconds() > 0)
 			{
 				// remove from persistent queue
 				//It's durable request, if it's a ClientError do nothing as it will be retried
                 if (request.ContainsKey("@class") && request.GetString("@class").GetValue() != "ClientError")
                 {
 					RemoveDurableQueueEntry(request);
-					
 					request.Complete(response);
                 }
-
-			}else
+			}
+			else
 			{
 				request.Complete(response);
 			}
 		}
 	}
-
 }
 
-bool GameSparks::Core::GS_::RemoveDurableQueueEntry(const GSRequest& request)
+bool GameSparks::Core::GS::RemoveDurableQueueEntry(const GSRequest& request)
 {
 	gsstl::string idToRemove = request.GetString("requestId").GetValue();
 	for (t_PersistentQueue::iterator it = m_PersistentQueue.begin(); it != m_PersistentQueue.end(); it++)
@@ -474,16 +484,16 @@ bool GameSparks::Core::GS_::RemoveDurableQueueEntry(const GSRequest& request)
 	return false;
 }
 
-int GameSparks::Core::GS_::GetRequestQueueCount()
+size_t GameSparks::Core::GS::GetRequestQueueCount()
 {
 	return m_PersistentQueue.size();
 }
 
-bool GameSparks::Core::GS_::GetDurableQueueRunning()
+bool GameSparks::Core::GS::GetDurableQueueRunning()
 {
 	return m_durableQueueRunning;
 }
-void GameSparks::Core::GS_::SetDurableQueueRunning(bool value)
+void GameSparks::Core::GS::SetDurableQueueRunning(bool value)
 {
 	m_durableQueueRunning = value;
 }
@@ -493,7 +503,7 @@ bool StringEndsWith(const gsstl::string& str, const gsstl::string& pattern)
 	return  (str.size() >= pattern.size() && str.substr(str.size() - pattern.size()) == pattern);
 }
 
-void GameSparks::Core::GS_::ProcessReceivedItem(const GSObject& response, GSConnection* connection)
+void GameSparks::Core::GS::ProcessReceivedItem(const GSObject& response, GSConnection* connection)
 {
 	gsstl::string responseType = response.GetType().GetValue();
 	
@@ -503,7 +513,7 @@ void GameSparks::Core::GS_::ProcessReceivedItem(const GSObject& response, GSConn
 		{
 			SetUserId(response.GetString("userId").GetValue());
 		}
-		ProcessReceivedRepsonse(response, connection);
+		ProcessReceivedResponse(response, connection);
 	}
 	else if (StringEndsWith(responseType, "Message"))
 	{
@@ -516,7 +526,7 @@ void GameSparks::Core::GS_::ProcessReceivedItem(const GSObject& response, GSConn
 	}
 }
 
-void GameSparks::Core::GS_::ProcessPersistantQueue(Seconds deltaTimeInSeconds)
+void GameSparks::Core::GS::ProcessPersistantQueue(Seconds deltaTimeInSeconds)
 {
 	if(!GetDurableQueueRunning() || m_durableQueuePaused)
 	{
@@ -538,7 +548,7 @@ void GameSparks::Core::GS_::ProcessPersistantQueue(Seconds deltaTimeInSeconds)
 
 }
 
-void GameSparks::Core::GS_::SetUserId(const gsstl::string& userId)
+void GameSparks::Core::GS::SetUserId(const gsstl::string& userId)
 {
 	// TODO: Review
 	if(m_GSPlatform->GetUserId() != userId)
@@ -572,19 +582,19 @@ void GameSparks::Core::GS_::SetUserId(const gsstl::string& userId)
 }
 
 
-void GameSparks::Core::GS_::Disconnect()
+void GameSparks::Core::GS::Disconnect()
 {
 	m_Paused = true;
 	Stop(false);
 }
 
-void GameSparks::Core::GS_::Reconnect()
+void GameSparks::Core::GS::Reconnect()
 {
 	m_Paused = false;
 	ConnectIfRequired();
 }
 
-void GameSparks::Core::GS_::NetworkChange(bool available)
+void GameSparks::Core::GS::NetworkChange(bool available)
 {
 	if (available)
 	{
@@ -596,7 +606,7 @@ void GameSparks::Core::GS_::NetworkChange(bool available)
 	}
 }
 
-void GameSparks::Core::GS_::Reset()
+void GameSparks::Core::GS::Reset()
 {
 	Disconnect();
 	m_SessionId = "";
@@ -606,14 +616,14 @@ void GameSparks::Core::GS_::Reset()
 
 
 //! save requests queue as name
-void GS_::WritePersistentQueue()
+void GS::WritePersistentQueue()
 {
 	gsstl::string json = SerializeRequestQueue(m_PersistentQueue);
 	m_GSPlatform->StoreValue(m_GSPlatform->GetUserId() + "_persistentQueue", json);
 }
 
 //! an empty queue will be returned, if no queue named queue can be found
-void GS_::InitialisePersistentQueue()
+void GS::InitialisePersistentQueue()
 {
 	gsstl::string json = m_GSPlatform->LoadValue( m_GSPlatform->GetUserId() + "_persistentQueue");
 	m_PersistentQueue = DeserializeRequestQueue(json);
@@ -625,7 +635,7 @@ void GS_::InitialisePersistentQueue()
 }
 
 
-gsstl::string GS_::SerializeRequestQueue(const t_PersistentQueue& q)
+gsstl::string GS::SerializeRequestQueue(const t_PersistentQueue& q)
 {
 	cJSON* list = cJSON_CreateArray();
 
@@ -644,7 +654,7 @@ gsstl::string GS_::SerializeRequestQueue(const t_PersistentQueue& q)
 }
 
 
-GS_::t_PersistentQueue GS_::DeserializeRequestQueue(const gsstl::string& s)
+GS::t_PersistentQueue GS::DeserializeRequestQueue(const gsstl::string& s)
 {
 	cJSON* list = cJSON_Parse(s.c_str());
 
@@ -668,7 +678,7 @@ GS_::t_PersistentQueue GS_::DeserializeRequestQueue(const gsstl::string& s)
 }
 
 
-GS_::t_PersistentQueue& GS_::GetDurableQueueEntries()
+GS::t_PersistentQueue& GS::GetDurableQueueEntries()
 {
 	return m_PersistentQueue;
 }

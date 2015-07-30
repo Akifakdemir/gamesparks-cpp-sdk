@@ -46,10 +46,13 @@ namespace easywsclient {
 			BAD_STATUS_CODE, ///< the HTTP status code returned was not 101 (Switching Protocols)
 		};
 
-		WSError(Code code, const gsstl::string& message) : code(code), message(message){}
+		WSError(Code code_, const gsstl::string& message_) : code(code_), message(message_){}
 
 		const Code code; ///< one of the error codes
 		const gsstl::string message; ///< a more or less human readable error description
+
+		private:
+			const WSError& operator=( const WSError& );
 	};
 
 	class WebSocket

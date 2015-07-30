@@ -1,4 +1,7 @@
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
+
 #include "GameSparksScriptData.h"
 
 UGameSparksScriptData::UGameSparksScriptData(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}

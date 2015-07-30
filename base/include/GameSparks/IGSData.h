@@ -14,7 +14,7 @@ namespace GameSparks
 		/// base class for GSData objects
 		class IGSData
 		{
-            GS_LEAK_DETECTOR(IGSData);
+            GS_LEAK_DETECTOR(IGSData)
 		public:
 
 			/// access the internal cJSON object

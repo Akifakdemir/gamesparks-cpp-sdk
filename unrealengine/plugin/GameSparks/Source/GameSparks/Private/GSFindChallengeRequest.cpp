@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSFindChallengeRequest.h"
 
-void FindChallengeRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::FindChallengeResponse& response){
+void FindChallengeRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::FindChallengeResponse& response){
     
     FGSFindChallengeResponse unreal_response = FGSFindChallengeResponse(response.GetBaseData());
     

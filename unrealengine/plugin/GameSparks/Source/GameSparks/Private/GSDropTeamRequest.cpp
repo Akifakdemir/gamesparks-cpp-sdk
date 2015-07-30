@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSDropTeamRequest.h"
 
-void DropTeamRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::DropTeamResponse& response){
+void DropTeamRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::DropTeamResponse& response){
     
     FGSDropTeamResponse unreal_response = FGSDropTeamResponse(response.GetBaseData());
     

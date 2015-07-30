@@ -1,8 +1,7 @@
 // Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
 #include "GameSparks/GSData.h"
 
-using namespace GameSparks;
-using namespace GameSparks::Core;
+namespace GameSparks{ namespace Core {
 
 GSData::GSData()
 {
@@ -240,3 +239,5 @@ gsstl::string GSData::GetJSON() const
 	free(asText);
 	return result;
 }
+    
+}} // namespace GameSparks{ namespace Core {

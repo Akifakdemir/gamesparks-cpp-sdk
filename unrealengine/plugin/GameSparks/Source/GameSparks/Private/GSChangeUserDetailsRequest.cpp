@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSChangeUserDetailsRequest.h"
 
-void ChangeUserDetailsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ChangeUserDetailsResponse& response){
+void ChangeUserDetailsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::ChangeUserDetailsResponse& response){
     
     FGSChangeUserDetailsResponse unreal_response = FGSChangeUserDetailsResponse(response.GetBaseData());
     

@@ -1,5 +1,24 @@
 # ChangeLog
 
+## rc7 (2015-07-30)
+
+### base SDK (affects all platforms)
+- implemented GetDeviceId() for iOS, Android, OSX and Windows. Details documented at IGSPlatform.h iGSPlatform::GetDeviceId()
+	- note: there are separate implementations for Marmalade and Unreal that use the device-id provided by the engines
+- re-compiled OpenSSL 1.0.2d for android, iOS and OSX
+- extended compatibility with the iOS Simulator
+- renamed the "GS_" class to "GS". There's a typedef, so that your code still compiles, but it's marked deprecated and will be removed in future versions.
+- reanmed the "Optional_" template class to "Optional"
+- changed the return type of GSTypedRequest::Send() to void, because it's interface was suggesting, that the SDK supports blocking calls
+- renamed samples and tests so that it's easier to get the working on iOS
+- implemented tests for GetDeviceId()
+- implemented tests for socket disconnects
+- fixed warnings
+
+### Unreal Engine
+- The SDK Sources are now included in the Plugin. This enables better deployment and easier debugging.
+- fixed warnings
+
 ## patch rc6-p4 (2015-07-09)
 - fixed an unitialized valiable (GS_::GameSparksAuthenticated) when SDK was compiled without support for std::function<>
 

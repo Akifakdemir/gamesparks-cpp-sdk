@@ -13,16 +13,16 @@ namespace GameSparks
 {
 	namespace Core
 	{
-		class GS_;
+		class GS;
 
 		/// A request to GameSparks
 		class GSRequest : public GSObject
 		{
 			public:
 				#if defined(GS_USE_STD_FUNCTION)
-					typedef gsstl::function<void (GS_&, const GSObject&)> t_Callback;
+					typedef gsstl::function<void (GS&, const GSObject&)> t_Callback;
 				#else
-					typedef void(*t_Callback)(GS_&, const GSObject&);
+					typedef void(*t_Callback)(GS&, const GSObject&);
 				#endif /* GS_USE_STD_FUNCTION */
 
 				Seconds GetCancelSeconds() const { return m_CancelSeconds; }
@@ -64,16 +64,16 @@ namespace GameSparks
 				Seconds GetDurableRetrySeconds() const { return m_DurableRetrySeconds; }
 				void SetDurableRetrySeconds(Seconds durableRetrySeconds) { m_DurableRetrySeconds = durableRetrySeconds; }
 			private:
-				GSRequest(GS_& gsInstance, const gsstl::string& requestType);
-				GSRequest(GS_& gsInstance, cJSON* data);
+				GSRequest(GS& gsInstance, const gsstl::string& requestType);
+				GSRequest(GS& gsInstance, cJSON* data);
 
-				GS_& GetGSInstance() const { return *m_GSInstance; }
+				GS& GetGSInstance() const { return *m_GSInstance; }
 
 				void Complete(const GSObject& response);			
 
 				GSObject m_Response;
 
-				GS_* m_GSInstance; ///< this is a pointer, so that the auto-generated assignement operator works
+				GS* m_GSInstance; ///< this is a pointer, so that the auto-generated assignement operator works
 
 				bool m_Durable;
 				Seconds m_CancelSeconds;
@@ -92,8 +92,8 @@ namespace GameSparks
 				{
                     BaseCallbacks() : m_userData() {}
                     virtual ~BaseCallbacks() {}
-					virtual void OnSucess(GS_& gsInstance, const GSObject& response) = 0;
-					virtual void OnError (GS_& gsInstance, const GSObject& response) = 0;
+					virtual void OnSucess(GS& gsInstance, const GSObject& response) = 0;
+					virtual void OnError (GS& gsInstance, const GSObject& response) = 0;
 					virtual BaseCallbacks* Clone() const = 0;
                     void* m_userData;
                     GS_LEAK_DETECTOR(BaseCallbacks)
@@ -151,7 +151,7 @@ namespace GameSparks
 
 						BaseCallbacks* ptr;
                     
-                        GS_LEAK_DETECTOR(BaseCallbacksPtr);
+                        GS_LEAK_DETECTOR(BaseCallbacksPtr)
 				};
             
                 class Callbacks : public BaseCallbacks
@@ -160,12 +160,12 @@ namespace GameSparks
                         Callbacks(t_Callback onSuccess, t_Callback onError, void* userData)
                         :m_onSuccess(onSuccess), m_onError(onError) { m_userData = userData; }
                 
-                        virtual void OnSucess(GS_& gsInstance, const GSObject& response)
+                        virtual void OnSucess(GS& gsInstance, const GSObject& response)
                         {
                             if ( m_onSuccess ) m_onSuccess( gsInstance, response );
                         }
                 
-                        virtual void OnError (GS_& gsInstance, const GSObject& response)
+                        virtual void OnError (GS& gsInstance, const GSObject& response)
                         {
                             if ( m_onError ) m_onError( gsInstance, response );
                         }
@@ -182,7 +182,7 @@ namespace GameSparks
 
 				// TODO: check if the type cound be changed to Seconds
 				void Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds);
-				GSObject Send();
+				void Send();
 
 				//BaseCallbacks* m_callbacks;
 				BaseCallbacksPtr m_callbacks;
@@ -190,11 +190,11 @@ namespace GameSparks
 				template<typename RequestType, typename ResponseType>
 				friend class GSTypedRequest;
 	
-				friend class GS_;
+				friend class GS;
             
                 void* m_userData;
             
-                GS_LEAK_DETECTOR(GSRequest);
+                GS_LEAK_DETECTOR(GSRequest)
 		};
 	}
 }

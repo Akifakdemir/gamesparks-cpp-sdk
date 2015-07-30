@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSGetDownloadableRequest.h"
 
-void GetDownloadableRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::GetDownloadableResponse& response){
+void GetDownloadableRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::GetDownloadableResponse& response){
     
     FGSGetDownloadableResponse unreal_response = FGSGetDownloadableResponse(response.GetBaseData());
     

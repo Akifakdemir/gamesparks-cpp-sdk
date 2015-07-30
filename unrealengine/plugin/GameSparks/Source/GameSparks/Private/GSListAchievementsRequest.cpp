@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSListAchievementsRequest.h"
 
-void ListAchievementsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListAchievementsResponse& response){
+void ListAchievementsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::ListAchievementsResponse& response){
     
     FGSListAchievementsResponse unreal_response = FGSListAchievementsResponse(response.GetBaseData());
     

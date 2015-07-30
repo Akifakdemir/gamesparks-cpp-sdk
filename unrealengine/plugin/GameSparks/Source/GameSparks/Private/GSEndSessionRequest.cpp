@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSEndSessionRequest.h"
 
-void EndSessionRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::EndSessionResponse& response){
+void EndSessionRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::EndSessionResponse& response){
     
     FGSEndSessionResponse unreal_response = FGSEndSessionResponse(response.GetBaseData());
     

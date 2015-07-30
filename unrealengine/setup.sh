@@ -1,10 +1,5 @@
 #!/bin/sh
 
-pushd ../base/build_scripts
-sh gs_ios_sdk-dist.sh
-sh gs_osx_sdk-dist.sh
-popd
-
 python setup_plugin.py
 python setup_sample.py
 

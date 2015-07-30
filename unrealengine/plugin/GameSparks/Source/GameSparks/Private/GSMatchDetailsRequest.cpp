@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSMatchDetailsRequest.h"
 
-void MatchDetailsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::MatchDetailsResponse& response){
+void MatchDetailsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::MatchDetailsResponse& response){
     
     FGSMatchDetailsResponse unreal_response = FGSMatchDetailsResponse(response.GetBaseData());
     

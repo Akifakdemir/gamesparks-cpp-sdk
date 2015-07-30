@@ -16,7 +16,7 @@ namespace GameSparks
 {
 	namespace Core
 	{
-		class GS_;
+		class GS;
 	}
 
 	namespace Api

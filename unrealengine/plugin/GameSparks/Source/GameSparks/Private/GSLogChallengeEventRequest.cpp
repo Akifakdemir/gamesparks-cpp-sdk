@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksLogEventData.h"
 #include "GSLogChallengeEventRequest.h"
 
-void LogChallengeEventRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::LogChallengeEventResponse& response){
+void LogChallengeEventRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::LogChallengeEventResponse& response){
     
     FGSLogChallengeEventResponse unreal_response = FGSLogChallengeEventResponse(response.GetBaseData());
     

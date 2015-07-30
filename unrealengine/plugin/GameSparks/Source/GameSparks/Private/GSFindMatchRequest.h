@@ -33,11 +33,12 @@ public:
 	Optionally, the threshold can specify a maxDistance in metres as well.  If specified, we will only match this player with players who are within maxDistance of the current player.
 	*/
 	UFUNCTION(BlueprintCallable, meta = (DisplayName="GS FindMatchRequest", BlueprintInternalUseOnly = "true"), Category = "GameSparks|Requests|Challenges")
-	static UGSFindMatchRequest* SendFindMatchRequest(FString MatchGroup = "", FString MatchShortCode = "", int32 Skill = 0,  UGameSparksScriptData* ScriptData = nullptr, bool Durable = false, int32 RequestTimeoutSeconds = 0);
+	static UGSFindMatchRequest* SendFindMatchRequest(FString Action = "", FString MatchGroup = "", FString MatchShortCode = "", int32 Skill = 0,  UGameSparksScriptData* ScriptData = nullptr, bool Durable = false, int32 RequestTimeoutSeconds = 0);
 	
 	void Activate() override;
 
 private:
+	FString action;
 	FString matchGroup;
 	FString matchShortCode;
 

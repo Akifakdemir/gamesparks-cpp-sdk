@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSAnalyticsRequest.h"
 
-void AnalyticsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AnalyticsResponse& response){
+void AnalyticsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::AnalyticsResponse& response){
     
     FGSAnalyticsResponse unreal_response = FGSAnalyticsResponse(response.GetBaseData());
     

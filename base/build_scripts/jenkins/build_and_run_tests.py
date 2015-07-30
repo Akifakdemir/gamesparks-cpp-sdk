@@ -18,8 +18,14 @@ def build_and_run_tests():
 	old_working_directory = os.getcwd()
 	os.chdir(TEST_BUILD_DIR)
 
+	generator = {
+		'Windows': '-GVisual Studio 12',
+		'Darwin': '',
+	}[platform.system()]
+
 	subprocess.check_call([
 		os.path.join(config.CMAKE_ROOT, 'bin', 'cmake'),
+		generator,
 		TEST_SRC_DIR
 	])
 
@@ -47,13 +53,14 @@ def build_and_run_tests():
 		# call msbuild and compile projects in solution
 		subprocess.check_call([
 			os.path.join(msbuild_path, 'msbuild.exe'),
-			'gamesparks_tests.sln',
+			'GameSparksTests.sln',
 			'/m', # parallel builds
-			'/t:gamesparks_tests',
+			'/t:GameSparksTests',
+			'/p:VisualStudioVersion=12',
 		])
 
 		subprocess.check_call([
-			r'.\Debug\gamesparks_tests.exe',
+			'.\\Debug\\GameSparksTests.exe',
 			'--gtest_output=xml'
 		])
 	else:
@@ -62,7 +69,7 @@ def build_and_run_tests():
 		])
 
 		subprocess.check_call([
-			'./gamesparks_tests',
+			'./GameSparksTests',
 			'--gtest_output=xml'
 		])
 

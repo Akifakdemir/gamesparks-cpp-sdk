@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSWithdrawChallengeRequest.h"
 
-void WithdrawChallengeRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::WithdrawChallengeResponse& response){
+void WithdrawChallengeRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::WithdrawChallengeResponse& response){
     
     FGSWithdrawChallengeResponse unreal_response = FGSWithdrawChallengeResponse(response.GetBaseData());
     

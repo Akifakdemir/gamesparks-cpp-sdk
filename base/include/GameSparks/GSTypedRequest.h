@@ -23,32 +23,32 @@ namespace GameSparks
 		template<typename RequestType, typename ResponseType>
 		class GSTypedRequest 
 		{
-            GS_LEAK_DETECTOR(GSTypedRequest);
+            GS_LEAK_DETECTOR(GSTypedRequest)
 
 			public:
 
 				#if defined(GS_USE_STD_FUNCTION)
 					/// the response callback as a std::function, in case all the compilers you need to support have support for C++11.
 					/// this also supports C++11 lambdas
-					typedef gsstl::function<void(GS_&, const ResponseType&)> t_ResponseCallback;
+					typedef gsstl::function<void(GS&, const ResponseType&)> t_ResponseCallback;
 				#else
 					/// response callback as a c-style function pointer.
 					/// In case you need to support ancient compilers.
-					typedef void(*t_ResponseCallback)(GS_&, const ResponseType&);
+					typedef void(*t_ResponseCallback)(GS&, const ResponseType&);
 				#endif /* GS_USE_STD_FUNCTION */
 
 				/// the wrapped request
 				GSRequest m_Request;
 
 				/// constructor.
-				GSTypedRequest(GS_& gsInstance)
+				GSTypedRequest(GS& gsInstance)
 					: m_Request(gsInstance, ".LogEventRequest")
 				{
 
 				}
 
 				/// constructor with request type
-				GSTypedRequest(GS_& gsInstance, const gsstl::string& type)
+				GSTypedRequest(GS& gsInstance, const gsstl::string& type)
 					: m_Request(gsInstance, type)
 				{
 				}
@@ -93,10 +93,10 @@ namespace GameSparks
 					return static_cast<RequestType&>(*this);
 				}
 
-				/// send this request to the server
-				virtual ResponseType Send()
+				/// send this request to the server. Use thus for fire and forget Requests.
+				virtual void Send()
 				{
-					return m_Request.Send();
+					m_Request.Send();
 				}
             
                 bool HasUserData() const
@@ -139,7 +139,7 @@ namespace GameSparks
 							Callbacks(t_ResponseCallback onSuccess, t_ResponseCallback onError, void* userData)
                             :m_onSuccess(onSuccess), m_onError(onError) { m_userData = userData; }
 
-							virtual void OnSucess(GS_& gsInstance, const GSObject& response)
+							virtual void OnSucess(GS& gsInstance, const GSObject& response)
 							{
 								if ( m_onSuccess )
                                 {
@@ -149,7 +149,7 @@ namespace GameSparks
                                 }
 							}
 
-							virtual void OnError (GS_& gsInstance, const GSObject& response)
+							virtual void OnError (GS& gsInstance, const GSObject& response)
 							{
 								if ( m_onError )
                                 {

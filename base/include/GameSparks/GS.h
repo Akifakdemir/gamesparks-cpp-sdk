@@ -11,6 +11,11 @@
 
 #include "./gsstl.h"
 
+namespace easywsclient
+{
+	struct WSError;	
+}
+
 //! root GameSparks namespace
 namespace GameSparks
 {
@@ -25,30 +30,30 @@ namespace GameSparks
 		  * You can either create an instance of this class locally or create it where ever convenient for you.
 		  * Please note, that it is dicouraged to have multiple instances of this class at the same time.
 		  */
-		class GS_ // this naming should be discussed, it was chosen because we need the static object with the name "GS"
+		class GS // this naming should be discussed, it was chosen because we need the static object with the name "GS"
 		{
 			public:
 				#if defined(GS_USE_STD_FUNCTION)
-					typedef gsstl::function<void(GS_&, bool)> t_AvailableCallback;
+					typedef gsstl::function<void(GS&, bool)> t_AvailableCallback;
 				#else
-					typedef void(*t_AvailableCallback)(GS_&, bool);
+					typedef void(*t_AvailableCallback)(GS&, bool);
 				#endif /* GS_USE_STD_FUNCTION */
 
 				/// Callback which is triggered whenever the service becomes available or the connection to the service is lost. 
 				t_AvailableCallback GameSparksAvailable;
 
 				#if defined(GS_USE_STD_FUNCTION)
-					typedef gsstl::function<void(GS_&,const gsstl::string& userId)> t_AuthenticatedCallback;
+					typedef gsstl::function<void(GS&,const gsstl::string& userId)> t_AuthenticatedCallback;
 				#else
-					typedef void(*t_AuthenticatedCallback)(GS_&, const gsstl::string& userId);
+					typedef void(*t_AuthenticatedCallback)(GS&, const gsstl::string& userId);
 				#endif /* GS_USE_STD_FUNCTION */
 
 				/// Callback which is triggered whenever a new user is authenticated
 				t_AuthenticatedCallback GameSparksAuthenticated;
 
-				GS_();
+				GS();
 
-				~GS_();
+				~GS();
 
 				bool GetDurableQueueRunning();
 				void SetDurableQueueRunning(bool running);
@@ -65,12 +70,12 @@ namespace GameSparks
 
 				bool RemoveDurableQueueEntry(const GSRequest& request);
 
-				int GetRequestQueueCount();
+				size_t GetRequestQueueCount();
 
 				#if defined(GS_USE_STD_FUNCTION)
-					typedef gsstl::function<void(GS_&)> t_OnPersistentQueueLoadedCallback;
+					typedef gsstl::function<void(GS&)> t_OnPersistentQueueLoadedCallback;
 				#else
-					typedef void(*t_OnPersistentQueueLoadedCallback)(GS_&);
+					typedef void(*t_OnPersistentQueueLoadedCallback)(GS&);
 				#endif /* GS_USE_STD_FUNCTION */
             
                 /*!
@@ -85,12 +90,12 @@ namespace GameSparks
                 t_OnPersistentQueueLoadedCallback OnPersistentQueueLoadedCallback;
 
 
-				/// Initialize this GS_ instance. This has to be called before calling any other member functions.
+				/// Initialize this GS instance. This has to be called before calling any other member functions.
 				void Initialise(IGSPlatform* gSPlatform);
 
 				void printConnections();
 
-				/// shutdown this GS_ instance. You cannot call any other member function after this call.
+				/// shutdown this GS instance. You cannot call any other member function after this call.
 				void ShutDown();
 
 				/// Stops all connections. 
@@ -121,7 +126,7 @@ namespace GameSparks
 				// True if a connection to the service is available for use. 
 				// bool GetGameSparksAvailable();
 
-				/// Update this GS_-instance. This has to be called as often as possible
+				/// Update this GS-instance. This has to be called as often as possible
 				/// @param deltaTimeInSeconds the time since the last call to Update() in seconds
 				void Update(Seconds deltaTimeInSeconds);
 
@@ -140,15 +145,15 @@ namespace GameSparks
 	             
 	                This of cause only works, if the passed MessageListener has the correct Signature:
 	                    
-	                void OnAchievementEarnedMessage(GameSparks::Core::GS_& gsInstance, const MessageType& message)
+	                void OnAchievementEarnedMessage(GameSparks::Core::GS& gsInstance, const MessageType& message)
 
 	                @tparam MessageType the type of the message you want to listen for
 	             */
 	            template <typename MessageType>
 	            #if defined(GS_USE_STD_FUNCTION)
-	                void SetMessageListener(const gsstl::function<void(class GS_&, const MessageType&)>& listener)
+	                void SetMessageListener(const gsstl::function<void(class GS&, const MessageType&)>& listener)
 	            #else
-	                void SetMessageListener( void(*listener)(class GS_&, const MessageType&) )
+	                void SetMessageListener( void(*listener)(class GS&, const MessageType&) )
 	            #endif /* GS_USE_STD_FUNCTION */
 	            {
 	                const char* messageTypeName = MessageType::GetTypeName();
@@ -181,7 +186,7 @@ namespace GameSparks
 
 			private:
 				friend class GSConnection;
-				void OnWebSocketClientError(const gsstl::string& errorMessage, GSConnection* connection);
+				void OnWebSocketClientError(const easywsclient::WSError& errorMessage, GSConnection* connection);
 				void OnMessageReceived(const gsstl::string& message, GSConnection& connection);
 				gsstl::string GetServiceUrl() const { return m_ServiceUrl; }
 				void SetAvailability(bool available);
@@ -202,7 +207,7 @@ namespace GameSparks
 				void CancelRequest(GSRequest& request, GSConnection* connection);
 				void ProcessQueues(Seconds deltaTimeInSeconds);
 				void TrimOldConnections();
-				void ProcessReceivedRepsonse(const GSObject& response, GSConnection* connection);
+				void ProcessReceivedResponse(const GSObject& response, GSConnection* connection);
 				void ProcessReceivedItem(const GSObject& response, GSConnection* connection);
 				
 				void InitialisePersistentQueue();
@@ -243,11 +248,11 @@ namespace GameSparks
 	            // base class - provides the interface
 	            struct MessageListenerBase
 	            {
-	                virtual void CallMessageListener(GS_& gsInstance, const GSData& message) const = 0;
+	                virtual void CallMessageListener(GS& gsInstance, const GSData& message) const = 0;
 	                virtual ~MessageListenerBase(){}
 	                
 	                private:
-	                GS_LEAK_DETECTOR(MessageListenerBase);
+	                GS_LEAK_DETECTOR(MessageListenerBase)
 	            };
 	            
 	            // specialisation for a concrete MessageType
@@ -255,15 +260,15 @@ namespace GameSparks
 	            struct MessageListener : public MessageListenerBase
 	            {
 	                #if defined(GS_USE_STD_FUNCTION)
-	                    typedef gsstl::function<void(class GS_&, const MessageType&)> t_ListenerFunction;
+	                    typedef gsstl::function<void(class GS&, const MessageType&)> t_ListenerFunction;
 	                #else
-	                    typedef void(*t_ListenerFunction)(class GS_&, const MessageType&);
+	                    typedef void(*t_ListenerFunction)(class GS&, const MessageType&);
 	                #endif /* GS_USE_STD_FUNCTION */
 
 	                MessageListener(const t_ListenerFunction& listener)
 	                :m_Listener(listener) {}
 
-	                virtual void CallMessageListener(GS_& gsInstance, const GSData& data) const
+	                virtual void CallMessageListener(GS& gsInstance, const GSData& data) const
 	                {
 	                    MessageType message(data); // convert yelly bean GSData to concrete GSMessage
 	                    m_Listener(gsInstance, message); // call the listener
@@ -271,19 +276,32 @@ namespace GameSparks
 	                
 	                t_ListenerFunction m_Listener;
 	                
-	                GS_LEAK_DETECTOR(MessageListener);
+	                GS_LEAK_DETECTOR(MessageListener)
 	            };
 	            
 	            typedef gsstl::map<gsstl::string, MessageListenerBase*> t_MessageHandlerMap;
 	            t_MessageHandlerMap m_MessageHandlers;
 	            
 	            private:
-	            GS_LEAK_DETECTOR(GS_);
+	            GS_LEAK_DETECTOR(GS)
 		};
+
+
+		#if defined(__GNUC__) || defined(__clang__)
+		#	define GS_DEPRECATED(func) func __attribute__ ((deprecated))
+		#elif defined(_MSC_VER)
+		#	define GS_DEPRECATED(func) __declspec(deprecated) func
+		#else
+		#	pragma message("WARNING: You need to implement DEPRECATED for this compiler")
+		#	define GS_DEPRECATED(func) func
+		#endif
+
+		// GS_ is deprecated and will be removed in future versions. Use GS instead
+		typedef GS GS_DEPRECATED(GS_);
 	} /* namespace Core */
 
-	/// \example sample01_connect.cpp This is an example of how to use the GS_ class.
-	/// \example sample02_connect_static.cpp This is an example of how to use GameSparks via a global GS_-objects.
+	/// \example sample01_connect.cpp This is an example of how to use the GS class.
+	/// \example sample02_connect_static.cpp This is an example of how to use GameSparks via a global GS-objects.
 	/// \example sample03_authentication.cpp This is an example of how to authenticate a user.
 	/// \example sample05_challangerequest.cpp This is an example on how to use CreateChallengeRequest.
 	/// \example sample04_listachievements.cpp This is an example of how to list some achievements.

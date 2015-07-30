@@ -1,6 +1,9 @@
 
 
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
+
 #include "GameSparksModule.h"
 #include "ModuleManager.h"
 #include "Runtime/Core/Public/Features/IModularFeatures.h"
@@ -23,7 +26,7 @@ IMPLEMENT_MODULE(UGameSparksModule, GameSparks);
 
 DEFINE_LOG_CATEGORY(UGameSparksModuleLog);
 
-void GameSparksAvailable_Static(GameSparks::Core::GS_& gsInstance, bool available)
+void GameSparksAvailable_Static(GameSparks::Core::GS& gsInstance, bool available)
 {
     UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::GameSparksAvailable_Static"));
 	UGameSparksModule::GetModulePtr()->SendGameSparksAvailableToComponents(available);

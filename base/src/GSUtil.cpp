@@ -1,11 +1,7 @@
 // Copyright 2015 GameSparks Ltd 2015, Inc. All Rights Reserved.
 #include <GameSparks/GSUtil.h>
 
-#if defined(MARMALADE)
 #include "hmac_sha2.h"
-#else
-#include <openssl/hmac.h>
-#endif
 
 using namespace GameSparks::Util;
 
@@ -89,7 +85,7 @@ gsstl::string GameSparks::Util::base64_encode(unsigned char const* bytes_to_enco
 }
 
 gsstl::string GameSparks::Util::base64_decode(gsstl::string const& encoded_string) {
-	int in_len = encoded_string.size();
+	gsstl::string::size_type in_len = encoded_string.size();
 	int i = 0;
 	int j = 0;
 	int in_ = 0;
@@ -100,7 +96,7 @@ gsstl::string GameSparks::Util::base64_decode(gsstl::string const& encoded_strin
 		char_array_4[i++] = encoded_string[in_]; in_++;
 		if (i == 4) {
 			for (i = 0; i < 4; i++)
-				char_array_4[i] = base64_chars.find(char_array_4[i]);
+				char_array_4[i] = (unsigned char)base64_chars.find(char_array_4[i]);
 
 			char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
 			char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
@@ -117,7 +113,7 @@ gsstl::string GameSparks::Util::base64_decode(gsstl::string const& encoded_strin
 			char_array_4[j] = 0;
 
 		for (j = 0; j < 4; j++)
-			char_array_4[j] = base64_chars.find(char_array_4[j]);
+			char_array_4[j] = (unsigned char)base64_chars.find(char_array_4[j]);
 
 		char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
 		char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
@@ -133,33 +129,19 @@ gsstl::string GameSparks::Util::getHMAC(gsstl::string nonce, gsstl::string appSe
 {
 	gsstl::string str = "";
 
-#ifndef MARMALADE
-	const unsigned int LEN = 64;
-	unsigned int len = LEN;
-	unsigned char result[LEN] = { 0 };
-
-	HMAC_CTX ctx;
-	HMAC_CTX_init(&ctx);
-
-	HMAC_Init_ex(&ctx, appSecret.c_str(), appSecret.length(), EVP_sha256(), NULL);
-	HMAC_Update(&ctx, (unsigned char*)nonce.c_str(), nonce.length());
-	HMAC_Final(&ctx, result, &len);
-	HMAC_CTX_cleanup(&ctx);
-
-	str = base64_encode(result, len).c_str();
-
-	return str;
-#else
 	char hmacDigest[SHA256_DIGEST_SIZE];
 	memset(&hmacDigest, 0, SHA256_DIGEST_SIZE);
 
-	hmac_sha256((const unsigned char*)appSecret.c_str(), appSecret.length(),
-		(const unsigned char*)nonce.c_str(), nonce.length(),
-		(unsigned char*)&hmacDigest, SHA256_DIGEST_SIZE);
+	hmac_sha256(
+		(const unsigned char*)appSecret.c_str(),
+		static_cast<unsigned int>(appSecret.length()),
+		(const unsigned char*)nonce.c_str(),
+		static_cast<unsigned int>(nonce.length()),
+		(unsigned char*)&hmacDigest,
+		SHA256_DIGEST_SIZE
+	);
 
 	str = base64_encode((unsigned char*)hmacDigest, SHA256_DIGEST_SIZE);
-
-#endif
 
 	return str;
 }

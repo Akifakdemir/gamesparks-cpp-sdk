@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSSocialStatusRequest.h"
 
-void SocialStatusRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::SocialStatusResponse& response){
+void SocialStatusRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::SocialStatusResponse& response){
     
     FGSSocialStatusResponse unreal_response = FGSSocialStatusResponse(response.GetBaseData());
     

@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSGetRunningTotalsRequest.h"
 
-void GetRunningTotalsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::GetRunningTotalsResponse& response){
+void GetRunningTotalsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::GetRunningTotalsResponse& response){
     
     FGSGetRunningTotalsResponse unreal_response = FGSGetRunningTotalsResponse(response.GetBaseData());
     

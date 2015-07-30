@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSConsumeVirtualGoodRequest.h"
 
-void ConsumeVirtualGoodRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ConsumeVirtualGoodResponse& response){
+void ConsumeVirtualGoodRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::ConsumeVirtualGoodResponse& response){
     
     FGSConsumeVirtualGoodResponse unreal_response = FGSConsumeVirtualGoodResponse(response.GetBaseData());
     

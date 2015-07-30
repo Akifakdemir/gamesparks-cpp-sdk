@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSDismissMessageRequest.h"
 
-void DismissMessageRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::DismissMessageResponse& response){
+void DismissMessageRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::DismissMessageResponse& response){
     
     FGSDismissMessageResponse unreal_response = FGSDismissMessageResponse(response.GetBaseData());
     

@@ -25,6 +25,46 @@ def setup_unreal_sample():
 
 	os.chdir( cwd )	
 
+def ue_build(RunUAT, uproject, targetplatform):
+	cwd = os.getcwd()
+	os.chdir(os.path.dirname(RunUAT))
+
+	subprocess.check_call([
+		RunUAT,
+		'BuildCookRun',
+		'-project="%s"' % uproject.replace('\\', '/'),
+		'-noP4',
+		'-platform=%s' % targetplatform,
+		'-clientconfig=Development',
+		'-serverconfig=Development',
+		'-cook',
+		'-allmaps',
+		'-build',
+		'-stage',
+		'-pak',
+		'-archive',
+		'-archivedirectory=%s' % os.path.join(UNREAL_BUILD_DIR, 'archive').replace('\\', '/'),
+	])
+
+	subprocess.check_call([
+		RunUAT,
+		'BuildCookRun',
+		'-project="%s"' % uproject.replace('\\', '/'),
+		'-noP4',
+		'-platform=%s' % targetplatform,
+		'-clientconfig=Development',
+		'-serverconfig=Development',
+		'-cook',
+		'-allmaps',
+		'-NoCompile',
+		'-stage',
+		'-pak',
+		'-archive',
+		'-archivedirectory=%s' % os.path.join(UNREAL_BUILD_DIR, 'archive').replace('\\', '/'),
+	])
+
+	os.chdir(cwd)
+
 def build_unreal_sample():
 	cwd = os.getcwd()
 
@@ -33,7 +73,7 @@ def build_unreal_sample():
 
 	if platform.system() == 'Darwin':
 		UNREAL_ENGINE_DIR = '/Users/Shared/UnrealEngine/4.7/'
-		RunUAT = os.path.join(UNREAL_ENGINE_DIR, 'Engine/Build/BatchFiles/RunUAT.sh')
+		RunUAT = os.path.join(UNREAL_ENGINE_DIR, 'Engine/Build/BatchFiles/RunUAT.command')
 		targetplatform='Mac'
 	else:
 		UNREAL_ENGINE_DIR = 'c:/Program Files/Epic Games/4.7/'
@@ -48,25 +88,31 @@ def build_unreal_sample():
 
 	uproject = os.path.join(ROOT_PATH, 'unrealengine', 'GameSparksSample', 'GameSparksSample.uproject')
 
+	# chmod +x /Users/Shared/UnrealEngine/4.7/Engine/Binaries/DotNET/UnrealBuildTool.exe
+
 	# /Users/Shared/UnrealEngine/4.7/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun -project="GameSparksSample.uproject" -noP4 -platform=Win64 -clientconfig=Development -serverconfig=Development -cook -maps=AllMaps -compile -stage -pak -archive -archivedirectory="Output Directory"
 
-	subprocess.check_call([
-		RunUAT,
-		'BuildCookRun',
-		'-nop4',
-		'-project=%s' % uproject.replace('\\', '/'),
-		'-CookDir=%s' % os.path.join(UNREAL_BUILD_DIR, 'cook').replace('\\', '/'),
-		'-archivedirectory=%s' % os.path.join(UNREAL_BUILD_DIR, 'archive').replace('\\', '/'),
-		'-cook',
-		'-targetplatform=%s' % targetplatform,
-		'-utf8output',
-		'-allmaps',
-		'-clean',
-		'-stage',
-		'-pak',
-		'-compressed',
-		'-archive',
-	])
+	ue_build(RunUAT, uproject, targetplatform)
+
+	#if targetplatform == 'Mac':
+	#	subprocess.check_call([
+	#		RunUAT,
+	#		'BuildCookRun',
+	#		'-nop4',
+	#		'-project=%s' % uproject.replace('\\', '/'),
+	#		'-CookDir=%s' % os.path.join(UNREAL_BUILD_DIR, 'cook').replace('\\', '/'),
+	#		'-archivedirectory=%s' % os.path.join(UNREAL_BUILD_DIR, 'archive').replace('\\', '/'),
+	#		'-cook',
+	#		'-targetplatform=%s' % 'iOS',
+	#		'-utf8output',
+	#		'-allmaps',
+	#		'-clean',
+	#		'-stage',
+	#		'-cook',
+	#		'-pak',
+	#		'-compressed',
+	#		'-archive',
+	#	])
 
 
 	'''subprocess.check_call([

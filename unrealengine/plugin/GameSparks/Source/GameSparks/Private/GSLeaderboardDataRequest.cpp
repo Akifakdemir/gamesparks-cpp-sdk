@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSLeaderboardDataRequest.h"
 
-void LeaderboardDataRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::LeaderboardDataResponse& response){
+void LeaderboardDataRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::LeaderboardDataResponse& response){
     
     FGSLeaderboardDataResponse unreal_response = FGSLeaderboardDataResponse(response.GetBaseData());
     
@@ -19,10 +21,11 @@ void LeaderboardDataRequestResponseCallback(GameSparks::Core::GS_& gsInstance, c
     }
 }
 
-UGSLeaderboardDataRequest* UGSLeaderboardDataRequest::SendLeaderboardDataRequest(FString ChallengeInstanceId, int32 EntryCount, UGameSparksRequestArray* FriendIds, int32 IncludeFirst, int32 IncludeLast, bool InverseSocial, FString LeaderboardShortCode, int32 Offset, bool Social, UGameSparksRequestArray* TeamIds, UGameSparksRequestArray* TeamTypes,  UGameSparksScriptData* ScriptData, bool Durable, int32 RequestTimeoutSeconds)
+UGSLeaderboardDataRequest* UGSLeaderboardDataRequest::SendLeaderboardDataRequest(FString ChallengeInstanceId, bool DontErrorOnNotSocial, int32 EntryCount, UGameSparksRequestArray* FriendIds, int32 IncludeFirst, int32 IncludeLast, bool InverseSocial, FString LeaderboardShortCode, int32 Offset, bool Social, UGameSparksRequestArray* TeamIds, UGameSparksRequestArray* TeamTypes,  UGameSparksScriptData* ScriptData, bool Durable, int32 RequestTimeoutSeconds)
 {
 	UGSLeaderboardDataRequest* proxy = NewObject<UGSLeaderboardDataRequest>();
 	proxy->challengeInstanceId = ChallengeInstanceId;
+	proxy->dontErrorOnNotSocial = DontErrorOnNotSocial;
 	proxy->entryCount = EntryCount;
 	proxy->friendIds = FriendIds;
 	proxy->includeFirst = IncludeFirst;
@@ -44,6 +47,9 @@ void UGSLeaderboardDataRequest::Activate()
 	GameSparks::Api::Requests::LeaderboardDataRequest gsRequest(UGameSparksModule::GetModulePtr()->GetGSInstance());
 	if(challengeInstanceId != ""){
 		gsRequest.SetChallengeInstanceId(TCHAR_TO_UTF8(*challengeInstanceId));
+	}
+	if(dontErrorOnNotSocial != false){
+		gsRequest.SetDontErrorOnNotSocial(dontErrorOnNotSocial);
 	}
 	if(entryCount != 0){
 		gsRequest.SetEntryCount(entryCount);

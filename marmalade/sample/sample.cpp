@@ -15,13 +15,13 @@ using namespace GameSparks::Api::Messages;
 using namespace GameSparks::Api::Responses;
 using namespace GameSparks::Api::Requests;
 
-void WithdrawChallengeRequest_Response(GameSparks::Core::GS_& gsInstance, const WithdrawChallengeResponse& response)
+void WithdrawChallengeRequest_Response(GameSparks::Core::GS& gsInstance, const WithdrawChallengeResponse& response)
 {
     std::cout << "withdraw challnage: " << std::endl;
     std::cout << response.GetJSONString().c_str() << std::endl;
 }
 
-void GetChallengeRequest_Response(GameSparks::Core::GS_& gsInstance, const GetChallengeResponse& response)
+void GetChallengeRequest_Response(GameSparks::Core::GS& gsInstance, const GetChallengeResponse& response)
 {
     std::cout << "get challange data: " << std::endl;
     std::cout << response.GetChallenge().GetJSONString().c_str() << std::endl;
@@ -32,7 +32,7 @@ void GetChallengeRequest_Response(GameSparks::Core::GS_& gsInstance, const GetCh
     request.Send(WithdrawChallengeRequest_Response);
 }
 
-void CreateChallengeRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::CreateChallengeResponse& response)
+void CreateChallengeRequest_Response(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::CreateChallengeResponse& response)
 {
     std::cout << "challange response: " << response.GetJSONString().c_str() << std::endl;
     
@@ -42,9 +42,9 @@ void CreateChallengeRequest_Response(GameSparks::Core::GS_& gsInstance, const Ga
 }
 
 // forward declaration
-void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available);
+void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available);
 
-void RegistrationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::RegistrationResponse& response)
+void RegistrationRequest_Response(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::RegistrationResponse& response)
 {
     if (response.GetHasErrors())
     {
@@ -59,7 +59,7 @@ void RegistrationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameS
     }
 }
 
-void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
+void AuthenticationRequest_Response(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
     // when we login successfully, we want to call a custom event
     if (response.GetHasErrors())
@@ -106,7 +106,7 @@ void AuthenticationRequest_Response(GameSparks::Core::GS_& gsInstance, const Gam
     }
 }
 
-void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
+void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 {
     std::cout << "GameSparks is " << (available ? "available" : "not available") << std::endl;
     
@@ -122,7 +122,7 @@ void GameSparksAvailable(GameSparks::Core::GS_& gsInstance, bool available)
 }
 
 
-void OnAchievementEarnedMessage(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Messages::AchievementEarnedMessage& message)
+void OnAchievementEarnedMessage(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Messages::AchievementEarnedMessage& message)
 {
     std::cout << "Achievement earned " << message.GetAchievementName().GetValue().c_str() << std::endl;
 }
@@ -135,7 +135,7 @@ int main()
     IW_CALLSTACK("GameSparks Sample")
     {
         // create our GS-instance
-        GameSparks::Core::GS_ GS;
+        GameSparks::Core::GS GS;
 
         // here we create an instance of MarmaladePlatform. It stores the logs for us. Don't forget to insert your API Key and Secret below.
         MarmaladePlatform gsPlatform("<GameSparks Api Key>", "<GameSparks Api Secret>", true, true, 8);

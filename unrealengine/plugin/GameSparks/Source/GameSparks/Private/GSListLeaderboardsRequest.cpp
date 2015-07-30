@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSListLeaderboardsRequest.h"
 
-void ListLeaderboardsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListLeaderboardsResponse& response){
+void ListLeaderboardsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::ListLeaderboardsResponse& response){
     
     FGSListLeaderboardsResponse unreal_response = FGSListLeaderboardsResponse(response.GetBaseData());
     

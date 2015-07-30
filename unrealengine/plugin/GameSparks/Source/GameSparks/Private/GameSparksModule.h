@@ -49,8 +49,8 @@ public:
 	void SendGameSparksAvailableToComponents(bool available);
 	void SendDebugLogToComponents(const gsstl::string& message);
 
-    GameSparks::Core::GS_& GetGSInstance() { return GS; }
-    const GameSparks::Core::GS_& GetGSInstance() const { return GS; }
+    GameSparks::Core::GS& GetGSInstance() { return GS; }
+    const GameSparks::Core::GS& GetGSInstance() const { return GS; }
     
     void RegisterListeners();
     
@@ -62,7 +62,7 @@ public:
 private:
 
     
-    GameSparks::Core::GS_ GS;
+    GameSparks::Core::GS GS;
     
     bool isInitialised = false;
     

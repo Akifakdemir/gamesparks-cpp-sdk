@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSListGameFriendsRequest.h"
 
-void ListGameFriendsRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::ListGameFriendsResponse& response){
+void ListGameFriendsRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::ListGameFriendsResponse& response){
     
     FGSListGameFriendsResponse unreal_response = FGSListGameFriendsResponse(response.GetBaseData());
     

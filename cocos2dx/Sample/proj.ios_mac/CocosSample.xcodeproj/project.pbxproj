@@ -558,8 +558,8 @@
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(SRCROOT)/../../../base/build/iOS_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libcrypto.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -593,8 +593,8 @@
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(SRCROOT)/../../../base/build/iOS_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libcrypto.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -630,8 +630,8 @@
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(SRCROOT)/../../../base/build/OSX_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libcrypto.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
 				);
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -662,8 +662,8 @@
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(SRCROOT)/../../../base/build/OSX_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl-1.0.1j/libOSX/libcrypto.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
 				);
 				USER_HEADER_SEARCH_PATHS = "";
 			};

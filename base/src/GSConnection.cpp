@@ -10,7 +10,7 @@ using namespace GameSparks::Core;
 using namespace easywsclient;
 
 
-GameSparks::Core::GSConnection::GSConnection(GS_* gs, IGSPlatform* gsPlatform)
+GameSparks::Core::GSConnection::GSConnection(GS* gs, IGSPlatform* gsPlatform)
 	: m_GS(gs)
 	, m_GSPlatform(gsPlatform)
 	, m_WebSocket(NULL)
@@ -128,12 +128,14 @@ void GSConnection::OnWebSocketError(const easywsclient::WSError& error, void* us
 
 	if (error.code != easywsclient::WSError::CONNECTION_CLOSED)
 	{
-		self->m_GS->OnWebSocketClientError(error.message, self);
+		self->m_GS->OnWebSocketClientError(error, self);
 	}
 }
 
 bool GSConnection::Update(float deltaTime)
 {
+    (void)(deltaTime); // unused
+
 	if (m_WebSocket != NULL)
 	{
 		if (m_WebSocket->getReadyState() != WebSocket::CLOSED)

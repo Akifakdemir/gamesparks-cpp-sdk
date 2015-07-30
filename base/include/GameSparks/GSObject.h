@@ -20,7 +20,7 @@ namespace GameSparks
 		{
 			public:
 
-				typedef GameSparks::Optional::Optional_<GSObject> t_Optional;
+				typedef GameSparks::Optional::Optional<GSObject> t_Optional;
 				
 				GSObject(cJSON* data)
 					: GSRequestData(data)

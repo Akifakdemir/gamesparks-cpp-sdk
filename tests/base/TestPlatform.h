@@ -2,6 +2,7 @@
 #include <iostream>
 #include "usleep.h"
 #include <chrono>
+#include <gtest/gtest.h>
 
 class TestPlatform : public GameSparks::Core::IGSPlatform
 {
@@ -10,9 +11,14 @@ class TestPlatform : public GameSparks::Core::IGSPlatform
             const char* name_ = name.c_str();
 
             const char* val_ = std::getenv(name_);
+            
+            gsstl::string str_val(val_?val_:"");
+            
+            EXPECT_NE(str_val, "") << "required environment variable named " << name << " is not set";
+            
             if ( !val_ )
             {
-                std::clog << "Failed to get environmant varaible named " << name;
+                std::clog << "Failed to get environmant varaible named " << name << std::endl;
                 exit(1);
             }
             return val_;
@@ -35,7 +41,7 @@ class TestPlatform : public GameSparks::Core::IGSPlatform
 
         virtual gsstl::string GetDeviceId() const
         {
-            return "TEST-RUNNER";
+            return IGSPlatform::GetDeviceId() + "-TEST-RUNNER";
         }
 
         virtual gsstl::string GetDeviceType() const
@@ -56,14 +62,15 @@ class TestPlatform : public GameSparks::Core::IGSPlatform
         /*! helper to run the main-loop
         * returns false, if loop timeout has reached, true otherwise
         */
+        template <typename Platform=TestPlatform>
         static bool runTestLoop
         (
-            GameSparks::Core::GS_& gs, ///< the gs instance
+            GameSparks::Core::GS& gs, ///< the gs instance
             std::function<bool ()> waitForCondition = [](){ return true; }, ///< run loop, while this condition is NOT true
             std::chrono::steady_clock::duration timeout = std::chrono::seconds(5)
         )
         {
-            TestPlatform platform;
+            Platform platform;
             gs.Initialise(&platform);
 
             auto start_time = std::chrono::steady_clock::now();

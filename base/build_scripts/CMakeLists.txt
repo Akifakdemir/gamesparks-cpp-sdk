@@ -30,11 +30,7 @@ ENDIF()
 
 create_source_groups( SOURCES )
 
-IF (APPLE)
-	set(OPENSSL_DIR "openssl-1.0.1j")
-ELSE (APPLE)
-	set(OPENSSL_DIR "openssl")
-ENDIF()
+set(OPENSSL_DIR "openssl")
 
 include_directories(
 	"${PROJECT_SOURCE_DIR}/../include/"
@@ -69,6 +65,7 @@ IF (APPLE)
 	set(CMAKE_XCODE_ATTRIBUTE_GCC_VERSION "com.apple.compilers.llvm.clang.1_0")
 	set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11")
 	set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
+	set(SOURCES ${SOURCES} "${PROJECT_SOURCE_DIR}/../src/GSIosHelper.mm")
 	
 	#
 	IF (BUILD_IOS)
@@ -76,15 +73,13 @@ IF (APPLE)
 		set (WS_LIBS	"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libIOS/libcrypto.a"
 						"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libIOS/libssl.a"
 					)
-
-		set(SOURCES ${SOURCES} "${PROJECT_SOURCE_DIR}/../src/GSIosHelper.mm")
 	ELSE (BUILD_IOS)
 		set (WS_LIBS	"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libOSX/libcrypto.a"
 						"${PROJECT_SOURCE_DIR}/../dependencies/${OPENSSL_DIR}/libOSX/libssl.a"
 					)
 	ENDIF()
 
-	
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wshadow -Wextra -pedantic -Werror")
 ELSEIF (WIN32)
 	IF (${CMAKE_SIZEOF_VOID_P} MATCHES 4)   # Windows 32 bit
 		set (WS_LIBS	"${PROJECT_SOURCE_DIR}/../dependencies/openssl/libVSWin32/ssleay32.lib"
@@ -189,9 +184,12 @@ foreach(SAMPLE_FILE ${SAMPLE_FILES})
 
 	TARGET_LINK_LIBRARIES (${SAMPLE_NAME} Gamesparks ${WS_LIBS})
 
+	if (APPLE)
+		TARGET_LINK_LIBRARIES (${SAMPLE_NAME} Gamesparks "-framework Foundation")
+	endif()
+
 	if (BUILD_IOS)
 		set_target_properties(${SAMPLE_NAME} PROPERTIES XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iOS Developer")
-		TARGET_LINK_LIBRARIES (${SAMPLE_NAME} Gamesparks "-framework Foundation")
 	endif()
 endforeach()
 #ENDIF()

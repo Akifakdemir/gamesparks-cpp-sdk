@@ -13,11 +13,11 @@ namespace GameSparks
 	namespace Core
 	{
 		/// Represents a point in time.
-		/// \includelineno sample_extra_01_datetime_conversion.cpp
+		/// \includelineno sampleExtra01DateTimeConversion.cpp
 		class GSDateTime
 		{
 		public:
-			typedef GameSparks::Optional::Optional_<GSDateTime> t_Optional;
+			typedef GameSparks::Optional::Optional<GSDateTime> t_Optional;
 
 			GSDateTime();
 			GSDateTime(int day, int month, int year, int hour, int minute, int second, bool isLocalTime);
@@ -51,10 +51,10 @@ namespace GameSparks
 			time_t m_time;
 			bool m_IsLocalTime;
             
-            GS_LEAK_DETECTOR(GSDateTime);
+            GS_LEAK_DETECTOR(GSDateTime)
 		};
 
-		/// \example sample_extra_01_datetime_conversion.cpp This is an example on how to use the GSDateTime class to convert dates to/from strings and to GMT/local time
+		/// \example sampleExtra01DateTimeConversion.cpp This is an example on how to use the GSDateTime class to convert dates to/from strings and to GMT/local time
 	}
 }
 #endif // GSDateTime_h__

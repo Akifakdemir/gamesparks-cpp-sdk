@@ -1,9 +1,11 @@
 #pragma once
 #include "GameSparksPrivatePCH.h"
+#include "Engine.h"
+#include "GameSparksClasses.h"
 #include "GameSparksScriptData.h"
 #include "GSAroundMeLeaderboardRequest.h"
 
-void AroundMeLeaderboardRequestResponseCallback(GameSparks::Core::GS_& gsInstance, const GameSparks::Api::Responses::AroundMeLeaderboardResponse& response){
+void AroundMeLeaderboardRequestResponseCallback(GameSparks::Core::GS& gsInstance, const GameSparks::Api::Responses::AroundMeLeaderboardResponse& response){
     
     FGSAroundMeLeaderboardResponse unreal_response = FGSAroundMeLeaderboardResponse(response.GetBaseData());
     
@@ -19,10 +21,11 @@ void AroundMeLeaderboardRequestResponseCallback(GameSparks::Core::GS_& gsInstanc
     }
 }
 
-UGSAroundMeLeaderboardRequest* UGSAroundMeLeaderboardRequest::SendAroundMeLeaderboardRequest(FString ChallengeInstanceId, int32 EntryCount, UGameSparksRequestArray* FriendIds, int32 IncludeFirst, int32 IncludeLast, bool InverseSocial, FString LeaderboardShortCode, bool Social, UGameSparksRequestArray* TeamIds, UGameSparksRequestArray* TeamTypes,  UGameSparksScriptData* ScriptData, bool Durable, int32 RequestTimeoutSeconds)
+UGSAroundMeLeaderboardRequest* UGSAroundMeLeaderboardRequest::SendAroundMeLeaderboardRequest(FString ChallengeInstanceId, bool DontErrorOnNotSocial, int32 EntryCount, UGameSparksRequestArray* FriendIds, int32 IncludeFirst, int32 IncludeLast, bool InverseSocial, FString LeaderboardShortCode, bool Social, UGameSparksRequestArray* TeamIds, UGameSparksRequestArray* TeamTypes,  UGameSparksScriptData* ScriptData, bool Durable, int32 RequestTimeoutSeconds)
 {
 	UGSAroundMeLeaderboardRequest* proxy = NewObject<UGSAroundMeLeaderboardRequest>();
 	proxy->challengeInstanceId = ChallengeInstanceId;
+	proxy->dontErrorOnNotSocial = DontErrorOnNotSocial;
 	proxy->entryCount = EntryCount;
 	proxy->friendIds = FriendIds;
 	proxy->includeFirst = IncludeFirst;
@@ -43,6 +46,9 @@ void UGSAroundMeLeaderboardRequest::Activate()
 	GameSparks::Api::Requests::AroundMeLeaderboardRequest gsRequest(UGameSparksModule::GetModulePtr()->GetGSInstance());
 	if(challengeInstanceId != ""){
 		gsRequest.SetChallengeInstanceId(TCHAR_TO_UTF8(*challengeInstanceId));
+	}
+	if(dontErrorOnNotSocial != false){
+		gsRequest.SetDontErrorOnNotSocial(dontErrorOnNotSocial);
 	}
 	if(entryCount != 0){
 		gsRequest.SetEntryCount(entryCount);
