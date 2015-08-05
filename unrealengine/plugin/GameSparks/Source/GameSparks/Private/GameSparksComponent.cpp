@@ -31,18 +31,13 @@ void UGameSparksComponent::Disconnect()
 }
 
 bool UGameSparksComponent::IsAuthenticated(){
-    if (UGameSparksModule::GetModulePtr() != nullptr){
+    return
+        UGameSparksModule::GetModulePtr() != nullptr &&
         UGameSparksModule::GetModulePtr()->GetGSInstance().GetAuthenticated();
-    }
-    return false;
-
 }
 
 bool UGameSparksComponent::IsAvailable(){
-    if (UGameSparksModule::GetModulePtr() != nullptr){
+    return
+        UGameSparksModule::GetModulePtr() != nullptr &&
         UGameSparksModule::GetModulePtr()->GetGSInstance().GetAvailable();
-    }
-    return false;
 }
-
-

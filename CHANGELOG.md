@@ -1,5 +1,10 @@
 # ChangeLog
 
+## rc7-p1 (2015-08-05)
+
+### Unreal Engine
+- fixed a bug that caused IsAuthenticated() and IsAvailable() to always return false
+
 ## rc7 (2015-07-30)
 
 ### base SDK (affects all platforms)

@@ -11,10 +11,10 @@ namespace GameSparks
 		// anonymous namespace
 		namespace
 		{
-			static const char GS_VERSION_CODE[] = "0.9.rc7.510";
-			static const char GS_RELEASE_DATE[] = "2015-07-30 17:09:30.089311";
-			static const char GS_GIT_HASH_SHORT[] = "'56f12f9";
-			static const char GS_GIT_HASH_LONG[] = "56f12f94059044c024b31c6345ca68f5cce4bdc9'";
+			static const char GS_VERSION_CODE[] = "0.9.rc7-p1.512";
+			static const char GS_RELEASE_DATE[] = "2015-08-05 14:51:42.555930";
+			static const char GS_GIT_HASH_SHORT[] = "'2245314";
+			static const char GS_GIT_HASH_LONG[] = "22453149d497424406d6d2eb87efbdb7128717f9'";
 		}
 	}
 }
