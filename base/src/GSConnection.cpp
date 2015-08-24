@@ -103,6 +103,7 @@ void GameSparks::Core::GSConnection::OnError(const gsstl::string& errorMessage)
 
 GameSparks::Core::GSConnection::~GSConnection()
 {
+	assert(m_PendingRequests.empty());
 	if (m_WebSocket != NULL)
 	{
 		delete m_WebSocket;
@@ -130,6 +131,8 @@ void GSConnection::OnWebSocketError(const easywsclient::WSError& error, void* us
 	{
 		self->m_GS->OnWebSocketClientError(error, self);
 	}
+
+	self->Stop();
 }
 
 bool GSConnection::Update(float deltaTime)

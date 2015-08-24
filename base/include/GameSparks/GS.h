@@ -209,7 +209,8 @@ namespace GameSparks
 				void TrimOldConnections();
 				void ProcessReceivedResponse(const GSObject& response, GSConnection* connection);
 				void ProcessReceivedItem(const GSObject& response, GSConnection* connection);
-				
+				void ProcessPendingQueue(Seconds deltaTimeInSeconds);
+
 				void InitialisePersistentQueue();
 				void ProcessPersistantQueue(Seconds deltaTimeInSeconds);
 				void WritePersistentQueue();
@@ -238,7 +239,7 @@ namespace GameSparks
 				bool m_Initialized;
 				bool m_durableQueuePaused; // internal value
 				bool m_durableQueueRunning; // user controlled value
-				Seconds m_backOffForSeconds;
+				Seconds m_nextReconnectSeconds;
 				gsstl::string m_SessionId;
 
 	            /*

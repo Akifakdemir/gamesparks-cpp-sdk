@@ -86,7 +86,7 @@ http://www.cocos2d-x.org
 #elif __linux
 #	undef  GS_TARGET_PLATFORM
 #	define GS_TARGET_PLATFORM GS_PLATFORM_LINUX
-#elif __unix // all unices not caught above
+#elif defined(__unix) // all unices not caught above
 #	undef  GS_TARGET_PLATFORM
 #	define GS_TARGET_PLATFORM GS_PLATFORM_LINUX
 #elif __posix

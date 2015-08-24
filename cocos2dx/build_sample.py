@@ -3,6 +3,7 @@ import os
 import shutil
 import subprocess
 import platform
+from setup_sdk import main as setup_sdk
 
 BUILD_ROOT = os.path.abspath(os.path.join( __file__, '..', 'Sample', 'proj.ios_mac' ))
 
@@ -31,6 +32,8 @@ if __name__ == '__main__':
 	#except OSError:
 	#	pass
 	#os.chdir(BUILD_ROOT)
+
+	setup_sdk()
 
 	os.chdir(BUILD_ROOT)
 	subprocess.check_call([

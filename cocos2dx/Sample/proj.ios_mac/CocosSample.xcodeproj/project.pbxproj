@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
-		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -62,6 +61,37 @@
 		5A5A4017CF8C1BB5CC287482 /* ScreenLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5A5A445C7FDE040092AA6D97 /* ScreenLog.cpp */; };
 		5A5A46459A4E3266934FA7BF /* ScreenLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5A5A445C7FDE040092AA6D97 /* ScreenLog.cpp */; };
 		84CAD9641A83800200A922AE /* UNIX2003_Fix.c in Sources */ = {isa = PBXBuildFile; fileRef = 84CAD9631A83800200A922AE /* UNIX2003_Fix.c */; };
+		84E0E1471B6BB33D005DB413 /* GS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E13D1B6BB33C005DB413 /* GS.cpp */; };
+		84E0E1481B6BB33D005DB413 /* GS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E13D1B6BB33C005DB413 /* GS.cpp */; };
+		84E0E1491B6BB33D005DB413 /* GSConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E13E1B6BB33C005DB413 /* GSConnection.cpp */; };
+		84E0E14A1B6BB33D005DB413 /* GSConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E13E1B6BB33C005DB413 /* GSConnection.cpp */; };
+		84E0E14B1B6BB33D005DB413 /* GSData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E13F1B6BB33C005DB413 /* GSData.cpp */; };
+		84E0E14C1B6BB33D005DB413 /* GSData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E13F1B6BB33C005DB413 /* GSData.cpp */; };
+		84E0E14D1B6BB33D005DB413 /* GSDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1401B6BB33C005DB413 /* GSDateTime.cpp */; };
+		84E0E14E1B6BB33D005DB413 /* GSDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1401B6BB33C005DB413 /* GSDateTime.cpp */; };
+		84E0E14F1B6BB33D005DB413 /* GSIosHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1411B6BB33C005DB413 /* GSIosHelper.mm */; };
+		84E0E1501B6BB33D005DB413 /* GSIosHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1411B6BB33C005DB413 /* GSIosHelper.mm */; };
+		84E0E1511B6BB33D005DB413 /* GSMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1421B6BB33C005DB413 /* GSMessage.cpp */; };
+		84E0E1521B6BB33D005DB413 /* GSMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1421B6BB33C005DB413 /* GSMessage.cpp */; };
+		84E0E1531B6BB33D005DB413 /* GSRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1431B6BB33D005DB413 /* GSRequest.cpp */; };
+		84E0E1541B6BB33D005DB413 /* GSRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1431B6BB33D005DB413 /* GSRequest.cpp */; };
+		84E0E1551B6BB33D005DB413 /* GSTypedResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1441B6BB33D005DB413 /* GSTypedResponse.cpp */; };
+		84E0E1561B6BB33D005DB413 /* GSTypedResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1441B6BB33D005DB413 /* GSTypedResponse.cpp */; };
+		84E0E1571B6BB33D005DB413 /* GSUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1451B6BB33D005DB413 /* GSUtil.cpp */; };
+		84E0E1581B6BB33D005DB413 /* GSUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1451B6BB33D005DB413 /* GSUtil.cpp */; };
+		84E0E1591B6BB33D005DB413 /* IGSPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1461B6BB33D005DB413 /* IGSPlatform.cpp */; };
+		84E0E15A1B6BB33D005DB413 /* IGSPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1461B6BB33D005DB413 /* IGSPlatform.cpp */; };
+		84E0E20B1B6BB412005DB413 /* cJSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E15D1B6BB412005DB413 /* cJSON.cpp */; };
+		84E0E20C1B6BB412005DB413 /* cJSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E15D1B6BB412005DB413 /* cJSON.cpp */; };
+		84E0E2191B6BB412005DB413 /* easywsclient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E19B1B6BB412005DB413 /* easywsclient.cpp */; };
+		84E0E21A1B6BB412005DB413 /* easywsclient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E19B1B6BB412005DB413 /* easywsclient.cpp */; };
+		84E0E21B1B6BB412005DB413 /* timesupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E19E1B6BB412005DB413 /* timesupport.cpp */; };
+		84E0E21C1B6BB412005DB413 /* timesupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E19E1B6BB412005DB413 /* timesupport.cpp */; };
+		84E0E21D1B6BB412005DB413 /* hmac_sha2.c in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1A11B6BB412005DB413 /* hmac_sha2.c */; };
+		84E0E21E1B6BB412005DB413 /* hmac_sha2.c in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1A11B6BB412005DB413 /* hmac_sha2.c */; };
+		84E0E21F1B6BB412005DB413 /* sha2.c in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1A31B6BB412005DB413 /* sha2.c */; };
+		84E0E2201B6BB412005DB413 /* sha2.c in Sources */ = {isa = PBXBuildFile; fileRef = 84E0E1A31B6BB412005DB413 /* sha2.c */; };
+		84E0E2421B6BB57A005DB413 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -155,6 +185,26 @@
 		5A5A445C7FDE040092AA6D97 /* ScreenLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenLog.cpp; sourceTree = "<group>"; };
 		5A5A4D546B073E3A7D818C62 /* ScreenLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenLog.h; sourceTree = "<group>"; };
 		84CAD9631A83800200A922AE /* UNIX2003_Fix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = UNIX2003_Fix.c; path = ../../../base/samples/extra/UNIX2003_Fix.c; sourceTree = "<group>"; };
+		84E0E13D1B6BB33C005DB413 /* GS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GS.cpp; sourceTree = "<group>"; };
+		84E0E13E1B6BB33C005DB413 /* GSConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSConnection.cpp; sourceTree = "<group>"; };
+		84E0E13F1B6BB33C005DB413 /* GSData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSData.cpp; sourceTree = "<group>"; };
+		84E0E1401B6BB33C005DB413 /* GSDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSDateTime.cpp; sourceTree = "<group>"; };
+		84E0E1411B6BB33C005DB413 /* GSIosHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GSIosHelper.mm; sourceTree = "<group>"; };
+		84E0E1421B6BB33C005DB413 /* GSMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSMessage.cpp; sourceTree = "<group>"; };
+		84E0E1431B6BB33D005DB413 /* GSRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSRequest.cpp; sourceTree = "<group>"; };
+		84E0E1441B6BB33D005DB413 /* GSTypedResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSTypedResponse.cpp; sourceTree = "<group>"; };
+		84E0E1451B6BB33D005DB413 /* GSUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSUtil.cpp; sourceTree = "<group>"; };
+		84E0E1461B6BB33D005DB413 /* IGSPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IGSPlatform.cpp; sourceTree = "<group>"; };
+		84E0E15D1B6BB412005DB413 /* cJSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cJSON.cpp; sourceTree = "<group>"; };
+		84E0E15E1B6BB412005DB413 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		84E0E19B1B6BB412005DB413 /* easywsclient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = easywsclient.cpp; sourceTree = "<group>"; };
+		84E0E19C1B6BB412005DB413 /* easywsclient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = easywsclient.hpp; sourceTree = "<group>"; };
+		84E0E19E1B6BB412005DB413 /* timesupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timesupport.cpp; sourceTree = "<group>"; };
+		84E0E19F1B6BB412005DB413 /* timesupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timesupport.h; sourceTree = "<group>"; };
+		84E0E1A11B6BB412005DB413 /* hmac_sha2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac_sha2.c; sourceTree = "<group>"; };
+		84E0E1A21B6BB412005DB413 /* hmac_sha2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac_sha2.h; sourceTree = "<group>"; };
+		84E0E1A31B6BB412005DB413 /* sha2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha2.c; sourceTree = "<group>"; };
+		84E0E1A41B6BB412005DB413 /* sha2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha2.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -169,7 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
+				84E0E2421B6BB57A005DB413 /* libcocos2d iOS.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -240,6 +290,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				84E0E1121B6BB319005DB413 /* GameSparksSDK */,
 				84CAD9631A83800200A922AE /* UNIX2003_Fix.c */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
@@ -347,6 +398,83 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		84E0E1121B6BB319005DB413 /* GameSparksSDK */ = {
+			isa = PBXGroup;
+			children = (
+				84E0E15B1B6BB412005DB413 /* dependencies */,
+				84E0E13C1B6BB33C005DB413 /* src */,
+			);
+			name = GameSparksSDK;
+			path = ../../GameSparksSDK/src;
+			sourceTree = "<group>";
+		};
+		84E0E13C1B6BB33C005DB413 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				84E0E13D1B6BB33C005DB413 /* GS.cpp */,
+				84E0E13E1B6BB33C005DB413 /* GSConnection.cpp */,
+				84E0E13F1B6BB33C005DB413 /* GSData.cpp */,
+				84E0E1401B6BB33C005DB413 /* GSDateTime.cpp */,
+				84E0E1411B6BB33C005DB413 /* GSIosHelper.mm */,
+				84E0E1421B6BB33C005DB413 /* GSMessage.cpp */,
+				84E0E1431B6BB33D005DB413 /* GSRequest.cpp */,
+				84E0E1441B6BB33D005DB413 /* GSTypedResponse.cpp */,
+				84E0E1451B6BB33D005DB413 /* GSUtil.cpp */,
+				84E0E1461B6BB33D005DB413 /* IGSPlatform.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		84E0E15B1B6BB412005DB413 /* dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				84E0E15C1B6BB412005DB413 /* cjson */,
+				84E0E19A1B6BB412005DB413 /* easywsclient */,
+				84E0E19D1B6BB412005DB413 /* google */,
+				84E0E1A01B6BB412005DB413 /* hmac */,
+			);
+			name = dependencies;
+			path = ../dependencies;
+			sourceTree = "<group>";
+		};
+		84E0E15C1B6BB412005DB413 /* cjson */ = {
+			isa = PBXGroup;
+			children = (
+				84E0E15D1B6BB412005DB413 /* cJSON.cpp */,
+				84E0E15E1B6BB412005DB413 /* cJSON.h */,
+			);
+			path = cjson;
+			sourceTree = "<group>";
+		};
+		84E0E19A1B6BB412005DB413 /* easywsclient */ = {
+			isa = PBXGroup;
+			children = (
+				84E0E19B1B6BB412005DB413 /* easywsclient.cpp */,
+				84E0E19C1B6BB412005DB413 /* easywsclient.hpp */,
+			);
+			path = easywsclient;
+			sourceTree = "<group>";
+		};
+		84E0E19D1B6BB412005DB413 /* google */ = {
+			isa = PBXGroup;
+			children = (
+				84E0E19E1B6BB412005DB413 /* timesupport.cpp */,
+				84E0E19F1B6BB412005DB413 /* timesupport.h */,
+			);
+			path = google;
+			sourceTree = "<group>";
+		};
+		84E0E1A01B6BB412005DB413 /* hmac */ = {
+			isa = PBXGroup;
+			children = (
+				84E0E1A11B6BB412005DB413 /* hmac_sha2.c */,
+				84E0E1A21B6BB412005DB413 /* hmac_sha2.h */,
+				84E0E1A31B6BB412005DB413 /* sha2.c */,
+				84E0E1A41B6BB412005DB413 /* sha2.h */,
+			);
+			path = hmac;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -495,9 +623,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				84E0E14D1B6BB33D005DB413 /* GSDateTime.cpp in Sources */,
+				84E0E1551B6BB33D005DB413 /* GSTypedResponse.cpp in Sources */,
+				84E0E1571B6BB33D005DB413 /* GSUtil.cpp in Sources */,
+				84E0E1471B6BB33D005DB413 /* GS.cpp in Sources */,
+				84E0E21F1B6BB412005DB413 /* sha2.c in Sources */,
+				84E0E14F1B6BB33D005DB413 /* GSIosHelper.mm in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				84E0E20B1B6BB412005DB413 /* cJSON.cpp in Sources */,
+				84E0E1531B6BB33D005DB413 /* GSRequest.cpp in Sources */,
+				84E0E1591B6BB33D005DB413 /* IGSPlatform.cpp in Sources */,
+				84E0E14B1B6BB33D005DB413 /* GSData.cpp in Sources */,
+				84E0E1491B6BB33D005DB413 /* GSConnection.cpp in Sources */,
+				84E0E21D1B6BB412005DB413 /* hmac_sha2.c in Sources */,
+				84E0E2191B6BB412005DB413 /* easywsclient.cpp in Sources */,
 				84CAD9641A83800200A922AE /* UNIX2003_Fix.c in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				84E0E1511B6BB33D005DB413 /* GSMessage.cpp in Sources */,
+				84E0E21B1B6BB412005DB413 /* timesupport.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				5A5A46459A4E3266934FA7BF /* ScreenLog.cpp in Sources */,
@@ -508,10 +651,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E0E1481B6BB33D005DB413 /* GS.cpp in Sources */,
+				84E0E21E1B6BB412005DB413 /* hmac_sha2.c in Sources */,
+				84E0E1541B6BB33D005DB413 /* GSRequest.cpp in Sources */,
+				84E0E15A1B6BB33D005DB413 /* IGSPlatform.cpp in Sources */,
+				84E0E21A1B6BB412005DB413 /* easywsclient.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				84E0E1521B6BB33D005DB413 /* GSMessage.cpp in Sources */,
+				84E0E1501B6BB33D005DB413 /* GSIosHelper.mm in Sources */,
+				84E0E14C1B6BB33D005DB413 /* GSData.cpp in Sources */,
+				84E0E14A1B6BB33D005DB413 /* GSConnection.cpp in Sources */,
+				84E0E21C1B6BB412005DB413 /* timesupport.cpp in Sources */,
+				84E0E2201B6BB412005DB413 /* sha2.c in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				84E0E14E1B6BB33D005DB413 /* GSDateTime.cpp in Sources */,
+				84E0E1581B6BB33D005DB413 /* GSUtil.cpp in Sources */,
 				5A5A4017CF8C1BB5CC287482 /* ScreenLog.cpp in Sources */,
+				84E0E20C1B6BB412005DB413 /* cJSON.cpp in Sources */,
+				84E0E1561B6BB33D005DB413 /* GSTypedResponse.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,15 +710,24 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"$(SRCROOT)/../../../base/build/iOS_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
+				LIBRARY_SEARCH_PATHS = (
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/arm",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/x86",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libIOS",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libOSX",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin32",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin64",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libWP8",
 				);
+				OTHER_LDFLAGS = (
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libcrypto.a",
+				);
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -587,15 +754,24 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"$(SRCROOT)/../../../base/build/iOS_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
+				LIBRARY_SEARCH_PATHS = (
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/arm",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/x86",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libIOS",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libOSX",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin32",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin64",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libWP8",
 				);
+				OTHER_LDFLAGS = (
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libcrypto.a",
+				);
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -625,13 +801,23 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/easywsclient",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/google",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/hmac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/arm",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/x86",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libIOS",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libOSX",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin32",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin64",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libWP8",
+				);
 				OTHER_LDFLAGS = (
-					"$(SRCROOT)/../../../base/build/OSX_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libcrypto.a",
 				);
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -657,13 +843,23 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/easywsclient",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/google",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/hmac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/arm",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libAndroid/x86",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libIOS",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libOSX",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin32",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libVSWin64",
+					"/mgames/gamesparks/gamesparks-cpp-private/cocos2dx/GameSparksSDK/dependencies/openssl/libWP8",
+				);
 				OTHER_LDFLAGS = (
-					"$(SRCROOT)/../../../base/build/OSX_stl/libGameSparks.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libssl.a",
-					"$(SRCROOT)/../../../base/dependencies/openssl/libOSX/libcrypto.a",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libssl.a",
+					"$(SRCROOT)/../../GameSparksSDK/dependencies/openssl/libOSX/libcrypto.a",
 				);
 				USER_HEADER_SEARCH_PATHS = "";
 			};

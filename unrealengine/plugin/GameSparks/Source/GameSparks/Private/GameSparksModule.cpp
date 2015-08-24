@@ -71,11 +71,16 @@ TStatId UGameSparksModule::GetStatId() const
 	RETURN_QUICK_DECLARE_CYCLE_STAT(UGameSparksModule, STATGROUP_Tickables);
 }
 
-void UGameSparksModule::Initialize(FString apikey, FString secret, bool previewServer)
+void UGameSparksModule::Initialize(FString apikey, FString secret, bool previewServer, bool clearCachedAuthentication)
 {
     if(!isInitialised){
         UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::Initialize"));
-        GS.Initialise(new GameSparksUnrealPlatform(TCHAR_TO_ANSI(*apikey), TCHAR_TO_ANSI(*secret), previewServer));
+        GameSparksUnrealPlatform* platform = new GameSparksUnrealPlatform(TCHAR_TO_ANSI(*apikey), TCHAR_TO_ANSI(*secret), previewServer);
+        if(clearCachedAuthentication){
+            platform->SetAuthToken("0");
+            platform->SetUserId("");
+        }
+        GS.Initialise(platform);
         isInitialised = true;
     }
 }
@@ -86,6 +91,14 @@ void UGameSparksModule::Shutdown()
         UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::Shutdown"));
         GS.ShutDown();
         isInitialised = false;
+    }
+}
+
+void UGameSparksModule::Logout()
+{
+    if(isInitialised){
+        UE_LOG(UGameSparksModuleLog, Warning, TEXT("%s"), TEXT("GameSparks::Logout"));
+        GS.Reset();
     }
 }
 

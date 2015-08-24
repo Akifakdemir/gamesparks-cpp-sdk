@@ -12,11 +12,11 @@ UGameSparksComponent::UGameSparksComponent()
     PrimaryComponentTick.bCanEverTick = false;
 }
 
-void UGameSparksComponent::Connect(FString apikey, FString secret, bool previewServer)
+void UGameSparksComponent::Connect(FString apikey, FString secret, bool previewServer, bool clearCachedAuthentication)
 {
     if (UGameSparksModule::GetModulePtr() != nullptr){
         UGameSparksModule::OnWorldConnected(GetWorld());
-		UGameSparksModule::GetModulePtr()->Initialize(apikey, secret, previewServer);
+		UGameSparksModule::GetModulePtr()->Initialize(apikey, secret, previewServer, clearCachedAuthentication);
         
     }
 }
@@ -29,6 +29,15 @@ void UGameSparksComponent::Disconnect()
     }
 		
 }
+
+void UGameSparksComponent::Logout()
+{
+    if (UGameSparksModule::GetModulePtr() != nullptr){
+        UGameSparksModule::GetModulePtr()->Logout();
+    }
+    
+}
+
 
 bool UGameSparksComponent::IsAuthenticated(){
     return

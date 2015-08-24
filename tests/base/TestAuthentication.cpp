@@ -25,6 +25,7 @@ TEST(AuthenticationTest, Succeed)
 
         if(avail)
         {
+            ASSERT_TRUE(gsInstance.GetAvailable());
             GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
             requestRight.SetUserName("abcdefgh");
             requestRight.SetPassword("abcdefgh");
@@ -64,6 +65,8 @@ TEST(AuthenticationTest, Fail)
 
         if(avail)
         {
+            ASSERT_TRUE(gsInstance.GetAvailable());
+
             GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
             requestRight.SetUserName("i-am-not-a-valid-login");
             requestRight.SetPassword("and-i-am-not-a-valid-password");

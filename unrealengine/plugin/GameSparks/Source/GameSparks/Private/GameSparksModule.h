@@ -41,8 +41,9 @@ public:
 	virtual TStatId GetStatId() const;
 
 	/* Initialization and destruction of gamesparks */
-	void Initialize(FString apikey, FString secret, bool previewServer);
+	void Initialize(FString apikey, FString secret, bool previewServer, bool clearCachedAuthentication);
 	void Shutdown();
+    void Logout();
 
 	static UGameSparksModule* GetModulePtr();
 

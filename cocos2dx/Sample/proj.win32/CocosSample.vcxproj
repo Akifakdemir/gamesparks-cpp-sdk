@@ -73,7 +73,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(ProjectDir)/../../../base/include;$(ProjectDir)/../../../base/dependencies/cjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(ProjectDir)/../../GameSparksSDK/include;$(ProjectDir)/../../GameSparksSDK/dependencies/cjson;$(ProjectDir)/../../GameSparksSDK/dependencies/easywsclient;$(ProjectDir)/../../GameSparksSDK/dependencies/google;$(ProjectDir)/../../GameSparksSDK/dependencies/hmac;$(ProjectDir)/../../GameSparksSDK/dependencies/openssl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -88,7 +88,7 @@
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(ProjectDir)/../../../base/build/win32_vs2013;$(ProjectDir)/../../../base/dependencies/openssl/libVSWin32/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(ProjectDir)/../../GameSparksSDK/dependencies/openssl/libVSWin32/</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -106,7 +106,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(ProjectDir)/../../../base/include;$(ProjectDir)/../../../base/dependencies/cjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(ProjectDir)/../../GameSparksSDK/include;$(ProjectDir)/../../GameSparksSDK/dependencies/cjson;$(ProjectDir)/../../GameSparksSDK/dependencies/easywsclient;$(ProjectDir)/../../GameSparksSDK/dependencies/google;$(ProjectDir)/../../GameSparksSDK/dependencies/hmac;$(ProjectDir)/../../GameSparksSDK/dependencies/openssl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -120,7 +120,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <Link>
       <AdditionalDependencies>libcurl_imp.lib;websockets.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(ProjectDir)/../../../base/build/win32_vs2013;$(ProjectDir)/../../../base/dependencies/openssl/libVSWin32/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(ProjectDir)/../../GameSparksSDK/dependencies/openssl/libVSWin32/</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -137,13 +137,31 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\cjson\cJSON.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\easywsclient\easywsclient.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\google\timesupport.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\hmac\hmac_sha2.c" />
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\hmac\sha2.c" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GS.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GSConnection.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GSData.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GSDateTime.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GSMessage.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GSRequest.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GSTypedResponse.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\GSUtil.cpp" />
+    <ClCompile Include="..\..\GameSparksSDK\src\IGSPlatform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\ScreenLog.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\ScreenLog.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

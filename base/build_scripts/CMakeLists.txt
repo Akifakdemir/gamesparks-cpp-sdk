@@ -118,6 +118,7 @@ ENDIF()
 
 # GS Lib
 ADD_LIBRARY (Gamesparks ${SOURCES})
+#target_compile_features(Gamesparks PRIVATE cxx_long_long_type)
 target_include_directories (
 	Gamesparks
 	PUBLIC
@@ -181,6 +182,8 @@ foreach(SAMPLE_FILE ${SAMPLE_FILES})
 		${SAMPLE_EXTRA_FILES}
 		#"${PROJECT_SOURCE_DIR}/../samples/extra/UNIX2003_Fix.c"
 	)
+	#target_compile_features(${SAMPLE_NAME} PRIVATE cxx_auto_type)
+
 
 	TARGET_LINK_LIBRARIES (${SAMPLE_NAME} Gamesparks ${WS_LIBS})
 

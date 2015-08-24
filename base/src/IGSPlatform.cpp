@@ -276,12 +276,13 @@ gsstl::string IGSPlatform::ToWritableLocation(gsstl::string desired_name) const
     static gsstl::string base_path;
     if (base_path.empty())
     {
-        char* homedir = getenv("HOME");
-        assert(homedir);
-        
-        gsstl::string writable_path(homedir);
-        
-        writable_path += "/Library/Application Support/GameSparks/" + m_apiKey + "/";
+		// the environment might not be correctly setup, then we store data in /tmp
+        gsstl::string writable_path("/tmp/GameSparks");
+
+		if(char* homedir = getenv("HOME"))
+			writable_path = homedir;
+
+		writable_path += "/Library/Application Support/GameSparks/" + m_apiKey + "/";
         
         struct stat s;// = {0};
         

@@ -34,7 +34,7 @@ TEST(NetworkFailures, TransportError)
       {
           errorReceived = response.GetHasErrors();
           ASSERT_TRUE(errorReceived) << response.GetJSONString();
-      });
+      }, 0.3f);
   };
 
   bool condition_passed = TestPlatform::runTestLoop<>(

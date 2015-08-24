@@ -25,6 +25,48 @@
 #define LL_DEBUG    0x10
 #define LL_TRACE    0x20
 
+#if defined WIN32
+#include <Windows.h>
+typedef HANDLE pthread_mutex_t;
+typedef int pthread_mutexattr_t; // not used. win32 muteces are recursive by default
+static const int PTHREAD_MUTEX_RECURSIVE = 0;
+
+static void pthread_mutex_init(pthread_mutex_t* mtx, const pthread_mutexattr_t*)
+{
+	*mtx = CreateMutex(
+		NULL,              // default security attributes
+		FALSE,             // initially not owned
+		NULL);
+}
+
+static void pthread_mutex_destroy(pthread_mutex_t* mtx)
+{
+	CloseHandle(*mtx);
+}
+
+static void pthread_mutex_lock(pthread_mutex_t* mtx)
+{
+	WaitForSingleObject(
+		*mtx,    // handle to mutex
+		INFINITE);  // no time-out interval
+}
+
+static void pthread_mutex_unlock(pthread_mutex_t* mtx)
+{
+	ReleaseMutex(*mtx);
+}
+
+static void pthread_mutexattr_init(pthread_mutexattr_t*)
+{
+	// nothing to do
+}
+
+static void pthread_mutexattr_settype(pthread_mutexattr_t*, int)
+{
+	// nothing to do
+}
+#endif
+
 //////////////////////////////////////////////////////////////////////
 
 class screenLogMessage {

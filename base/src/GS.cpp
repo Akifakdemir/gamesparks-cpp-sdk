@@ -30,7 +30,7 @@ GS::GS()
     , m_Initialized(false)
     , m_durableQueuePaused(false)
     , m_durableQueueRunning(true)
-    , m_backOffForSeconds(0.0f)
+    , m_nextReconnectSeconds(0.0f)
     , m_SessionId("")
 {
 	/*
@@ -46,6 +46,8 @@ GS::~GS()
 {
 	for (t_ConnectionContainer::iterator it = m_Connections.begin(); it != m_Connections.end(); ++it)
 	{
+		// this is to avoid the assert in the destructor of GSConnection firing.
+		(*it)->m_PendingRequests.clear();
 		delete *it;
 	}
 	m_Connections.clear();
@@ -173,7 +175,7 @@ void GameSparks::Core::GS::Handshake(GSObject& response, GSConnection& connectio
 		// this method can be called indirectly from the websockets _dispatch member function
 		// if we'd call shutdown here, we'd delete the socket, while a member function of of the
 		// web socket is still on the callstack. Therefore we defer the shutdown
-		m_backOffForSeconds = 5.0f;
+		m_nextReconnectSeconds = 5.0f;
 
 		DebugLog("Got error during handshake. Please make sure, that you've setup you credentials.");
 		DebugLog("Backing off for five seconds");
@@ -243,11 +245,9 @@ void GameSparks::Core::GS::Send(GSRequest& request)
 		return;
 	}
 
-	if (request.GetCancelSeconds() == 0)
-	{
-		request.SetCancelSeconds(m_GSPlatform->GetRequestTimeoutSeconds());
-	}
-	request.SetWaitForResponseSeconds(m_GSPlatform->GetRequestTimeoutSeconds());
+
+	request.m_CancelSeconds = request.m_ResponseTimeout != 0 ? request.m_ResponseTimeout : m_GSPlatform->GetRequestTimeoutSeconds();
+	request.m_WaitForResponseSeconds = request.m_ResponseTimeout != 0 ? request.m_ResponseTimeout : m_GSPlatform->GetRequestTimeoutSeconds();
 
 	if (m_Connections.size() == 0)
 	{
@@ -265,12 +265,9 @@ void GameSparks::Core::GS::Send(GSRequest& request)
 
 void GS::Update(Seconds deltaTimeInSeconds)
 {
-	if (m_backOffForSeconds > 0)
+	if (m_Initialized)
 	{
-		m_backOffForSeconds -= deltaTimeInSeconds;
-	}
-	else if (m_Initialized)
-	{
+		m_nextReconnectSeconds -= deltaTimeInSeconds;
 		UpdateConnections(deltaTimeInSeconds);
 		ProcessQueues(deltaTimeInSeconds);
 	}
@@ -283,24 +280,12 @@ void GameSparks::Core::GS::DebugLog(const gsstl::string& message)
 
 void GS::UpdateConnections(Seconds deltaTimeInSeconds)
 {
-	for (t_ConnectionContainer::size_type i = 0; i < m_Connections.size(); )
+	for (t_ConnectionContainer::size_type i = 0; i < m_Connections.size(); ++i)
 	{
 		GSConnection* connection = m_Connections[i];
 
-		//size_t numConnections = m_Connections.size();
-		if (!connection->Update(deltaTimeInSeconds))
-			break; // websocket error, m_Connections might have changed
-
-		// delete a finished websocket
-		if (connection->IsWebSocketConnectionAlive() == false)
-		{
-			m_Connections.erase(m_Connections.begin() + i);
-			delete connection;
-		}
-		else
-		{
-			++i;
-		}
+		if(connection->IsWebSocketConnectionAlive() && !connection->Update(deltaTimeInSeconds))
+			break;
 	}
 }
 
@@ -320,7 +305,6 @@ gsstl::string GameSparks::Core::GS::GetUniqueRequestId(bool durable)
 
 void GameSparks::Core::GS::OnWebSocketClientError(const easywsclient::WSError& error, GSConnection* connection)
 {
-    (void)(connection); // unused
 	/*if(error.code == easywsclient::WSError::DNS_LOOKUP_FAILED)
 	{
 		Disconnect();
@@ -332,11 +316,14 @@ void GameSparks::Core::GS::OnWebSocketClientError(const easywsclient::WSError& e
 
 	}*/
 
-	DebugLog("Received websocket error: " + error.message);
-	DebugLog("Got websocket error. Please make sure, that you've setup you credentials.");
-	DebugLog("Backing off for five seconds");
-	SetAvailability(false);
-	m_backOffForSeconds = 5.0f;
+	if(!m_Connections.empty() && m_Connections.front() == connection)
+	{
+		DebugLog("Received websocket error: " + error.message);
+		DebugLog("Got websocket error. Please make sure, that you've setup you credentials.");
+		DebugLog("Backing off for one seconds");
+		SetAvailability(false);
+		m_nextReconnectSeconds = 1.0f;
+	}
 }
 
 void GameSparks::Core::GS::SetAvailability(bool available)
@@ -354,7 +341,9 @@ void GameSparks::Core::GS::SetAvailability(bool available)
 
 void GameSparks::Core::GS::ConnectIfRequired()
 {
-	if (m_Connections.size() == 0)
+	if (m_nextReconnectSeconds <= Seconds(0.0) &&
+		(m_Connections.size() == 0 ||
+		m_Connections[0]->m_Stopped) )
 	{
 		NewConnection();
 	}
@@ -375,8 +364,10 @@ void GameSparks::Core::GS::ProcessSendQueue(Seconds deltaTimeInSeconds)
 	if (m_SendQueue.size() > 0)
 	{
 		GSRequest& request = *m_SendQueue.begin();
-		
-		if (request.GetCancelSeconds() <= 0)
+
+		request.m_CancelSeconds -= deltaTimeInSeconds;
+
+		if (request.m_CancelSeconds <= 0)
 		{
 			CancelRequest(request); // needs to be called, before it's popped from the queue
 			m_SendQueue.pop_front();
@@ -387,8 +378,28 @@ void GameSparks::Core::GS::ProcessSendQueue(Seconds deltaTimeInSeconds)
 			m_Connections[0]->SendImmediate(request);
 			m_SendQueue.pop_front();
 		}
+	}
+}
 
-		request.SetCancelSeconds(request.GetCancelSeconds() - deltaTimeInSeconds);
+void GameSparks::Core::GS::ProcessPendingQueue(Seconds deltaTimeInSeconds)
+{
+	for(t_ConnectionContainer::iterator connection = m_Connections.begin(); connection != m_Connections.end(); ++connection)
+	{
+		gsstl::vector<GSRequest> toCancel;
+		for(GSConnection::t_RequestMap::iterator request=(*connection)->m_PendingRequests.begin(); request!=(*connection)->m_PendingRequests.end(); ++request)
+		{
+			request->second.m_WaitForResponseSeconds -= deltaTimeInSeconds;
+
+			if(request->second.m_WaitForResponseSeconds < Seconds(0))
+			{
+				toCancel.push_back(request->second);
+			}
+		}
+
+		for(gsstl::vector<GSRequest>::iterator request = toCancel.begin(); request != toCancel.end(); ++request)
+		{
+			CancelRequest(*request, *connection);
+		}
 	}
 }
 
@@ -416,6 +427,7 @@ void GameSparks::Core::GS::ProcessQueues(Seconds deltaTimeInSeconds)
 	TrimOldConnections();
 	ProcessPersistantQueue(deltaTimeInSeconds);
 	ProcessSendQueue(deltaTimeInSeconds);
+	ProcessPendingQueue(deltaTimeInSeconds);
 }
 
 void GameSparks::Core::GS::TrimOldConnections()
@@ -449,7 +461,7 @@ void GameSparks::Core::GS::ProcessReceivedResponse(const GSObject& response, GSC
 			GSRequest request = findIt->second;
 			connection->m_PendingRequests.erase(findIt);
 
-			if (request.GetDurable() && request.GetDurableRetrySeconds() > 0)
+			if (request.GetDurable() && request.m_DurableRetrySeconds > 0)
 			{
 				// remove from persistent queue
 				//It's durable request, if it's a ClientError do nothing as it will be retried
@@ -534,13 +546,14 @@ void GameSparks::Core::GS::ProcessPersistantQueue(Seconds deltaTimeInSeconds)
 	}
 	for (t_PersistentQueue::iterator request = m_PersistentQueue.begin(); request != m_PersistentQueue.end(); request++)
 	{
-		request->SetDurableRetrySeconds(request->GetDurableRetrySeconds() - deltaTimeInSeconds);
-		if (request->GetDurableRetrySeconds() <= 0)
+		request->m_DurableRetrySeconds -= deltaTimeInSeconds;
+		if (request->m_DurableRetrySeconds <= 0)
 		{
 			if (m_Connections.size() > 0 && m_Connections[0]->GetReady())
 			{
-				request->SetWaitForResponseSeconds(request->GetWaitForResponseSeconds());
-				request->SetDurableRetrySeconds(10);
+				request->m_WaitForResponseSeconds = m_GSPlatform->GetRequestTimeoutSeconds();
+				request->m_CancelSeconds = m_GSPlatform->GetRequestTimeoutSeconds();
+				request->m_DurableRetrySeconds = Seconds(10);
 				m_Connections[0]->SendImmediate(*request);
 			}
 		}

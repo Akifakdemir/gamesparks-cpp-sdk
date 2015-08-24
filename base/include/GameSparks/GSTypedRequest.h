@@ -53,40 +53,6 @@ namespace GameSparks
 				{
 				}
 
-				/*
-				GSTypedRequest(const GSTypedRequest<RequestType, ResponseType>& other)
-					: m_Request(other.m_Request)
-				{
-
-				}*/
-
-				//GSTypedRequest(cJSON*);
-
-				// void AddCompleter(GSRequest::t_Callback completer);
-
-
-				/* TODO: check if this is needed and if this works
-				virtual ResponseType BuildRepsonse(const GSObject& response)
-				{
-					return ResponseType(response);
-				}
-
-				virtual gsstl::string GetJSONString() const
-				{
-					return m_Request.GetJSON();
-				}
-
-				virtual cJSON* GetJSONData() const
-				{
-					return m_Request.GetBaseData();
-				}
-
-				virtual RequestType& SetDurable(bool durable)
-				{
-					m_Request.SetDurable(durable);
-					return static_cast<RequestType&>(*this);
-				}
-*/
 				virtual RequestType& SetScriptData(const GSRequestData& data)
 				{
 					m_Request.AddObject("scriptData", data);
@@ -109,23 +75,22 @@ namespace GameSparks
                     m_Request.SetUserData(userData);
                 }
             
-				// TODO: check if the type cound be changed to Seconds
 				/// send this request with a response-callback and optional timeout (in seconds)
 				/// callback will be called in case of success and error. you have to examine the passed response
 				/// to find out if the request failed.
-				/// TODO: 
-				virtual void Send(t_ResponseCallback callback, int timeoutSeconds=-1)
+				virtual void Send(t_ResponseCallback callback, Seconds timeoutSeconds=10)
 				{
 					m_Request.Send(new Callbacks(callback, callback, m_Request.m_userData), timeoutSeconds);
 				}
 
-				// TODO: check if the type cound be changed to Seconds
 				/// send this request with a successCallback, errorCallback and optional timeout (in seconds)
-				virtual void Send(t_ResponseCallback successCallback, t_ResponseCallback errorCallback, int timeoutSeconds=-1)
+				virtual void Send(t_ResponseCallback successCallback, t_ResponseCallback errorCallback, Seconds timeoutSeconds=10)
 				{
 					m_Request.Send(new Callbacks(successCallback, errorCallback, m_Request.m_userData), timeoutSeconds);
 				}
 
+				/// marks this request as durable. Note, that the timeoutSeconds parameter for Send() is not respected
+				/// for requests that have been restored from the persistent queue.
 				GSTypedRequest<RequestType, ResponseType>& SetDurable(bool value)
 				{
 					m_Request.m_Durable = value;

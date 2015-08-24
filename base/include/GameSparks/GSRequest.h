@@ -25,12 +25,6 @@ namespace GameSparks
 					typedef void(*t_Callback)(GS&, const GSObject&);
 				#endif /* GS_USE_STD_FUNCTION */
 
-				Seconds GetCancelSeconds() const { return m_CancelSeconds; }
-				void SetCancelSeconds(Seconds cancelSeconds) { m_CancelSeconds = cancelSeconds; }
-
-				Seconds GetWaitForResponseSeconds() const { return m_WaitForResponseSeconds; }
-				void SetWaitForResponseSeconds(Seconds waitForRepsonseSeconds) { m_WaitForResponseSeconds = waitForRepsonseSeconds; }
-
 				bool operator==(const GSRequest& other) const;
 
                 bool HasCallbacks() const
@@ -61,9 +55,9 @@ namespace GameSparks
 				// TODO: check if this works/is needed
 				bool GetDurable() const { return m_Durable; }
 				void SetDurable(bool durable) { m_Durable = durable; }
-				Seconds GetDurableRetrySeconds() const { return m_DurableRetrySeconds; }
-				void SetDurableRetrySeconds(Seconds durableRetrySeconds) { m_DurableRetrySeconds = durableRetrySeconds; }
 			private:
+				friend class GS;
+
 				GSRequest(GS& gsInstance, const gsstl::string& requestType);
 				GSRequest(GS& gsInstance, cJSON* data);
 
@@ -73,12 +67,13 @@ namespace GameSparks
 
 				GSObject m_Response;
 
-				GS* m_GSInstance; ///< this is a pointer, so that the auto-generated assignement operator works
+				GS* m_GSInstance; ///< this is a pointer, so that the auto-generated assignment operator works
 
 				bool m_Durable;
-				Seconds m_CancelSeconds;
-				Seconds m_WaitForResponseSeconds;
-				Seconds m_DurableRetrySeconds;
+				Seconds m_CancelSeconds;          ///< decrementing timer for requests waiting to be send
+				Seconds m_WaitForResponseSeconds; ///< decrementing timer for requests waiting to be answered
+				Seconds m_DurableRetrySeconds;    ///< decrementing timer for requests waiting to be re-send
+				Seconds m_ResponseTimeout;		  ///< used to override the default timeouts
 
 				/*
 					This class is here so that it can be implemented in GSTypedRequest.
@@ -181,16 +176,13 @@ namespace GameSparks
                 };
 
 				// TODO: check if the type cound be changed to Seconds
-				void Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds);
+				void Send(const BaseCallbacksPtr& callbacks, Seconds timeoutSeconds);
 				void Send();
 
-				//BaseCallbacks* m_callbacks;
 				BaseCallbacksPtr m_callbacks;
 
 				template<typename RequestType, typename ResponseType>
 				friend class GSTypedRequest;
-	
-				friend class GS;
             
                 void* m_userData;
             

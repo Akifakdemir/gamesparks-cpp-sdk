@@ -7,9 +7,12 @@ using namespace GameSparks;
 using namespace GameSparks::Core;
 
 GSRequest::GSRequest(GS& gsInstance, const gsstl::string& requestType)
-	: m_GSInstance(&gsInstance) // use static instance if no instance was passed
+	: m_GSInstance(&gsInstance)
 	, m_Durable(false)
-	, m_DurableRetrySeconds(1) // if the request is durable, we'll try to send it immediately
+	, m_CancelSeconds(10)
+	, m_WaitForResponseSeconds(10)
+	, m_DurableRetrySeconds(0) // if the request is durable, we'll try to send it immediately
+	, m_ResponseTimeout(0)
     , m_userData()
 {
 	AddString("@class", requestType);
@@ -17,8 +20,11 @@ GSRequest::GSRequest(GS& gsInstance, const gsstl::string& requestType)
 
 GameSparks::Core::GSRequest::GSRequest(GS& gsInstance, cJSON* data)
 	: GSObject(data)
-	, m_GSInstance(&gsInstance) // use static instance if no instance was passed
-	, m_DurableRetrySeconds(1) // if the request is durable, we'll try to send it immediately
+	, m_GSInstance(&gsInstance)
+	, m_CancelSeconds(10)
+	, m_WaitForResponseSeconds(10)
+	, m_DurableRetrySeconds(0) // if the request is durable, we'll try to send it immediately
+	, m_ResponseTimeout(0)
     , m_userData()
 {
 
@@ -30,10 +36,10 @@ bool GameSparks::Core::GSRequest::operator==(const GSRequest& other) const
 }
 
 
-void GameSparks::Core::GSRequest::Send(const BaseCallbacksPtr& callbacks, int timeoutSeconds)
+void GameSparks::Core::GSRequest::Send(const BaseCallbacksPtr& callbacks, Seconds timeoutSeconds)
 {
-    (void)(timeoutSeconds); // unused
 	assert(callbacks);
+	m_ResponseTimeout = timeoutSeconds;
 	m_callbacks = callbacks;
 	m_GSInstance->Send(*this);
 	m_callbacks = 0; // release the callback, so that this GSRequest instance can be re-used - Note: a copy is inside m_GSInstance

@@ -27,10 +27,10 @@ namespace SampleConfiguration
 			SetRequestTimeoutSeconds(5);
 		}
 
-		virtual gsstl::string GetDeviceId() const
+		/*virtual gsstl::string GetDeviceId() const
 		{
 			return "unique_device";
-		}
+		}*/
 
 		virtual gsstl::string GetSDK() const
 		{

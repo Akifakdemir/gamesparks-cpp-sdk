@@ -1,57 +1,14 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
-#include "ScreenLog.h"
-
-// *GS* includes needed for GameSparks
-#include <GameSparks/GS.h>
 
 // NOTE: It's important, that this file is included *AFTER* cocos related files have been included.
 // Also note: some features like unique device id are currently not implemented. You might want to inherit
 // from GameSparks::Core::Cocos2dxPlatform and implement the methods in questiion.
-#include <GameSparks/Cocos2dxPlatform.h>
 #include <GameSparks/generated/GSRequests.h>
 
-
-/*!
-* This class uses the ScreenLog class from iforce2d.net to perform on-screen logging.
-* This is also an example on how to customize Cocos2dxPlatform
-* */
-class OnScreenLoggingCocosPlatform : public GameSparks::Core::Cocos2dxPlatform
-{
-    public:
-        // use constructor of base class (C++11)
-        using GameSparks::Core::Cocos2dxPlatform::Cocos2dxPlatform;
-
-        virtual void DebugMsg(const gsstl::string& message) const override
-        {
-            Cocos2dxPlatform::DebugMsg(message);
-            if(g_screenLog)
-            {
-                // the iforce2d screen log class does not cope with newlines to well, so we split messages up here
-                std::stringstream ss(message);
-                std::string line;
-                while (std::getline(ss, line))
-                {
-                    g_screenLog->log(LL_TRACE, "%s", line.c_str());
-                }
-            }
-        }
-};
-
-
-/*
-	*GS*
-	This links to the correct variant GameSparks libary on windows. 
-	If you get a linker error, please check that you've compiled the GameSparks
-	Library and that the correct path is setup in the linker settings.
-*/
 #ifdef WIN32
-#	ifdef _DEBUG
-#		pragma comment(lib, "Gamesparks_d.lib")
-#	else
-#		pragma comment(lib, "Gamesparks.lib")
-#	endif /* _DEBUG */
 
+// touch
 // also link openssl
 #	pragma comment(lib, "libeay32.lib")
 #	pragma comment(lib, "ssleay32.lib")
@@ -115,34 +72,6 @@ void OnGameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 	requestRight.SetPassword("abcdefgh");
 	requestRight.Send(AuthenticationRequest_Response);
 }
-
-/*
-	*GS*
-    
-    This is a little helper class, that holds the GS-instance and platform.
-    It's also here to convert Update to update, so that we can
-	update gamesparks via scheduleUpdate.
- 
-*/
-struct GameSparksCocos
-{
-    GameSparksCocos()
-    :platform("<insert-your-api-key-here>", "<insert-your-api-secret-here>", true, true)
-    {
-        GS.Initialise(&platform);
-    }
-
-    // if you don't want on-screen logging, you can simply use GameSparks::Core::Cocos2dxPlatform
-    //GameSparks::Core::Cocos2dxPlatform platform;
-    OnScreenLoggingCocosPlatform platform;
-
-    GameSparks::Core::GS GS;
-    
-	void update(float dt)
-	{
-		GS.Update(dt);
-	}
-} gsupdater;
 
 
 bool AppDelegate::applicationDidFinishLaunching() {

@@ -30,11 +30,11 @@ namespace GameSparks
 				{}
 
 				//! Gets a unique identifier for the device
-				virtual gsstl::string GetDeviceId() const
+				/*virtual gsstl::string GetDeviceId() const
 				{
 					// TODO: implement
 					return "NOT-IMPLEMENTED";
-				}
+				}*/
 
 				//! Will be used in analytics reports
 				virtual gsstl::string GetSDK() const

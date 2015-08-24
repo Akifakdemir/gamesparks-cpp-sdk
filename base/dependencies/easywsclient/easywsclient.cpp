@@ -422,6 +422,7 @@ namespace { // private module-only namespace
                     }
                     else
                     {
+                        assert(ret <= (int)txbuf.size());
                         txbuf.erase(txbuf.begin(), txbuf.begin() + ret);
                     }
                 }
@@ -731,6 +732,7 @@ namespace { // private module-only namespace
 						#endif
 
 						SSL_CTX_free(sslContext);
+                        sslContext = 0;
 
 						errorCallback(WSError(WSError::SSL_NEW_FAILED, "Failed to create SSL handle."), userData);
 
@@ -746,7 +748,9 @@ namespace { // private module-only namespace
 						#endif
 
 						SSL_CTX_free(sslContext);
+                        sslContext = 0;
 						SSL_free(sslHandle);
+                        sslHandle = 0;
 
 						errorCallback(WSError(WSError::SSL_SET_FD_FAILED, "Failed to set SSL file descriptor."), userData);
 
@@ -762,7 +766,9 @@ namespace { // private module-only namespace
 						#endif
 
 						SSL_CTX_free(sslContext);
+                        sslContext = 0;
 						SSL_free(sslHandle);
+                        sslHandle = 0;
 
 						errorCallback(WSError(WSError::SSL_CONNECT_FAILED, "SSL_connect failed."), userData);
 

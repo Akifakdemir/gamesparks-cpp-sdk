@@ -1,5 +1,18 @@
 # ChangeLog
 
+## rc8 (2015-08-24)
+
+### base SDK (affects all platforms)
+- fixed callbacks sometimes not called in case of errors or timeouts
+- fixed a crash when the contacted wss:// server was replying with HTTP:// responses. This could happen if the service provider injects responses to inform the user about insufficient founds.
+
+### Marmalade
+- fixed a compile error on Marmalade/Windows
+
+### UE4
+- Implement implement token clearing and logout
+
+
 ## rc7-p1 (2015-08-05)
 
 ### Unreal Engine

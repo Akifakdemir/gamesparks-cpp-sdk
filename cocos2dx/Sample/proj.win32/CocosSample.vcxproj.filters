@@ -10,6 +10,15 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSparksSDK">
+      <UniqueIdentifier>{b9ebebb3-1ed2-4d23-a067-258fbb605e6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSparksSDK\src">
+      <UniqueIdentifier>{aa14d309-9802-4d32-bca4-c8a8336e138d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSparksSDK\dependencies">
+      <UniqueIdentifier>{9da2c405-0a70-4175-bb5f-254bae652411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,6 +30,51 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ScreenLog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GS.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GSConnection.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GSData.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GSDateTime.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GSMessage.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GSRequest.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GSTypedResponse.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\GSUtil.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\src\IGSPlatform.cpp">
+      <Filter>GameSparksSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\cjson\cJSON.cpp">
+      <Filter>GameSparksSDK\dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\easywsclient\easywsclient.cpp">
+      <Filter>GameSparksSDK\dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\google\timesupport.cpp">
+      <Filter>GameSparksSDK\dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\hmac\hmac_sha2.c">
+      <Filter>GameSparksSDK\dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameSparksSDK\dependencies\hmac\sha2.c">
+      <Filter>GameSparksSDK\dependencies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -30,6 +84,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ScreenLog.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
